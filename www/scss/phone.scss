@@ -1,0 +1,63 @@
+
+$mColor:#c5d7ea;
+
+*{
+	font-family : 'Microsoft Yahei' !important;
+}
+
+#loginContent{
+	background: $mColor;
+}
+
+#loginContent .login{
+	margin-top: 200px;
+}
+
+#loginContent .loginBtn{
+	border-radius: 5px;
+	font-weight: bold;
+}
+
+#checkTab .item-note > span {
+	width : 50px;
+	display : inline-block;
+}
+
+#checkTab .item-note > span:first-child {
+	
+	text-align: right;
+}
+
+#checkTab .item-note > span:last-child {
+	text-align: left;
+	padding-left : 5px;
+}
+
+#historyTab .item-checkbox > span.name{
+	display : inline-block;
+	width : 60%;
+	overflow : hidden;
+	padding-left : 5%;
+}
+
+#historyTab .item-checkbox > span.name > span{
+	padding-left : 20px;
+}
+
+#historyTab .item-checkbox > span.date{
+	display : inline-block;
+	width : 40%;
+}
+
+#historyTab .item-checkbox > label.checkbox > input {
+	display :none;
+}
+
+.red{
+	color : red;
+}
+
+.button-block-half{
+	width : 50%;
+	margin : 0 25%;
+}

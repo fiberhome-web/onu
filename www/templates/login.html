@@ -1,0 +1,35 @@
+<ion-view id="loginContent">
+	<ion-content>
+		<div class="row">
+			<div class="col-50 col-offset-25 login">
+
+				<!-- <div class="list">
+					<div class="item item-input-inset">
+						<label class="item-input-wrapper">
+							<input type="text"placeholder="Email">
+						</label>
+						<button class="button button-small">
+					      Submit
+					    </button>
+	    			</div>
+    			</div> -->
+
+    			<div class="list">
+    				<label class="item item-input">
+    					<span class="input-label">{{info.IPAddress}}</span><input ng-model="loginInfo.ip" type="text">
+    				</label>
+    				<label class="item item-input">
+    					<span class="input-label">{{info.username}}</span><input ng-model="loginInfo.username" type="text">
+    				</label>
+    				<label class="item item-input">
+    					<span class="input-label">{{info.password}}</span><input ng-model="loginInfo.password" type="password">
+    				</label>
+    			</div>
+
+    			<button class="button button-royal button-block loginBtn" ng-click="goCheck()">
+				  	Login
+				</button>
+		</div>
+	</ion-content>
+
+</ion-view>
