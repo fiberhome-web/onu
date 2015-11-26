@@ -36,7 +36,7 @@ $mColor:#c5d7ea;
 
 #historyTab .reportItem  span.name{
 	display : inline-block;
-	width : 60%;
+	width : 70%;
 	overflow : hidden;
 }
 
@@ -47,9 +47,9 @@ $mColor:#c5d7ea;
 #historyTab .reportItem  span.date{
 	display : inline-block;
 	width : 30%;
+	overflow : hidden;
+	padding-left : 20px;
 }
-
-
 
 .red{
 	color : red;
@@ -61,8 +61,38 @@ $mColor:#c5d7ea;
 }
 
 
-.action-sheet .delete{
-	text-align: center;
-  	color: red;
+#SharePopover i{
+	font-size : 2em;
+	height : 20px;
 }
 
+#SharePopover {
+	height : 100px !important;
+}
+
+
+#SharePopover ion-item{
+	padding-left : 50px;
+}
+
+#SharePopover ion-item span{
+	position : relative;
+	top : -5px;
+	left : 5px;
+}
+
+.check-spinner{
+	position: absolute;
+	display : inline-block;
+	width : 100%;
+	text-align: center;
+	left : 0;
+
+}
+
+.check-spinner span.text{
+
+	position : relative;
+	top : -8px;
+	left : 10px;
+}

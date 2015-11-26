@@ -1,36 +1,52 @@
 <ion-view view-title="Dashboard">
   <ion-content id="historyTab">
 
+     <ion-refresher on-refresh="doRefresh()"  
+                     pulling-text="Pull to refresh..."   
+                     refreshing-text="Refreshing!"  
+                     refreshing-icon="ion-loading-b">  
+            
+      </ion-refresher> 
+ 
+    
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text"placeholder="Search">
+        </label>
+      </div>
+   
+      <div class="list padding">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            日期定位
+          </div>
+          <select>
+            <option>所有</option>
+            <option>今天</option>
+            <option selected>2天内</option>
+            <option>一周内</option>
+            <option>一个月内</option>
+          </select>
+        </label>
+      </div>
+       
 
-
-
-    <div class="list">
-       <div class="list list-inset"><label class="item item-input"><i class="icon ion-search placeholder-icon"></i><input type="text"placeholder="Search"></label></div>
-
-       <div class="list">
-       <label class="item item-input item-select"><div class="input-label">
-      Lightsaber
-    </div><select><option>Blue</option><option selected>Green</option><option>Red</option></select></label></div>
-
-
-
-
-    </div>
-
-    <div class="list">
+      <div class="list">
         <div class="button-bar">
             <a class="button activated">全部</a>
             <a class="button">正常</a>
             <a class="button">故障</a>
         </div>
 
+      
         <ul>
             <li ng-repeat="item in list"  >
               <ion-list show-delete="shouldShowDelete">
                 <ion-item class="reportItem" href="#/tab/history/{{item.id}}">
                   <ion-delete-button class="ion-minus-circled"></ion-delete-button>
                   <span class="name">{{item.name }}
-                      <span class="status" ng-class="{'red': item.status !== 0}" ng-switch="item.status"> 
+                      <span ng-class="{'red': item.status !== 0}" ng-switch="item.status"> 
                           <span ng-switch-when="0">#正常#</span> 
                           <span ng-switch-when="1">#光口异常#</span>
                           <span ng-switch-when="2">#语音端口异常#</span> 
@@ -45,19 +61,14 @@
         </ul>
 
 
+
         <ion-toggle ng-model="shouldShowDelete">
           批量删除?
         </ion-toggle>
 
 
-    </div>
+      </div>
 
-
-
-    
-    
-    
-  
 
   </ion-content>
 

@@ -11,18 +11,9 @@ angular.module('starter.controllers')
 		
 		}
 
-
-		// $scope.showAlert = function() {
-		//      var alertPopup = $ionicPopup.alert({
-		//        title: 'Don\'t eat that!',
-		//        template: 'It might taste good'
-		//      });
-		//      alertPopup.then(function(res) {
-		//        console.log('Thank you for not eating my delicious ice cream cone');
-		//      });
-	 //    };
-
-	   // $scope.showAlert();
+		$scope.checkPon = function(){
+			$scope.check1 = true;
+		}
 
 		$scope.showPopup = function() {
 		   $scope.data = {}
