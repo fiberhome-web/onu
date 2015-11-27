@@ -4,7 +4,7 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{report.name}}" hide-back-button="true">
+<ion-view view-title="检测报告" hide-back-button="true">
 
 	<ion-nav-buttons side="left">
 	   <button menu-toggle="left" class="button button-icon icon ion-chevron-left" ng-click="back()"></button>
@@ -13,10 +13,53 @@
  	<ion-nav-buttons side="right">
 	   <button menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="openPopover($event)"></button>
 	</ion-nav-buttons>
-	<ion-content class="padding">
+	<ion-content class="padding" >
+		<div id="report">
+			<style type="text/css">
+				#content{
+					font-family : 'Microsoft Yahei';
+				}
+				#content > .block{
+					margin-bottom: 20px;
+				}
+				#content > .block > div{
+					margin-top: 10px;
+				}
+				.title{
+					font-size: 17px;
+					font-weight: bold;
+				}
+				.citem{
+					font-size: 16px;
+				}
+				.citem-title{
 
-    hhhhahaahahah
+				}
+				.citem-content{
+					
+				}
+				
+			</style>
+			<div id="content">
+				<div class="block">
+					<div class="title">检测地点：</div>
+					<div class="citem">{{report.name}}</div>
+				</div>
+				<div class="block">
+					<div class="title">检测时间：</div>
+					<div class="citem">{{report.date}}</div>
+				</div>
+				<div class="block">
+					<div class="title">检测报告：</div>
+					
+				</div>
+				
 
+			</div>
+
+		</div>
+		
+    
   </ion-content>
 
 </ion-view>
