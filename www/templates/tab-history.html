@@ -6,43 +6,49 @@
 
   <ion-content id="historyTab">
 
-     <ion-refresher on-refresh="doRefresh()"  
+      <ion-refresher on-refresh="doRefresh()"  
                      pulling-text="Pull to refresh..."   
                      refreshing-text="Refreshing!"  
                      refreshing-icon="ion-loading-b">  
-            
       </ion-refresher> 
 
 
       <div class="query-cond">
 
+        <div class="bar bar-header item-input-inset no-border-bottom">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Search">
+          </label>
+          <button class="button button-clear">
+            Submit
+          </button>
+          
+        </div>
 
-<div class="bar bar-header item-input-inset">
-  <label class="item-input-wrapper">
-    <i class="icon ion-ios-search placeholder-icon"></i>
-    <input type="search" placeholder="Search">
-  </label>
-  <button class="button button-clear">
-    Submit
-  </button>
-</div>
-
-
-<div class="list">
-  <label class="item item-input">
-    <input type="text" placeholder="First Name">
-  </label>
-  <label class="item item-input">
-    <input type="text" placeholder="Last Name">
-  </label>
-  <label class="item item-input">
-    <textarea placeholder="Comments"></textarea>
-  </label>
-</div>
-
-
-
-
+        <div class="list">
+          <label class="item item-input">
+            <div class="input-label">
+              开始日期
+            </div>
+          </label>
+          <label class="item item-input">
+             <div class="input-label">
+              结束日期
+            </div>
+          </label>
+           <label class="item item-input item-select no-border-bottom">
+            <div class="input-label">
+              日期范围
+            </div>
+            <select>
+              <option selected>全部</option>
+              <option>今天</option>
+              <option>一周内</option>
+              <option>2天内</option>
+            </select>
+          </label>
+        </div>
 
       </div>
 
