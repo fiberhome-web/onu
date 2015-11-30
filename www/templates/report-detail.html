@@ -14,6 +14,7 @@
 	   <button menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="openPopover($event)"></button>
 	</ion-nav-buttons>
 	<ion-content class="padding" >
+
 		<div id="report">
 			<style type="text/css">
 				#content{
@@ -21,23 +22,56 @@
 				}
 				#content > .block{
 					margin-bottom: 20px;
+					border-radius: 5px;
+					border : 1px solid #ccc;
 				}
-				#content > .block > div{
-					margin-top: 10px;
-				}
-				.title{
+				
+				#content .title{
 					font-size: 17px;
-					font-weight: bold;
+					height: 40px;
+					line-height: 40px;
+					border-bottom: none;
+					padding-left: 20px;
+					background-color: #ddd;
 				}
-				.citem{
+				#content .citem{
 					font-size: 16px;
+					padding-left: 20px;
+					height: 50px;
+					line-height: 50px;
 				}
-				.citem-title{
+				#content .rep-content .detail {
+					padding: 5px 10px;
 
 				}
-				.citem-content{
-					
+
+				#content .detail  .header{
+					padding-left: 10px;
+					height: 30px;
+					line-height: 30px;
+					background-color: #ddd;
+					font-size: 16px;
+					font-weight: bold;
+					color: #000;
+					margin-top: 10px;
 				}
+
+				#content .detail  .items:nth-of-type(2n+1) {
+					background-color: #eee;
+				}
+				#content .detail  .citem-title{
+					padding-left: 20px;
+					font-size: 15px;
+					display: inline-block;
+					margin: 5px 20px 5px 0;
+					width: 30%;
+				}
+				#content .detail  .citem-content{
+					padding-left: 20px;
+					font-size: 15px;
+					display: inline-block;
+				}
+
 				
 			</style>
 			<div id="content">
@@ -49,9 +83,17 @@
 					<div class="title">检测时间：</div>
 					<div class="citem">{{report.date}}</div>
 				</div>
-				<div class="block">
+
+				<div class="block rep-content">
 					<div class="title">检测报告：</div>
-					
+					<div class="detail" ng-repeat="(key1,items) in detail">
+						<div class="header"> {{reportLocal[key1].moduleName}}</div>
+						<div ng-repeat="(key2,item) in items" class="items">
+							<div class="citem-title">{{reportLocal[key1][key2]}}</div>
+							<div class="citem-content">{{item.val}}</div>
+							<span class="unit">{{item.unit ? item.unit : ''}}</span>
+						</div>
+					</div>
 				</div>
 				
 
