@@ -10,9 +10,6 @@ angular.module('starter.controllers')
 		}
 
 
-	
-
-
 		$scope.show = function() {
 		    $ionicLoading.show({
 		      template: 'Loading...'
