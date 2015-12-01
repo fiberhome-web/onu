@@ -61,15 +61,14 @@
               <a class="button button-light" ng-class="{ 'button\-positive': type == '3' }" ng-click="filterType(3)">故障</a>
         </div>
         
- <label class="checkbox">
-       <input type="checkbox">
-     </label>
+     
+
       
         <ul>
             <li ng-repeat="item in list"  >
-              <ion-list  show-checkbox="shouldShowDelete">
+              <ion-list show-delete="shouldShowDelete">
                 <ion-item class="reportItem" href="#/tab/history/{{item.id}}">
-                  <ion-checkbox-button ></ion-checkbox-button>
+                  <ion-delete-button class="ion-minus-circled"></ion-delete-button>
                   <span class="name">{{item.name }}
                       <span ng-class="{'red': item.status !== 0}" ng-switch="item.status"> 
                           <span ng-switch-when="0">#正常#</span> 
