@@ -11,4 +11,14 @@ angular.module('starter.controllers')
 		// });
 		$state.go('tab.basic');
 	}
+
+	//init login page
+	+ function initPage() {
+		//default login info
+		$scope.loginInfo = {
+			ip: '192.168.1.1',
+			username: 'admin',
+			password: 'checkONT2015@FH'
+		}
+	}();
 });
