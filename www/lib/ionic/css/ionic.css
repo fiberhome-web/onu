@@ -6044,7 +6044,7 @@ input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="rad
   position: absolute;
   top: 50%;
   right: 8px;
-  left: 8px;
+  left: 7px;
   z-index: 3;
   margin-top: -21px; }
 

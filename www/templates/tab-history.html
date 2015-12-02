@@ -60,31 +60,31 @@
               <a class="button button-light" ng-class="{ 'button\-positive': type == '2' }" ng-click="filterType(2)">正常</a>
               <a class="button button-light" ng-class="{ 'button\-positive': type == '3' }" ng-click="filterType(3)">故障</a>
         </div>
-        
-     
 
       
-        <ul>
-            <li ng-repeat="item in list"  >
-              <ion-list show-delete="shouldShowDelete">
-                <ion-item class="reportItem" href="#/tab/history/{{item.id}}">
-                  <ion-delete-button class="ion-minus-circled"></ion-delete-button>
-                  <span class="name">{{item.name }}
-                      <span ng-class="{'red': item.status !== 0}" ng-switch="item.status"> 
-                          <span ng-switch-when="0">#正常#</span> 
-                          <span ng-switch-when="1">#光口异常#</span>
-                          <span ng-switch-when="2">#语音端口异常#</span> 
-                          <span ng-switch-when="3">#数据端口异常#</span> 
-                      </span>
-                  </span>
-                  <span class="date">{{item.date}}</span>
-                  <ion-option-button class="button-assertive">删除</ion-option-button>
-                </ion-item>
-              </ion-list>
-            </li>
-        </ul>
+      
+        <ion-list  show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
 
-        <ion-toggle ng-model="shouldShowDelete">
+          <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
+                  
+          <ion-checkbox-button  item-id="{{item.id}}"></ion-checkbox-button>
+            
+
+            <span class="name">{{item.name }}
+                <span ng-class="{'red': item.status !== 0}" ng-switch="item.status"> 
+                    <span ng-switch-when="0">#正常#</span> 
+                    <span ng-switch-when="1">#光口异常#</span>
+                    <span ng-switch-when="2">#语音端口异常#</span> 
+                    <span ng-switch-when="3">#数据端口异常#</span> 
+                </span>
+            </span>
+            <span class="date">{{item.date}}</span>
+            <ion-option-button class="button-assertive">删除</ion-option-button>
+          </ion-item>
+        </ion-list>
+        
+
+        <ion-toggle ng-model="shouldShowCheckbox">
           批量删除?
         </ion-toggle>
 

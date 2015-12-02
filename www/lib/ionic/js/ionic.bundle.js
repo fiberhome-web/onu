@@ -51416,7 +51416,7 @@ IonicModule.service('$ionicListDelegate', ionic.DelegateService([
    * @name $ionicListDelegate#closeOptionButtons
    * @description Closes any option buttons on the list that are swiped open.
    */
-  'closeOptionButtons'
+  'closeOptionButtons',
   /**
    * @ngdoc method
    * @name $ionicListDelegate#$getByHandle
@@ -51427,6 +51427,15 @@ IonicModule.service('$ionicListDelegate', ionic.DelegateService([
    *
    * Example: `$ionicListDelegate.$getByHandle('my-handle').showReorder(true);`
    */
+
+
+   /** 
+   * @ngdoc method    add by shilin 2015/12/1
+   * @name $ionicListDelegate#showCheckbox
+   * @param {boolean=} showCheckbox Set whether or not this list is showing its checkbox buttons.
+   * @returns {boolean} Whether the checkbox buttons are shown.
+   */
+  'showCheckbox'
 ]))
 
 .controller('$ionicList', [
@@ -51439,6 +51448,7 @@ function($scope, $attrs, $ionicListDelegate, $ionicHistory) {
   var isSwipeable = true;
   var isReorderShown = false;
   var isDeleteShown = false;
+  var isCheckboxShown = false;
 
   var deregisterInstance = $ionicListDelegate._registerInstance(
     self, $attrs.delegateHandle, function() {
@@ -51459,6 +51469,13 @@ function($scope, $attrs, $ionicListDelegate, $ionicHistory) {
       isDeleteShown = !!show;
     }
     return isDeleteShown;
+  };
+
+  self.showCheckbox = function(show) {
+    if (arguments.length) {
+      isCheckboxShown = !!show;
+    }
+    return isCheckboxShown;
   };
 
   self.canSwipeItems = function(can) {
@@ -56258,6 +56275,94 @@ IonicModule
 });
 
 
+var ITEM_TPL_CHECKBOX_BUTTON =
+  '<div class="item-left-edit item-checkbox enable-pointer-events" style="width:100%">' +
+  '<label class="checkbox" ><input type="checkbox"></label></div>';
+/**
+* @ngdoc directive
+* @name ionCheckboxButton
+* @parent ionic.directive:ionItem
+* @module ionic
+* @restrict E
+* Creates a checkbox button inside a list item, that is visible when the
+* {@link ionic.directive:ionList ionList parent's} `show-checkbox` evaluates to true or
+* `$ionicListDelegate.showCheckbox(true)` is called.
+*
+* Takes any ionicon as a class.
+*
+* See {@link ionic.directive:ionList} for a complete example & explanation.
+*
+* @usage
+*
+* ```html
+* <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
+*   <ion-item>
+*     <ion-checkbox-button ng-model="checkboxs" ></ion-checkbox-button>
+*     Hello, list item!
+*   </ion-item>
+* </ion-list>
+* <ion-toggle ng-model="shouldShowCheckbox">
+*   Show Delete?
+* </ion-toggle>
+* ```
+*/
+IonicModule
+.directive('ionCheckboxButton', function() {
+
+  function stopPropagation(ev) {
+    ev.stopPropagation();
+  }
+
+  return {
+    restrict: 'E',
+    require: ['^^ionItem', '^?ionList'],
+    //Run before anything else, so we can move it before other directives process
+    //its location (eg ngIf relies on the location of the directive in the dom)
+    priority: Number.MAX_VALUE,
+    compile: function($element, $attr) {
+      
+      //Add the classes we need during the compile phase, so that they stay
+      //even if something else like ngIf removes the element and re-addss it
+    //  $attr.$set('class', ($attr['class'] || '') + ' button icon button-icon', true);
+      return function($scope, $element, $attr, ctrls) {
+        var itemCtrl = ctrls[0];
+        var listCtrl = ctrls[1];
+        var container = jqLite(ITEM_TPL_CHECKBOX_BUTTON);
+        container.append($element);
+        itemCtrl.$element.append(container).addClass('item-left-editable');
+
+        //Don't bubble click up to main .item
+        $element.on('click', stopPropagation);
+
+        //get parent scope model name
+        var parentModelName = $element.parent().parent().parent().parent().attr('checkbox-model');
+        var pScope = $scope.$parent.$parent.$parent;
+        //init parent scope model value
+        if(!pScope[parentModelName]) {
+            pScope[parentModelName] = {};
+        }
+        var id = $attr.itemId;
+        pScope[parentModelName][id] = false;
+
+        container.on('click', function(e){ 
+          pScope[parentModelName][id] = e.target.checked;
+        });
+       
+
+        init();
+        $scope.$on('$ionic.reconnectScope', init);
+        function init() {
+          listCtrl = listCtrl || $element.controller('ionList');
+          if (listCtrl && listCtrl.showCheckbox()) {
+            container.addClass('visible active');
+          }
+        }
+      };
+    }
+  };
+});
+
+
 IonicModule
 .directive('itemFloatingLabel', function() {
   return {
@@ -56665,6 +56770,11 @@ function($timeout) {
               listCtrl.showDelete(value);
             });
           }
+          if (isDefined($attr.showCheckbox)) {
+            $scope.$watch('!!(' + $attr.showCheckbox + ')', function(value) {
+              listCtrl.showCheckbox(value);
+            });
+          }
           if (isDefined($attr.showReorder)) {
             $scope.$watch('!!(' + $attr.showReorder + ')', function(value) {
               listCtrl.showReorder(value);
@@ -56685,6 +56795,41 @@ function($timeout) {
 
             var deleteButton = jqLite($element[0].getElementsByClassName('item-delete'));
             setButtonShown(deleteButton, listCtrl.showDelete);
+          });
+
+
+          $scope.$watch(function() {
+            return listCtrl.showCheckbox();
+          }, function(isShown, wasShown) {
+            //set all checkbox unchecked
+          
+            if(isShown === false) {
+              var modelName = $attr.checkboxModel;
+              var pScope = $scope.$parent;
+
+              //set checkbox model all false
+              for(i in pScope[modelName]) {
+                pScope[modelName][i] = false;
+              }
+
+              //unchecked all checkbox
+              var target = jqLite($element[0].getElementsByClassName('checkbox')).find('input');
+              for(var i =0 ; i< target.length; i++) {
+                target[i].checked = false;
+              }
+              
+            }
+            //Only use isShown=false if it was already shown
+            if (!isShown && !wasShown) { return; }
+
+            if (isShown) listCtrl.closeOptionButtons();
+            listCtrl.canSwipeItems(!isShown);
+
+            $element.children().toggleClass('list-left-editing', isShown);
+            $element.toggleClass('disable-pointer-events', isShown);
+
+            var checkboxButton = jqLite($element[0].getElementsByClassName('item-checkbox'));
+            setButtonShown(checkboxButton, listCtrl.showCheckbox);
           });
 
           $scope.$watch(function() {

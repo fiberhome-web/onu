@@ -34,24 +34,28 @@ $mColor:#c5d7ea;
 	padding-left : 5px;
 }
 
-#historyTab .reportItem{
+#historyTab .reportItem ion-item:first-child{
 	border-top : none;
 }
 
-#historyTab .reportItem  span.name{
-	display : inline-block;
-	width : 70%;
-	overflow : hidden;
+#historyTab .reportItem  {
+	span.name,span.date {
+		display : inline-block;
+		overflow : hidden;
+		position: relative;
+	    top: 2px;
+	}
+	span.name {
+		width : 70%;
+	}
+	span.date {
+		width : 30%;
+	}
 }
+
+
 
 #historyTab .reportItem  span.name > span{
-	padding-left : 20px;
-}
-
-#historyTab .reportItem  span.date{
-	display : inline-block;
-	width : 30%;
-	overflow : hidden;
 	padding-left : 20px;
 }
 
