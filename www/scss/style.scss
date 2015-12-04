@@ -107,3 +107,67 @@ $mColor:#c5d7ea;
 .no-border-bottom{
 	border-bottom : none;
 }
+
+#history-operrator{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 170px;
+	min-height:170px;
+	right:0;
+	top : auto;
+	background-color : #f7f7f7;
+
+}
+
+#history-operrator .icon{
+	text-align:center;
+	height:120px;
+	width:100%;
+	border-bottom : 1px solid #ccc;
+}
+
+#history-operrator .icon .circle{
+	border : 1px solid #ccc;
+	height:60px;
+	width:60px;
+	border-radius:80px;
+	padding-top : 10px;
+	display : inline-block;
+	margin : 20px 25px;
+}
+
+#history-operrator .icon .circle .explain{
+	font-size : 0.8em;
+	margin-top : 10px;
+}
+
+#history-operrator .icon i {
+	font-size : 3em;
+}
+
+#history-operrator .cancle{
+	height : 50px;
+	line-height : 50px;
+	text-align : center;
+	font-size : 1.2em;
+	font-weight: bold;
+}
+
+#confirm{
+	position : fixed;
+	height : 70px;
+	width : 50%;
+	left : 25%;
+	bottom : 60px;
+	text-align : center;
+	z-index : 2;
+	background-color : rgba(0,0,0,.2);
+}
+
+#confirm button{
+	width : 100px;
+	margin : 10px 20px;
+	background-color : #fff;
+}

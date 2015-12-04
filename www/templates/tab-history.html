@@ -1,7 +1,7 @@
 <ion-view view-title="Dashboard" hide-back-button="true">
 
   <ion-nav-buttons side="right">
-     <button menu-toggle="left" class="button button-icon icon ion-more" ng-click="openPopover($event)"></button>
+     <button menu-toggle="left" class="button button-icon icon ion-more" ng-click="openModal()"></button>
   </ion-nav-buttons>
 
   <ion-content id="historyTab">
@@ -19,11 +19,7 @@
           <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" placeholder="Search">
-          </label>
-          <button class="button button-clear">
-            Submit
-          </button>
-          
+          </label>    
         </div>
 
         <div class="list">
@@ -42,10 +38,11 @@
               日期范围
             </div>
             <select>
-              <option selected>全部</option>
-              <option>今天</option>
-              <option>一周内</option>
+              <option selected>今天</option>
               <option>2天内</option>
+              <option>一周内</option>
+              <option>一月内</option>
+              <option>全部</option>
             </select>
           </label>
         </div>
@@ -82,16 +79,44 @@
             <ion-option-button class="button-assertive">删除</ion-option-button>
           </ion-item>
         </ion-list>
-        
-
-        <ion-toggle ng-model="shouldShowCheckbox">
-          批量删除???
-        </ion-toggle>
-
 
       </div>
 
 
+
+
+
   </ion-content>
 
+  <div ng-show="shouldShowCheckbox" id="confirm">
+    <button class="button button-assertive button-outline">
+      确认删除
+    </button>
+    <button class="button button-positive  button-outline " ng-click="hideDelete()">
+      取消
+    </button>
+  </div>
+
 </ion-view>
+
+
+
+
+<script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view id="history-operrator">
+
+    <ion-content scroll="false">
+      <div class="icon">
+        <div class="circle" ng-click="batchDelele()">
+          <i class="ion-ios-trash-outline"></i>
+          <div class="explain" >批量删除</div>
+        </div>
+       
+        
+      </div>
+      <div class="cancle" ng-click="modal.hide()">
+        取消
+      </div>
+    </ion-content>
+  </ion-modal-view>
+</script>
