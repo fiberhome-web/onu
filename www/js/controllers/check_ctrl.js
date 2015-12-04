@@ -15,14 +15,20 @@ angular.module('starter.controllers')
 			$scope.check1 = true;
 		}
 
+
+		$scope.localInfo = {
+			status : '检测结果'
+		}
+
 		$scope.showPopup = function() {
 		   $scope.data = {}
 
 		   // 一个精心制作的自定义弹窗
 		   var myPopup = $ionicPopup.show({
-		     template: '<input type="text" ng-model="data.wifi">',
-		     title: '请输入报告名称',
-		   //  subTitle: 'Please use normal things',
+		    // template: '<input type="text" ng-model="data.wifi">{{localInfo.status}}',
+		     templateUrl : 'popup.html',
+		     title: '请输入报告信息',
+		     cssClass : 'reportPopup',
 		     scope: $scope,
 		     buttons: [
 		       { text: 'Cancel' },

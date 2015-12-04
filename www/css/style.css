@@ -128,7 +128,9 @@
 
 #confirm button {
   width: 100px;
-  margin: 10px 20px;
-  background-color: #fff; }
+  margin: 10px 20px; }
+
+.reportPopup > .popup {
+  width: 400px; }
 
 /*# sourceMappingURL=style.css.map */
