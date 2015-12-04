@@ -20,6 +20,8 @@ angular.module('starter.controllers')
 			status : '检测结果'
 		}
 
+		$scope.r_status = "0";
+
 		$scope.showPopup = function() {
 		   $scope.data = {}
 

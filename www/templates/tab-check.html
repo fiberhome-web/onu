@@ -191,11 +191,15 @@
     <label class="item item-input item-select">
       <span class="input-label">检测结果</span>
       <select ng-model="r_status">
-        <option selected value="0">正常</option>
-        <option>光口异常</option>
-        <option>语音端口异常</option>
-        <option>数据端口异常</option>  
+        <option value="0">正常</option>
+        <option value="1">光口异常</option>
+        <option value="2">语音端口异常</option>
+        <option value="3">数据端口异常</option>  
       </select>
+    </label>
+    <label class="item item-input" ng-show="r_status != '0' ">
+      <span class="input-label">备注</span>
+      <input type="text">
     </label>
   </div>
 </script>

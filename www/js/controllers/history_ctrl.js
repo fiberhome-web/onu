@@ -1,7 +1,7 @@
 
 angular.module('starter.controllers') 
 	.controller('HistoryCtrl', function($scope,$log, $ionicGesture, $ionicLoading,
-		$ionicActionSheet, $ionicListDelegate, $ionicModal) {
+		$ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope) {
 
 		//下拉刷新数据
 		$scope.doRefresh = function(){
@@ -26,7 +26,7 @@ angular.module('starter.controllers')
 	    $scope.type = 1;
 
 	    $scope.filterType = function(type){
-	  
+	    	debugger;
 	    	$scope.type = type;
 	    }
 
@@ -42,11 +42,14 @@ angular.module('starter.controllers')
 
 		  $scope.batchDelele = function(){
 		  	$scope.modal.hide();
+		  	//隐藏导航栏
+		  	$rootScope.hideTabs  = true;
 		  	$scope.shouldShowCheckbox = true;
 		  }
 
 		  $scope.hideDelete = function(){
 		  	$scope.shouldShowCheckbox = false;
+		  	$rootScope.hideTabs  = false;
 		  }
 
 		  
