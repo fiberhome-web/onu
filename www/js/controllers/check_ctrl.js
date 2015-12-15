@@ -1,11 +1,10 @@
 
 angular.module('starter.controllers')
-	.controller('CheckCtrl', function($scope,$state,$http,Chats,$stateParams,$ionicPopup) {
+	.controller('CheckCtrl', function($scope,$state,$http,$stateParams,$ionicPopup) {
 
 		//检查checkStatus 0 ：检查全部项
 		var checkStatus = $stateParams.checkStatus;
 
-		$scope.chats = Chats.all();
 
 		$scope.remove = function(chat){
 		
