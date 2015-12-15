@@ -27,27 +27,55 @@ angular.module('starter.controllers')
 			voice_port_number : {val : '12'},
 		}
 
-		var ponPortStatus = {
+		var ponPortStatus = [{
+			pon_port_id : {val :'1'},
 			temperature : {val :'222', unit : '℃'},
 			voltage : {val :'22', unit : 'V'},
 			bias_current : {val : '22', unit : 'mA'},
 			tx_OptPowe : {val :'23', unit : 'dBm'},
 			rx_OptPower : {val :'45', unit : 'dBm'},
 		
-		}
+		},{
+			pon_port_id : {val :'2'},
+			temperature : {val :'222', unit : '℃'},
+			voltage : {val :'22', unit : 'V'},
+			bias_current : {val : '22', unit : 'mA'},
+			tx_OptPowe : {val :'23', unit : 'dBm'},
+			rx_OptPower : {val :'45', unit : 'dBm'},
+		
+		},
+		{
+			pon_port_id : {val :'3'},
+			temperature : {val :'222', unit : '℃'},
+			voltage : {val :'22', unit : 'V'},
+			bias_current : {val : '22', unit : 'mA'},
+			tx_OptPowe : {val :'23', unit : 'dBm'},
+			rx_OptPower : {val :'45', unit : 'dBm'},
+		
+		},{
+			pon_port_id : {val :'4'},
+			temperature : {val :'222', unit : '℃'},
+			voltage : {val :'22', unit : 'V'},
+			bias_current : {val : '22', unit : 'mA'},
+			tx_OptPowe : {val :'23', unit : 'dBm'},
+			rx_OptPower : {val :'45', unit : 'dBm'},
+		
+		}]
 
-		var dataPortStatus = {
+		var dataPortStatus = [{
+			data_port_id : {val :'1'},
 			port_status : {val :'Link Up'},
 			speed : {val :'10M'},
 			duplex : {val :'Full'},
 			
-		}
+		}]
 
-		var voicePortStatus = {
+		var voicePortStatus = [{
+			voice_port_id : {val :'1'},
 			protocol_type : {val :'H.248'},
 			port_status : {val : 'EP_STATUS_REGING'},
 			telphoneNo : {val : '1559229292922'},			
-		}
+		}]
 
 		var report = {deviceInfo : deviceInfo, ponPortStatus : ponPortStatus,
 			dataPortStatus : dataPortStatus, voicePortStatus : voicePortStatus,}

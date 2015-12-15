@@ -22,6 +22,7 @@ var ONU_LOCAL = {
 		},
 
 		ponPortStatus : {
+			pon_port_id : '光口序号',
 			moduleName : '光口状态',
 			temperature : '光模块温度',
 			voltage : '光模块电压',
@@ -32,6 +33,7 @@ var ONU_LOCAL = {
 		},
 		
 		dataPortStatus : {
+			data_port_id : '数据口序号',
 			moduleName : '数据口状态',
 			port_status : '端口状态',
 			speed : '速率',
@@ -40,7 +42,8 @@ var ONU_LOCAL = {
 		},
 
 		voicePortStatus : {
-			moduleName : '语音端口状态',
+			voice_port_id : '语音口序号',
+			moduleName : '语音口状态',
 			protocol_type : '协议类型',
 			port_status : '端口状态',
 			telphoneNo : '电话号码',

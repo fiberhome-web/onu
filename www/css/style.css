@@ -25,7 +25,8 @@
   padding-left: 5px; }
 
 #historyTab {
-  top: 25px; }
+  top: 25px;
+  bottom: 90px; }
 
 #historyTab ion-item:first-child {
   border-top: none; }
