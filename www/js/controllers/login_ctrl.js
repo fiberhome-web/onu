@@ -1,6 +1,6 @@
 
 angular.module('starter.controllers')
-	.controller('LoginCtrl', function($scope,$state,$http) {
+	.controller('LoginCtrl', function($scope,$state,$http,Const) {
 	//国际化
 	$scope.info = ONU_LOCAL.loginModule;
 
