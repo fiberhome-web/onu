@@ -7,7 +7,8 @@
   background: #c5d7ea; }
 
 #loginContent .login {
-  margin-top: 200px; }
+  margin: 200px 10px;
+  width: 100%; }
 
 #loginContent .loginBtn {
   border-radius: 5px;

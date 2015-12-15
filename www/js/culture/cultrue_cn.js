@@ -7,7 +7,7 @@ var ONU_LOCAL = {
 	},
 
 	report :{
-		basicInfo : {
+		deviceInfo : {
 			moduleName : '设备信息',
 			equipment_id :  'ONU型号',
 			vendor : '厂商',

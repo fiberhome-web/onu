@@ -14,7 +14,7 @@ angular.module('starter.controllers')
 
 		//document.getElementById('report').innerHTML
 
-		var basicInfo = {
+		var deviceInfo = {
 			equipment_id :  {val : 'AN5506-04-B5'},
 			vendor : {val : 'Fiberhome'},
 			hardware_version : {val : 'WKE2.201.333R1A'},
@@ -49,7 +49,7 @@ angular.module('starter.controllers')
 			telphoneNo : {val : '1559229292922'},			
 		}
 
-		var report = {basicInfo : basicInfo, ponPortStatus : ponPortStatus,
+		var report = {deviceInfo : deviceInfo, ponPortStatus : ponPortStatus,
 			dataPortStatus : dataPortStatus, voicePortStatus : voicePortStatus,}
 		$scope.report = DB.queryById('123');
 

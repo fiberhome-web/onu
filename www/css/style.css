@@ -6,7 +6,8 @@
   background: #c5d7ea; }
 
 #loginContent .login {
-  margin-top: 200px; }
+  margin: 200px 10px;
+  width: 100%; }
 
 #loginContent .loginBtn {
   border-radius: 5px;
@@ -22,6 +23,9 @@
 #checkTab .item-note > span:last-child {
   text-align: left;
   padding-left: 5px; }
+
+#historyTab {
+  top: 25px; }
 
 #historyTab ion-item:first-child {
   border-top: none; }

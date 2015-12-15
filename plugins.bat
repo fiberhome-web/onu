@@ -11,3 +11,4 @@ cordova plugin add cordova-plugin-file
 cordova plugin add https://github.com/pwlin/cordova-plugin-file-opener2.git
 cordova plugin add https://github.com/driftyco/ionic-plugins-keyboard.git
 cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
+ionic plugin add cordova-plugin-whitelist

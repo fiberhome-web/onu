@@ -26,7 +26,6 @@ angular.module('starter.controllers')
 	    $scope.type = 1;
 
 	    $scope.filterType = function(type){
-	    	debugger;
 	    	$scope.type = type;
 	    }
 
@@ -40,7 +39,9 @@ angular.module('starter.controllers')
 		    $scope.modal.show();
 		  };
 
-		  $scope.batchDelele = function(){
+		  $scope.batchDelele = function(e){
+		  	e.stopPropagation();
+		  	e.preventDefault();
 		  	$scope.modal.hide();
 		  	//隐藏导航栏
 		  	$rootScope.hideTabs  = true;

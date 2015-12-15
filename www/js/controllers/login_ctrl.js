@@ -5,9 +5,16 @@ angular.module('starter.controllers')
 	$scope.info = ONU_LOCAL.loginModule;
 
 	$scope.loginBtnClick = function(){
-		
-		// $http.post('https://www.baidu.com/',info).success(function(res){
-		// 	alert(res);
+		// var info = {"CommandSrc": "LOCAL", "Command": "ACTIVE", "CommandSeq": "01234", "PASSWORD": "apppwd"};
+		// var url = 'https://192.168.1.1:4433/';
+		// alert('url:' + url);
+		// $http.post(url,info).success(function(res){
+		// 	alert('success:' + JSON.stringify(res));
+		// }).error(function(data, status, headers, config){
+		// 	alert('data:' + data + '\n'
+		// 		  + 'status:' + status + '\n'
+		// 		  +'headers:' + headers + '\n'
+		// 		  +'config:' + config + '\n');
 		// });
 		$state.go('tab.basic');
 	}
