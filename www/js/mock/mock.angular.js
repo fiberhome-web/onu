@@ -7,7 +7,7 @@
       Item = (function() {
         function Item() {}
 
-        Item.prototype.add = function(url) {
+        Item.prototype.add = function(url,data) {
           var k, reg, v, _ref;
           _ref = Mock._mocked;
           for (k in _ref) {
@@ -18,7 +18,7 @@
             } else {
               reg = new RegExp(k);
             }
-            if (reg.test(url)) {
+            if (data && reg.test(url + data.command)) {
               return Mock.mock(v.template);
             }
           }
@@ -35,7 +35,7 @@
             return {
               request: function(config) {
                 var result;
-                result = item.add(config.url);
+                result = item.add(config.url,config.data);
                 if (result) {
                   config.original = {
                     url: config.url,

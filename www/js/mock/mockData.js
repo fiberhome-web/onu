@@ -1,4 +1,4 @@
-Mock.mock('http://192.168.1.1/app/', function(options){
+Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options){
 	return {
 				equipment_id :  {val : 'AN5506-04-B5'},
 				vendor : {val : 'Fiberhome'},
