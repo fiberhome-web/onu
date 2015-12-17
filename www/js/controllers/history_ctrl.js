@@ -9,6 +9,10 @@ angular.module('starter.controllers')
 			$scope.$broadcast('scroll.refreshComplete');  
 		}
 
+		$scope.doSearch = function() {
+			console.log(this.searchContent);
+		}
+
 		$scope.show = function() {
 		    $ionicLoading.show({
 		      template: 'Loading...'
