@@ -12,7 +12,6 @@ angular.module('starter.controllers')
             'command': 'getDeviceInfo'
         };
         $http.post(url, command).success(function(res) {
-            debugger;
             var deviceInfo = res;
         }).error(function(data, status) {
             alert('data:' + data + '\n' + 'status:' + status + '\n');
