@@ -2,6 +2,7 @@
     <ion-content>
         <div class="row">
             <div class="login">
+                <div class="logo">ONU CHECK</div>
                 <div class="list">
                     <label class="item item-input">
                         <span class="input-label">{{info.IPAddress}}</span>
@@ -17,10 +18,12 @@
                     </label>
                 </div>
                 <button class="button button-royal button-block loginBtn" ng-click="loginBtnClick()">
-                    Login
+                    {{info.login}}
                 </button>
             </div>
+
         </div>
-        <div class="history">历史记录</div>
+        <div class="history" ng-click="viewHistory()">{{info.history}}</div>
+        
     </ion-content>
 </ion-view>

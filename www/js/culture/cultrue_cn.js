@@ -1,9 +1,24 @@
 var ONU_LOCAL = {
 	loginModule : {
-		login : '登录',
+		login : '连接设备',
 		IPAddress : 'IP地址',
 		username : '用户名',
-		password : '密码'
+		password : '密码',
+		history : '查看历史数据'
+	},
+
+	historyModule :{
+		login : '登录',
+		start_date : '开始日期',
+		end_date : '结束日期',
+		date_range : '日期范围',
+		date_select : {
+			all : '全部',
+			today : '今天',
+			twoDays : '2天内',
+			week : '一周内',
+			month : '一月内'
+		}
 	},
 
 	enums : {

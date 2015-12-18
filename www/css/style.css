@@ -3,16 +3,21 @@
   font-family: 'Microsoft Yahei' !important; }
 
 #loginContent {
-  background: #c5d7ea; }
+  background: -ms-linear-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff));
+  background: -moz-linear-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff));
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff)); }
 
 #loginContent .history {
-  position: relative;
-  right: 10px;
-  float: right;
-  font-size: 1.5em; }
+  text-align: center; }
+
+#loginContent .logo {
+  height: 400px;
+  text-align: center;
+  line-height: 400px;
+  font-size: 3em; }
 
 #loginContent .login {
-  margin: 200px 10px;
+  margin: 10px;
   width: 100%; }
 
 #loginContent .loginBtn {
