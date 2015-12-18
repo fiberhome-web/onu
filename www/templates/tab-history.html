@@ -22,18 +22,18 @@
         <div class="bar bar-header item-input-inset no-border-bottom">
           <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Search" ng-model="searchContent" ng-change="doSearch()">
+            <input type="search" placeholder="Search" ng-model="condition.searchContent">
           </label>    
         </div>
 
         <div class="list">
-          <label class="item item-input">
+          <label class="item item-input" ng-click="chooseDate(true)" ng-model="condition.startDate">
             <div class="input-label">
               {{local.start_date}}
             </div>
           </label>
-          <label class="item item-input">
-             <div class="input-label">
+          <label class="item item-input" ng-click="chooseDate(false)" ng-model="condition.endDate">
+             <div class="input-label" >
               {{local.end_date}}
             </div>
           </label>
@@ -41,12 +41,12 @@
             <div class="input-label">
               {{local.date_range}}
             </div>
-            <select>
-              <option selected>{{local.date_select.today}}</option>
-              <option>{{local.date_select.twoDays}}</option>
-              <option>{{local.date_select.week}}</option>
-              <option>{{local.date_select.month}}</option>
-              <option>{{local.date_select.all}}</option>
+            <select ng-change="changeDate(range)" ng-model="range">
+              <option value="1">{{local.date_select.today}}</option>
+              <option value="2">{{local.date_select.twoDays}}</option>
+              <option value="3">{{local.date_select.week}}</option>
+              <option value="4">{{local.date_select.month}}</option>
+              <option value="0">{{local.date_select.all}}</option>
             </select>
           </label>
         </div>

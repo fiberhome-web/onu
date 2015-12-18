@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
     .controller('HistoryCtrl', function($scope, $state, $log, $ionicGesture, $ionicLoading,
-        $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope) {
+        $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker) {
 
         //本地化信息
         $scope.local = ONU_LOCAL.historyModule;
@@ -13,10 +13,14 @@ angular.module('starter.controllers')
 
         //报告类型默认选择“全部”
         $scope.type = 1;
+        //初始化参数
+        $scope.condition = {};
+        //日期范围默认选择“今天”
+        $scope.range = "1";
 
 
 
-        var options = {
+        var dateOptions = {
             date: new Date(),
             mode: 'date', // or 'time'
             minDate: new Date() - 10000,
@@ -27,6 +31,19 @@ angular.module('starter.controllers')
             cancelButtonLabel: 'CANCEL',
             cancelButtonColor: '#000000'
         };
+
+        //日期选择事件
+        $scope.chooseDate = function(flag) {
+            $cordovaDatePicker.show(dateOptions).then(function(date) {
+                if (flag) {
+                    $scope.condition.startDate = date;
+                } else {
+                    $scope.condition.endDate = date;
+                }
+
+            });
+        }
+
 
 
         $scope.login = function() {
@@ -39,9 +56,29 @@ angular.module('starter.controllers')
             $scope.$broadcast('scroll.refreshComplete');
         }
 
-        $scope.doSearch = function() {
-            console.log(this.searchContent);
+
+        $scope.changeDate = function(range) {
+            debugger;
+            alert(range)
+            range = parseInt(range);
+            var sDate = '';
+            var eDate = '';
+            switch (range) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                    defalut: return;
+                    break;
+            }
         }
+
+        $scope.$watch('condition', function(oldval, newval, state) {
+        }, true);
 
         $scope.show = function() {
             $ionicLoading.show({
@@ -57,7 +94,7 @@ angular.module('starter.controllers')
             alert(item.id);
         }
 
-        
+
 
         $scope.filterType = function(type) {
             $scope.type = type;
@@ -220,6 +257,6 @@ angular.module('starter.controllers')
         ];
 
 
-       
+
 
     });
