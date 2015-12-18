@@ -5,6 +5,12 @@
 #loginContent {
   background: #c5d7ea; }
 
+#loginContent .history {
+  position: relative;
+  right: 10px;
+  float: right;
+  font-size: 1.5em; }
+
 #loginContent .login {
   margin: 200px 10px;
   width: 100%; }

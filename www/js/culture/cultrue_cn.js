@@ -6,16 +6,42 @@ var ONU_LOCAL = {
 		password : '密码'
 	},
 
+	enums : {
+		onu_regist_status : {
+			k_01:'STATE_INIT',
+			k_02:'STATE_STANDBY',
+			k_03:'STATE_SERIAL_NUMBER',
+			k_04:'STATE_RANGING',
+			k_05:'STATE_OPERATION',
+			k_06:'STATE_POPUP',
+			k_07:'STATE_EMERGENCY_STOP'
+		},
+		onu_auth_status :{
+			k_0:'初始化',
+			k_1:'注册成功',
+			k_2:'逻辑ID错误',
+			k_3:'逻辑密码错误',
+			k_4:'逻辑ID冲突',
+			k_10:'物理SN冲突',
+			k_11:'无资源',
+			k_12:'类型错误',
+			k_13:'物理SN错误',
+			k_14:'物理密码错误',
+			k_15:'物理密码冲突'
+		}
+	},
+
 	report :{
 		deviceInfo : {
 			moduleName : '设备信息',
-			equipment_id :  'ONU型号',
+			device_type :  'ONU型号',
 			vendor : '厂商',
 			hardware_version : '硬件版本号',
 			software_version : '软件版本号',
 			mac : 'MAC',
 			sn : 'SN',
 			onu_regist_status : 'ONU注册状态',
+			onu_auth_status : 'ONU认证状态',
 			pon_port_number : '光口个数',
 			data_port_number : '数据口个数',
 			voice_port_number : '语音口个数',
