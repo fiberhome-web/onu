@@ -1,13 +1,16 @@
-<ion-view view-title="Chats">
+<ion-view view-title="{{i10n.check}}">
     <ion-content id="checkTab">
         <div class="list card">
             <div class="item item-button-right">
-                PON口诊断项
+                <span>{{i10n.checkModule.pon_port_item}}</span>
                 <div class="check-spinner" ng-show="check1">
                     <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
-                    <span class="text">正在检测，请稍后...</span>
+                    <span class="text">{{i10n.checkModule.wait_for_checking}}</span>
                 </div>
-                <button class="button button-stable button-positive" ng-disabled="check1" ng-click="checkPon()">开始检测<i class="ion-arrow-right-c"></i></button>
+                <button class="button button-stable button-positive" ng-disabled="isPonChecking" ng-click="checkPon()">
+                    <span>{{i10n.checkModule.begin_check}}</span>
+                    <i class="ion-arrow-right-c"></i>
+                </button>
             </div>
             <div class="item item-body">
                 <div class="list">
@@ -32,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <!--
         <div class="list card">
             <div class="item item-button-right">
                 数据端口诊断项
@@ -88,6 +92,7 @@
                 </div>
             </div>
         </div>
+        -->
         <div class="list padding ">
             <button class="button button-block-half button-positive" ng-click="showPopup()">
                 生成报告

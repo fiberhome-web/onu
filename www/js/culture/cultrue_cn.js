@@ -1,4 +1,7 @@
 var ONU_LOCAL = {
+	basicInfo: '基本信息',
+	check: '诊断',
+	history: '历史',
 
 
     loginModule: {
@@ -14,7 +17,11 @@ var ONU_LOCAL = {
     },
 
     checkModule: {
-
+    	begin_check: '开始检测',
+    	wait_for_checking: '正在检测，请稍后...',
+    	pon_port_item: 'PON口诊断项',
+    	data_port_item: '数据端口诊断项',
+    	voice_port_item: '语音端口诊断项'
     },
 
     historyModule: {
