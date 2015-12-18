@@ -7,6 +7,7 @@ angular.module('starter.controllers')
             })
         }
 
+        $scope.local = ONU_LOCAL.basicModule;
         $scope.localInfo = ONU_LOCAL.report.deviceInfo;
 
         var url = Const.getReqUrl();

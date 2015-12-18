@@ -8,13 +8,15 @@
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff)); }
 
 #loginContent .history {
-  text-align: center; }
+  text-align: center;
+  color: #666; }
 
 #loginContent .logo {
   height: 400px;
   text-align: center;
   line-height: 400px;
-  font-size: 3em; }
+  font-size: 3em;
+  color: #333; }
 
 #loginContent .login {
   margin: 10px;

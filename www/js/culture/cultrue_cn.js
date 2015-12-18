@@ -21,6 +21,10 @@ var ONU_LOCAL = {
 		}
 	},
 
+	basicModule : {
+		one_check : '一键检测'
+	},
+
 	enums : {
 		onu_regist_status : {
 			k_01:'STATE_INIT',
