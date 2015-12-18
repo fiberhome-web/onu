@@ -32,16 +32,16 @@ angular.module('starter.controllers')
 			temperature : {val :'222', unit : '℃'},
 			voltage : {val :'22', unit : 'V'},
 			bias_current : {val : '22', unit : 'mA'},
-			tx_OptPowe : {val :'23', unit : 'dBm'},
-			rx_OptPower : {val :'45', unit : 'dBm'},
+			tx_opt_power : {val :'23', unit : 'dBm'},
+			rx_opt_power : {val :'45', unit : 'dBm'},
 		
 		},{
 			pon_port_id : {val :'2'},
 			temperature : {val :'222', unit : '℃'},
 			voltage : {val :'22', unit : 'V'},
 			bias_current : {val : '22', unit : 'mA'},
-			tx_OptPowe : {val :'23', unit : 'dBm'},
-			rx_OptPower : {val :'45', unit : 'dBm'},
+			tx_opt_power : {val :'23', unit : 'dBm'},
+			rx_opt_power : {val :'45', unit : 'dBm'},
 		
 		},
 		{
@@ -49,16 +49,16 @@ angular.module('starter.controllers')
 			temperature : {val :'222', unit : '℃'},
 			voltage : {val :'22', unit : 'V'},
 			bias_current : {val : '22', unit : 'mA'},
-			tx_OptPowe : {val :'23', unit : 'dBm'},
-			rx_OptPower : {val :'45', unit : 'dBm'},
+			tx_opt_power : {val :'23', unit : 'dBm'},
+			rx_opt_power : {val :'45', unit : 'dBm'},
 		
 		},{
 			pon_port_id : {val :'4'},
 			temperature : {val :'222', unit : '℃'},
 			voltage : {val :'22', unit : 'V'},
 			bias_current : {val : '22', unit : 'mA'},
-			tx_OptPowe : {val :'23', unit : 'dBm'},
-			rx_OptPower : {val :'45', unit : 'dBm'},
+			tx_opt_power : {val :'23', unit : 'dBm'},
+			rx_opt_power : {val :'45', unit : 'dBm'},
 		
 		}]
 
@@ -74,7 +74,7 @@ angular.module('starter.controllers')
 			voice_port_id : {val :'1'},
 			protocol_type : {val :'H.248'},
 			port_status : {val : 'EP_STATUS_REGING'},
-			telphoneNo : {val : '1559229292922'},			
+			telphone_no : {val : '1559229292922'},			
 		}]
 
 		var report = {deviceInfo : deviceInfo, ponPortStatus : ponPortStatus,

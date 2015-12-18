@@ -2,17 +2,36 @@ angular.module('starter.controllers')
     .controller('HistoryCtrl', function($scope, $state, $log, $ionicGesture, $ionicLoading,
         $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope) {
 
+        //本地化信息
         $scope.local = ONU_LOCAL.historyModule;
 
+        //根据是否登录显示隐藏Tab
         if (!global.isLogin) {
             //隐藏导航栏
             $rootScope.hideTabs = true;
         }
 
+        //报告类型默认选择“全部”
+        $scope.type = 1;
 
-        $scope.login = function(){
-			$state.go('index');
-		}
+
+
+        var options = {
+            date: new Date(),
+            mode: 'date', // or 'time'
+            minDate: new Date() - 10000,
+            allowOldDates: true,
+            allowFutureDates: false,
+            doneButtonLabel: 'DONE',
+            doneButtonColor: '#F2F3F4',
+            cancelButtonLabel: 'CANCEL',
+            cancelButtonColor: '#000000'
+        };
+
+
+        $scope.login = function() {
+            $state.go('index');
+        }
 
         //下拉刷新数据
         $scope.doRefresh = function() {
@@ -38,7 +57,7 @@ angular.module('starter.controllers')
             alert(item.id);
         }
 
-        $scope.type = 1;
+        
 
         $scope.filterType = function(type) {
             $scope.type = type;
@@ -201,5 +220,6 @@ angular.module('starter.controllers')
         ];
 
 
+       
 
     });

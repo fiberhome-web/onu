@@ -62,8 +62,8 @@ var ONU_LOCAL = {
             temperature: '光模块温度',
             voltage: '光模块电压',
             bias_current: '偏置电流',
-            tx_OptPowe: '发送光功率',
-            rx_OptPower: '接收光功率',
+            tx_opt_power: '发送光功率',
+            rx_opt_power: '接收光功率',
 
         },
 
