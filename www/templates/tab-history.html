@@ -1,125 +1,98 @@
-<ion-view  view-title="Dashboard" hide-back-button="true">
-
-  <ion-nav-buttons side="right">
-     <button menu-toggle="left" class="button button-icon icon ion-more" ng-click="openModal()"></button>
-  </ion-nav-buttons>
-
-  <ion-nav-buttons side="left">
-     <button menu-toggle="left" class="button button-icon icon" ng-click="login()">{{local.login}}</button>
-  </ion-nav-buttons>
-
-  <ion-content id="historyTab">
-
-      <ion-refresher on-refresh="doRefresh()"  
-                     pulling-text="Pull to refresh..."   
-                     refreshing-text="Refreshing!"  
-                     refreshing-icon="ion-loading-b">  
-      </ion-refresher> 
-
-
-      <div class="query-cond">
-
-        <div class="bar bar-header item-input-inset no-border-bottom">
-          <label class="item-input-wrapper">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Search" ng-model="condition.searchContent">
-          </label>    
+<ion-view view-title="Dashboard" hide-back-button="true">
+    <ion-nav-buttons side="right">
+        <button menu-toggle="left" class="button button-icon icon ion-more" ng-click="openModal()"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon" ng-click="login()">{{local.login}}</button>
+    </ion-nav-buttons>
+    <ion-content id="historyTab">
+        <ion-refresher on-refresh="doRefresh()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-b">
+        </ion-refresher>
+        <div class="query-cond ">
+            <div class="bar bar-header item-input-inset no-border-bottom">
+                <label class="item-input-wrapper">
+                    <i class="icon ion-ios-search placeholder-icon"></i>
+                    <input type="search" placeholder="Search" ng-model="condition.searchContent">
+                </label>
+            </div>
+            <div class="list">
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        {{local.date_range}}
+                    </div>
+                    <select ng-change="changeDate(range)" ng-model="range">             
+                        <option value="0">{{local.date_select.all}}</option>
+                        <option value="1">{{local.date_select.today}}</option>
+                        <option value="2">{{local.date_select.twoDays}}</option>
+                        <option value="3">{{local.date_select.week}}</option>
+                        <option value="4">{{local.date_select.month}}</option>
+                        <option value="-1">自定义日期选择</option>
+                    </select>
+                </label>
+                <label class="item item-input" ng-click="chooseDate(true)" ng-show="range === '-1'">
+                    <div class="input-label">
+                        {{local.start_date}}
+                    </div>
+                    <div class="date-content">
+                        {{condition.startDate}}
+                    </div>
+                </label>
+                <label class="item item-input" ng-click="chooseDate(false)" ng-show="range === '-1'">
+                    <div class="input-label">
+                        {{local.end_date}}
+                    </div>
+                    <div class="date-content">
+                        {{condition.endDate}}
+                    </div>
+                </label>
+            </div>
         </div>
-
         <div class="list">
-          <label class="item item-input" ng-click="chooseDate(true)" ng-model="condition.startDate">
-            <div class="input-label">
-              {{local.start_date}}
+            <div class="button-bar">
+                <a class="button button-light" ng-class="{ 'button\-positive': type == '1' }" ng-click="filterType(1)">全部</a>
+                <a class="button button-light" ng-class="{ 'button\-positive': type == '2' }" ng-click="filterType(2)">正常</a>
+                <a class="button button-light" ng-class="{ 'button\-positive': type == '3' }" ng-click="filterType(3)">故障</a>
             </div>
-          </label>
-          <label class="item item-input" ng-click="chooseDate(false)" ng-model="condition.endDate">
-             <div class="input-label" >
-              {{local.end_date}}
-            </div>
-          </label>
-           <label class="item item-input item-select no-border-bottom">
-            <div class="input-label">
-              {{local.date_range}}
-            </div>
-            <select ng-change="changeDate(range)" ng-model="range">
-              <option value="1">{{local.date_select.today}}</option>
-              <option value="2">{{local.date_select.twoDays}}</option>
-              <option value="3">{{local.date_select.week}}</option>
-              <option value="4">{{local.date_select.month}}</option>
-              <option value="0">{{local.date_select.all}}</option>
-            </select>
-          </label>
-        </div>
-
-      </div>
-
-
-      <div class="list">
-    
-        <div class="button-bar">
-              <a class="button button-light" ng-class="{ 'button\-positive': type == '1' }" ng-click="filterType(1)">全部</a>
-              <a class="button button-light" ng-class="{ 'button\-positive': type == '2' }" ng-click="filterType(2)">正常</a>
-              <a class="button button-light" ng-class="{ 'button\-positive': type == '3' }" ng-click="filterType(3)">故障</a>
-        </div>
-
-      
-      
-        <ion-list  show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
-
-          <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
-                  
-          <ion-checkbox-button  item-id="{{item.id}}"></ion-checkbox-button>
-            
-
-            <span class="name">{{item.name }}
+            <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
+                <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
+                    <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
+                    <span class="name">{{item.name }}
                 <span ng-class="{'red': item.status !== 0}" ng-switch="item.status"> 
-                    <span ng-switch-when="0">#正常#</span> 
+                    <span ng-switch-when="0">#正常#</span>
                     <span ng-switch-when="1">#光口异常#</span>
-                    <span ng-switch-when="2">#语音端口异常#</span> 
-                    <span ng-switch-when="3">#数据端口异常#</span> 
-                </span>
-            </span>
-            <span class="date">{{item.date}}</span>
-            <ion-option-button class="button-assertive">删除</ion-option-button>
-          </ion-item>
-        </ion-list>
-
-      </div>
-
-
-  </ion-content>
-
-  <div ng-show="shouldShowCheckbox" id="confirm">
-    <div>
-      <button class="button button-assertive button-outline">
-        确认删除
-      </button>
-      <button class="button button-positive  button-outline " ng-click="hideDelete()">
-        取消
-      </button>
-    </div>
-  </div>
-
-</ion-view>
-
-
-
-
-<script id="my-modal.html" type="text/ng-template">
-  <ion-modal-view id="history-operrator">
-
-    <ion-content scroll="false">
-      <div class="icon">
-        <div class="circle" ng-click="batchDelele($event)">
-          <i class="ion-ios-trash-outline"></i>
-          <div class="explain" >批量删除</div>
+                    <span ng-switch-when="2">#语音端口异常#</span>
+                    <span ng-switch-when="3">#数据端口异常#</span>
+                    </span>
+                    </span>
+                    <span class="date">{{item.date}}</span>
+                    <ion-option-button class="button-assertive">删除</ion-option-button>
+                </ion-item>
+            </ion-list>
         </div>
-       
-        
-      </div>
-      <div class="cancle" ng-click="modal.hide()">
-        取消
-      </div>
     </ion-content>
-  </ion-modal-view>
+    <div ng-show="shouldShowCheckbox" id="confirm">
+        <div>
+            <button class="button button-assertive button-outline">
+                确认删除
+            </button>
+            <button class="button button-positive  button-outline " ng-click="hideDelete()">
+                取消
+            </button>
+        </div>
+    </div>
+</ion-view>
+<script id="my-modal.html" type="text/ng-template">
+    <ion-modal-view id="history-operrator">
+        <ion-content scroll="false">
+            <div class="icon">
+                <div class="circle" ng-click="batchDelele($event)">
+                    <i class="ion-ios-trash-outline"></i>
+                    <div class="explain">批量删除</div>
+                </div>
+            </div>
+            <div class="cancle" ng-click="modal.hide()">
+                取消
+            </div>
+        </ion-content>
+    </ion-modal-view>
 </script>

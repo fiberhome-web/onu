@@ -17,6 +17,8 @@ angular.module('starter.controllers')
         $scope.condition = {};
         //日期范围默认选择“今天”
         $scope.range = "1";
+        $scope.condition.startDate = dateUtils.getToday();
+        $scope.condition.endDate = dateUtils.getToday();
 
 
 
@@ -34,6 +36,8 @@ angular.module('starter.controllers')
 
         //日期选择事件
         $scope.chooseDate = function(flag) {
+            $scope.range = "-1";
+            return;
             $cordovaDatePicker.show(dateOptions).then(function(date) {
                 if (flag) {
                     $scope.condition.startDate = date;
@@ -58,27 +62,32 @@ angular.module('starter.controllers')
 
 
         $scope.changeDate = function(range) {
-            debugger;
-            alert(range)
             range = parseInt(range);
             var sDate = '';
-            var eDate = '';
+            var eDate = dateUtils.getToday();
             switch (range) {
                 case 1:
+                    sDate = dateUtils.getToday();
                     break;
                 case 2:
+                    sDate = dateUtils.getSpeDate(-1);
                     break;
                 case 3:
+                    sDate = dateUtils.getSpeDate(-6);
                     break;
                 case 4:
+                    sDate = dateUtils.getSpeDate(-30);
                     break;
-                    defalut: return;
+                default:
+                    sDate = '';
+                    eDate = '';
                     break;
             }
+            $scope.condition.startDate = sDate;
+            $scope.condition.endDate = eDate;
         }
 
-        $scope.$watch('condition', function(oldval, newval, state) {
-        }, true);
+        $scope.$watch('condition', function(oldval, newval, state) {}, true);
 
         $scope.show = function() {
             $ionicLoading.show({

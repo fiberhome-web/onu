@@ -160,4 +160,11 @@
 .tab-outline {
   border: 1px solid #ccc; }
 
+#historyTab .date-content {
+  text-align: right;
+  display: inline-block;
+  width: 100%;
+  right: 15px;
+  position: relative; }
+
 /*# sourceMappingURL=style.css.map */
