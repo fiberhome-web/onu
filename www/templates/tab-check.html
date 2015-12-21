@@ -3,7 +3,7 @@
         <div class="list card">
             <div class="item item-button-right">
                 <span>{{i10n.checkModule.pon_port_item}}</span>
-                <div class="check-spinner" ng-show="check1">
+                <div class="check-spinner" ng-show="isPonChecking">
                     <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
                     <span class="text">{{i10n.checkModule.wait_for_checking}}</span>
                 </div>
@@ -12,24 +12,42 @@
                     <i class="ion-arrow-right-c"></i>
                 </button>
             </div>
-            <div class="item item-body">
-                <div class="list">
+            <div class="item item-body" ng-hide="ponInfos.length == 0">
+                <div class="list" ng-repeat="ponInfo in ponInfos | orderBy:order.pon" style="border: 1px #ddd solid;">
                     <a class="item item-icon-left" href="#">
-                        <i class="icon ion-thermometer"></i> 光模块温度
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.ponPortStatus.pon_port_id}}</span>
                         <span class="item-note">
-                            <span>50</span><span>℃</span>
+                            <span>{{ponInfo.pon_port_id}}</span>
                         </span>
                     </a>
                     <a class="item item-icon-left" href="#">
-                        <i class="icon ion-flash"></i> 光模块电压
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.ponPortStatus.temperature}}</span>
                         <span class="item-note">
-                            <span>50</span><span>V</span>
+                            <span>{{ponInfo.temperature.val}}</span><span>℃</span>
                         </span>
                     </a>
                     <a class="item item-icon-left" href="#">
-                        <i class="icon ion-ios-pulse-strong"></i> 偏置电流
+                        <i class="icon ion-flash"></i><span>{{i10n.report.ponPortStatus.voltage}}</span>
                         <span class="item-note">
-                            <span>50</span><span>mA</span>
+                            <span>{{ponInfo.voltage.val}}</span><span>V</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.bias_current}}</span>
+                        <span class="item-note">
+                            <span>{{ponInfo.bias_current.val}}</span><span>mA</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.tx_opt_power}}</span>
+                        <span class="item-note">
+                            <span>{{ponInfo.tx_opt_power.val}}</span><span>dBm</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.rx_opt_power}}</span>
+                        <span class="item-note">
+                            <span>{{ponInfo.rx_opt_power.val}}</span><span>dBm</span>
                         </span>
                     </a>
                 </div>

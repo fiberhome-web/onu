@@ -14,6 +14,22 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options){
 	}
 });
 
+Mock.mock('http://192.168.1.1/app/', 'getPonPortStatus', function(options){
+	return Mock.mock({
+		'ResultCode': '0',
+		'data|1-4': [
+			{
+				'pon_port_id|1-4': 1,
+				'temperature': {'val|1-100': 25},            
+				'voltage': {'val|1-5': 5},					
+				'bias_current': {'val|1-100': 100},			
+				'tx_opt_power': {'val|1-100': 23},			
+				'rx_opt_power': {'val|1-100': 45}		
+			}
+		] 
+	});
+});
+
 Mock.mock('http://192.168.1.1/appb',{
 	'name'     : '@name',
     'age|1-100': 100,
