@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $ionicPopup) {
+    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $ionicPopup, Const) {
 
         initPage();
 
@@ -60,7 +60,8 @@ angular.module('starter.controllers')
                     $scope.ponInfos = response.data;
                 } else {
                 }
-            }
+                $scope.isPonChecking = false;
+            })
         }
 
         // 数据口诊断
