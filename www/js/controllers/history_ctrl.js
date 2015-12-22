@@ -1,3 +1,4 @@
+'use strict';
 angular.module('starter.controllers')
     .controller('HistoryCtrl', function($scope, $state, $log, $ionicGesture, $ionicLoading,
         $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker) {
@@ -39,8 +40,8 @@ angular.module('starter.controllers')
         //日期选择事件
         $scope.chooseDate = function(flag) {
             $scope.range = "-1";
-            return;
             $cordovaDatePicker.show(dateOptions).then(function(date) {
+                alert(date);
                 if (flag) {
                     $scope.condition.startDate = date;
                 } else {
@@ -48,19 +49,19 @@ angular.module('starter.controllers')
                 }
 
             });
-        }
+        };
 
 
 
         $scope.login = function() {
             $state.go('index');
-        }
+        };
 
         //下拉刷新数据
         $scope.doRefresh = function() {
             //关闭刷新
             $scope.$broadcast('scroll.refreshComplete');
-        }
+        };
 
 
         $scope.changeDate = function(range) {
@@ -111,6 +112,7 @@ angular.module('starter.controllers')
 
 
         $scope.filterType = function(type) {
+            $scope.type = type;
             if (type === 0) {
                 $scope.list = list;
             } else {
@@ -153,42 +155,42 @@ angular.module('starter.controllers')
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
                 date: '2015-11-11 11:11:11',
-                status: 0,
+                status: 2,
                 id: '002'
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
                 date: '2015-11-11 11:11:11',
-                status: 0,
+                status: 3,
                 id: '002'
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
                 date: '2015-11-11 11:11:11',
-                status: 0,
+                status: 2,
                 id: '002'
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
                 date: '2015-11-11 11:11:11',
-                status: 0,
+                status: 2,
                 id: '002'
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
                 date: '2015-11-11 11:11:11',
-                status: 0,
+                status: 3,
                 id: '002'
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
                 date: '2015-11-11 11:11:11',
-                status: 0,
+                status: 3,
                 id: '002'
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
                 date: '2015-11-11 11:11:11',
-                status: 0,
+                status: 4,
                 id: '002'
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
                 date: '2015-11-11 11:11:11',
-                status: 0,
+                status: 4,
                 id: '002'
             }, {
                 name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
@@ -272,7 +274,7 @@ angular.module('starter.controllers')
                 date: '2015-11-11 11:11:11',
                 status: 1,
                 id: '003'
-            },
+            }
         ];
 
         $scope.list = list;

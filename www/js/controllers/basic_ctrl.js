@@ -5,7 +5,8 @@ angular.module('starter.controllers')
             $state.go('tab.check', {
                 checkStatus: 0
             })
-        }
+            
+        };
 
         $scope.local = ONU_LOCAL.basicModule;
         $scope.localInfo = ONU_LOCAL.report.deviceInfo;
@@ -24,6 +25,7 @@ angular.module('starter.controllers')
                         item.text = item.ecode
                     }
                 });
+                
                 //枚举转化
                 data.onu_regist_status.text = ONU_LOCAL.enums.onu_regist_status['k_' + data.onu_regist_status.val];
                 data.onu_auth_status.text = ONU_LOCAL.enums.onu_auth_status['k_' + data.onu_auth_status.val];
