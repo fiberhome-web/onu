@@ -2,7 +2,7 @@ var ONU_LOCAL = {
 	basicInfo: '基本信息',
 	check: '诊断',
 	history: '历史',
-    //fjsdjflskdfkj
+    //fjsdjflskdfkj222222222222222
 
     loginModule: {
         login: '连接设备',
