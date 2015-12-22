@@ -8,7 +8,7 @@
     <ion-content id="historyTab">
         <ion-refresher on-refresh="doRefresh()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-b">
         </ion-refresher>
-        <div class="query-cond">
+        <div class="query-cond ">
             <div class="bar bar-header item-input-inset no-border-bottom">
                 <label class="item-input-wrapper">
                     <i class="icon ion-ios-search placeholder-icon"></i>
@@ -16,7 +16,7 @@
                 </label>
             </div>
             <div class="list">
-                <label class="item item-input item-select no-border">
+                <label class="item item-input item-select">
                     <div class="input-label">
                         {{local.date_range}}
                     </div>
@@ -26,48 +26,42 @@
                         <option value="2">{{local.date_select.twoDays}}</option>
                         <option value="3">{{local.date_select.week}}</option>
                         <option value="4">{{local.date_select.month}}</option>
-                        <option value="-1">{{local.date_select.customized}}</option>
+                        <option value="-1">自定义日期选择</option>
                     </select>
                 </label>
-                <label class="item item-input no-border" ng-click="chooseDate(true)" ng-show="range === '-1'">
+                <label class="item item-input" ng-click="chooseDate(true)" ng-show="range === '-1'">
                     <div class="input-label">
                         {{local.start_date}}
-
                     </div>
                     <div class="date-content">
-                        <span>{{condition.startDate}}</span>
-                        
-                        <i class="icon ion-android-calendar"></i>
+                        {{condition.startDate}}
                     </div>
-                  
                 </label>
-                <label class="item item-input no-border" ng-click="chooseDate(false)" ng-show="range === '-1'">
+                <label class="item item-input" ng-click="chooseDate(false)" ng-show="range === '-1'">
                     <div class="input-label">
                         {{local.end_date}}
                     </div>
                     <div class="date-content">
-                        <span>{{condition.startDate}}</span>
-                        
-                        <i class="icon ion-android-calendar"></i>
+                        {{condition.endDate}}
                     </div>
                 </label>
             </div>
         </div>
         <div class="list">
             <div class="button-bar">
-                <a class="button button-light" ng-class="{ 'button\-positive': type === 0 }" ng-click="filterType(0)">全部</a>
-                <a class="button button-light" ng-class="{ 'button\-positive': type === 1 }" ng-click="filterType(1)">正常</a>
-                <a class="button button-light" ng-class="{ 'button\-positive': type === 2 }" ng-click="filterType(2)">故障</a>
+                <a class="button button-light" ng-class="{ 'button\-positive': type == '1' }" ng-click="filterType(1)">全部</a>
+                <a class="button button-light" ng-class="{ 'button\-positive': type == '2' }" ng-click="filterType(2)">正常</a>
+                <a class="button button-light" ng-class="{ 'button\-positive': type == '3' }" ng-click="filterType(3)">故障</a>
             </div>
             <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
                 <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
                     <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
                     <span class="name">{{item.name }}
-                <span ng-class="{'red': item.status !== 1}" ng-switch="item.status"> 
-                    <span ng-switch-when="1">#正常#</span>
-                    <span ng-switch-when="2">#光口异常#</span>
-                    <span ng-switch-when="3">#语音端口异常#</span>
-                    <span ng-switch-when="4">#数据端口异常#</span>
+                <span ng-class="{'red': item.status !== 0}" ng-switch="item.status"> 
+                    <span ng-switch-when="0">#正常#</span>
+                    <span ng-switch-when="1">#光口异常#</span>
+                    <span ng-switch-when="2">#语音端口异常#</span>
+                    <span ng-switch-when="3">#数据端口异常#</span>
                     </span>
                     </span>
                     <span class="date">{{item.date}}</span>
