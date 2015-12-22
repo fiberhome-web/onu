@@ -11,14 +11,16 @@ angular.module('starter.controllers')
             $rootScope.hideTabs = true;
         }
 
-        //报告类型默认选择“全部”
-        $scope.type = 1;
-        //初始化参数
-        $scope.condition = {};
-        //日期范围默认选择“今天”
-        $scope.range = "1";
-        $scope.condition.startDate = dateUtils.getToday();
-        $scope.condition.endDate = dateUtils.getToday();
+        function initPage() {
+            //报告类型默认选择“全部”
+            $scope.type = 0;
+            //初始化参数
+            $scope.condition = {};
+            //日期范围默认选择“今天”
+            $scope.range = "1";
+            $scope.condition.startDate = dateUtils.getToday();
+            $scope.condition.endDate = dateUtils.getToday();
+        }
 
 
 
@@ -62,6 +64,10 @@ angular.module('starter.controllers')
 
 
         $scope.changeDate = function(range) {
+            //range为-1是启用日期精确定位
+            if (range === '-1') {
+                return;
+            }
             range = parseInt(range);
             var sDate = '';
             var eDate = dateUtils.getToday();
@@ -83,8 +89,7 @@ angular.module('starter.controllers')
                     eDate = '';
                     break;
             }
-            $scope.condition.startDate = sDate;
-            $scope.condition.endDate = eDate;
+            $scope.list = filterDataByDate(list, sDate, eDate);
         }
 
         $scope.$watch('condition', function(oldval, newval, state) {}, true);
@@ -106,7 +111,12 @@ angular.module('starter.controllers')
 
 
         $scope.filterType = function(type) {
-            $scope.type = type;
+            if (type === 0) {
+                $scope.list = list;
+            } else {
+                $scope.list = filterDataByType(list, type);
+            }
+
         }
 
         $ionicModal.fromTemplateUrl('my-modal.html', {
@@ -135,7 +145,7 @@ angular.module('starter.controllers')
 
 
 
-        $scope.list = [{
+        var list = [{
                 name: '万科魅力之城 万科魅力之城  ',
                 date: '2015-11-11 11:11:11',
                 status: 1,
@@ -265,7 +275,40 @@ angular.module('starter.controllers')
             },
         ];
 
+        $scope.list = list;
 
+        //根据日期过滤数据
+        function filterDataByDate(datas, sDate, eDate) {
+            var result = [];
+            angular.forEach(datas, function(item, index) {
+                //截取年月日，不用管时分秒
+                var date = item.date.substr(0, 10);
+                if (date >= sDate && date <= eDate) {
+                    result.push(item);
+                }
+            });
+            return result;
+        }
+
+        //根据状态过滤数据
+        function filterDataByType(datas, type) {
+            var normal = [];
+            var abnormal = [];
+
+            angular.forEach(datas, function(item, index) {
+                if (item.status === 1) {
+                    normal.push(item);
+                } else {
+                    abnormal.push(item);
+                }
+            });
+
+
+            return type === 1 ? normal : abnormal;
+        }
+
+
+        initPage();
 
 
     });
