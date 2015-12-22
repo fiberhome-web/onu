@@ -1,13 +1,14 @@
 <ion-view view-title="{{i10n.check}}">
     <ion-content id="checkTab">
         <div class="list card">
+            <!-- PON口诊断项 -->
             <div class="item item-button-right">
                 <span>{{i10n.checkModule.pon_port_item}}</span>
                 <div class="check-spinner" ng-show="isPonChecking">
                     <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
                     <span class="text">{{i10n.checkModule.wait_for_checking}}</span>
                 </div>
-                <button class="button button-stable button-positive" ng-disabled="isPonChecking" ng-click="checkPon()">
+                <button class="button button-stable button-positive" ng-disabled="isPonChecking" ng-click="eventFun.checkPonBtnEvt()">
                     <span>{{i10n.checkModule.begin_check}}</span>
                     <i class="ion-arrow-right-c"></i>
                 </button>
@@ -52,69 +53,44 @@
                     </a>
                 </div>
             </div>
-        </div>
-        <!--
-        <div class="list card">
+
+            <!-- 数据口诊断项 -->
             <div class="item item-button-right">
-                数据端口诊断项
-                <button class="button button-stable button-positive">开始检测<i class="ion-arrow-right-c"></i></button>
-            </div>
-            <div class="item item-body">
-                <div class="list">
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-thermometer"></i> 光模块温度
-                        <span class="item-note">
-                            <span>50</span><span>℃</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-flash"></i> 光模块电压
-                        <span class="item-note">
-                            <span>50</span><span>V</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-ios-pulse-strong"></i> 偏置电流
-                        <span class="item-note">
-                            <span>50</span><span>mA</span>
-                        </span>
-                    </a>
+                <span>{{i10n.checkModule.data_port_item}}</span>
+                <div class="check-spinner" ng-show="isDataChecking">
+                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+                    <span class="text">{{i10n.checkModule.wait_for_checking}}</span>
                 </div>
+                <button class="button button-stable button-positive" ng-disabled="isDataChecking" ng-click="eventFun.checkDataBtnEvt()">
+                    <span>{{i10n.checkModule.begin_check}}</span>
+                    <i class="ion-arrow-right-c"></i>
+                </button>
             </div>
-        </div>
-        <div class="list card">
+
+            <!-- 语音口诊断项 -->
             <div class="item item-button-right">
-                语音端口诊断项
-                <button class="button button-stable button-positive">开始检测<i class="ion-arrow-right-c"></i></button>
-            </div>
-            <div class="item item-body">
-                <div class="list">
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-thermometer"></i> 光模块温度
-                        <span class="item-note">
-                            <span>50</span><span>℃</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-flash"></i> 光模块电压
-                        <span class="item-note">
-                            <span>50</span><span>V</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-ios-pulse-strong"></i> 偏置电流
-                        <span class="item-note">
-                            <span>50</span><span>mA</span>
-                        </span>
-                    </a>
+                <span>{{i10n.checkModule.voice_port_item}}</span>
+                <div class="check-spinner" ng-show="isVoiceChecking">
+                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+                    <span class="text">{{i10n.checkModule.wait_for_checking}}</span>
                 </div>
+                <button class="button button-stable button-positive" ng-disabled="isVoiceChecking" ng-click="eventFun.checkVoiceBtnEvt()">
+                    <span>{{i10n.checkModule.begin_check}}</span>
+                    <i class="ion-arrow-right-c"></i>
+                </button>
             </div>
+
         </div>
-        -->
+        
         <div class="list padding ">
-            <button class="button button-block-half button-positive" ng-click="showPopup()">
-                生成报告
-            </button>
+            <div class="button-bar">
+                <button class="button button-positive" style="margin: 0 10px;" ng-click="eventFun.oneKeyCheckBtnEvt()">
+                    <span>{{i10n.checkModule.one_key_check}}</span>
+                </button>
+                <button class="button button-positive" style="margin: 0 10px;" ng-click="eventFun.generateReportBtnEVt()">
+                    <span>{{i10n.checkModule.generate_report}}</span>
+                </button>
+            </div>
         </div>
     </ion-content>
 </ion-view>
@@ -126,14 +102,14 @@
         </label>
         <label class="item item-input item-select">
             <span class="input-label">检测结果</span>
-            <select ng-model="r_status">
+            <select ng-model="resultStatus">
                 <option value="0">正常</option>
                 <option value="1">光口异常</option>
                 <option value="2">语音端口异常</option>
                 <option value="3">数据端口异常</option>
             </select>
         </label>
-        <label class="item item-input" ng-show="r_status != '0' ">
+        <label class="item item-input" ng-show="resultStatus != '0' ">
             <span class="input-label">备注</span>
             <input type="text">
         </label>

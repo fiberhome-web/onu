@@ -19,6 +19,8 @@ var ONU_LOCAL = {
     checkModule: {
     	begin_check: '开始检测',
     	wait_for_checking: '正在检测，请稍后...',
+    	one_key_check: '一键检测',
+    	generate_report: '生成报告',
     	pon_port_item: 'PON口诊断项',
     	data_port_item: '数据端口诊断项',
     	voice_port_item: '语音端口诊断项'
