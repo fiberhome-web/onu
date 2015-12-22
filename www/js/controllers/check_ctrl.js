@@ -5,7 +5,7 @@ angular.module('starter.controllers')
 
         //checkStatus 0，说明是从“基本信息”界面点击“一键检测”跳过来的，检查全部项。
         var checkStatus = $stateParams.checkStatus;
-        if (0 === checkStatus) {
+        if ('0' === checkStatus) {
             checkAll();
         }
 
@@ -56,20 +56,89 @@ angular.module('starter.controllers')
             };
 
             $http.post(url, params).success(function(response) {
-                if (response.ResultCode === '0') {
+                var resultCode = response.ResultCode;
+
+                if (resultCode === '0') {
                     $scope.ponInfos = response.data;
                 } else {
+                    var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
+                    resultMsg && alert(resultMsg);
                 }
+
                 $scope.isPonChecking = false;
-            })
+            }).error(function(data, status) {
+                alert('data:' + data + '\n' + 'status:' + status + '\n');
+                $scope.isPonChecking = false;
+            });
         }
 
         // 数据口诊断
         function checkData() {
+            $scope.isDataChecking = true;
+
+            var url = Const.getReqUrl();
+            var params = {
+                command: 'getDataPortStatus'
+            };
+
+            $http.post(url, params).success(function(response) {
+                var resultCode = response.ResultCode;
+
+                if (resultCode === '0') {
+                    var data = response.data;
+
+                    //枚举转化
+                    angular.forEach(data, function(item, key) {
+                        item.port_status.text = ONU_LOCAL.enums.data_port_status['k_' + item.port_status.val];
+                        item.speed.text = ONU_LOCAL.enums.data_speed['k_' + item.speed.val];
+                        item.duplex.text = ONU_LOCAL.enums.data_duplex['k_' + item.duplex.val];
+                    });
+                    
+                    $scope.dataInfos = data;
+                } else {
+                    var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
+                    resultMsg && alert(resultMsg);
+                }
+
+                $scope.isDataChecking = false;
+            }).error(function(data, status) {
+                alert('data:' + data + '\n' + 'status:' + status + '\n');
+                $scope.isDataChecking = false;
+            });
         }
 
         // 语音口诊断
         function checkVoice() {
+            $scope.isVoiceChecking = true;
+
+            var url = Const.getReqUrl();
+            var params = {
+                command: 'getVoicePortStatus'
+            };
+
+            $http.post(url, params).success(function(response) {
+                var resultCode = response.ResultCode;
+
+                if (resultCode === '0') {
+                    var data = response.data;
+
+                    //枚举转化
+                    angular.forEach(data, function(item, key) {
+                        item.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + item.protocol_type.val];
+                        item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
+                    });
+                    
+                    $scope.voiceInfos = data;
+                } else {
+                    var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
+                    resultMsg && alert(resultMsg);
+                }
+
+                $scope.isVoiceChecking = false;
+            }).error(function(data, status) {
+                alert('data:' + data + '\n' + 'status:' + status + '\n');
+                $scope.isVoiceChecking = false;
+            });
         }
 
         // 诊断所有项（Pon、数据、语音）

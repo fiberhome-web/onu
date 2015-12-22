@@ -66,6 +66,34 @@
                     <i class="ion-arrow-right-c"></i>
                 </button>
             </div>
+            <div class="item item-body" ng-hide="dataInfos.length == 0">
+                <div class="list" ng-repeat="dataInfo in dataInfos | orderBy:order.data" style="border: 1px #ddd solid;">
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.data_port_id}}</span>
+                        <span class="item-note">
+                            <span>{{dataInfo.data_port_id}}</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.port_status}}</span>
+                        <span class="item-note">
+                            <span>{{dataInfo.port_status.text}}</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.speed}}</span>
+                        <span class="item-note">
+                            <span>{{dataInfo.speed.text}}</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.duplex}}</span>
+                        <span class="item-note">
+                            <span>{{dataInfo.duplex.text}}</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
 
             <!-- 语音口诊断项 -->
             <div class="item item-button-right">
@@ -78,6 +106,34 @@
                     <span>{{i10n.checkModule.begin_check}}</span>
                     <i class="ion-arrow-right-c"></i>
                 </button>
+            </div>
+            <div class="item item-body" ng-hide="voiceInfos.length == 0">
+                <div class="list" ng-repeat="voiceInfo in voiceInfos | orderBy:order.voice" style="border: 1px #ddd solid;">
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                        <span class="item-note">
+                            <span>{{voiceInfo.voice_port_id}}</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.protocol_type}}</span>
+                        <span class="item-note">
+                            <span>{{voiceInfo.protocol_type.text}}</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.port_status}}</span>
+                        <span class="item-note">
+                            <span>{{voiceInfo.port_status.text}}</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.telphone_no}}</span>
+                        <span class="item-note">
+                            <span>{{voiceInfo.telphone_no.val}}</span>
+                        </span>
+                    </a>
+                </div>
             </div>
 
         </div>
