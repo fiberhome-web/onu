@@ -1,26 +1,86 @@
 angular.module('starter.controllers')
-    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $ionicPopup) {
+    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $ionicPopup, Const) {
 
-        //检查checkStatus 0 ：检查全部项
+        initPage();
+
+        //checkStatus 0，说明是从“基本信息”界面点击“一键检测”跳过来的，检查全部项。
         var checkStatus = $stateParams.checkStatus;
-
-
-        $scope.remove = function(chat) {
-
+        if (0 === checkStatus) {
+            checkAll();
         }
 
-        $scope.checkPon = function() {
-            $scope.check1 = true;
+        // 界面事件处理函数
+        $scope.eventFun = {
+            checkPonBtnEvt: function() {
+                checkPon();
+            },
+            checkDataBtnEvt: function() {
+                checkData();
+            },
+            checkVoiceBtnEvt: function() {
+                checkVoice();
+            },
+            oneKeyCheckBtnEvt: function() {
+                checkAll();
+            },
+            generateReportBtnEVt: function() {
+                showPopup();
+            }
         }
 
-
-        $scope.localInfo = {
-            status: '检测结果'
+        // “诊断”界面初始化
+        function initPage() {
+            // 诊断结果默认“正常”
+            $scope.resultStatus = "0";
+            // 各检测项排序字段
+            $scope.order = {
+                    pon: 'pon_port_id',
+                    data: 'data_port_id',
+                    voice: 'voice_port_id'
+                }
+                // 光口诊断信息
+            $scope.ponInfos = [];
+            // 数据口诊断信息
+            $scope.dataInfos = [];
+            // 语音口诊断信息
+            $scope.voiceInfos = [];
         }
 
-        $scope.r_status = "0";
+        // Pon口诊断
+        function checkPon() {
+            $scope.isPonChecking = true;
 
-        $scope.showPopup = function() {
+            var url = Const.getReqUrl();
+            var params = {
+                command: 'getPonPortStatus'
+            };
+
+            $http.post(url, params).success(function(response) {
+                if (response.ResultCode === '0') {
+                    $scope.ponInfos = response.data;
+                } else {
+                }
+                $scope.isPonChecking = false;
+            })
+        }
+
+        // 数据口诊断
+        function checkData() {
+        }
+
+        // 语音口诊断
+        function checkVoice() {
+        }
+
+        // 诊断所有项（Pon、数据、语音）
+        function checkAll() {
+            checkPon();
+            checkData();
+            checkVoice();
+        }
+
+        // 显示“生成报告”弹出框
+        function showPopup() {
             $scope.data = {}
 
             // 一个精心制作的自定义弹窗
