@@ -8,6 +8,12 @@ var global = {
   isLogin : false
 }
 
+var CONST = {
+    R_CODE: {
+        SUCCESS: '0'
+    }
+}
+
 //使用mockjax替换ajax
 Mock.mockjax(app);
 
