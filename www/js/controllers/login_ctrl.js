@@ -15,6 +15,7 @@ angular.module('starter.controllers')
             // 		  +'headers:' + headers + '\n'
             // 		  +'config:' + config + '\n');
             // });
+            //eeeee
             global.isLogin = true;
             $state.go('tab.basic');
         }
