@@ -209,10 +209,35 @@ $mColor:#c5d7ea;
 }
 
 #historyTab .date-content{
-	text-align: right;
-    display: inline-block;
-    width: 100%;
-    right: 15px;
+	flex : 1;
+	margin-right: 15px;
+    text-align: right;
+}
+
+#historyTab .date-content > span{
+	margin-right: 18px;
     position: relative;
+    bottom: 2px;
+    font-size : .9em;
+}
+
+#historyTab .date-content > i{
+	font-size : 1.2em;
+	color: #666;
 }
     
+#historyTab .list > label {
+	border : none;
+	padding-top:2px;
+	padding-bottom:4px;
+}
+
+#historyTab .list > label > .input-label{
+	font-size : 15px;
+}
+
+#historyTab .query-cond{
+	padding-top: 10px;
+	border-bottom: 1px dotted rgba(136, 106, 234, 0.45);
+    margin-bottom: 10px;
+}

@@ -34,7 +34,8 @@ var ONU_LOCAL = {
             today: '今天',
             twoDays: '2天内',
             week: '一周内',
-            month: '一月内'
+            month: '一月内',
+            customized : '自定义日期选择'
         }
     },
 

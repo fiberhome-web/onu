@@ -16,10 +16,21 @@ angular.module('starter.controllers')
         };
 
         $http.post(url, command).success(function(res) {
-            //枚举转化         
-            res.onu_regist_status.text = ONU_LOCAL.enums.onu_regist_status['k_' + res.onu_regist_status.val];
-            res.onu_auth_status.text = ONU_LOCAL.enums.onu_auth_status['k_' + res.onu_auth_status.val];
-            $scope.deviceInfo = res;
+            if (res.ResultCode === CONST.R_CODE.SUCCESS) {
+                var data = res.data;
+                //检查数据是否存在返回ecode的，存在要转化成错误内容
+                angular.forEach(data, function(item, key) {
+                    if (item.ecode) {
+                        item.text = item.ecode
+                    }
+                });
+                //枚举转化
+                data.onu_regist_status.text = ONU_LOCAL.enums.onu_regist_status['k_' + data.onu_regist_status.val];
+                data.onu_auth_status.text = ONU_LOCAL.enums.onu_auth_status['k_' + data.onu_auth_status.val];
+                $scope.deviceInfo = data;
+
+            }
+
         }).error(function(data, status) {
             alert('data:' + data + '\n' + 'status:' + status + '\n');
         });
