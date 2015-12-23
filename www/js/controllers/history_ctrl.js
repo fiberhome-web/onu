@@ -104,9 +104,11 @@ angular.module('starter.controllers')
         $scope.$watch('prox.searchContent', function(newVal, oldval, scope) {
             if (newVal) {
                 condition.searchContent = newVal.trim();
-                $scope.list = filterData();
+            } else {
+                condition.searchContent = '';
             }
 
+            $scope.list = filterData();
         });
 
 
