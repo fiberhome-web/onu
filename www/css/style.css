@@ -27,7 +27,7 @@
   font-weight: bold; }
 
 #checkTab .item-note > span {
-  width: 50px;
+  width: 100px;
   display: inline-block; }
 
 #checkTab .item-note > span:first-child {
