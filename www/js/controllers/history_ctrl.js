@@ -1,7 +1,9 @@
 'use strict';
 angular.module('starter.controllers')
     .controller('HistoryCtrl', function($scope, $state, $log, $ionicGesture, $ionicLoading,
-        $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker) {
+        $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker,
+        DB) {
+        var list = [];
 
         //本地化信息
         $scope.local = ONU_LOCAL.historyModule;
@@ -12,16 +14,6 @@ angular.module('starter.controllers')
             $rootScope.hideTabs = true;
         }
 
-        function initPage() {
-            //报告类型默认选择“全部”
-            $scope.type = 0;
-            //初始化参数
-            $scope.condition = {};
-            //日期范围默认选择“今天”
-            $scope.range = "1";
-            $scope.condition.startDate = dateUtils.getToday();
-            $scope.condition.endDate = dateUtils.getToday();
-        }
 
 
 
@@ -41,11 +33,10 @@ angular.module('starter.controllers')
         $scope.chooseDate = function(flag) {
             $scope.range = "-1";
             $cordovaDatePicker.show(dateOptions).then(function(date) {
-                alert(date);
                 if (flag) {
-                    $scope.condition.startDate = date;
+                    $scope.condition.startDate = date.format('yyyy-MM-dd');
                 } else {
-                    $scope.condition.endDate = date;
+                    $scope.condition.endDate = date.format('yyyy-MM-dd');
                 }
 
             });
@@ -147,7 +138,7 @@ angular.module('starter.controllers')
 
 
 
-        var list = [{
+        list = [{
                 name: '万科魅力之城 万科魅力之城  ',
                 date: '2015-11-11 11:11:11',
                 status: 1,
@@ -277,7 +268,30 @@ angular.module('starter.controllers')
             }
         ];
 
-        $scope.list = list;
+
+
+        function initPage() {
+            //报告类型默认选择“全部”
+            $scope.type = 0;
+            //初始化参数
+            $scope.condition = {};
+            //日期范围默认选择“今天”
+            $scope.range = "1";
+            $scope.condition.startDate = dateUtils.getToday();
+            $scope.condition.endDate = dateUtils.getToday();
+
+            DB.queryAll().then(function(res) {
+                if (res.rows.length > 0) {
+                    list = res.rows;
+                    $scope.list = list;
+                } else {
+                    $scope.list = [];
+                }
+            }, function(err) {
+                console.error(err);
+            })
+        }
+
 
         //根据日期过滤数据
         function filterDataByDate(datas, sDate, eDate) {

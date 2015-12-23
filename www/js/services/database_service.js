@@ -4,9 +4,9 @@ angular.module('starter.services').service('DB',function($cordovaSQLite,
 
 	$ionicPlatform.ready(function() {
 		//检查是否创建了数据库和表，不存在则创建
-	  	// db = $cordovaSQLite.openDB({ name: "onu.db" });
-	  	// query = "CREATE TABLE IF NOT EXISTS fiber_onu (id primary key, name, date, status, data, conclusion)";
-	   //  $cordovaSQLite.execute(db, query).then(success, error);
+	  	db = $cordovaSQLite.openDB({ name: "onu.db" });
+	  	query = "CREATE TABLE IF NOT EXISTS fiber_onu (id primary key, name, date, status, data, conclusion)";
+	    $cordovaSQLite.execute(db, query).then(success, error);
 	});
 
 
@@ -27,6 +27,11 @@ angular.module('starter.services').service('DB',function($cordovaSQLite,
 
 	this.query = function(){
 		query = "SELECT id , name, date, status FROM fiber_onu where name like '%test%' ";
+	    return $cordovaSQLite.execute(db, query);
+	}
+
+	this.queryAll = function(){
+		query = "SELECT id , name, date, status FROM fiber_onu";
 	    return $cordovaSQLite.execute(db, query);
 	}
 
