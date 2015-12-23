@@ -3,6 +3,13 @@ var ONU_LOCAL = {
 	check: '诊断',
 	history: '历史',
 
+    unit: {
+        temperature: '℃',
+        voltage: 'V',
+        bias_current: 'mA',
+        opt_power: 'dBm'
+    },
+
     loginModule: {
         login: '连接设备',
         ip_address: 'IP地址',
@@ -39,8 +46,6 @@ var ONU_LOCAL = {
             customized : '自定义日期选择'
         }
     },
-
-
 
     report: {
         deviceInfo: {

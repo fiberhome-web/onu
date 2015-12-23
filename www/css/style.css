@@ -5,8 +5,7 @@
 #loginContent {
   background: -ms-linear-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff));
   background: -moz-linear-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff));
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff));
-  /* background-image: url('../img/loginbg.jpg'); */ }
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff)); }
 
 #loginContent .history {
   text-align: center;
@@ -27,17 +26,22 @@
   border-radius: 5px;
   font-weight: bold; }
 
+/*
 #checkTab .item-note > span {
-  width: 100px;
-  display: inline-block; }
+	width : 100px;
+	display : inline-block;
+}
 
 #checkTab .item-note > span:first-child {
-  text-align: right; }
+	
+	text-align: right;
+}
 
 #checkTab .item-note > span:last-child {
-  text-align: left;
-  padding-left: 5px; }
-
+	text-align: left;
+	padding-left : 5px;
+}
+*/
 #historyTab {
   top: 25px;
   bottom: 90px; }

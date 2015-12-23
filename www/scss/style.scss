@@ -10,7 +10,6 @@ $mColor:#c5d7ea;
 	background: -ms-linear-gradient(linear, 0% 0%, 0% 100%,from(#c5d7ea), to(#fff));      
 	background:-moz-linear-gradient(linear, 0% 0%, 0% 100%,from(#c5d7ea), to(#fff));
 	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#c5d7ea), to(#fff));
-	/* background-image: url('../img/loginbg.jpg'); */
 }
 
 #loginContent .history{
@@ -36,6 +35,7 @@ $mColor:#c5d7ea;
 	font-weight: bold;
 }
 
+/*
 #checkTab .item-note > span {
 	width : 100px;
 	display : inline-block;
@@ -50,7 +50,7 @@ $mColor:#c5d7ea;
 	text-align: left;
 	padding-left : 5px;
 }
-
+*/
 
 #historyTab{
     top: 25px;

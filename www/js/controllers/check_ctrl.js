@@ -3,7 +3,7 @@ angular.module('starter.controllers')
 
         initPage();
 
-        //checkStatus 0，说明是从“基本信息”界面点击“一键检测”跳过来的，检查全部项。
+        // checkStatus 0，说明是从“基本信息”界面点击“一键检测”跳过来的，检查全部项。
         var checkStatus = $stateParams.checkStatus;
         if ('0' === checkStatus) {
             checkAll();
@@ -59,7 +59,18 @@ angular.module('starter.controllers')
                 var resultCode = response.ResultCode;
 
                 if (resultCode === '0') {
-                    $scope.ponInfos = response.data;
+                    var data = response.data;
+
+                    // 添加单位
+                    angular.forEach(data, function(item, key) {
+                        item.temperature.unit = ONU_LOCAL.unit.temperature;
+                        item.voltage.unit = ONU_LOCAL.unit.voltage;
+                        item.bias_current.unit = ONU_LOCAL.unit.bias_current;
+                        item.tx_opt_power.unit = ONU_LOCAL.unit.opt_power;
+                        item.rx_opt_power.unit = ONU_LOCAL.unit.opt_power;
+                    });
+
+                    $scope.ponInfos = data;
                 } else {
                     var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
                     resultMsg && alert(resultMsg);

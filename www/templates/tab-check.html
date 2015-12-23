@@ -17,39 +17,27 @@
                 <div class="list" ng-repeat="ponInfo in ponInfos | orderBy:order.pon" style="border: 1px #ddd solid;">
                     <a class="item item-icon-left" href="#">
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.ponPortStatus.pon_port_id}}</span>
-                        <span class="item-note">
-                            <span>{{ponInfo.pon_port_id}}</span>
-                        </span>
+                        <span class="item-note">{{ponInfo.pon_port_id}}</span>
                     </a>
                     <a class="item item-icon-left" href="#">
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.ponPortStatus.temperature}}</span>
-                        <span class="item-note">
-                            <span>{{ponInfo.temperature.val}}</span><span>℃</span>
-                        </span>
+                        <span class="item-note">{{ponInfo.temperature.val}} {{ponInfo.temperature.unit}}</span>
                     </a>
                     <a class="item item-icon-left" href="#">
                         <i class="icon ion-flash"></i><span>{{i10n.report.ponPortStatus.voltage}}</span>
-                        <span class="item-note">
-                            <span>{{ponInfo.voltage.val}}</span><span>V</span>
-                        </span>
+                        <span class="item-note">{{ponInfo.voltage.val}} {{ponInfo.voltage.unit}}</span>
                     </a>
                     <a class="item item-icon-left" href="#">
                         <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.bias_current}}</span>
-                        <span class="item-note">
-                            <span>{{ponInfo.bias_current.val}}</span><span>mA</span>
-                        </span>
+                        <span class="item-note">{{ponInfo.bias_current.val}} {{ponInfo.bias_current.unit}}</span>
                     </a>
                     <a class="item item-icon-left" href="#">
                         <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.tx_opt_power}}</span>
-                        <span class="item-note">
-                            <span>{{ponInfo.tx_opt_power.val}}</span><span>dBm</span>
-                        </span>
+                        <span class="item-note">{{ponInfo.tx_opt_power.val}} {{ponInfo.tx_opt_power.unit}}</span>
                     </a>
                     <a class="item item-icon-left" href="#">
                         <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.rx_opt_power}}</span>
-                        <span class="item-note">
-                            <span>{{ponInfo.rx_opt_power.val}}</span><span>dBm</span>
-                        </span>
+                        <span class="item-note">{{ponInfo.rx_opt_power.val}} {{ponInfo.rx_opt_power.unit}}</span>
                     </a>
                 </div>
             </div>
@@ -150,6 +138,7 @@
         </div>
     </ion-content>
 </ion-view>
+
 <script id="popup.html" type="text/ng-template">
     <div class="list">
         <label class="item item-input">
