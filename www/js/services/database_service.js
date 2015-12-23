@@ -14,7 +14,7 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
 
     //成功回调
     function success(success) {
-        alert('success :' + JSON.stringify(success));
+        console.info('success :' + JSON.stringify(success));
     }
     //失败回调
     function error(error) {
@@ -33,15 +33,17 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
     }
 
     this.queryAll = function() {
-        query = "SELECT id , name, date, status FROM fiber_onu";
+        query = "SELECT id , name, date, status FROM fiber_onu order by date desc";
         return $cordovaSQLite.execute(db, query);
     }
 
-    this.insert = function() {
-        var query = "INSERT INTO fiber_onu (id , name, date, status) VALUES (?,?,?,?)";
+    this.insert = function(datas) {
+        var query = "INSERT INTO fiber_onu (id , name, date, status, data) VALUES (?,?,?,?,?)";
         var id = parseInt(Math.random() * 1000000) + '';
-        var now = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
-        $cordovaSQLite.execute(db, query, [id, 'test111', now, 0]).then(success, error);
+        var now = $filter('date')(new Date('2015-11-30'), 'yyyy-MM-dd HH:mm:ss');
+        //var arr = Array.prototype.slice.call(arguments);
+        var status = parseInt(Math.random() * 3) + 1;
+        $cordovaSQLite.execute(db, query, [id, 'test111', now, status, datas]).then(success, error);
     }
 
     this.queryById = function(reportId) {

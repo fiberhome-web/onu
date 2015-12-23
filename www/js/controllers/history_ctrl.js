@@ -3,7 +3,15 @@ angular.module('starter.controllers')
     .controller('HistoryCtrl', function($scope, $state, $log, $ionicGesture, $ionicLoading,
         $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker,
         DB) {
+        //缓存所有报告记录
         var list = [];
+        //查询条件对象
+        var condition = {};
+
+        //ionic bug, $watch只能监视对象，prox用于挂载需要监视的属性
+        $scope.prox = {};
+
+        var today = dateUtils.getToday();
 
         //本地化信息
         $scope.local = ONU_LOCAL.historyModule;
@@ -13,35 +21,6 @@ angular.module('starter.controllers')
             //隐藏导航栏
             $rootScope.hideTabs = true;
         }
-
-
-
-
-        var dateOptions = {
-            date: new Date(),
-            mode: 'date', // or 'time'
-            minDate: new Date() - 10000,
-            allowOldDates: true,
-            allowFutureDates: false,
-            doneButtonLabel: 'DONE',
-            doneButtonColor: '#F2F3F4',
-            cancelButtonLabel: 'CANCEL',
-            cancelButtonColor: '#000000'
-        };
-
-        //日期选择事件
-        $scope.chooseDate = function(flag) {
-            $scope.range = "-1";
-            $cordovaDatePicker.show(dateOptions).then(function(date) {
-                if (flag) {
-                    $scope.condition.startDate = date.format('yyyy-MM-dd');
-                } else {
-                    $scope.condition.endDate = date.format('yyyy-MM-dd');
-                }
-
-            });
-        };
-
 
 
         $scope.login = function() {
@@ -54,7 +33,35 @@ angular.module('starter.controllers')
             $scope.$broadcast('scroll.refreshComplete');
         };
 
+        //日期选择事件
+        $scope.chooseDate = function(flag) {
+            //日期配置
+            var dateOptions = {
+                date: new Date(),
+                mode: 'date', // or 'time'
+                //     minDate: new Date() - 10000,
+                allowOldDates: true,
+                allowFutureDates: false,
+                //      doneButtonLabel: 'DONE',
+                //      doneButtonColor: '#F2F3F4',
+                //      cancelButtonLabel: 'CANCEL',
+                //      cancelButtonColor: '#000000'
+            };
 
+            $cordovaDatePicker.show(dateOptions).then(function(date) {
+                var date = date.format('yyyy-MM-dd');
+                if (flag) {
+                    condition.startDate = date;
+                    $scope.startDate = date;
+                } else {
+                    condition.endDate = date;
+                    $scope.endDate = date;
+                }
+                $scope.list = filterData();
+            });
+        };
+
+        //过滤日期范围
         $scope.changeDate = function(range) {
             //range为-1是启用日期精确定位
             if (range === '-1') {
@@ -81,36 +88,27 @@ angular.module('starter.controllers')
                     eDate = '';
                     break;
             }
-            $scope.list = filterDataByDate(list, sDate, eDate);
+            condition.startDate = sDate;
+            condition.endDate = eDate;
+            $scope.list = filterData();
         }
 
-        $scope.$watch('condition', function(oldval, newval, state) {}, true);
-
-        $scope.show = function() {
-            $ionicLoading.show({
-                template: 'Loading...'
-            });
-        };
-        $scope.hide = function() {
-            $ionicLoading.hide();
-        };
-
-        $scope.onTap = function(item) {
-
-            alert(item.id);
-        }
-
-
-
+        //过滤类型
         $scope.filterType = function(type) {
             $scope.type = type;
-            if (type === 0) {
-                $scope.list = list;
-            } else {
-                $scope.list = filterDataByType(list, type);
+            condition.type = type;
+            $scope.list = filterData();
+        }
+
+        //过滤search内容
+        $scope.$watch('prox.searchContent', function(newVal, oldval, scope) {
+            if (newVal) {
+                condition.searchContent = newVal.trim();
+                $scope.list = filterData();
             }
 
-        }
+        });
+
 
         $ionicModal.fromTemplateUrl('my-modal.html', {
             scope: $scope,
@@ -137,153 +135,33 @@ angular.module('starter.controllers')
         }
 
 
-
-        list = [{
-                name: '万科魅力之城 万科魅力之城  ',
-                date: '2015-11-11 11:11:11',
-                status: 1,
-                id: '001'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 2,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 3,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 2,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 2,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 3,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 3,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 4,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 4,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            }, {
-                name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-                date: '2015-11-11 11:11:11',
-                status: 0,
-                id: '002'
-            },
-
-            {
-                name: '万科魅力之城 万科魅力之城22333  ',
-                date: '2015-11-11 11:11:11',
-                status: 1,
-                id: '003'
-            }
-        ];
-
-
-
         function initPage() {
-            //报告类型默认选择“全部”
-            $scope.type = 0;
             //初始化参数
-            $scope.condition = {};
+            condition = {
+                startDate: today,
+                endDate: today,
+                searchContent: '',
+                type: 0
+            };
+
             //日期范围默认选择“今天”
             $scope.range = "1";
-            $scope.condition.startDate = dateUtils.getToday();
-            $scope.condition.endDate = dateUtils.getToday();
+            $scope.startDate = today;
+            $scope.searchContent = '';
+            $scope.endDate = today;
+            //报告类型默认选择“全部”
+            $scope.type = 0;
 
+   //         DB.insert(datas());
+
+            //查询所有报告记录
             DB.queryAll().then(function(res) {
-                if (res.rows.length > 0) {
-                    list = res.rows;
-                    $scope.list = list;
+                var length = res.rows.length;
+                if (length > 0) {
+                    for (var i = 0; i < length; i++) {
+                        list.push(res.rows.item(i))
+                    }
+                    $scope.list = filterData();
                 } else {
                     $scope.list = [];
                 }
@@ -293,38 +171,45 @@ angular.module('starter.controllers')
         }
 
 
-        //根据日期过滤数据
-        function filterDataByDate(datas, sDate, eDate) {
+        function filterData() {
             var result = [];
-            angular.forEach(datas, function(item, index) {
+            angular.forEach(list, function(item, index) {
                 //截取年月日，不用管时分秒
                 var date = item.date.substr(0, 10);
-                if (date >= sDate && date <= eDate) {
-                    result.push(item);
+                //过滤日期
+                if (date < condition.startDate || date > condition.endDate) {
+                    return true;
                 }
+
+                //过滤名称
+                var search = condition.searchContent;
+                if (search) {
+                    if (item.name.indexOf(search) === -1) {
+                        return true;
+                    }
+                }
+
+                //过滤类型
+                var type = condition.type;
+                //repType 1为正常 2 3 4 对应其他异常
+                var repType = item.status;
+                //正常
+                if (type === 1) {
+                    if (repType !== 1) {
+                        return true;
+                    }
+                } else if (type === 2) { //异常
+                    if (repType === 1) {
+                        return true;
+                    }
+                }
+
+                result.push(item);
             });
+
             return result;
         }
 
-        //根据状态过滤数据
-        function filterDataByType(datas, type) {
-            var normal = [];
-            var abnormal = [];
-
-            angular.forEach(datas, function(item, index) {
-                if (item.status === 1) {
-                    normal.push(item);
-                } else {
-                    abnormal.push(item);
-                }
-            });
-
-
-            return type === 1 ? normal : abnormal;
-        }
-
-
         initPage();
-
 
     });
