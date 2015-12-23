@@ -24,7 +24,7 @@ app.run(function($ionicPlatform) {
         // for form inputs)
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-            cordova.plugins.Keyboard.disableScroll(true);
+            cordova.plugins.Keyboard.disableScroll(false);
         }
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
@@ -37,7 +37,7 @@ app.run(function($ionicPlatform) {
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     //设置全屏显示
-    ionic.Platform.fullScreen(true);
+    ionic.Platform.fullScreen(false);
     //配置整个平台的ionic view缓存
     $ionicConfigProvider.views.maxCache(0);
     //配置android平台的缓存
