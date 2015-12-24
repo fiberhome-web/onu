@@ -149,13 +149,13 @@
         <label class="item item-input item-select">
             <span class="input-label">{{i10n.checkModule.check_result}}</span>
             <select ng-model="report.resultStatus">
-                <option value="0">{{i10n.checkModule.result_status.normal}}</option>
-                <option value="1">{{i10n.checkModule.result_status.pon_abnormal}}</option>
-                <option value="2">{{i10n.checkModule.result_status.data_abnormal}}</option>
-                <option value="3">{{i10n.checkModule.result_status.voice_abnormal}}</option>
+                <option value="1">{{i10n.checkModule.result_status.normal}}</option>
+                <option value="2">{{i10n.checkModule.result_status.pon_abnormal}}</option>
+                <option value="3">{{i10n.checkModule.result_status.data_abnormal}}</option>
+                <option value="4">{{i10n.checkModule.result_status.voice_abnormal}}</option>
             </select>
         </label>
-        <label class="item item-input" ng-show="report.resultStatus != '0' ">
+        <label class="item item-input" ng-show="report.resultStatus != '1' ">
             <span class="input-label">{{i10n.checkModule.remark}}</span>
             <input type="text" ng-model="report.remark">
         </label>

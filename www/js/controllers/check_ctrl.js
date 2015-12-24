@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $ionicPopup, Const, DB) {
+    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $filter, $ionicPopup, Const, DB) {
 
         initPage();
 
@@ -33,7 +33,7 @@ angular.module('starter.controllers')
             // 生成报告默认值
             $scope.report = {
                 // 诊断结果默认“正常”
-                resultStatus: "0"
+                resultStatus: "1"
             }
 
             // 各检测项排序字段
@@ -184,18 +184,18 @@ angular.module('starter.controllers')
                             return $scope.report;
                         }
                     }
-                }, ]
+                }]
             });
 
             genReportPopup.then(function(res) {
                 // 点击“保存”按钮
                 if (!!res) {
-                    saveToDB();
+                    saveToDB(res);
                 }
             });
         }
 
-        function saveToDB() {
+        function saveToDB(res) {
             var deviceInfo = {};
             var ponPortStatus = $scope.ponInfos;
             var dataPortStatus = $scope.dataInfos;
@@ -208,8 +208,17 @@ angular.module('starter.controllers')
                 voicePortStatus: voicePortStatus
             };
 
-            var str = JSON.stringify(report);
-            DB.insert(str);
+            var now = new Date();
+            var datas = {
+                id: now.getTime(),
+                name: res.reportName,
+                date: $filter('date')(now, 'yyyy-MM-dd HH:mm:ss'),
+                status: res.resultStatus,
+                data: JSON.stringify(report),
+                conclusion: res.remark
+            }
+            
+            DB.insert(datas);
         }
 
     });
