@@ -48,13 +48,7 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
 
     this.queryById = function(reportId) {
         query = "SELECT id , name, date, status, data, conclusion FROM fiber_onu where id = ? ";
-        return {
-            conclusion: '正常',
-            name: '万科魅力之城 万科魅力之城 万科魅力之城 ',
-            date: '2015-11-11 11:11:11',
-            status: 1,
-            id: '001'
-        };
+        return $cordovaSQLite.execute(db, query, [reportId]);
     }
 
 

@@ -32,8 +32,19 @@ var ONU_LOCAL = {
     	voice_port_item: '语音端口诊断项'
     },
 
+    detailModule : {
+        address : '检测地点',
+        date : '检测时间',
+        conclusion : '检测结论',
+        report : '检测报告'
+    },
+
     historyModule: {
         login: '登录',
+        del : '删除',
+        del_batch : '批量删除',
+        del_sure : '确认删除',
+        cancel : '取消',
         start_date: '开始日期',
         end_date: '结束日期',
         date_range: '日期范围',
@@ -44,6 +55,16 @@ var ONU_LOCAL = {
             week: '一周内',
             month: '一月内',
             customized : '自定义日期选择'
+        },
+        types : {
+            all : '全部',
+            normal : '正常',
+            abnormal : '故障'
+        },
+        faults : {
+            pon : '光口异常',
+            data : '语音端口异常',
+            voice : '数据端口异常'
         }
     },
 

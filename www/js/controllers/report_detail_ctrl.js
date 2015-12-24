@@ -3,90 +3,26 @@ angular.module('starter.controllers')
 	.controller('ReportDetailCtrl', function($scope,$state,$http,$ionicHistory,
 		$stateParams, DB, $ionicPopup, $ionicModal, $ionicPopover) {
 
+		$scope.reportLocal = ONU_LOCAL.report;
+
+		var id = $stateParams.reportId;
+
 		$scope.back = function(){
 			$ionicHistory.goBack();
 		}
 
-		$scope.reportLocal = ONU_LOCAL.report;
 
-		$scope.obj = {abc : '12'}
+		DB.queryById(id).then(function(res){
+			debugger;
+			var item = res.rows.item(0);
+			$scope.report = item;
+			$scope.detail = JSON.parse(item.data);
+		});
 
-
+		
 		//document.getElementById('report').innerHTML
 
-		var deviceInfo = {
-			device_type :  {val : 'AN5506-04-B5'},
-			vendor : {val : 'Fiberhome'},
-			hardware_version : {val : 'WKE2.201.333R1A'},
-			software_version : {val :'RP0700'},
-			mac : {val :'11-22-33-44-55'},
-			sn : {val :'AN5506-04-B5'},
-			onu_regist_status : {val :'Registered'},
-			pon_port_number : {val : '12'},
-			data_port_number : {val : '12'},
-			voice_port_number : {val : '12'},
-		}
-
-		var ponPortStatus = [{
-			pon_port_id : {val :'1'},
-			temperature : {val :'222', unit : '℃'},
-			voltage : {val :'22', unit : 'V'},
-			bias_current : {val : '22', unit : 'mA'},
-			tx_opt_power : {val :'23', unit : 'dBm'},
-			rx_opt_power : {val :'45', unit : 'dBm'},
 		
-		},{
-			pon_port_id : {val :'2'},
-			temperature : {val :'222', unit : '℃'},
-			voltage : {val :'22', unit : 'V'},
-			bias_current : {val : '22', unit : 'mA'},
-			tx_opt_power : {val :'23', unit : 'dBm'},
-			rx_opt_power : {val :'45', unit : 'dBm'},
-		
-		},
-		{
-			pon_port_id : {val :'3'},
-			temperature : {val :'222', unit : '℃'},
-			voltage : {val :'22', unit : 'V'},
-			bias_current : {val : '22', unit : 'mA'},
-			tx_opt_power : {val :'23', unit : 'dBm'},
-			rx_opt_power : {val :'45', unit : 'dBm'},
-		
-		},{
-			pon_port_id : {val :'4'},
-			temperature : {val :'222', unit : '℃'},
-			voltage : {val :'22', unit : 'V'},
-			bias_current : {val : '22', unit : 'mA'},
-			tx_opt_power : {val :'23', unit : 'dBm'},
-			rx_opt_power : {val :'45', unit : 'dBm'},
-		
-		}]
-
-		var dataPortStatus = [{
-			data_port_id : {val :'1'},
-			port_status : {val :'Link Up'},
-			speed : {val :'10M'},
-			duplex : {val :'Full'},
-			
-		}]
-
-		var voicePortStatus = [{
-			voice_port_id : {val :'1'},
-			protocol_type : {val :'H.248'},
-			port_status : {val : 'EP_STATUS_REGING'},
-			telphone_no : {val : '1559229292922'},			
-		}]
-
-		var report = {deviceInfo : deviceInfo, ponPortStatus : ponPortStatus,
-			dataPortStatus : dataPortStatus, voicePortStatus : voicePortStatus}
-		$scope.report = DB.queryById('123');
-
-		$scope.detail = report;
-
-		console.log(JSON.stringify(report))
-
-
-
 		// .fromTemplateUrl() 方法
 		$ionicPopover.fromTemplateUrl('my-popover.html', {
 		   scope: $scope,
