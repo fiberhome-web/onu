@@ -104,15 +104,15 @@
                         </span>
                     </a>
                     <a class="item item-icon-left" href="#">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.protocol_type}}</span>
-                        <span class="item-note">
-                            <span>{{voiceInfo.protocol_type.text}}</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.port_status}}</span>
                         <span class="item-note">
                             <span>{{voiceInfo.port_status.text}}</span>
+                        </span>
+                    </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.protocol_type}}</span>
+                        <span class="item-note">
+                            <span>{{voiceInfo.protocol_type.text}}</span>
                         </span>
                     </a>
                     <a class="item item-icon-left" href="#">
@@ -139,24 +139,25 @@
     </ion-content>
 </ion-view>
 
+<!-- 生成报告弹出框模板 -->
 <script id="popup.html" type="text/ng-template">
     <div class="list">
         <label class="item item-input">
-            <span class="input-label">报告名称</span>
-            <input type="text">
+            <span class="input-label">{{i10n.checkModule.report_name}}</span>
+            <input type="text" ng-model="report.reportName">
         </label>
         <label class="item item-input item-select">
-            <span class="input-label">检测结果</span>
-            <select ng-model="resultStatus">
-                <option value="0">正常</option>
-                <option value="1">光口异常</option>
-                <option value="2">语音端口异常</option>
-                <option value="3">数据端口异常</option>
+            <span class="input-label">{{i10n.checkModule.check_result}}</span>
+            <select ng-model="report.resultStatus">
+                <option value="0">{{i10n.checkModule.result_status.normal}}</option>
+                <option value="1">{{i10n.checkModule.result_status.pon_abnormal}}</option>
+                <option value="2">{{i10n.checkModule.result_status.data_abnormal}}</option>
+                <option value="3">{{i10n.checkModule.result_status.voice_abnormal}}</option>
             </select>
         </label>
-        <label class="item item-input" ng-show="resultStatus != '0' ">
-            <span class="input-label">备注</span>
-            <input type="text">
+        <label class="item item-input" ng-show="report.resultStatus != '0' ">
+            <span class="input-label">{{i10n.checkModule.remark}}</span>
+            <input type="text" ng-model="report.remark">
         </label>
     </div>
 </script>

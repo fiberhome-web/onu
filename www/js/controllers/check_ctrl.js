@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $ionicPopup, Const) {
+    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $ionicPopup, Const, DB) {
 
         initPage();
 
@@ -30,15 +30,20 @@ angular.module('starter.controllers')
 
         // “诊断”界面初始化
         function initPage() {
-            // 诊断结果默认“正常”
-            $scope.resultStatus = "0";
+            // 生成报告默认值
+            $scope.report = {
+                // 诊断结果默认“正常”
+                resultStatus: "0"
+            }
+
             // 各检测项排序字段
             $scope.order = {
-                    pon: 'pon_port_id',
-                    data: 'data_port_id',
-                    voice: 'voice_port_id'
-                }
-                // 光口诊断信息
+                pon: 'pon_port_id',
+                data: 'data_port_id',
+                voice: 'voice_port_id'
+            }
+
+            // 光口诊断信息
             $scope.ponInfos = [];
             // 数据口诊断信息
             $scope.dataInfos = [];
@@ -161,30 +166,50 @@ angular.module('starter.controllers')
 
         // 显示“生成报告”弹出框
         function showPopup() {
-            $scope.data = {}
-
-            // 一个精心制作的自定义弹窗
-            var myPopup = $ionicPopup.show({
-                // template: '<input type="text" ng-model="data.wifi">{{localInfo.status}}',
+            var genReportPopup = $ionicPopup.show({
                 templateUrl: 'popup.html',
-                title: '请输入报告信息',
+                title: ONU_LOCAL.checkModule.report_title,
                 cssClass: 'reportPopup',
                 scope: $scope,
                 buttons: [{
-                    text: 'Cancel'
+                    text: ONU_LOCAL.checkModule.cancel
                 }, {
-                    text: '<b>Save</b>',
+                    text: ONU_LOCAL.checkModule.save,
                     type: 'button-positive',
                     onTap: function(e) {
-                        if (!$scope.data.wifi) {
-                            //不允许用户关闭，除非他键入wifi密码
+                        if (!$scope.report.reportName) {
+                            //不允许用户关闭，除非他输入报告名称
                             e.preventDefault();
                         } else {
-                            return $scope.data.wifi;
+                            return $scope.report;
                         }
                     }
                 }, ]
             });
+
+            genReportPopup.then(function(res) {
+                // 点击“保存”按钮
+                if (!!res) {
+                    saveToDB();
+                }
+            });
+        }
+
+        function saveToDB() {
+            var deviceInfo = {};
+            var ponPortStatus = $scope.ponInfos;
+            var dataPortStatus = $scope.dataInfos;
+            var voicePortStatus = $scope.voiceInfos;
+
+            var report = {
+                deviceInfo: deviceInfo,
+                ponPortStatus: ponPortStatus,
+                dataPortStatus: dataPortStatus,
+                voicePortStatus: voicePortStatus
+            };
+
+            var str = JSON.stringify(report);
+            DB.insert(str);
         }
 
     });

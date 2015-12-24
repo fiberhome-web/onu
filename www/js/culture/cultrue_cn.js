@@ -29,7 +29,19 @@ var ONU_LOCAL = {
     	generate_report: '生成报告',
     	pon_port_item: 'PON口诊断项',
     	data_port_item: '数据端口诊断项',
-    	voice_port_item: '语音端口诊断项'
+    	voice_port_item: '语音端口诊断项',
+        report_title: '请输入报告信息',
+        report_name: '报告名称',
+        check_result: '检测结果',
+        result_status: {
+            normal: '正常',
+            pon_abnormal: '光口异常',
+            data_abnormal: '数据端口异常',
+            voice_abnormal: '语音端口异常'
+        },
+        remark: '备注',
+        save: '保存',
+        cancel: '取消'
     },
 
     detailModule : {
