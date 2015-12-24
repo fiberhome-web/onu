@@ -166,19 +166,20 @@ angular.module('starter.controllers')
 
 
         function queryAll() {
+            list = [];
             $scope.prox.loadding = true;
             DB.queryAll().then(function(res) {
                 var length = res.rows.length;
                 if (length > 0) {
                     for (var i = 0; i < length; i++) {
-                        list.push(res.rows.item(i))
-                    }
+                        list.push(res.rows.item(i));
+                     }
 
                 }
                 setList(filterData());
             }, function(err) {
                 console.error(err);
-            })
+            });
         }
 
 

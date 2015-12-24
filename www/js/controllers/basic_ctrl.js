@@ -4,7 +4,7 @@ angular.module('starter.controllers')
         $scope.checking = function() {
             $state.go('tab.check', {
                 checkStatus: 0
-            }) 
+            });
             
         };
 
@@ -22,7 +22,7 @@ angular.module('starter.controllers')
                 //检查数据是否存在返回ecode的，存在要转化成错误内容
                 angular.forEach(data, function(item, key) {
                     if (item.ecode) {
-                        item.text = item.ecode
+                        item.text = item.ecode;
                     }
                 });
                 

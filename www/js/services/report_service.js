@@ -4,9 +4,9 @@ angular.module('starter.services').service('Report', function() {
 
     this.setDeviceInfo = function(info) {
         this.deviceInfo = info;
-    }
+    };
 
     this.getDeviceInfo = function() {
         return this.deviceInfo;
-    }
+    };
 });

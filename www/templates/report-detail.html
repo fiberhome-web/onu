@@ -43,12 +43,12 @@
             #content .rep-content .detail {
                 padding: 5px 10px;
             }
-
-            #content .citem > .conclusion{
-            	padding-right: 10px;
-				line-height: 25px;
+            
+            #content .citem > .conclusion {
+                padding-right: 10px;
+                line-height: 25px;
             }
-         
+            
             #content .detail .header {
                 padding-left: 10px;
                 height: 30px;
@@ -115,15 +115,29 @@
                     <div class="title">{{i10n.detailModule.report}}：</div>
                     <div class="detail" ng-repeat="(key1,items) in detail">
                         <div class="header"> {{reportLocal[key1].module_name}}</div>
+
+                        <!--如果items不是数组-->
                         <div ng-if="!items.length" ng-repeat="(key2,item) in items" class="items">
                             <div class="citem-title">{{reportLocal[key1][key2]}}</div>
-                            <div class="citem-content">{{item.val}}</div>
+                            <div class="citem-content">
+                                <span ng-if="item.val === undefined">{{item}}</span>
+                                <span ng-if="item.text">{{item.text}}</span>
+                                <span ng-if="item.text === undefined">{{item.val}}</span>
+                            </div>
                             <span class="unit">{{item.unit ? item.unit : ''}}</span>
                         </div>
+                        <!--如果items是数组,例如多个PON口数据-->
                         <div ng-if="items.length" ng-repeat="portInfo in items" class="port">
                             <div ng-repeat="(key2,item) in portInfo" class="items">
                                 <div class="citem-title">{{reportLocal[key1][key2]}}</div>
-                                <div class="citem-content">{{item.val}}</div>
+                                <div class="citem-content">
+                                    <!--item.val不存在，说明是id，直接显示item;
+                                    item.text 存在，表示是枚举，text是转化后的显示值-->
+                                    <span ng-if="item.val === undefined">{{item}}</span>
+                                    <span ng-if="item.text">{{item.text}}</span>
+                                    <span ng-if="item.text === undefined">{{item.val}}</span>
+
+                                </div>
                                 <span class="unit">{{item.unit ? item.unit : ''}}</span>
                             </div>
                         </div>

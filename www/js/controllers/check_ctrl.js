@@ -1,5 +1,6 @@
 angular.module('starter.controllers')
-    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, $filter, $ionicPopup, Const, DB) {
+    .controller('CheckCtrl', function($scope, $state, $http, $stateParams, 
+        $filter, $ionicPopup, Const, DB, Report) {
 
         initPage();
 
@@ -196,7 +197,7 @@ angular.module('starter.controllers')
         }
 
         function saveToDB(res) {
-            var deviceInfo = {};
+            var deviceInfo = Report.getDeviceInfo();
             var ponPortStatus = $scope.ponInfos;
             var dataPortStatus = $scope.dataInfos;
             var voicePortStatus = $scope.voiceInfos;
@@ -210,13 +211,13 @@ angular.module('starter.controllers')
 
             var now = new Date();
             var datas = {
-                id: now.getTime(),
+                id: now.getTime() + '',
                 name: res.reportName,
                 date: $filter('date')(now, 'yyyy-MM-dd HH:mm:ss'),
-                status: res.resultStatus,
+                status: parseInt(res.resultStatus),
                 data: JSON.stringify(report),
                 conclusion: res.remark
-            }
+            };
             
             DB.insert(datas);
         }
