@@ -1,8 +1,7 @@
 'use strict';
 angular.module('starter.controllers')
     .controller('HistoryCtrl', function($scope, $state, $log, $ionicGesture, $ionicLoading,
-        $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker,
-        DB) {
+        $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker, DB) {
         //缓存所有报告记录
         var list = [];
         //查询条件对象
@@ -10,6 +9,7 @@ angular.module('starter.controllers')
 
         //ionic bug, $watch只能监视对象，prox用于挂载需要监视的属性
         $scope.prox = {};
+
 
         var today = dateUtils.getToday();
 
@@ -29,6 +29,7 @@ angular.module('starter.controllers')
 
         //下拉刷新数据
         $scope.doRefresh = function() {
+            queryAll();
             //关闭刷新
             $scope.$broadcast('scroll.refreshComplete');
         };
@@ -57,7 +58,7 @@ angular.module('starter.controllers')
                     condition.endDate = date;
                     $scope.endDate = date;
                 }
-                $scope.list = filterData();
+                setList(filterData());
             });
         };
 
@@ -90,25 +91,28 @@ angular.module('starter.controllers')
             }
             condition.startDate = sDate;
             condition.endDate = eDate;
-            $scope.list = filterData();
+            setList(filterData());
         }
 
         //过滤类型
         $scope.filterType = function(type) {
             $scope.type = type;
             condition.type = type;
-            $scope.list = filterData();
+            setList(filterData());
         }
 
         //过滤search内容
         $scope.$watch('prox.searchContent', function(newVal, oldval, scope) {
+            if (newVal === undefined) {
+                return
+            }
             if (newVal) {
                 condition.searchContent = newVal.trim();
             } else {
                 condition.searchContent = '';
             }
 
-            $scope.list = filterData();
+            setList(filterData());
         });
 
 
@@ -140,40 +144,55 @@ angular.module('starter.controllers')
         function initPage() {
             //初始化参数
             condition = {
-                startDate: today,
+                startDate: dateUtils.getSpeDate(-6),
                 endDate: today,
                 searchContent: '',
                 type: 0
             };
 
-            //日期范围默认选择“今天”
-            $scope.range = "1";
+            //日期范围默认选择“一周内”
+            $scope.range = "3";
             $scope.startDate = today;
-            $scope.searchContent = '';
             $scope.endDate = today;
+            $scope.searchContent = '';
             //报告类型默认选择“全部”
             $scope.type = 0;
 
-   //         DB.insert(datas());
+            //   DB.insert(datas()); 
 
             //查询所有报告记录
+            queryAll();
+        }
+
+
+        function queryAll() {
+            $scope.prox.loadding = true;
             DB.queryAll().then(function(res) {
                 var length = res.rows.length;
                 if (length > 0) {
                     for (var i = 0; i < length; i++) {
                         list.push(res.rows.item(i))
                     }
-                    $scope.list = filterData();
-                } else {
-                    $scope.list = [];
+
                 }
+                setList(filterData());
             }, function(err) {
                 console.error(err);
             })
         }
 
 
+        //设置数据
+        function setList(list) {
+            $scope.list = list;
+            //隐藏加载动画
+            $scope.prox.loadding = false;
+
+        }
+
+
         function filterData() {
+            $scope.prox.loadding = true;
             var result = [];
             angular.forEach(list, function(item, index) {
                 //截取年月日，不用管时分秒
@@ -209,9 +228,13 @@ angular.module('starter.controllers')
                 result.push(item);
             });
 
+
             return result;
         }
 
         initPage();
+
+
+
 
     });

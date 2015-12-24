@@ -21,7 +21,6 @@
                         {{local.date_range}}
                     </div>
                     <select ng-change="changeDate(range)" ng-model="range">
-                        <option value="0">{{local.date_select.all}}</option>
                         <option value="1">{{local.date_select.today}}</option>
                         <option value="2">{{local.date_select.twoDays}}</option>
                         <option value="3">{{local.date_select.week}}</option>
@@ -60,7 +59,7 @@
                     <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
                     <span class="name">{{item.name }}
                         <span ng-class="{'red': item.status !== 1}" ng-switch="item.status"> 
-                            <span ng-switch-when="1">#{{local.types.all}}#</span>
+                            <span ng-switch-when="1">#{{local.types.normal}}#</span>
                             <span ng-switch-when="2">#{{local.faults.pon}}#</span>
                             <span ng-switch-when="3">#{{local.faults.data}}#</span>
                             <span ng-switch-when="4">#{{local.faults.voice}}#</span>
@@ -70,7 +69,9 @@
                     <ion-option-button class="button-assertive">{{local.del}}</ion-option-button>
                 </ion-item>
             </ion-list>
+           <p class="loadding" ng-show="prox.loadding"><ion-spinner icon="dots" class="spinner-dark"></ion-spinner></p> 
         </div>
+        
     </ion-content>
     <div ng-show="shouldShowCheckbox" id="confirm">
         <div>

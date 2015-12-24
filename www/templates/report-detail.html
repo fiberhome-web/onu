@@ -37,14 +37,18 @@
             #content .citem {
                 font-size: 16px;
                 padding-left: 20px;
-                height: 50px;
                 line-height: 50px;
             }
             
             #content .rep-content .detail {
                 padding: 5px 10px;
             }
-            
+
+            #content .citem > .conclusion{
+            	padding-right: 10px;
+				line-height: 25px;
+            }
+         
             #content .detail .header {
                 padding-left: 10px;
                 height: 30px;
@@ -97,7 +101,7 @@
                     <div class="title">{{i10n.detailModule.conclusion}}：</div>
                     <div class="citem">
                         <span ng-class="{'red': report.status !== 1}" ng-switch="report.status"> 
-                            <span ng-switch-when="1">#{{i10n.historyModule.types.all}}#</span>
+                            <span ng-switch-when="1">#{{i10n.historyModule.types.normal}}#</span>
                         <span ng-switch-when="2">#{{i10n.historyModule.faults.pon}}#</span>
                         <span ng-switch-when="3">#{{i10n.historyModule.faults.data}}#</span>
                         <span ng-switch-when="4">#{{i10n.historyModule.faults.voice}}#</span>

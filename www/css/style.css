@@ -193,4 +193,14 @@
   border-bottom: 1px dotted rgba(136, 106, 234, 0.45);
   margin-bottom: 10px; }
 
+p.loadding {
+  text-align: center;
+  margin-top: 40%;
+  position: absoult;
+  z-index: 2; }
+
+p.loadding .spinner svg {
+  width: 100px;
+  height: 80px; }
+
 /*# sourceMappingURL=style.css.map */

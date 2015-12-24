@@ -38,12 +38,12 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
     }
 
     this.insert = function(datas) {
-        var query = "INSERT INTO fiber_onu (id , name, date, status, data) VALUES (?,?,?,?,?)";
+        var query = "INSERT INTO fiber_onu (id , name, date, status, data, conclusion) VALUES (?,?,?,?,?,?)";
         var id = parseInt(Math.random() * 1000000) + '';
         var now = $filter('date')(new Date('2015-11-30'), 'yyyy-MM-dd HH:mm:ss');
         //var arr = Array.prototype.slice.call(arguments);
         var status = parseInt(Math.random() * 3) + 1;
-        $cordovaSQLite.execute(db, query, [id, 'test111', now, status, datas]).then(success, error);
+        $cordovaSQLite.execute(db, query, [id, 'test111', now, status, datas, 'heheda']).then(success, error);
     }
 
     this.queryById = function(reportId) {

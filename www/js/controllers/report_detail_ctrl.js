@@ -13,7 +13,6 @@ angular.module('starter.controllers')
 
 
 		DB.queryById(id).then(function(res){
-			debugger;
 			var item = res.rows.item(0);
 			$scope.report = item;
 			$scope.detail = JSON.parse(item.data);
