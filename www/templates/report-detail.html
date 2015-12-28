@@ -115,7 +115,6 @@
                     <div class="title">{{i10n.detailModule.report}}：</div>
                     <div class="detail" ng-repeat="(key1,items) in detail">
                         <div class="header"> {{reportLocal[key1].module_name}}</div>
-
                         <!--如果items不是数组-->
                         <div ng-if="!items.length" ng-repeat="(key2,item) in items" class="items">
                             <div class="citem-title">{{reportLocal[key1][key2]}}</div>
@@ -136,7 +135,6 @@
                                     <span ng-if="item.val === undefined">{{item}}</span>
                                     <span ng-if="item.text">{{item.text}}</span>
                                     <span ng-if="item.text === undefined">{{item.val}}</span>
-
                                 </div>
                                 <span class="unit">{{item.unit ? item.unit : ''}}</span>
                             </div>
