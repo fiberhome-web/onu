@@ -1,5 +1,7 @@
+'use strict';
+
 angular.module('starter.controllers')
-    .controller('BasicCtrl', function($scope, $state, $http, Const, Report) {
+    .controller('BasicCtrl', ['$scope', '$state', '$http', 'Const', 'Report', function($scope, $state, $http, Const, Report) {
 
         $scope.checking = function() {
             $state.go('tab.check', {
@@ -20,7 +22,7 @@ angular.module('starter.controllers')
             if (res.ResultCode === CONST.R_CODE.SUCCESS) {
                 var data = res.data;
                 //检查数据是否存在返回ecode的，存在要转化成错误内容
-                angular.forEach(data, function(item, key) {
+                angular.forEach(data, function(item) {
                     if (item.ecode) {
                         item.text = item.ecode;
                     }
@@ -36,4 +38,4 @@ angular.module('starter.controllers')
             alert('data:' + data + '\n' + 'status:' + status + '\n');
         });
 
-    });
+    }]);

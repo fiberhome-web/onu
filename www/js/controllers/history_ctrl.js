@@ -1,7 +1,10 @@
 'use strict';
+
 angular.module('starter.controllers')
-    .controller('HistoryCtrl', function($scope, $state, $log, $ionicGesture, $ionicLoading,
-        $ionicActionSheet, $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker, DB) {
+    .controller('HistoryCtrl', ['$scope', '$state', '$log', '$ionicGesture', '$ionicLoading', 
+        '$ionicActionSheet', '$ionicListDelegate', '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB', 
+        function($scope, $state, $log, $ionicGesture, $ionicLoading, $ionicActionSheet, 
+            $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker, DB) {
         //缓存所有报告记录
         var list = [];
         //查询条件对象
@@ -238,4 +241,4 @@ angular.module('starter.controllers')
 
 
 
-    });
+    }]);

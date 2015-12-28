@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('starter.controllers')
     .controller('CheckCtrl', function($scope, $state, $http, $stateParams, 
         $filter, $ionicPopup, Const, DB, Report) {
@@ -27,22 +29,22 @@ angular.module('starter.controllers')
             generateReportBtnEVt: function() {
                 showPopup();
             }
-        }
+        };
 
         // “诊断”界面初始化
         function initPage() {
             // 生成报告默认值
             $scope.report = {
                 // 诊断结果默认“正常”
-                resultStatus: "1"
-            }
+                resultStatus: '1'
+            };
 
             // 各检测项排序字段
             $scope.order = {
                 pon: 'pon_port_id',
                 data: 'data_port_id',
                 voice: 'voice_port_id'
-            }
+            };
 
             // 光口诊断信息
             $scope.ponInfos = [];
@@ -68,7 +70,7 @@ angular.module('starter.controllers')
                     var data = response.data;
 
                     // 添加单位
-                    angular.forEach(data, function(item, key) {
+                    angular.forEach(data, function(item) {
                         item.temperature.unit = ONU_LOCAL.unit.temperature;
                         item.voltage.unit = ONU_LOCAL.unit.voltage;
                         item.bias_current.unit = ONU_LOCAL.unit.bias_current;
@@ -105,7 +107,7 @@ angular.module('starter.controllers')
                     var data = response.data;
 
                     //枚举转化
-                    angular.forEach(data, function(item, key) {
+                    angular.forEach(data, function(item) {
                         item.port_status.text = ONU_LOCAL.enums.data_port_status['k_' + item.port_status.val];
                         item.speed.text = ONU_LOCAL.enums.data_speed['k_' + item.speed.val];
                         item.duplex.text = ONU_LOCAL.enums.data_duplex['k_' + item.duplex.val];
@@ -140,7 +142,7 @@ angular.module('starter.controllers')
                     var data = response.data;
 
                     //枚举转化
-                    angular.forEach(data, function(item, key) {
+                    angular.forEach(data, function(item) {
                         item.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + item.protocol_type.val];
                         item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
                     });
