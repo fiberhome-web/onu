@@ -1,11 +1,10 @@
-
 var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
 //定义全局变量
 
 var global = {
-  //是否已经登陆
-  isLogin : false
+    //是否已经登陆
+    isLogin: false
 }
 
 var CONST = {
@@ -31,6 +30,10 @@ app.run(function($ionicPlatform) {
             StatusBar.styleLightContent();
         }
 
+    });
+
+    $ionicPlatform.registerBackButtonAction(function(e) {
+        alert('back');
     });
 
 })

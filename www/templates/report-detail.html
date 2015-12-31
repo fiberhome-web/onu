@@ -148,14 +148,11 @@
 <script id="my-popover.html" type="text/ng-template">
     <ion-popover-view id="SharePopover">
         <ion-list>
-            <ion-item>
+            <ion-item ng-click="share()">
                 <i class="ion ion-share"></i> <span>Share This</span>
             </ion-item>
-            <ion-item>
+            <ion-item ng-click="email()">
                 <i class="ion ion-email"></i> <span>Email  This</span>
-            </ion-item>
-            <ion-item>
-                <i class="ion ion-share"></i> <span>Email  This</span>
             </ion-item>
         </ion-list>
     </ion-popover-view>

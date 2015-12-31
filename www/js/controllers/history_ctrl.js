@@ -3,12 +3,15 @@
 angular.module('starter.controllers')
     .controller('HistoryCtrl', ['$scope', '$state', '$log', '$ionicGesture', '$ionicLoading', 
         '$ionicActionSheet', '$ionicListDelegate', '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB', 
+        '$cordovaToast',
         function($scope, $state, $log, $ionicGesture, $ionicLoading, $ionicActionSheet, 
-            $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker, DB) {
+            $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker, DB, $cordovaToast) {
         //缓存所有报告记录
         var list = [];
         //查询条件对象
         var condition = {};
+
+        $cordovaToast.showShortCenter('再按一次退出系统');
 
         //ionic bug, $watch只能监视对象，prox用于挂载需要监视的属性
         $scope.prox = {};
@@ -25,6 +28,14 @@ angular.module('starter.controllers')
             $rootScope.hideTabs = true;
         }
 
+
+        $scope.hideTabs = function(){
+            $rootScope.hideTabs = true;
+        };
+
+        $scope.showTabs = function(){
+            $rootScope.hideTabs = false;
+        };
 
         $scope.login = function() {
             $state.go('index');
@@ -53,7 +64,7 @@ angular.module('starter.controllers')
             };
 
             $cordovaDatePicker.show(dateOptions).then(function(date) {
-                var date = date.format('yyyy-MM-dd');
+                date = date.format('yyyy-MM-dd');
                 if (flag) {
                     condition.startDate = date;
                     $scope.startDate = date;
@@ -95,19 +106,19 @@ angular.module('starter.controllers')
             condition.startDate = sDate;
             condition.endDate = eDate;
             setList(filterData());
-        }
+        };
 
         //过滤类型
         $scope.filterType = function(type) {
             $scope.type = type;
             condition.type = type;
             setList(filterData());
-        }
+        };
 
         //过滤search内容
-        $scope.$watch('prox.searchContent', function(newVal, oldval, scope) {
+        $scope.$watch('prox.searchContent', function(newVal) {
             if (newVal === undefined) {
-                return
+                return;
             }
             if (newVal) {
                 condition.searchContent = newVal.trim();
@@ -126,22 +137,23 @@ angular.module('starter.controllers')
             $scope.modal = modal;
         });
         $scope.openModal = function() {
+            $scope.shouldShowCheckbox = true;
             $scope.modal.show();
+             //隐藏导航栏
+            $rootScope.hideTabs = true;
         };
 
         $scope.batchDelele = function(e) {
             e.stopPropagation();
             e.preventDefault();
             $scope.modal.hide();
-            //隐藏导航栏
-            $rootScope.hideTabs = true;
-            $scope.shouldShowCheckbox = true;
-        }
+           
+        };
 
         $scope.hideDelete = function() {
             $scope.shouldShowCheckbox = false;
             $rootScope.hideTabs = false;
-        }
+        };
 
 
         function initPage() {
@@ -154,7 +166,7 @@ angular.module('starter.controllers')
             };
 
             //日期范围默认选择“一周内”
-            $scope.range = "3";
+            $scope.range = '3';
             $scope.startDate = today;
             $scope.endDate = today;
             $scope.searchContent = '';
