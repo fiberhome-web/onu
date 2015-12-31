@@ -1,3 +1,4 @@
+'use strict';
 var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
 //定义全局变量
@@ -5,13 +6,13 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
 var global = {
     //是否已经登陆
     isLogin: false
-}
+};
 
 var CONST = {
     R_CODE: {
         SUCCESS: '0'
     }
-}
+};
 
 //使用mockjax替换ajax
 Mock.mockjax(app);

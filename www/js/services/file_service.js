@@ -80,8 +80,19 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
     };
 
     //移动报告文件到删除文件夹
-    this.moveFile = function(fileName) {
-        $cordovaFile.moveFile(fileSystem, _reportDir + fileName + fileType, fileSystem, _deleteDir + fileName + fileType).then(success, error);
+    this.deleteFile = function(fileName) {
+        //文件完整路径
+        var orgFileName = _reportDir + fileName + fileType;
+        //检查文件是否存在，存在则移动到删除文件夹
+        this.checkFile(fileName).then(function(){
+            $cordovaFile.moveFile(fileSystem, orgFileName, fileSystem, _deleteDir + fileName + fileType).then(success, error);
+        },function(info){
+            //code 为1 表示找不到文件，不用处理
+            if(info.code !== 1) {
+                error(info);
+            }
+        });
+        
     };
 
     //删除文件夹及里面的所有文件

@@ -66,7 +66,7 @@
                         </span>
                     </span>
                     <span class="date">{{item.date}}</span>
-                    <ion-option-button class="button-assertive">{{local.del}}</ion-option-button>
+                    <ion-option-button class="button-assertive" ng-click="deleteReport(item)">{{local.del}}</ion-option-button>
                 </ion-item>
             </ion-list>
            <p class="loadding" ng-show="prox.loadding"><ion-spinner icon="dots" class="spinner-dark"></ion-spinner></p> 
@@ -84,6 +84,7 @@
         </div>
     </div>
 </ion-view>
+
 <script id="my-modal.html" type="text/ng-template">
     <ion-modal-view id="history-operrator">
         <ion-content scroll="false">
