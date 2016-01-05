@@ -49,8 +49,22 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
     };
 
     this.deleteByIds = function(ids) {
-        query = 'delete from fiber_onu where id in(?)';
-        $cordovaSQLite.execute(db, query,[ids]).then(success, error);
+        var idPlaceHolder = '';
+        //如果是id数组
+        if (ids instanceof Array) {
+            for (var i = 0; i < ids.length; i++) {
+                ids[i] =  "\'" + ids[i] + "\'";
+            }
+            idPlaceHolder = ids.join(',');
+        } else if (typeof ids === 'string') { //如果是单个id
+            idPlaceHolder = "\'" + ids + "\'";
+        } else {
+            console.error('param type dose not support');
+            return;
+        }
+
+        query = 'delete from fiber_onu where id in(' + idPlaceHolder + ')';
+        $cordovaSQLite.execute(db, query).then(success, error);
     };
 
 

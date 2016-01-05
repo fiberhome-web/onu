@@ -43,9 +43,9 @@ app.run(function($ionicPlatform) {
     //设置全屏显示
     ionic.Platform.fullScreen(false);
     //配置整个平台的ionic view缓存
-    $ionicConfigProvider.views.maxCache(5);
+    $ionicConfigProvider.views.maxCache(0);
     //配置android平台的缓存
-    $ionicConfigProvider.platform.android.views.maxCache(5);
+    $ionicConfigProvider.platform.android.views.maxCache(0);
     //设置返回按钮的文字和图标
     $ionicConfigProvider.backButton.text('Go Back').icon('ion-chevron-left');
     //配置tabs统一显示在下部

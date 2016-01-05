@@ -3,10 +3,10 @@
 angular.module('starter.controllers')
     .controller('HistoryCtrl', ['$scope', '$state', '$log', '$ionicGesture', '$ionicLoading',
         '$ionicActionSheet', '$ionicListDelegate', '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB',
-        '$cordovaToast', 'File',
+        '$cordovaToast', 'File', '$ionicBackdrop',
         function($scope, $state, $log, $ionicGesture, $ionicLoading, $ionicActionSheet,
             $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker, DB, $cordovaToast,
-            File) {
+            File, $ionicBackdrop) {
             //缓存所有报告记录
             var list = [];
             //查询条件对象
@@ -134,44 +134,47 @@ angular.module('starter.controllers')
             //“选择”窗口初始化
             $ionicModal.fromTemplateUrl('my-modal.html', {
                 scope: $scope,
-                animation: 'slide-in-up'
+                animation: 'slide-in-up',
+                backdropClickToClose: false
             }).then(function(modal) {
                 $scope.modal = modal;
             });
 
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+
             //打开“选择”窗口
             $scope.openModal = function() {
-                $scope.shouldShowCheckbox = true;
+                $ionicBackdrop.release();
                 $scope.modal.show();
                 //隐藏导航栏
                 $rootScope.hideTabs = true;
+                $scope.shouldShowCheckbox = true;
             };
 
             //批量删除操作
-            $scope.batchDelele = function(e) {
+            $scope.batchDelele = function() {
                 //防止冒泡，在点击“批量删除”的时候按倒下面的报告选项
                 // e.stopPropagation();
                 // e.preventDefault();
                 var checkItems = $scope.checkboxs;
                 var delIds = [];
                 for (var i = 0; i < list.length; i++) {
-                    if (checkItems[i]) {
-                        var id = list[i].id;
-                        var name = list[i].name;
+                    var id = list[i].id;
+                    var name = list[i].name;
+                    if (checkItems[id]) {
+
                         //把要删除的报告移动到删除文件夹
                         File.deleteFile(name);
                         delIds.push(id);
                     }
                 }
                 //从数据库删除报告数据
-                if (delIds.lenght > 0) {
-                    delIds.join(',');
-                    DB.deleteByIds(delIds);
-                }
-                $scope.modal.hide();
-                $rootScope.hideTabs = true;
-
+                DB.deleteByIds(delIds);
+                $scope.cancel();
                 queryAll();
+                
             };
 
             //单个删除
@@ -181,13 +184,17 @@ angular.module('starter.controllers')
                 DB.deleteByIds(id);
                 File.deleteFile(name);
                 queryAll();
+                $scope.cancel();
             };
 
             //“取消”操作
-            $scope.hideDelete = function() {
-
+            $scope.cancel = function() {
+                //隐藏model框
+                $scope.modal.hide();
+                //隐藏checkbox
                 $scope.shouldShowCheckbox = false;
-                $rootScope.hideTabs = true;
+                //显示导航
+                $rootScope.hideTabs = false;
             };
 
 
