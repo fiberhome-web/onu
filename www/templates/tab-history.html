@@ -5,10 +5,7 @@
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon" ng-click="login()">{{local.login}}</button>
     </ion-nav-buttons>
-
-    <ion-content id="historyTab">
-        <ion-refresher on-refresh="doRefresh()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-b">
-        </ion-refresher>
+    <ion-content id="historyTab" scroll="false">
         <div class="query-cond">
             <div class="bar bar-header item-input-inset no-border-bottom">
                 <label class="item-input-wrapper">
@@ -49,31 +46,35 @@
                 </label>
             </div>
         </div>
-        <div class="list">
-            <div class="button-bar">
-                <a class="button button-light" ng-class="{ 'button\-positive': type === 0 }" ng-click="filterType(0)">{{local.types.all}}</a>
-                <a class="button button-light" ng-class="{ 'button\-positive': type === 1 }" ng-click="filterType(1)">{{local.types.normal}}</a>
-                <a class="button button-light" ng-class="{ 'button\-positive': type === 2 }" ng-click="filterType(2)">{{local.types.abnormal}}</a>
-            </div>
-            <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
-                <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
-                    <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
-                    <span class="name">{{item.name }}
+        <div class="button-bar">
+            <a class="button button-light" ng-class="{ 'button\-positive': type === 0 }" ng-click="filterType(0)">{{local.types.all}}</a>
+            <a class="button button-light" ng-class="{ 'button\-positive': type === 1 }" ng-click="filterType(1)">{{local.types.normal}}</a>
+            <a class="button button-light" ng-class="{ 'button\-positive': type === 2 }" ng-click="filterType(2)">{{local.types.abnormal}}</a>
+        </div>
+        <ion-scroll style="height:80%">
+            <ion-refresher on-refresh="doRefresh()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-b">
+            </ion-refresher>
+            <div class="list">
+                <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
+                    <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
+                        <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
+                        <span class="name">{{item.name }}
                         <span ng-class="{'red': item.status !== 1}" ng-switch="item.status"> 
                             <span ng-switch-when="1">#{{local.types.normal}}#</span>
-                    <span ng-switch-when="2">#{{local.faults.pon}}#</span>
-                    <span ng-switch-when="3">#{{local.faults.data}}#</span>
-                    <span ng-switch-when="4">#{{local.faults.voice}}#</span>
-                    </span>
-                    </span>
-                    <span class="date">{{item.date}}</span>
-                    <ion-option-button class="button-assertive" ng-click="deleteReport(item)">{{local.del}}</ion-option-button>
-                </ion-item>
-            </ion-list>
-            <p class="loadding" ng-show="prox.loadding">
-                <ion-spinner icon="dots" class="spinner-dark"></ion-spinner>
-            </p>
-        </div>
+                        <span ng-switch-when="2">#{{local.faults.pon}}#</span>
+                        <span ng-switch-when="3">#{{local.faults.data}}#</span>
+                        <span ng-switch-when="4">#{{local.faults.voice}}#</span>
+                        </span>
+                        </span>
+                        <span class="date">{{item.date}}</span>
+                        <ion-option-button class="button-assertive" ng-click="deleteReport(item)">{{local.del}}</ion-option-button>
+                    </ion-item>
+                </ion-list>
+                <p class="loadding" ng-show="prox.loadding">
+                    <ion-spinner icon="dots" class="spinner-dark"></ion-spinner>
+                </p>
+            </div>
+        </ion-scroll>
     </ion-content>
     <div style="display:none;" id="confirm">
         <div>
@@ -95,7 +96,7 @@
                     <div class="explain">{{local.del_batch}}</div>
                 </div>
             </div>
-            <div class="cancle" ng-click="cancel()">
+            <div class="cancle" ng-click="cancel($event)">
                 {{local.cancel}}
             </div>
         </ion-content>

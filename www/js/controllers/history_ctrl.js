@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('HistoryCtrl', ['$scope', '$state', '$log', '$ionicGesture', '$ionicLoading',
-        '$ionicActionSheet', '$ionicListDelegate', '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB',
-        '$cordovaToast', 'File', '$ionicBackdrop',
-        function($scope, $state, $log, $ionicGesture, $ionicLoading, $ionicActionSheet,
-            $ionicListDelegate, $ionicModal, $rootScope, $cordovaDatePicker, DB, $cordovaToast,
-            File, $ionicBackdrop) {
+    .controller('HistoryCtrl', ['$scope', '$state', '$log',  '$ionicLoading',
+         '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB',
+        '$cordovaToast', 'File', 
+        function($scope, $state, $log, $ionicLoading, $ionicModal,$rootScope, 
+            $cordovaDatePicker, DB, $cordovaToast,File) {
             //缓存所有报告记录
             var list = [];
             //查询条件对象
@@ -146,18 +145,17 @@ angular.module('starter.controllers')
 
             //打开“选择”窗口
             $scope.openModal = function() {
-                $ionicBackdrop.release();
-                $scope.modal.show();
                 //隐藏导航栏
                 $rootScope.hideTabs = true;
+                $scope.modal.show();
                 $scope.shouldShowCheckbox = true;
             };
 
             //批量删除操作
-            $scope.batchDelele = function() {
-                //防止冒泡，在点击“批量删除”的时候按倒下面的报告选项
-                // e.stopPropagation();
-                // e.preventDefault();
+            $scope.batchDelele = function(e) {
+                //防止冒泡
+                e.stopPropagation();
+                e.preventDefault();
                 var checkItems = $scope.checkboxs;
                 var delIds = [];
                 for (var i = 0; i < list.length; i++) {
@@ -188,7 +186,10 @@ angular.module('starter.controllers')
             };
 
             //“取消”操作
-            $scope.cancel = function() {
+            $scope.cancel = function(e) {
+                //防止冒泡
+                e.stopPropagation();
+                e.preventDefault();
                 //隐藏model框
                 $scope.modal.hide();
                 //隐藏checkbox
