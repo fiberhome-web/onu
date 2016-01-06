@@ -132,19 +132,6 @@ angular.module('starter.controllers')
             });
 
 
-            //“选择”窗口初始化
-            $ionicModal.fromTemplateUrl('my-modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up',
-                backdropClickToClose: false
-            }).then(function(modal) {
-                $scope.modal = modal;
-            });
-
-            $scope.$on('$destroy', function() {
-                $scope.modal.remove();
-            });
-
             //打开“选择”窗口
             $scope.opera = function() {
                 //如果是待选择
@@ -178,9 +165,9 @@ angular.module('starter.controllers')
                 });
 
                 if (ckcekOne) {
-                    $scope.modal.show();
+                    $scope.showModel = true;
                 } else {
-                    $scope.modal.hide();
+                    $scope.showModel = false;
                 }
             }, true);
 
@@ -222,7 +209,7 @@ angular.module('starter.controllers')
             //“取消”操作
             function cancel() {
                 //隐藏model框
-                $scope.modal.hide();
+                $scope.showModel = false;
                 //隐藏checkbox
                 $scope.shouldShowCheckbox = false;
                 //显示导航
@@ -282,6 +269,12 @@ angular.module('starter.controllers')
 
             //设置数据
             function setList(list) {
+                //如果此时是操作状态，则要关闭操作窗口
+                if (!operator) {
+                    $scope.opera();
+                }
+
+                cancel();
                 $scope.list = list;
                 //隐藏加载动画
                 $scope.prox.loadding = false;
@@ -325,7 +318,6 @@ angular.module('starter.controllers')
 
                     result.push(item);
                 });
-
 
                 return result;
             }

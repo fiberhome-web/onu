@@ -42,10 +42,6 @@
 	padding-left : 5px;
 }
 */
-#historyTab {
-  top: 25px;
-  bottom: 90px; }
-
 #historyTab ion-item:first-child {
   border-top: none; }
 
@@ -102,13 +98,12 @@
 #history-operrator {
   width: 100%;
   position: fixed;
-  bottom: 0;
+  bottom: -100px;
   left: 0;
   height: 100px;
-  min-height: 100px;
   right: 0;
-  top: auto;
-  background-color: #f7f7f7; }
+  background-color: #f7f7f7;
+  -webkit-transition: all .25s ease-in-out; }
 
 #history-operrator .icon {
   text-align: center;
@@ -121,7 +116,7 @@
   border-radius: 80px;
   padding-top: 10px;
   display: inline-block;
-  margin: 12px 25px; }
+  margin: 10px 25px; }
 
 #history-operrator .icon .circle .explain {
   font-size: 0.8em;
@@ -129,6 +124,9 @@
 
 #history-operrator .icon i {
   font-size: 3em; }
+
+.show_ani {
+  -webkit-transform: translateY(-100%); }
 
 #confirm {
   position: fixed;
@@ -152,9 +150,6 @@
 
 .reportPopup > .popup {
   width: 400px; }
-
-.tab-outline {
-  border: 1px solid #ccc; }
 
 #historyTab .date-content {
   flex: 1;

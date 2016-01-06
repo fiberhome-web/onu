@@ -86,16 +86,14 @@
             </button>
         </div>
     </div>
-</ion-view>
-<script id="my-modal.html" type="text/ng-template">
-    <ion-modal-view id="history-operrator">
-        <ion-content scroll="false">
-            <div class="icon">
-                <div class="circle" ng-click="batchDelele($event)">
-                    <i class="ion-ios-trash-outline"></i>
-                    <div class="explain">{{local.del_batch}}</div>
-                </div>
+
+   <div id="history-operrator"  ng-class="{'show_ani':showModel}">
+        <div class="icon">
+            <div class="circle" ng-click="batchDelele($event)">
+                <i class="ion-ios-trash-outline"></i>
+                <div class="explain">{{local.del_batch}}</div>
             </div>
-        </ion-content>
-    </ion-modal-view>
-</script>
+        </div>
+    </div>
+</ion-view>
+  
