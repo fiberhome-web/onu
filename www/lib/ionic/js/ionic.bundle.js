@@ -56336,13 +56336,14 @@ IonicModule
 
         //get parent scope model name
         var parentModelName = $element.parent().parent().parent().parent().attr('checkbox-model');
-        var pScope = $scope.$parent.$parent.$parent;
  
         var id = $attr.itemId;
-        pScope[parentModelName][id] = false;
+        $scope[parentModelName][id + ''] = false;
 
         container.on('click', function(e){ 
-          pScope[parentModelName][id] = e.target.checked;
+          $scope.$apply(function() {  
+            $scope[parentModelName][id + ''] = e.target.checked;
+          });  
         });
        
 
@@ -56768,13 +56769,13 @@ function($timeout) {
             });
           }
           if (isDefined($attr.showCheckbox)) {
-            //初始化checkboxModel
-            var checkModel = $scope.$parent;
-            checkModel[$attr.checkboxModel] = {};
             $scope.$watch('!!(' + $attr.showCheckbox + ')', function(value) {
               //当checkbox隐藏的时候，清空checkboxModel的值
               if(!value){
-                checkModel[$attr.checkboxModel] = {};
+                var model = $scope[$attr.checkboxModel];
+                angular.forEach(model,function(val,key){
+                  model[key] = false;
+                });
               }
               listCtrl.showCheckbox(value);
             });

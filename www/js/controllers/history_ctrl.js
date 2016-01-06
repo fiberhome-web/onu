@@ -1,15 +1,17 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('HistoryCtrl', ['$scope', '$state', '$log',  '$ionicLoading',
-         '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB',
-        '$cordovaToast', 'File', 
-        function($scope, $state, $log, $ionicLoading, $ionicModal,$rootScope, 
-            $cordovaDatePicker, DB, $cordovaToast,File) {
+    .controller('HistoryCtrl', ['$scope', '$state', '$log', '$ionicLoading',
+        '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB',
+        '$cordovaToast', 'File',
+        function($scope, $state, $log, $ionicLoading, $ionicModal, $rootScope,
+            $cordovaDatePicker, DB, $cordovaToast, File) {
             //缓存所有报告记录
             var list = [];
             //查询条件对象
             var condition = {};
+            //操作状态 true表示当前是待选择 false是待取消
+            var operator = true;
 
             $cordovaToast.showShortCenter('再按一次退出系统');
 
@@ -144,12 +146,44 @@ angular.module('starter.controllers')
             });
 
             //打开“选择”窗口
-            $scope.openModal = function() {
-                //隐藏导航栏
-                $rootScope.hideTabs = true;
-                $scope.modal.show();
-                $scope.shouldShowCheckbox = true;
+            $scope.opera = function() {
+                //如果是待选择
+                if (operator) {
+                    //显示checkbox
+                    $scope.shouldShowCheckbox = true;
+                    $scope.operation = ONU_LOCAL.historyModule.cancel;
+                    //隐藏导航
+                    $rootScope.hideTabs = true;
+                } else {
+                    $scope.operation = ONU_LOCAL.historyModule.choose;
+                    cancel();
+                }
+
+                operator = !operator;
+
+                // var delModelHeight = document.getElementById('history-operrator').offsetHeight;
+                // var tabHeight = document.getElementsByClassName('tab-nav tabs')[0].offsetHeight;
+                // var contentHeight = document.getElementById('historyTab').offsetHeight;
+                // $scope.scrollHeight = {height:'65%'};
             };
+
+            //当有一个checkbox选中时，显示操作框
+            $scope.$watch('checkboxs', function(ckModels) {
+                var ckcekOne = false;
+                angular.forEach(ckModels, function(val) {
+                    if (val) {
+                        ckcekOne = true;
+                        return false;
+                    }
+                });
+
+                if (ckcekOne) {
+                    $scope.modal.show();
+                } else {
+                    $scope.modal.hide();
+                }
+            }, true);
+
 
             //批量删除操作
             $scope.batchDelele = function(e) {
@@ -170,9 +204,9 @@ angular.module('starter.controllers')
                 }
                 //从数据库删除报告数据
                 DB.deleteByIds(delIds);
-                $scope.cancel();
                 queryAll();
-                
+                $scope.opera();
+
             };
 
             //单个删除
@@ -182,24 +216,25 @@ angular.module('starter.controllers')
                 DB.deleteByIds(id);
                 File.deleteFile(name);
                 queryAll();
-                $scope.cancel();
+                cancel();
             };
 
             //“取消”操作
-            $scope.cancel = function(e) {
-                //防止冒泡
-                e.stopPropagation();
-                e.preventDefault();
+            function cancel() {
                 //隐藏model框
                 $scope.modal.hide();
                 //隐藏checkbox
                 $scope.shouldShowCheckbox = false;
                 //显示导航
                 $rootScope.hideTabs = false;
-            };
+            }
 
 
             function initPage() {
+                $scope.operation = ONU_LOCAL.historyModule.choose;
+
+                //初始化checkbox模型
+                $scope.checkboxs = {};
                 //初始化参数
                 condition = {
                     startDate: dateUtils.getSpeDate(-6),
@@ -217,6 +252,10 @@ angular.module('starter.controllers')
                 $scope.type = 0;
 
                 //   DB.insert(datas()); 
+
+                $scope.scrollHeight = {
+                    height: '80%'
+                };
 
                 //查询所有报告记录
                 queryAll();
@@ -253,7 +292,7 @@ angular.module('starter.controllers')
             function filterData() {
                 $scope.prox.loadding = true;
                 var result = [];
-                angular.forEach(list, function(item, index) {
+                angular.forEach(list, function(item) {
                     //截取年月日，不用管时分秒
                     var date = item.date.substr(0, 10);
                     //过滤日期

@@ -31,6 +31,9 @@ app.run(function($ionicPlatform) {
             StatusBar.styleLightContent();
         }
 
+        //禁止横屏
+        screen.lockOrientation('portrait');
+
     });
 
     $ionicPlatform.registerBackButtonAction(function(e) {

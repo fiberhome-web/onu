@@ -13,4 +13,5 @@ cordova plugin add https://github.com/driftyco/ionic-plugins-keyboard.git
 cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
 cordova plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git
 cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
+cordova plugin add cordova-plugin-screen-orientation
 ionic plugin add cordova-plugin-whitelist

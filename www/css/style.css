@@ -104,17 +104,15 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 170px;
-  min-height: 170px;
+  height: 100px;
+  min-height: 100px;
   right: 0;
   top: auto;
   background-color: #f7f7f7; }
 
 #history-operrator .icon {
   text-align: center;
-  height: 120px;
-  width: 100%;
-  border-bottom: 1px solid #ccc; }
+  width: 100%; }
 
 #history-operrator .icon .circle {
   border: 1px solid #ccc;
@@ -123,7 +121,7 @@
   border-radius: 80px;
   padding-top: 10px;
   display: inline-block;
-  margin: 20px 25px; }
+  margin: 12px 25px; }
 
 #history-operrator .icon .circle .explain {
   font-size: 0.8em;
@@ -131,13 +129,6 @@
 
 #history-operrator .icon i {
   font-size: 3em; }
-
-#history-operrator .cancle {
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  font-size: 1.2em;
-  font-weight: bold; }
 
 #confirm {
   position: fixed;

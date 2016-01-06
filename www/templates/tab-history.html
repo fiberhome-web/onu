@@ -1,6 +1,6 @@
 <ion-view view-title="Dashboard" hide-back-button="true">
     <ion-nav-buttons side="right">
-        <button menu-toggle="left" class="button button-icon icon ion-more" ng-click="openModal()"></button>
+        <button menu-toggle="left" class="button button-icon icon" ng-click="opera()">{{operation}}</button>
     </ion-nav-buttons>
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon" ng-click="login()">{{local.login}}</button>
@@ -51,13 +51,13 @@
             <a class="button button-light" ng-class="{ 'button\-positive': type === 1 }" ng-click="filterType(1)">{{local.types.normal}}</a>
             <a class="button button-light" ng-class="{ 'button\-positive': type === 2 }" ng-click="filterType(2)">{{local.types.abnormal}}</a>
         </div>
-        <ion-scroll style="height:80%">
+        <ion-scroll ng-style="scrollHeight">
             <ion-refresher on-refresh="doRefresh()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-b">
             </ion-refresher>
             <div class="list">
                 <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
                     <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
-                        <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
+                        <ion-checkbox-button item-id="{{item.id}}" ></ion-checkbox-button>
                         <span class="name">{{item.name }}
                         <span ng-class="{'red': item.status !== 1}" ng-switch="item.status"> 
                             <span ng-switch-when="1">#{{local.types.normal}}#</span>
@@ -95,9 +95,6 @@
                     <i class="ion-ios-trash-outline"></i>
                     <div class="explain">{{local.del_batch}}</div>
                 </div>
-            </div>
-            <div class="cancle" ng-click="cancel($event)">
-                {{local.cancel}}
             </div>
         </ion-content>
     </ion-modal-view>

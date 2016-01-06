@@ -57,6 +57,7 @@ var ONU_LOCAL = {
         del_batch : '批量删除',
         del_sure : '确认删除',
         cancel : '取消',
+        choose : '选择',
         start_date: '开始日期',
         end_date: '结束日期',
         date_range: '日期范围',
