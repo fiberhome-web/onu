@@ -133,7 +133,7 @@ angular.module('starter.controllers')
 
 
             //打开“选择”窗口
-            $scope.opera = function() {
+            $scope.opera = function(e) {
                 //如果是待选择
                 if (operator) {
                     //显示checkbox
@@ -241,7 +241,7 @@ angular.module('starter.controllers')
                 //   DB.insert(datas()); 
 
                 $scope.scrollHeight = {
-                    height: '80%'
+                    height: '70%'
                 };
 
                 //查询所有报告记录
@@ -273,8 +273,6 @@ angular.module('starter.controllers')
                 if (!operator) {
                     $scope.opera();
                 }
-
-                cancel();
                 $scope.list = list;
                 //隐藏加载动画
                 $scope.prox.loadding = false;

@@ -1,55 +1,57 @@
 <ion-view view-title="Dashboard" hide-back-button="true">
     <ion-nav-buttons side="right">
-        <button menu-toggle="left" class="button button-icon icon" ng-click="opera()">{{operation}}</button>
+        <button menu-toggle="left" class="button button-icon icon" ng-click="opera($event)">{{operation}}</button>
     </ion-nav-buttons>
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon" ng-click="login()">{{local.login}}</button>
     </ion-nav-buttons>
     <ion-content id="historyTab" scroll="false">
-        <div class="query-cond">
-            <div class="bar bar-header item-input-inset no-border-bottom">
-                <label class="item-input-wrapper">
-                    <i class="icon ion-ios-search placeholder-icon"></i>
-                    <input type="search" placeholder="Search" ng-model="prox.searchContent">
-                </label>
+        <div id="fixedArea">
+            <div class="query-cond">
+                <div class="bar bar-header item-input-inset no-border-bottom">
+                    <label class="item-input-wrapper">
+                        <i class="icon ion-ios-search placeholder-icon"></i>
+                        <input type="search" placeholder="Search" ng-model="prox.searchContent">
+                    </label>
+                </div>
+                <div class="list">
+                    <label class="item item-input item-select no-border">
+                        <div class="input-label">
+                            {{local.date_range}}
+                        </div>
+                        <select ng-change="changeDate(range)" ng-model="range">
+                            <option value="1">{{local.date_select.today}}</option>
+                            <option value="2">{{local.date_select.twoDays}}</option>
+                            <option value="3">{{local.date_select.week}}</option>
+                            <option value="4">{{local.date_select.month}}</option>
+                            <option value="-1">{{local.date_select.customized}}</option>
+                        </select>
+                    </label>
+                    <label class="item item-input no-border" ng-click="chooseDate(true)" ng-show="range === '-1'">
+                        <div class="input-label">
+                            {{local.start_date}}
+                        </div>
+                        <div class="date-content">
+                            <span>{{startDate}}</span>
+                            <i class="ionc ion-android-calendar"></i>
+                        </div>
+                    </label>
+                    <label class="item item-input no-border" ng-click="chooseDate(false)" ng-show="range === '-1'">
+                        <div class="input-label">
+                            {{local.end_date}}
+                        </div>
+                        <div class="date-content">
+                            <span>{{endDate}}</span>
+                            <i class="ionc ion-android-calendar"></i>
+                        </div>
+                    </label>
+                </div>
             </div>
-            <div class="list">
-                <label class="item item-input item-select no-border">
-                    <div class="input-label">
-                        {{local.date_range}}
-                    </div>
-                    <select ng-change="changeDate(range)" ng-model="range">
-                        <option value="1">{{local.date_select.today}}</option>
-                        <option value="2">{{local.date_select.twoDays}}</option>
-                        <option value="3">{{local.date_select.week}}</option>
-                        <option value="4">{{local.date_select.month}}</option>
-                        <option value="-1">{{local.date_select.customized}}</option>
-                    </select>
-                </label>
-                <label class="item item-input no-border" ng-click="chooseDate(true)" ng-show="range === '-1'">
-                    <div class="input-label">
-                        {{local.start_date}}
-                    </div>
-                    <div class="date-content">
-                        <span>{{startDate}}</span>
-                        <i class="ionc ion-android-calendar"></i>
-                    </div>
-                </label>
-                <label class="item item-input no-border" ng-click="chooseDate(false)" ng-show="range === '-1'">
-                    <div class="input-label">
-                        {{local.end_date}}
-                    </div>
-                    <div class="date-content">
-                        <span>{{endDate}}</span>
-                        <i class="ionc ion-android-calendar"></i>
-                    </div>
-                </label>
+            <div class="button-bar">
+                <a class="button button-light" ng-class="{ 'button\-positive': type === 0 }" ng-click="filterType(0)">{{local.types.all}}</a>
+                <a class="button button-light" ng-class="{ 'button\-positive': type === 1 }" ng-click="filterType(1)">{{local.types.normal}}</a>
+                <a class="button button-light" ng-class="{ 'button\-positive': type === 2 }" ng-click="filterType(2)">{{local.types.abnormal}}</a>
             </div>
-        </div>
-        <div class="button-bar">
-            <a class="button button-light" ng-class="{ 'button\-positive': type === 0 }" ng-click="filterType(0)">{{local.types.all}}</a>
-            <a class="button button-light" ng-class="{ 'button\-positive': type === 1 }" ng-click="filterType(1)">{{local.types.normal}}</a>
-            <a class="button button-light" ng-class="{ 'button\-positive': type === 2 }" ng-click="filterType(2)">{{local.types.abnormal}}</a>
         </div>
         <ion-scroll ng-style="scrollHeight">
             <ion-refresher on-refresh="doRefresh()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-b">
@@ -57,7 +59,7 @@
             <div class="list">
                 <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
                     <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
-                        <ion-checkbox-button item-id="{{item.id}}" ></ion-checkbox-button>
+                        <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
                         <span class="name">{{item.name }}
                         <span ng-class="{'red': item.status !== 1}" ng-switch="item.status"> 
                             <span ng-switch-when="1">#{{local.types.normal}}#</span>
@@ -86,8 +88,7 @@
             </button>
         </div>
     </div>
-
-   <div id="history-operrator"  ng-class="{'show_ani':showModel}">
+    <div id="history-operrator" ng-class="{'show_ani':showModel}">
         <div class="icon">
             <div class="circle" ng-click="batchDelele($event)">
                 <i class="ion-ios-trash-outline"></i>
@@ -96,4 +97,3 @@
         </div>
     </div>
 </ion-view>
-  
