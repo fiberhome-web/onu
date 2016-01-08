@@ -55,11 +55,11 @@ angular.module('starter.controllers')
 
 
         $scope.share = function() {
-            $cordovaSocialSharing.share('', 'onu 检测报告', filePath).then(function(){
-				//发送结束后关闭popover框
+            $cordovaSocialSharing.share('', 'onu 检测报告', filePath).then(function() {
+                //发送结束后关闭popover框
                 $scope.popover.hide();
             }, function() {
-            	//发送结束后关闭popover框
+                //发送结束后关闭popover框
                 $scope.popover.hide();
             });
         };
@@ -79,11 +79,19 @@ angular.module('starter.controllers')
             };
 
             $cordovaEmailComposer.open(emailOption).then(null, function() {
-            	//发送结束后关闭popover框
+                //发送结束后关闭popover框
                 $scope.popover.hide();
             });
         };
 
 
+        $scope.onSwipeRight = function() {
+            $ionicHistory.goBack();
+        };
+
+
+        $scope.onHold = function() {
+            alert('onHold');
+        };
 
     });

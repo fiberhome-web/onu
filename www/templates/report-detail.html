@@ -12,7 +12,7 @@
         <button menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="openPopover($event)"></button>
     </ion-nav-buttons>
     <ion-content class="padding">
-        <div id="report">
+        <div id="report" on-swipe-right="onSwipeRight()" on-hold="onHold()">
             <style type="text/css">
             #content {
                 font-family: 'Microsoft Yahei';

@@ -2,18 +2,15 @@
 
 angular.module('starter.controllers')
     .controller('HistoryCtrl', ['$scope', '$state', '$log', '$ionicLoading',
-        '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB',
-        '$cordovaToast', 'File',
+        '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB', 'File',
         function($scope, $state, $log, $ionicLoading, $ionicModal, $rootScope,
-            $cordovaDatePicker, DB, $cordovaToast, File) {
+            $cordovaDatePicker, DB, File) {
             //缓存所有报告记录
             var list = [];
             //查询条件对象
             var condition = {};
             //操作状态 true表示当前是待选择 false是待取消
             var operator = true;
-
-            $cordovaToast.showShortCenter('再按一次退出系统');
 
             //ionic bug, $watch只能监视对象，prox用于挂载需要监视的属性
             $scope.prox = {};

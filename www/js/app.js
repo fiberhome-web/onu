@@ -17,7 +17,7 @@ var CONST = {
 //使用mockjax替换ajax
 Mock.mockjax(app);
 
-app.run(function($ionicPlatform, $ionicPopup) {
+app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory) {
 
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -39,40 +39,33 @@ app.run(function($ionicPlatform, $ionicPopup) {
     //主页面显示退出提示框  
     $ionicPlatform.registerBackButtonAction(function(e) {
 
-        e.preventDefault();
-
-        function showConfirm() {
-            var confirmPopup = $ionicPopup.confirm({
-                title: '<strong>退出应用?</strong>',
-                template: '你确定要退出应用吗?',
-                okText: '退出',
-                cancelText: '取消'
-            });
-
-            confirmPopup.then(function(res) {
-                if (res) {
-                    ionic.Platform.exitApp();
-                } else {
-                    // Don't close  
-                }
-            });
+        //判断处于哪个页面时双击退出
+        if ($location.path() === '/tab/basic') {
+            if ($rootScope.backButtonPressedOnceToExit) {
+                ionic.Platform.exitApp();
+            } else {
+                $rootScope.backButtonPressedOnceToExit = true;
+                $cordovaToast.showShortCenter('再按一次退出系统');
+                setTimeout(function() {
+                    $rootScope.backButtonPressedOnceToExit = false;
+                }, 2000);
+            }
+        } else if ($ionicHistory.backView()) {
+            $ionicHistory.goBack();
+            $rootScope.hideTabs = false;
+        } else {
+            $rootScope.backButtonPressedOnceToExit = true;
+            $cordovaToast.showShortCenter('再按一次退出系统');
+            setTimeout(function() {
+                $rootScope.backButtonPressedOnceToExit = false;
+            }, 2000);
         }
-
-        showConfirm();
-
-        // Is there a page to go back to?  
-        // if ($location.path() == '/home') {
-            
-        // } else if ($rootScope.$viewHistory.backView) {
-        //     console.log('currentView:', $rootScope.$viewHistory.currentView);
-        //     // Go back in history  
-        //     $rootScope.$viewHistory.backView.go();
-        // } else {
-        //     // This is the last page: Show confirmation popup  
-        //     showConfirm();
-        // }
-
+        e.preventDefault();
         return false;
+
+
+
+
     }, 101);
 
 })
