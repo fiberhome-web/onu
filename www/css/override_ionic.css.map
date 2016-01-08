@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,yBAAyB;EACxB,YAAY,EAAC,sBAAmB",
+"sources": ["../scss/override_ionic.scss"],
+"names": [],
+"file": "override_ionic.css"
+}
