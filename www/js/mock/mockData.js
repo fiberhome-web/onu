@@ -1,3 +1,5 @@
+'use strict';
+
 Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
     return {
         ResultCode: '0',

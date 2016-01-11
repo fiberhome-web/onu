@@ -1,26 +1,33 @@
 {
-    "node": true,
-    "browser": true,
-    "esnext": true,
-    "bitwise": true,
-    "camelcase": true,
-    "curly": true,
-    "eqeqeq": true,
-    "immed": true,
-    "indent": 2,
-    "latedef": true,
-    "newcap": true,
-    "noarg": true,
-    "quotmark": "single",
-    "undef": true,
-    "unused": true,
-    "strict": true,
-    "trailing": true,
-    "smarttabs": true,
-    "globals": {
+    "bitwise": true,            // 禁止位运算（js中很少会用到位运算，而&&可能误写为&）
+    "camelcase": true,          // 必须使用驼峰命名（可能在jshint下一个版本被弃用）
+    "curly": true,              // 必须使用花括号（循环、条件语句等代码块必须使用花括号包裹）
+    "eqeqeq": true,             // 必须使用严格等于
+    "esversion": 5,             // 当前使用ES5规范
+    "futurehostile": true,      // 禁止使用ES未来版本的关键字作为标识符
+    "immed": true,              // 禁用使用立即执行函数
+    "indent": 4,                // 使用4个空格缩进
+    "iterator": true,           // 禁止使用__iterator__属性（并不是所有浏览器都支持该属性）
+    "latedef": "nofunc",        // 禁止变量使用在声明之前，允许函数调用在声明之前
+    "newcap": true,             // 必须使用首字母大写命名构造函数
+    "noarg": true,              // 禁止使用 arguments.caller 和 arguments.callee
+    "quotmark": "single",       // 必须使用单引号
+    "strict": true,             // 必须使用严格模式
+    "smarttabs": true,          // 允许使用tab和space混排代码
+    "trailing": true,           // 禁止行尾空格
+    "undef": true,              // 禁止使用未定义的变量
+    "unused": true,             // 警告定义但从未使用的变量
+    "globals": {                // 全局变量白名单
         "angular": false,
         "ONU_LOCAL": false,
         "CONST": false,
         "define": true
-    }
+    },
+
+    // 预定义全局变量
+    "browser": true,
+    "jquery": true,
+    "module": true,
+    "node": true     
+    
 }
