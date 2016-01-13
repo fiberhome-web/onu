@@ -18,9 +18,13 @@
     "trailing": true,
     "smarttabs": true,
     "globals": {
+        "alert" : false,
         "angular": false,
         "ONU_LOCAL": false,
         "CONST": false,
-        "define": true
+        "define": false,
+        "cordova" : false,
+        "dateUtils" : false,
+        "ionic" : false
     }
 }
