@@ -3,20 +3,17 @@
   font-family: 'Microsoft Yahei' !important; }
 
 #loginContent {
-  background: -ms-linear-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff));
-  background: -moz-linear-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff));
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c5d7ea), to(#fff)); }
+  background-image: url(../img/loginbg.jpg);
+  color: white; }
 
 #loginContent .history {
-  text-align: center;
-  color: #666; }
+  text-align: center; }
 
 #loginContent .logo {
   height: 400px;
   text-align: center;
   line-height: 400px;
-  font-size: 3em;
-  color: #333; }
+  font-size: 3em; }
 
 #loginContent .login {
   margin: 10px;
@@ -29,7 +26,8 @@
 #historyTab ion-item:first-child {
   border-top: none; }
 
-#historyTab .reportItem span.name, #historyTab .reportItem span.date {
+#historyTab .reportItem span.name,
+#historyTab .reportItem span.date {
   display: inline-block;
   overflow: hidden;
   position: relative;
@@ -79,38 +77,40 @@
 .no-border-bottom {
   border-bottom: none; }
 
-#history-operrator {
+.operrator {
   width: 100%;
   position: fixed;
-  bottom: -100px;
   left: 0;
-  height: 100px;
   right: 0;
   background-color: #f7f7f7;
-  -webkit-transition: all .25s ease-in-out; }
+  pointer-events: auto;
+  -moz-transition: all .25s ease-in-out;
+  -webkit-transition: all .25s ease-in-out;
+  -o-transition: all .25s ease-in-out; }
 
-#history-operrator .icon {
+.footer_button {
   text-align: center;
   width: 100%; }
 
-#history-operrator .icon .circle {
-  border: 1px solid #ccc;
-  height: 60px;
-  width: 60px;
-  border-radius: 80px;
-  padding-top: 10px;
-  display: inline-block;
-  margin: 10px 25px; }
-
-#history-operrator .icon .circle .explain {
-  font-size: 0.8em;
-  margin-top: 10px; }
-
-#history-operrator .icon i {
-  font-size: 3em; }
+.footer_button button {
+  width: 50%; }
 
 .show_ani {
-  -webkit-transform: translateY(-100%); }
+  -moz-transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+  -o-transform: translateY(-100%); }
+
+.mask_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background-color: gray;
+  opacity: 0.4;
+  -moz-opacity: 0.4;
+  filter: alpha(opacity=40); }
 
 #confirm {
   position: fixed;
@@ -172,7 +172,8 @@ p.loadding .spinner svg {
   width: 100px;
   height: 80px; }
 
-.modal-backdrop, .modal-backdrop-bg {
+.modal-backdrop,
+.modal-backdrop-bg {
   height: 0px; }
 
 /*# sourceMappingURL=style.css.map */

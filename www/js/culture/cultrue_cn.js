@@ -40,8 +40,9 @@ var ONU_LOCAL = {
             voice_abnormal: '语音端口异常'
         },
         remark: '备注',
-        save: '保存',
-        cancel: '取消'
+        sure: '確定',
+        cancel: '取消',
+        remark_ph: '请输入备注',
     },
 
     detailModule : {
@@ -54,7 +55,6 @@ var ONU_LOCAL = {
     historyModule: {
         login: '登录',
         del : '删除',
-        del_batch : '批量删除',
         del_sure : '确认删除',
         cancel : '取消',
         choose : '选择',

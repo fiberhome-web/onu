@@ -1,11 +1,16 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope', '$state', '$http', '$stateParams', '$filter', '$ionicPopup', 'Const', 'DB', 'Report',
-        function($scope, $state, $http, $stateParams, $filter, $ionicPopup, Const, DB, Report) {
+    .controller('CheckCtrl', ['$scope', '$state', '$http', '$stateParams', '$filter', '$ionicPopup', 'Const', 'DB', 'Report', 'ExpanderService',
+        function($scope, $state, $http, $stateParams, $filter, $ionicPopup, Const, DB, Report, ExpanderService) {
 
             initPage();
-
+            var expanderConf = {
+                templateUrl: 'generateReport.html',
+                scope: $scope,
+                backdoor: true
+            };
+            var expanderHandel = ExpanderService.init(expanderConf);
             // checkStatus 0，说明是从“基本信息”界面点击“一键检测”跳过来的，检查全部项。
             var checkStatus = $stateParams.checkStatus;
             if ('0' === checkStatus) {
@@ -27,7 +32,15 @@ angular.module('starter.controllers')
                     checkAll();
                 },
                 generateReportBtnEVt: function() {
-                    showPopup();
+                    expanderHandel.show();
+                },
+                close:function(){
+                    expanderHandel.hide();
+                },
+                sure: function() {
+                    var res=$scope.report;
+                    saveToDB(res);
+                    expanderHandel.hide();
                 }
             };
 
@@ -52,6 +65,8 @@ angular.module('starter.controllers')
                 $scope.dataInfos = [];
                 // 语音口诊断信息
                 $scope.voiceInfos = [];
+
+
             }
 
             // Pon口诊断

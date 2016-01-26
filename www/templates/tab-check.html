@@ -41,7 +41,6 @@
                     </a>
                 </div>
             </div>
-
             <!-- 数据口诊断项 -->
             <div class="item item-button-right">
                 <span>{{i10n.checkModule.data_port_item}}</span>
@@ -82,7 +81,6 @@
                     </a>
                 </div>
             </div>
-
             <!-- 语音口诊断项 -->
             <div class="item item-button-right">
                 <span>{{i10n.checkModule.voice_port_item}}</span>
@@ -123,9 +121,7 @@
                     </a>
                 </div>
             </div>
-
         </div>
-        
         <div class="list padding ">
             <div class="button-bar">
                 <button class="button button-positive" style="margin: 0 10px;" ng-click="eventFun.oneKeyCheckBtnEvt()">
@@ -138,7 +134,6 @@
         </div>
     </ion-content>
 </ion-view>
-
 <!-- 生成报告弹出框模板 -->
 <script id="popup.html" type="text/ng-template">
     <div class="list">
@@ -159,5 +154,37 @@
             <span class="input-label">{{i10n.checkModule.remark}}</span>
             <input type="text" ng-model="report.remark">
         </label>
+    </div>
+</script>
+<script id="generateReport.html" type="text/ng-template">
+    <div class="list">
+        <div class="item item-button-right">
+            &nbsp;
+            <button class="button button-stable button-clear" ng-click="eventFun.close()">
+                <i class="icon ion-close-round"></i>
+            </button>
+        </div>
+        <label class="item item-input">
+            <span class="input-label">{{i10n.checkModule.report_name}}</span>
+            <input type="text" ng-model="report.reportName">
+        </label>
+        <label class="item item-input item-select">
+            <span class="input-label">{{i10n.checkModule.check_result}}</span>
+            <select ng-model="report.resultStatus">
+                <option value="1">{{i10n.checkModule.result_status.normal}}</option>
+                <option value="2">{{i10n.checkModule.result_status.pon_abnormal}}</option>
+                <option value="3">{{i10n.checkModule.result_status.data_abnormal}}</option>
+                <option value="4">{{i10n.checkModule.result_status.voice_abnormal}}</option>
+            </select>
+        </label>
+        <label class="item item-input">
+            <span class="input-label">{{i10n.checkModule.remark}}</span>
+            <input type="text" ng-model="report.remark" placeholder="{{i10n.checkModule.remark_ph}}">
+        </label>
+        <div class="item item-button footer_button">
+            <button class="button button-positive" ng-click="eventFun.sure()">
+                <span>{{i10n.checkModule.sure}}</span>
+            </button>
+        </div>
     </div>
 </script>

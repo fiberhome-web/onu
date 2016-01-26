@@ -28,7 +28,7 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
                     alert('onu_report can\'t be crated,error message is : ' + error.message);
                 });
             } else {
-                alert('onu_report can\'t be crated,error message is :'  + error.message);
+                alert('onu_report can\'t be crated,error message is :' + error.message);
             }
 
         });
@@ -63,9 +63,9 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
 
     //创建报告
     this.createReport = function(fileName, data) {
-    	//增加报告文件基本的HTML格式代码
-    	var head = '<!DOCTYPE html><html><head><meta charset="utf-8"></head>';
-    	var tail = '</html>';
+        //增加报告文件基本的HTML格式代码
+        var head = '<!DOCTYPE html><html><head><meta charset="utf-8"></head>';
+        var tail = '</html>';
         $cordovaFile.writeFile(fileSystem, _reportDir + fileName + fileType, head + data + tail, true).then(success, error);
     };
 
@@ -84,15 +84,15 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
         //文件完整路径
         var orgFileName = _reportDir + fileName + fileType;
         //检查文件是否存在，存在则移动到删除文件夹
-        this.checkFile(fileName).then(function(){
+        this.checkFile(fileName).then(function() {
             $cordovaFile.moveFile(fileSystem, orgFileName, fileSystem, _deleteDir + fileName + fileType).then(success, error);
-        },function(info){
+        }, function(info) {
             //code 为1 表示找不到文件，不用处理
-            if(info.code !== 1) {
+            if (info.code !== 1) {
                 error(info);
             }
         });
-        
+
     };
 
     //删除文件夹及里面的所有文件
@@ -101,7 +101,7 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
     };
 
     //检查文件是否存在
-    this.checkFile = function(fileName){
-    	return $cordovaFile.checkFile(fileSystem, _reportDir + fileName + fileType);
+    this.checkFile = function(fileName) {
+        return $cordovaFile.checkFile(fileSystem, _reportDir + fileName + fileType);
     };
 });

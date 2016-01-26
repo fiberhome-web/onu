@@ -1,229 +1,219 @@
 /* Empty. Add your own CSS if you like */
 
 $mColor:#c5d7ea;
-
-*{
-	font-family : 'Microsoft Yahei' !important;
+* {
+    font-family: 'Microsoft Yahei' !important;
 }
 
-#loginContent{
-	background: -ms-linear-gradient(linear, 0% 0%, 0% 100%,from(#c5d7ea), to(#fff));      
-	background:-moz-linear-gradient(linear, 0% 0%, 0% 100%,from(#c5d7ea), to(#fff));
-	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#c5d7ea), to(#fff));
+#loginContent {
+background-image: url(../img/loginbg.jpg);
+color:white;
 }
 
-#loginContent .history{
-	text-align:center;
-	color : #666;
+#loginContent .history {
+    text-align: center;
 }
 
-#loginContent .logo{
-	height : 400px;
-	text-align:center;
-	line-height : 400px;
-	font-size:3em;
-	color : #333;
+#loginContent .logo {
+    height: 400px;
+    text-align: center;
+    line-height: 400px;
+    font-size: 3em;
 }
 
-#loginContent .login{
-	margin: 10px;
+#loginContent .login {
+    margin: 10px;
     width: 100%;
 }
 
-#loginContent .loginBtn{
-	border-radius: 5px;
-	font-weight: bold;
+#loginContent .loginBtn {
+    border-radius: 5px;
+    font-weight: bold;
 }
 
-
-#historyTab ion-item:first-child{
-	border-top : none;
+#historyTab ion-item:first-child {
+    border-top: none;
 }
 
-#historyTab .reportItem  {
-	span.name,span.date {
-		display : inline-block;
-		overflow : hidden;
-		position: relative;
-	    top: 2px;
-	}
-	span.name {
-		width : 70%;
-	}
-	span.date {
-		width : 30%;
-	}
+#historyTab .reportItem {
+    span.name,
+    span.date {
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+        top: 2px;
+    }
+    span.name {
+        width: 70%;
+    }
+    span.date {
+        width: 30%;
+    }
 }
 
-
-
-#historyTab .reportItem  span.name > span{
-	padding-left : 20px;
+#historyTab .reportItem span.name > span {
+    padding-left: 20px;
 }
 
-.red{
-	color : red;
+.red {
+    color: red;
 }
 
-.button-block-half{
-	width : 50%;
-	margin : 0 25%;
+.button-block-half {
+    width: 50%;
+    margin: 0 25%;
 }
 
-
-#SharePopover i{
-	font-size : 2em;
-	height : 20px;
+#SharePopover i {
+    font-size: 2em;
+    height: 20px;
 }
 
 #SharePopover {
-	height : 100px !important;
+    height: 100px !important;
 }
 
-
-#SharePopover ion-item{
-	padding-left : 50px;
+#SharePopover ion-item {
+    padding-left: 50px;
 }
 
-#SharePopover ion-item span{
-	position : relative;
-	top : -5px;
-	left : 5px;
+#SharePopover ion-item span {
+    position: relative;
+    top: -5px;
+    left: 5px;
 }
 
-.check-spinner{
-	position: absolute;
-	display : inline-block;
-	width : 100%;
-	text-align: center;
-	left : 0;
-
+.check-spinner {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    left: 0;
 }
 
-.check-spinner span.text{
-	position : relative;
-	top : -8px;
-	left : 10px;
+.check-spinner span.text {
+    position: relative;
+    top: -8px;
+    left: 10px;
 }
 
-.no-border-bottom{
-	border-bottom : none;
+.no-border-bottom {
+    border-bottom: none;
 }
 
-#history-operrator{
-	width: 100%;
-	position: fixed;
-	bottom: -100px;
-	left: 0;
-	height: 100px;
-	right:0;
-	background-color : #f7f7f7;
-	-webkit-transition: all .25s ease-in-out;
+.operrator {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: #f7f7f7;
+    pointer-events: auto;
+    -moz-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
 }
 
-#history-operrator .icon{
-	text-align:center;
-	width:100%;
+.footer_button {
+    text-align: center;
+    width: 100%;
 }
 
-#history-operrator .icon .circle{
-	border : 1px solid #ccc;
-	height:60px;
-	width:60px;
-	border-radius:80px;
-	padding-top : 10px;
-	display : inline-block;
-	margin : 10px 25px;
-}
-
-#history-operrator .icon .circle .explain{
-	font-size : 0.8em;
-	margin-top : 10px;
-}
-
-#history-operrator .icon i {
-	font-size : 3em;
+.footer_button button {
+    width: 50%;
 }
 
 .show_ani {
-	-webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    -o-transform: translateY(-100%);
 }
 
-#confirm{
-	position : fixed;
-	height : 90px;
-	width : 100%;
-	left : 0;
-	bottom : 0;
-	text-align : center;
-	background-color : #f7f7f7;
-	border-top : 1px solid #ccc;
+.mask_layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-color: gray;
+    opacity: 0.4;
+    -moz-opacity: 0.4;
+    filter: alpha(opacity=40);
 }
 
-#confirm > div{
-	bottom: 10px;
+#confirm {
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    background-color: #f7f7f7;
+    border-top: 1px solid #ccc;
+}
+
+#confirm > div {
+    bottom: 10px;
     top: 10px;
-	height : 50px;
-	position : relative;
+    height: 50px;
+    position: relative;
 }
 
-#confirm button{
-	width : 150px;
-	margin : auto 50px;
+#confirm button {
+    width: 150px;
+    margin: auto 50px;
 }
 
-.reportPopup > .popup{
-	width : 400px;
+.reportPopup > .popup {
+    width: 400px;
 }
 
-
-#historyTab .date-content{
-	flex : 1;
-	margin-right: 15px;
+#historyTab .date-content {
+    flex: 1;
+    margin-right: 15px;
     text-align: right;
 }
-    
-#historyTab .date-content > span{
-	margin-right: 18px;
+
+#historyTab .date-content > span {
+    margin-right: 18px;
     position: relative;
     bottom: 2px;
-    font-size : .9em;
+    font-size: .9em;
 }
-    
-#historyTab .date-content > i{
-	font-size : 1.2em;
-	color: #666;
+
+#historyTab .date-content > i {
+    font-size: 1.2em;
+    color: #666;
 }
-    
+
 #historyTab .list > label {
-	border : none;
-	padding-top:2px;
-	padding-bottom:4px;
+    border: none;
+    padding-top: 2px;
+    padding-bottom: 4px;
 }
 
-#historyTab .list > label > .input-label{
-	font-size : 15px;
+#historyTab .list > label > .input-label {
+    font-size: 15px;
 }
 
-#historyTab .query-cond{
-	border-bottom: 1px dotted #ccc;
+#historyTab .query-cond {
+    border-bottom: 1px dotted #ccc;
     margin: 10px auto;
 }
 
-p.loadding{
-	text-align: center;
+p.loadding {
+    text-align: center;
     margin-top: 40%;
-    position : absoult;
-    z-index : 2;
+    position: absoult;
+    z-index: 2;
 }
-
 
 p.loadding .spinner svg {
     width: 100px;
     height: 80px;
 }
 
-.modal-backdrop, .modal-backdrop-bg {
-
-	height: 0px;
+.modal-backdrop,
+.modal-backdrop-bg {
+    height: 0px;
 }

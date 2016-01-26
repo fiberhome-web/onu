@@ -98,3 +98,43 @@ $mColor:#c5d7ea;
 	top : -8px;
 	left : 10px;
 }
+
+.operrator {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: #f7f7f7;
+    pointer-events: auto;
+    -moz-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+}
+
+.footer_button {
+    text-align: center;
+    width: 100%;
+}
+
+.footer_button button {
+    width: 50%;
+}
+
+.show_ani {
+    -moz-transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    -o-transform: translateY(-100%);
+}
+
+.mask_layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-color: gray;
+    opacity: 0.4;
+    -moz-opacity: 0.4;
+    filter: alpha(opacity=40);
+}

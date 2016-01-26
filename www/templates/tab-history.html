@@ -88,12 +88,18 @@
             </button>
         </div>
     </div>
-    <div id="history-operrator" ng-class="{'show_ani':showModel}">
+    <!-- <div id="history-operrator" ng-class="{'show_ani':showModel}">
         <div class="icon">
             <div class="circle" ng-click="batchDelele($event)">
                 <i class="ion-ios-trash-outline"></i>
                 <div class="explain">{{local.del_batch}}</div>
             </div>
         </div>
-    </div>
+    </div> -->
 </ion-view>
+<!-- 批量删除上弹框 -->
+<script id="batchDelele.html" type="text/ng-template">
+    <div ng-click="batchDelele($event)">
+        <div>{{local.del_batch}}</div>
+    </div>
+</script>

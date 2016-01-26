@@ -2,9 +2,12 @@
 
 angular.module('starter.controllers')
     .controller('HistoryCtrl', ['$scope', '$state', '$log', '$ionicLoading',
-        '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB', 'File',
+        '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB', 'File', 'ExpanderService',
         function($scope, $state, $log, $ionicLoading, $ionicModal, $rootScope,
-            $cordovaDatePicker, DB, File) {
+            $cordovaDatePicker, DB, File, ExpanderService) {
+
+
+
             //缓存所有报告记录
             var list = [];
             //查询条件对象
@@ -14,6 +17,7 @@ angular.module('starter.controllers')
 
             //ionic bug, $watch只能监视对象，prox用于挂载需要监视的属性
             $scope.prox = {};
+
 
 
             var today = dateUtils.getToday();
@@ -27,6 +31,13 @@ angular.module('starter.controllers')
                 $rootScope.hideTabs = true;
             }
 
+
+            var expanderConf = {
+                templateUrl: 'batchDelele.html',
+                scope: $scope,
+                backdoor: false
+            };
+            var expanderHandel = ExpanderService.init(expanderConf);
 
             $scope.hideTabs = function() {
                 $rootScope.hideTabs = true;
@@ -154,22 +165,25 @@ angular.module('starter.controllers')
             //当有一个checkbox选中时，显示操作框
             $scope.$watch('checkboxs', function(ckModels) {
                 var ckcekOne = false;
+                var num = 0;
                 angular.forEach(ckModels, function(val) {
                     if (val) {
+                        num++;
                         ckcekOne = true;
-                        return false;
+                        // return false;
                     }
                 });
-
+                $scope.local.del_batch = $scope.local.del + '(' + num + ')';
                 if (ckcekOne) {
-                    $scope.showModel = true;
+                    expanderHandel.show();
                 } else {
-                    $scope.showModel = false;
+                    expanderHandel.hide();
                 }
             }, true);
 
 
             //批量删除操作
+            // $rootScope.batchDelele = function(e) {
             $scope.batchDelele = function(e) {
                 //防止冒泡
                 e.stopPropagation();
@@ -206,7 +220,7 @@ angular.module('starter.controllers')
             //“取消”操作
             function cancel() {
                 //隐藏model框
-                $scope.showModel = false;
+                expanderHandel.hide();
                 //隐藏checkbox
                 $scope.shouldShowCheckbox = false;
                 //显示导航
