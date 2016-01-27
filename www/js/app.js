@@ -30,7 +30,6 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
             // org.apache.cordova.statusbar required
             StatusBar.styleLightContent();
         }
-
         //禁止横屏
         screen.lockOrientation('portrait');
 
