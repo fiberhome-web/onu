@@ -6,17 +6,14 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
         var aniCss = 'show_ani';
 
-        var idList = [];
-
         var eleMap = {};
 
         function init(configuration) {
             var self = {};
             //查找是否已经创建过该组件
-            if ($.inArray(configuration.templateUrl, idList) > -1) {
+            if (eleMap.hasOwnProperty(configuration.templateUrl)) {
                 self = eleMap[configuration.templateUrl];
             } else {
-                idList.push(configuration.templateUrl);
                 var ele = document.createElement('div');
                 ele.className = 'operrator ';
                 ele.id = configuration.templateUrl;
@@ -26,7 +23,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
                 ele.style.bottom = (0 - ele.offsetHeight) + 'px';
                 ele.style.zIndex = 10;
                 self.element = ele;
-                
+
                 var modalEle = document.createElement('div');
                 modalEle.className = 'mask_layer ';
                 self.modalEle = modalEle;

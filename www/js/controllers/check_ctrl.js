@@ -32,15 +32,17 @@ angular.module('starter.controllers')
                     checkAll();
                 },
                 generateReportBtnEVt: function() {
+                    $scope.loadding_show=false;
                     expanderHandel.show();
                 },
                 close:function(){
                     expanderHandel.hide();
                 },
                 sure: function() {
+                    $scope.loadding_show=true;
                     var res=$scope.report;
                     saveToDB(res);
-                    expanderHandel.hide();
+                    // expanderHandel.hide();
                 }
             };
 

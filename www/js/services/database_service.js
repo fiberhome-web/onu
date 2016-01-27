@@ -1,6 +1,6 @@
 'use strict';
 angular.module('starter.services').service('DB', function($cordovaSQLite,
-    $ionicPlatform) {
+    $ionicPlatform,$rootScope) {
     var query, db;
 
     $ionicPlatform.ready(function() {
@@ -16,6 +16,7 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
     //成功回调
     function success(info) {
         console.info('success :' + JSON.stringify(info));
+        $rootScope.loadding_show=false;
     }
     //失败回调
     function error(info) {

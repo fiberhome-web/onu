@@ -135,40 +135,23 @@
     </ion-content>
 </ion-view>
 <!-- 生成报告弹出框模板 -->
-<script id="popup.html" type="text/ng-template">
-    <div class="list">
-        <label class="item item-input">
-            <span class="input-label">{{i10n.checkModule.report_name}}</span>
-            <input type="text" ng-model="report.reportName">
-        </label>
-        <label class="item item-input item-select">
-            <span class="input-label">{{i10n.checkModule.check_result}}</span>
-            <select ng-model="report.resultStatus">
-                <option value="1">{{i10n.checkModule.result_status.normal}}</option>
-                <option value="2">{{i10n.checkModule.result_status.pon_abnormal}}</option>
-                <option value="3">{{i10n.checkModule.result_status.data_abnormal}}</option>
-                <option value="4">{{i10n.checkModule.result_status.voice_abnormal}}</option>
-            </select>
-        </label>
-        <label class="item item-input" ng-show="report.resultStatus != '1' ">
-            <span class="input-label">{{i10n.checkModule.remark}}</span>
-            <input type="text" ng-model="report.remark">
-        </label>
-    </div>
-</script>
 <script id="generateReport.html" type="text/ng-template">
-    <div class="list">
-        <div class="item item-button-right">
-            &nbsp;
+    <div class="list expander">
+
+        <!-- <p class="loadding" ng-show="loadding_show">
+        //     <ion-spinner icon="dots" class="spinner-dark"></ion-spinner>
+         </p>-->
+        <div class="item item-button-right expander-header">
+            {{i10n.checkModule.generate_report}}
             <button class="button button-stable button-clear" ng-click="eventFun.close()">
                 <i class="icon ion-close-round"></i>
             </button>
         </div>
-        <label class="item item-input">
+        <label class="item item-input expander-item">
             <span class="input-label">{{i10n.checkModule.report_name}}</span>
-            <input type="text" ng-model="report.reportName">
+            <input type="text" ng-model="report.reportName" placeholder="{{i10n.checkModule.report_name_ph}}">
         </label>
-        <label class="item item-input item-select">
+        <label class="item item-input item-select expander-item">
             <span class="input-label">{{i10n.checkModule.check_result}}</span>
             <select ng-model="report.resultStatus">
                 <option value="1">{{i10n.checkModule.result_status.normal}}</option>
@@ -177,13 +160,16 @@
                 <option value="4">{{i10n.checkModule.result_status.voice_abnormal}}</option>
             </select>
         </label>
-        <label class="item item-input">
+        <label class="item item-input expander-item ">
             <span class="input-label">{{i10n.checkModule.remark}}</span>
             <input type="text" ng-model="report.remark" placeholder="{{i10n.checkModule.remark_ph}}">
         </label>
-        <div class="item item-button footer_button">
-            <button class="button button-positive" ng-click="eventFun.sure()">
+        <div class="item item-button button-bar expander-footer">
+            <button class="button button-positive" ng-click="eventFun.sure()" style="margin-right:1px;">
                 <span>{{i10n.checkModule.sure}}</span>
+            </button>
+            <button class="button button-positive" ng-click="eventFun.close()" style="margin-left:1px;">
+                <span>{{i10n.checkModule.cancel}}</span>
             </button>
         </div>
     </div>

@@ -32,6 +32,7 @@ var ONU_LOCAL = {
     	voice_port_item: '语音端口诊断项',
         report_title: '请输入报告信息',
         report_name: '报告名称',
+        report_name_ph: '建议用地址或SN',
         check_result: '检测结果',
         result_status: {
             normal: '正常',
