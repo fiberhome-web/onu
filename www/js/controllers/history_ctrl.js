@@ -14,7 +14,6 @@ angular.module('starter.controllers')
             var condition = {};
             //操作状态 true表示当前是待选择 false是待取消
             var operator = true;
-
             //ionic bug, $watch只能监视对象，prox用于挂载需要监视的属性
             $scope.prox = {};
 

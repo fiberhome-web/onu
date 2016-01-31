@@ -17,7 +17,7 @@ var CONST = {
 //使用mockjax替换ajax
 Mock.mockjax(app);
 
-app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory) {
+app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory,$stateParams) {
 
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -49,9 +49,14 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
                     $rootScope.backButtonPressedOnceToExit = false;
                 }, 2000);
             }
-        } else if ($ionicHistory.backView()) {
+
+        } else if($location.path() === '/tab/history/'+$stateParams.reportId){
+            window.location.href = '#/tab/history';
+            $rootScope.hideTabs = false;
+        }else if ($ionicHistory.backView()) {
             $ionicHistory.goBack();
             $rootScope.hideTabs = false;
+            console.log($ionicHistory.backView());
         } else {
             $rootScope.backButtonPressedOnceToExit = true;
             $cordovaToast.showShortCenter('再按一次退出系统');

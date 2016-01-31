@@ -5,6 +5,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
     function($templateCache, $compile, $ionicBody, $rootScope) {
 
         var aniCss = 'show_ani';
+        var maskCss = 'front_mask_layer';
 
         var eleMap = {};
 
@@ -12,25 +13,35 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             var self = {};
             //查找是否已经创建过该组件
             if (eleMap.hasOwnProperty(configuration.templateUrl)) {
-                self = eleMap[configuration.templateUrl];
-            } else {
-                var ele = document.createElement('div');
-                ele.className = 'operrator ';
-                ele.id = configuration.templateUrl;
-
-                $ionicBody.get().appendChild(ele);
-                ele.innerHTML = $templateCache.get(configuration.templateUrl);
-                ele.style.bottom = (0 - ele.offsetHeight) + 'px';
-                ele.style.zIndex = 10;
-                self.element = ele;
-
-                var modalEle = document.createElement('div');
-                modalEle.className = 'mask_layer ';
-                self.modalEle = modalEle;
-
-                self.hide = hide;
-                self.show = show;
+                var handle = eleMap[configuration.templateUrl];
+                var node = document.getElementById(handle.element.id);
+                node.parentNode.removeChild(node);
             }
+            var ele = document.createElement('div');
+            ele.className = 'operrator ';
+            ele.id = configuration.scope.$id;
+
+            $ionicBody.get().appendChild(ele);
+            ele.innerHTML = $templateCache.get(configuration.templateUrl);
+            ele.style.bottom = (0 - ele.offsetHeight) + 'px';
+            self.element = ele;
+
+            //弹出框背景的遮罩层
+            var backMaskEle = document.createElement('div');
+            backMaskEle.className = 'back_mask_layer ';
+            self.backMaskEle = backMaskEle;
+
+            //弹出框上面的遮罩层
+            var frontMaskEle = document.createElement('div');
+            frontMaskEle.className = 'front_mask_layer ';
+            frontMaskEle.innerHTML = '<i class="icon ion-loop"></i>';
+            self.frontMaskEle = frontMaskEle;
+
+            self.hide = hide;
+            self.show = show;
+            self.showMask = showMask;
+            self.hideMask = hideMask;
+
 
 
 
@@ -52,21 +63,30 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
                 removeClass(this.element, aniCss);
             }
             if (this.options.backdoor) {
-                $ionicBody.removeClass('popup-open');
-                $ionicBody.get().removeChild(this.modalEle);
+                // $ionicBody.removeClass('popup-open');
+                $ionicBody.get().removeChild(this.backMaskEle);
             }
         }
 
         function show() {
-            //如若需要增加
+            //若需要背景蒙罩层并禁止点击
             if (this.options.backdoor) {
-                $ionicBody.addClass('popup-open');
-                $ionicBody.get().appendChild(this.modalEle);
+                // $ionicBody.addClass('popup-open');
+                $ionicBody.get().appendChild(this.backMaskEle);
             }
 
             if (!hasClass(this.element, aniCss)) {
                 addClass(this.element, aniCss);
             }
+        }
+
+        function showMask() {
+            $compile(this.frontMaskEle)(this.scope);
+            this.element.appendChild(this.frontMaskEle);
+        }
+
+        function hideMask() {
+            this.element.removeChild(this.frontMaskEle);
         }
 
         function hasClass(element, cName) {

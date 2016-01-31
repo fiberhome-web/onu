@@ -1,16 +1,19 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope', '$state', '$http', '$stateParams', '$filter', '$ionicPopup', 'Const', 'DB', 'Report', 'ExpanderService',
-        function($scope, $state, $http, $stateParams, $filter, $ionicPopup, Const, DB, Report, ExpanderService) {
+    .controller('CheckCtrl', ['$scope','$rootScope', '$state', '$http', '$stateParams', '$filter', '$ionicPopup', 'Const', 'DB', 'Report', 'ExpanderService',
+        function($scope,$rootScope, $state, $http, $stateParams, $filter, $ionicPopup, Const, DB, Report, ExpanderService) {
 
             initPage();
+            var reportId;
             var expanderConf = {
                 templateUrl: 'generateReport.html',
                 scope: $scope,
                 backdoor: true
             };
             var expanderHandel = ExpanderService.init(expanderConf);
+            $scope.saved = false;
+            // $rootScope.hideTabs=false;
             // checkStatus 0，说明是从“基本信息”界面点击“一键检测”跳过来的，检查全部项。
             var checkStatus = $stateParams.checkStatus;
             if ('0' === checkStatus) {
@@ -32,17 +35,21 @@ angular.module('starter.controllers')
                     checkAll();
                 },
                 generateReportBtnEVt: function() {
-                    $scope.loadding_show=false;
+                    $scope.report.resultStatus = '1';
+                    $scope.report.remark = null;
+                    $scope.report.reportName = null;
+                    $scope.saved = false;
                     expanderHandel.show();
                 },
-                close:function(){
+                close: function() {
                     expanderHandel.hide();
                 },
-                sure: function() {
-                    $scope.loadding_show=true;
-                    var res=$scope.report;
-                    saveToDB(res);
-                    // expanderHandel.hide();
+                sureOrView: function() {
+                    if ($scope.saved) {
+                        viewReport();
+                    } else {
+                        sure();
+                    }
                 }
             };
 
@@ -184,35 +191,25 @@ angular.module('starter.controllers')
                 checkVoice();
             }
 
-            // 显示“生成报告”弹出框
-            function showPopup() {
-                var genReportPopup = $ionicPopup.show({
-                    templateUrl: 'popup.html',
-                    title: ONU_LOCAL.checkModule.report_title,
-                    cssClass: 'reportPopup',
-                    scope: $scope,
-                    buttons: [{
-                        text: ONU_LOCAL.checkModule.cancel
-                    }, {
-                        text: ONU_LOCAL.checkModule.save,
-                        type: 'button-positive',
-                        onTap: function(e) {
-                            if (!$scope.report.reportName) {
-                                //不允许用户关闭，除非他输入报告名称
-                                e.preventDefault();
-                            } else {
-                                return $scope.report;
-                            }
-                        }
-                    }]
-                });
+            function viewReport() {
+                expanderHandel.hide();
+                $rootScope.hideTabs = true;
+                window.location.href = '#/tab/history/' + reportId;
+            }
 
-                genReportPopup.then(function(res) {
-                    // 点击“保存”按钮
-                    if (!!res) {
-                        saveToDB(res);
-                    }
+            function sure() {
+                var res = $scope.report;
+                saveToDB(res).then(function() {
+                    expanderHandel.hideMask();
+                    $scope.saved = true;
+
+                }, function(info) {
+                    alert('error :' + JSON.stringify(info));
+                    expanderHandel.hideMask();
+                    $scope.saved = true;
                 });
+                expanderHandel.showMask();
+                // expanderHandel.hide
             }
 
             function saveToDB(res) {
@@ -238,7 +235,8 @@ angular.module('starter.controllers')
                     conclusion: res.remark
                 };
 
-                DB.insert(datas);
+                reportId = datas.id;
+                return DB.insert(datas);
             }
 
         }

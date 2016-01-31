@@ -16,7 +16,6 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
     //成功回调
     function success(info) {
         console.info('success :' + JSON.stringify(info));
-        $rootScope.loadding_show=false;
     }
     //失败回调
     function error(info) {
@@ -41,7 +40,8 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
 
     this.insert = function(datas) {
         var query = 'INSERT INTO fiber_onu (id, name, date, status, data, conclusion) VALUES (?,?,?,?,?,?)';
-        $cordovaSQLite.execute(db, query, [datas.id, datas.name, datas.date, datas.status, datas.data, datas.conclusion]).then(success, error);
+        return $cordovaSQLite.execute(db, query, [datas.id, datas.name, datas.date, datas.status, datas.data, datas.conclusion]);
+        // $cordovaSQLite.execute(db, query, [datas.id, datas.name, datas.date, datas.status, datas.data, datas.conclusion]).then(success, error);
     };
 
     this.queryById = function(reportId) {

@@ -103,24 +103,27 @@ $mColor:#c5d7ea;
 
 .operrator {
     width: 100%;
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
-    background-color: #f7f7f7;
+    z-index: 10;
     pointer-events: auto;
     -moz-transition: all .25s ease-in-out;
     -webkit-transition: all .25s ease-in-out;
     -o-transition: all .25s ease-in-out;
 }
 
-.footer_button {
-    text-align: center;
+#successfullyInfo {
     width: 100%;
+    height: 63%;
+    position: absolute;
+    top: 13%;
+    font-size: 16px;
+    background: white;
+    z-index: 11;
 }
 
-.footer_button button {
-    width: 50%;
-}
+
 
 .show_ani {
     -moz-transform: translateY(-100%);
@@ -128,7 +131,7 @@ $mColor:#c5d7ea;
     -o-transform: translateY(-100%);
 }
 
-.mask_layer {
+.back_mask_layer {
     position: absolute;
     top: 0;
     left: 0;
@@ -141,17 +144,25 @@ $mColor:#c5d7ea;
     filter: alpha(opacity=40);
 }
 
-.expander_mask {
-    position: relative;
+.front_mask_layer {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10;
+    text-align: center;
+    z-index: 11;
     background-color: white;
-    opacity: 0.4;
-    -moz-opacity: 0.4;
-    filter: alpha(opacity=40);
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+    filter: alpha(opacity=50);
+    .icon {
+        position: absolute;
+        top: 40%;
+        z-index: 12;
+        color: green;
+        font-size: 30px;
+    }
 }
 
 #confirm {
@@ -232,6 +243,7 @@ p.loadding .spinner svg {
 }
 
 .expander {
+    margin-bottom: 0px;
     .expander-header {
         font-weight: bold;
         font-size: 1.5em;
@@ -272,4 +284,38 @@ p.loadding .spinner svg {
 
 input:-moz-placeholder {
     font-style: italic;
+}
+
+.centerText {
+    
+    /* 水平居中*/
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-pack: center;
+    /* IE 10 */
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    /* IE 11+,Firefox 22+,Chrome 29+,Opera 12.1*/
+    /* 垂直居中 */
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-align: center;
+    /* IE 10 */
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+}
+
+.show {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.hide {
+    dispaly: none;
 }

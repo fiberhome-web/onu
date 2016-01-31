@@ -41,9 +41,12 @@ var ONU_LOCAL = {
             voice_abnormal: '语音端口异常'
         },
         remark: '备注',
-        sure: '確定',
+        ok: '確定',
         cancel: '取消',
         remark_ph: '请输入备注',
+        stay_on_this_page:'停留在该页',
+        view_report:'查看报告',
+        generate_report_successfully:'生成报告成功。'
     },
 
     detailModule : {

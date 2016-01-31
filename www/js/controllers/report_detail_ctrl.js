@@ -1,11 +1,12 @@
 'use strict';
 angular.module('starter.controllers')
-    .controller('ReportDetailCtrl', function($scope, $state, $http, $ionicHistory,
+    .controller('ReportDetailCtrl', function($scope, $rootScope, $state, $http, $ionicHistory,
         $stateParams, DB, $ionicPopup, $ionicModal, $ionicPopover, File,
         $cordovaSocialSharing, $cordovaEmailComposer) {
 
         $scope.reportLocal = ONU_LOCAL.report;
 
+        $rootScope.hideTabs = true;
         var filePath = '';
 
         //获取report id
@@ -13,7 +14,10 @@ angular.module('starter.controllers')
 
         //登录按钮事件
         $scope.back = function() {
-            $ionicHistory.goBack();
+            window.location.href = '#/tab/history';
+            // $ionicHistory.goBack();
+            // $ionicHistory.clearHistory();
+            $rootScope.hideTabs = false;
         };
 
 
