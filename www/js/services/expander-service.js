@@ -19,11 +19,10 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             }
             var ele = document.createElement('div');
             ele.className = 'operrator ';
-            ele.id = configuration.scope.$id;
 
             $ionicBody.get().appendChild(ele);
             ele.innerHTML = $templateCache.get(configuration.templateUrl);
-            ele.style.bottom = (0 - ele.offsetHeight) + 'px';
+            // ele.style.bottom = (0 - ele.offsetHeight) + 'px';
             self.element = ele;
 
             //弹出框背景的遮罩层
@@ -41,17 +40,20 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             self.show = show;
             self.showMask = showMask;
             self.hideMask = hideMask;
+            self.isShow=false;
 
 
 
 
             self.scope = (configuration.scope || $rootScope).$new();
+            self.element.id=self.scope.$id;
             self.options = configuration;
 
 
             //绑定DOM和scope
             $compile(self.element)(self.scope);
-
+            self.element.style.bottom = (0 - self.element.offsetHeight) + 'px';
+            
             eleMap[configuration.templateUrl] = self;
 
             return self;
@@ -59,6 +61,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
 
         function hide() {
+            this.isShow=false;
             if (hasClass(this.element, aniCss)) {
                 removeClass(this.element, aniCss);
             }
@@ -69,6 +72,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
         }
 
         function show() {
+            this.isShow=true;
             //若需要背景蒙罩层并禁止点击
             if (this.options.backdoor) {
                 // $ionicBody.addClass('popup-open');

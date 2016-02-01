@@ -23,6 +23,14 @@ angular.module('starter.controllers')
 
             //本地化信息
             $scope.local = ONU_LOCAL.historyModule;
+            var date_select_list = [
+                $scope.local.date_select.all,
+                $scope.local.date_select.today,
+                $scope.local.date_select.twoDays,
+                $scope.local.date_select.week,
+                $scope.local.date_select.month,
+                $scope.local.date_select.customized
+            ];
 
             //根据是否登录显示隐藏Tab
             if (!global.isLogin) {
@@ -31,12 +39,29 @@ angular.module('starter.controllers')
             }
 
 
-            var expanderConf = {
+            var batchDeleleExpanderConf = {
                 templateUrl: 'batchDelele.html',
                 scope: $scope,
                 backdoor: false
             };
-            var expanderHandel = ExpanderService.init(expanderConf);
+            var batchDeleleExpanderHandel = ExpanderService.init(batchDeleleExpanderConf);
+            $rootScope.expanderHandel = batchDeleleExpanderHandel;
+
+            var changeDateExpanderConf = {
+                templateUrl: 'changeDate.html',
+                scope: $scope,
+                backdoor: true
+            };
+            var changeDateExpanderHandel = ExpanderService.init(changeDateExpanderConf);
+
+            $scope.eventFun = {
+                changeDateBtnEVt: function() {
+                    changeDateExpanderHandel.show();
+                },
+                close: function() {
+                    changeDateExpanderHandel.hide();
+                },
+            };
 
             $scope.hideTabs = function() {
                 $rootScope.hideTabs = true;
@@ -81,40 +106,57 @@ angular.module('starter.controllers')
                         condition.endDate = date;
                         $scope.endDate = date;
                     }
-                    setList(filterData());
+                    // setList(filterData());
                 });
             };
 
             //过滤日期范围
             $scope.changeDate = function(range) {
-                //range为-1是启用日期精确定位
-                if (range === '-1') {
-                    return;
+                //range为0是查询所有报告
+                if (range === 0) {
+                    list = [];
+                    $scope.prox.loadding = true;
+                    DB.queryAll().then(function(res) {
+                        var length = res.rows.length;
+                        if (length > 0) {
+                            for (var i = 0; i < length; i++) {
+                                list.push(res.rows.item(i));
+                            }
+                        }
+                        setList(list);
+                    }, function(err) {
+                        console.error(err);
+                    });
                 }
-                range = parseInt(range);
-                var sDate = '';
-                var eDate = dateUtils.getToday();
-                switch (range) {
-                    case 1:
-                        sDate = dateUtils.getToday();
-                        break;
-                    case 2:
-                        sDate = dateUtils.getSpeDate(-1);
-                        break;
-                    case 3:
-                        sDate = dateUtils.getSpeDate(-6);
-                        break;
-                    case 4:
-                        sDate = dateUtils.getSpeDate(-30);
-                        break;
-                    default:
-                        sDate = '';
-                        eDate = '';
-                        break;
+                //range为5是启用日期精确定位
+                else if (range !== 5) {
+                    // range = parseInt(range);
+                    var sDate = '';
+                    var eDate = dateUtils.getToday();
+                    switch (range) {
+                        case 1:
+                            sDate = dateUtils.getToday();
+                            break;
+                        case 2:
+                            sDate = dateUtils.getSpeDate(-1);
+                            break;
+                        case 3:
+                            sDate = dateUtils.getSpeDate(-6);
+                            break;
+                        case 4:
+                            sDate = dateUtils.getSpeDate(-30);
+                            break;
+                        default:
+                            sDate = '';
+                            eDate = '';
+                            break;
+                    }
+                    condition.startDate = sDate;
+                    condition.endDate = eDate;
                 }
-                condition.startDate = sDate;
-                condition.endDate = eDate;
                 setList(filterData());
+                changeDateExpanderHandel.hide();
+                $scope.date_range =date_select_list[range];
             };
 
             //过滤类型
@@ -174,9 +216,9 @@ angular.module('starter.controllers')
                 });
                 $scope.local.del_batch = $scope.local.del + '(' + num + ')';
                 if (ckcekOne) {
-                    expanderHandel.show();
+                    batchDeleleExpanderHandel.show();
                 } else {
-                    expanderHandel.hide();
+                    batchDeleleExpanderHandel.hide();
                 }
             }, true);
 
@@ -219,7 +261,7 @@ angular.module('starter.controllers')
             //“取消”操作
             function cancel() {
                 //隐藏model框
-                expanderHandel.hide();
+                batchDeleleExpanderHandel.hide();
                 //隐藏checkbox
                 $scope.shouldShowCheckbox = false;
                 //显示导航
@@ -241,9 +283,11 @@ angular.module('starter.controllers')
                 };
 
                 //日期范围默认选择“一周内”
-                $scope.range = '3';
-                $scope.startDate = today;
-                $scope.endDate = today;
+                $scope.range = 3;
+                $scope.date_range =date_select_list[$scope.range];
+                    
+                $scope.startDate = '';
+                $scope.endDate = '';
                 $scope.searchContent = '';
                 //报告类型默认选择“全部”
                 $scope.type = 0;

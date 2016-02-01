@@ -1,7 +1,7 @@
 var ONU_LOCAL = {
-	basicInfo: '基本信息',
-	check: '诊断',
-	history: '历史',
+    basicInfo: '基本信息',
+    check: '诊断',
+    history: '历史',
 
     unit: {
         temperature: '℃',
@@ -23,13 +23,13 @@ var ONU_LOCAL = {
     },
 
     checkModule: {
-    	begin_check: '开始检测',
-    	wait_for_checking: '正在检测，请稍后...',
-    	one_key_check: '一键检测',
-    	generate_report: '生成报告',
-    	pon_port_item: 'PON口诊断项',
-    	data_port_item: '数据端口诊断项',
-    	voice_port_item: '语音端口诊断项',
+        begin_check: '开始检测',
+        wait_for_checking: '正在检测，请稍后...',
+        one_key_check: '一键检测',
+        generate_report: '生成报告',
+        pon_port_item: 'PON口诊断项',
+        data_port_item: '数据端口诊断项',
+        voice_port_item: '语音端口诊断项',
         report_title: '请输入报告信息',
         report_name: '报告名称',
         report_name_ph: '建议用地址或SN',
@@ -44,24 +44,26 @@ var ONU_LOCAL = {
         ok: '確定',
         cancel: '取消',
         remark_ph: '请输入备注',
-        stay_on_this_page:'停留在该页',
-        view_report:'查看报告',
-        generate_report_successfully:'生成报告成功。'
+        stay_on_this_page: '停留在该页',
+        view_report: '查看报告',
+        generate_report_successfully: '生成报告成功。',
+        generate_report_failed: '生成报告失败。'
     },
 
-    detailModule : {
-        address : '检测地点',
-        date : '检测时间',
-        conclusion : '检测结论',
-        report : '检测报告'
+    detailModule: {
+        address: '检测地点',
+        date: '检测时间',
+        conclusion: '检测结论',
+        report: '检测报告'
     },
 
     historyModule: {
         login: '登录',
-        del : '删除',
-        del_sure : '确认删除',
-        cancel : '取消',
-        choose : '选择',
+        ok: '确定',
+        del: '删除',
+        del_sure: '确认删除',
+        cancel: '取消',
+        choose: '选择',
         start_date: '开始日期',
         end_date: '结束日期',
         date_range: '日期范围',
@@ -71,17 +73,17 @@ var ONU_LOCAL = {
             twoDays: '2天内',
             week: '一周内',
             month: '一月内',
-            customized : '自定义日期选择'
+            customized: '自定义日期选择'
         },
-        types : {
-            all : '全部',
-            normal : '正常',
-            abnormal : '故障'
+        types: {
+            all: '全部',
+            normal: '正常',
+            abnormal: '故障'
         },
-        faults : {
-            pon : '光口异常',
-            data : '语音端口异常',
-            voice : '数据端口异常'
+        faults: {
+            pon: '光口异常',
+            data: '语音端口异常',
+            voice: '数据端口异常'
         }
     },
 

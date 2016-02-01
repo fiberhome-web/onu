@@ -12,7 +12,9 @@ angular.module('starter.controllers')
                 backdoor: true
             };
             var expanderHandel = ExpanderService.init(expanderConf);
+            $rootScope.expanderHandel=expanderHandel;
             $scope.saved = false;
+            $scope.save_failed = false;
             // $rootScope.hideTabs=false;
             // checkStatus 0，说明是从“基本信息”界面点击“一键检测”跳过来的，检查全部项。
             var checkStatus = $stateParams.checkStatus;
@@ -39,6 +41,7 @@ angular.module('starter.controllers')
                     $scope.report.remark = null;
                     $scope.report.reportName = null;
                     $scope.saved = false;
+                    $scope.save_failed = false;
                     expanderHandel.show();
                 },
                 close: function() {
@@ -206,7 +209,7 @@ angular.module('starter.controllers')
                 }, function(info) {
                     alert('error :' + JSON.stringify(info));
                     expanderHandel.hideMask();
-                    $scope.saved = true;
+                    $scope.save_failed = true;
                 });
                 expanderHandel.showMask();
                 // expanderHandel.hide

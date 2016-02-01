@@ -199,7 +199,8 @@ p.loadding .spinner svg {
   height: 0px; }
 
 .expander {
-  margin-bottom: 0px; }
+  margin-bottom: 0px;
+  background: white; }
   .expander .expander-header {
     font-weight: bold;
     font-size: 1.5em; }
@@ -257,5 +258,11 @@ input:-moz-placeholder {
 
 .hide {
   dispaly: none; }
+
+.no-border {
+  border: none; }
+
+.occupying-hidden {
+  visibility: hidden; }
 
 /*# sourceMappingURL=style.css.map */

@@ -140,7 +140,7 @@
         <div class="item item-button-right expander-header">
             {{i10n.checkModule.generate_report}}
             <button class="button button-stable button-clear" ng-click="eventFun.close()">
-                <i class="icon ion-close-round"></i>
+                <i class="icon ion-close"></i>
             </button>
         </div>
         <label class="item item-input expander-item">
@@ -161,7 +161,7 @@
             <input type="text" ng-model="report.remark" placeholder="{{i10n.checkModule.remark_ph}}">
         </label>
         <div class="item item-button button-bar expander-footer">
-            <button class="button button-positive" ng-click="eventFun.sureOrView(saved)" style="margin-right:1px;">
+            <button class="button button-positive" ng-click="eventFun.sureOrView(saved)" style="margin-right:1px;" ng-disabled="save_failed">
                 <span ng-if="!saved">{{i10n.checkModule.ok}}</span>
                 <span ng-if="saved">{{i10n.checkModule.view_report}}</span>
             </button>
@@ -170,7 +170,9 @@
                 <span ng-if="saved">{{i10n.checkModule.stay_on_this_page}}</span>
             </button>
         </div>
-        <div id="successfullyInfo" ng-class="{true: 'show', false: 'hide'}[saved]" class="centerText">{{i10n.checkModule.generate_report_successfully}}
+        <div id="successfullyInfo" ng-class="{true: 'show', false: 'hide'}[saved]" class="centerText">
+            <span ng-if="save_failed">{{i10n.checkModule.generate_report_failed}}</span>
+            <span ng-if="saved">{{i10n.checkModule.generate_report_successfully}}</span>
         </div>
     </div>
 </script>

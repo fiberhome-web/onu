@@ -17,7 +17,7 @@ var CONST = {
 //使用mockjax替换ajax
 Mock.mockjax(app);
 
-app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory,$stateParams) {
+app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams) {
 
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -50,10 +50,13 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
                 }, 2000);
             }
 
-        } else if($location.path() === '/tab/history/'+$stateParams.reportId){
+        } else if ($location.path() === '/tab/history/' + $stateParams.reportId) {
             window.location.href = '#/tab/history';
             $rootScope.hideTabs = false;
-        }else if ($ionicHistory.backView()) {
+        } else if ($ionicHistory.backView()) {
+            if($rootScope.expanderHandel.isShow){
+                $rootScope.expanderHandel.hide();
+            }
             $ionicHistory.goBack();
             $rootScope.hideTabs = false;
             console.log($ionicHistory.backView());

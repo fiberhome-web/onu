@@ -2,7 +2,7 @@ cordova plugin add https://github.com/pushandplay/cordova-plugin-apprate.git
 cordova plugin rm org.apache.cordova.dialogs
 cordova plugin add cordova-plugin-dialogs
 cordova plugin add https://github.com/whiteoctober/cordova-plugin-app-version.git
-cordova plugin add https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git
+::cordova plugin add https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git
 cordova plugin add cordova-plugin-camera
 cordova plugin add https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git
 cordova plugin add cordova-plugin-device
