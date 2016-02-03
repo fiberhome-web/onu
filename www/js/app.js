@@ -19,6 +19,7 @@ Mock.mockjax(app);
 
 app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams) {
 
+    $rootScope.expanderHandel = [];
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -51,12 +52,15 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
             }
 
         } else if ($location.path() === '/tab/history/' + $stateParams.reportId) {
-            window.location.href = '#/tab/history';
+            $state.go('tab.history');
+            // window.location.href = '#/tab/history';
             $rootScope.hideTabs = false;
         } else if ($ionicHistory.backView()) {
-            if($rootScope.expanderHandel.isShow){
-                $rootScope.expanderHandel.hide();
-            }
+            angular.forEach($rootScope.expanderHandel, function(handel) {
+                if (handel.isShow) {
+                   handel.hide();
+                }
+            });
             $ionicHistory.goBack();
             $rootScope.hideTabs = false;
             console.log($ionicHistory.backView());

@@ -1,6 +1,9 @@
 /* Empty. Add your own CSS if you like */
 
 $mColor:#c5d7ea;
+$mOrange:#F1BC92;
+$mGray:#BCBCBC;
+$mLightgray:#F2F2F2;
 * {
     font-family: 'Microsoft Yahei' !important;
 }
@@ -31,23 +34,50 @@ $mColor:#c5d7ea;
     font-weight: bold;
 }
 
-#historyTab ion-item:first-child {
-    border-top: none;
+#historyTab ion-item {
+    border: none;
 }
 
 #historyTab .reportItem {
+    .checkbox input:before,
+    .checkbox .checkbox-icon:before {
+        border-color: $mOrange;
+    }
+    .checkbox input:checked:before,
+    .checkbox input:checked + .checkbox-icon:before {
+        background: $mOrange;
+        border-color: $mOrange;
+    }
+    .item-content {
+        padding: 16px;
+    }
     span.name,
+    span.status,
     span.date {
         display: inline-block;
+        text-overflow: ellipsis;
         overflow: hidden;
         position: relative;
         top: 2px;
     }
     span.name {
-        width: 70%;
+        right: 0;
+        width: 40%;
+        margin-right: 10px;
+    }
+    span.status {
+        width: 30%;
+        i {
+            font-size: 20px;
+        }
+        span {
+            position: absolute;
+            bottom: 1px;
+            left: 10px;
+        }
     }
     span.date {
-        width: 30%;
+        right: -10px;
     }
 }
 
@@ -101,16 +131,20 @@ $mColor:#c5d7ea;
     border-bottom: none;
 }
 
-.operrator {
+.operator {
     width: 100%;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     z-index: 10;
     pointer-events: auto;
+    transition: all .25s ease-in-out;
     -moz-transition: all .25s ease-in-out;
     -webkit-transition: all .25s ease-in-out;
     -o-transition: all .25s ease-in-out;
+    * {
+        border-color: $mLightgray;
+    }
 }
 
 #successfullyInfo {
@@ -124,6 +158,7 @@ $mColor:#c5d7ea;
 }
 
 .show_ani {
+    transform: translateY(-100%);
     -moz-transform: translateY(-100%);
     -webkit-transform: translateY(-100%);
     -o-transform: translateY(-100%);
@@ -219,8 +254,42 @@ $mColor:#c5d7ea;
 }
 
 #historyTab .query-cond {
-    border-bottom: 1px dotted #ccc;
-    margin: 10px auto;
+    position: relative;
+    .search {
+        border: none;
+        margin: 30px auto;
+        background-image: none;
+    }
+}
+
+#fixedArea {
+    .item-input-wrapper {
+        background-color: #F8F8F8;
+        height: 40px;
+    }
+    .button-bar {
+        .button,
+        .activated,
+        .activeButton {
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+            margin: 0 2px;
+        }
+        .button {
+            border-top: 3px solid $mGray;
+            color: $mGray;
+        }
+        .activated {
+            border-top: 3px solid $mGray;
+            background-color: white;
+            box-shadow: 0 0 0;
+        }
+        .activeButton {
+            border-top: 3px solid $mOrange;
+            color: $mOrange;
+        }
+    }
 }
 
 p.loadding {
@@ -265,10 +334,12 @@ p.loadding .spinner svg {
 
 ::-webkit-input-placeholder {
     font-style: italic;
+    color: #E4E4E4;
 }
 
 ::-moz-placeholder {
     font-style: italic;
+    color: #E4E4E4;
 }
 
 
@@ -276,6 +347,7 @@ p.loadding .spinner svg {
 
 :-ms-input-placeholder {
     font-style: italic;
+    color: #E4E4E4;
 }
 
 
@@ -283,9 +355,10 @@ p.loadding .spinner svg {
 
 input:-moz-placeholder {
     font-style: italic;
+    color: #E4E4E4;
 }
 
-.centerText {
+.center {
     /* 水平居中*/
     -webkit-box-align: center;
     -moz-box-align: center;
@@ -323,6 +396,37 @@ input:-moz-placeholder {
 }
 
 .occupying-hidden {
-    
     visibility: hidden;
+}
+
+#data-range {
+    border: none;
+    padding: 0 11px;
+    .button {
+        position: relative;
+        float: right;
+        font-size: 16px;
+        line-height: normal;
+        min-height: 0;
+    }
+    .button .icon:before {
+        font-size: 16px;
+        line-height: normal;
+    }
+}
+
+#dateRangeInpute {
+    .input-label {
+        width: inherit;
+    }
+    .date-content {
+        width: 40%;
+        border-bottom: 1px solid $mLightgray;
+    }
+}
+
+.footer-button {
+    height: 40px;
+    background-color: #EB4F38;
+    color: white;
 }

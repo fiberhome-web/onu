@@ -18,7 +18,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
                 node.parentNode.removeChild(node);
             }
             var ele = document.createElement('div');
-            ele.className = 'operrator ';
+            ele.className = 'operator';
 
             $ionicBody.get().appendChild(ele);
             ele.innerHTML = $templateCache.get(configuration.templateUrl);

@@ -67,6 +67,7 @@ var ONU_LOCAL = {
         start_date: '开始日期',
         end_date: '结束日期',
         date_range: '日期范围',
+        search_ph:'请输入查询关键字',
         date_select: {
             all: '全部',
             today: '今天',

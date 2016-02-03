@@ -13,7 +13,7 @@ angular.module('starter.controllers')
             //查询条件对象
             var condition = {};
             //操作状态 true表示当前是待选择 false是待取消
-            var operator = true;
+            $scope.operator = true;
             //ionic bug, $watch只能监视对象，prox用于挂载需要监视的属性
             $scope.prox = {};
 
@@ -45,7 +45,7 @@ angular.module('starter.controllers')
                 backdoor: false
             };
             var batchDeleleExpanderHandel = ExpanderService.init(batchDeleleExpanderConf);
-            $rootScope.expanderHandel = batchDeleleExpanderHandel;
+            $rootScope.expanderHandel.push(batchDeleleExpanderHandel);
 
             var changeDateExpanderConf = {
                 templateUrl: 'changeDate.html',
@@ -53,7 +53,7 @@ angular.module('starter.controllers')
                 backdoor: true
             };
             var changeDateExpanderHandel = ExpanderService.init(changeDateExpanderConf);
-
+            $rootScope.expanderHandel.push(changeDateExpanderHandel);
             $scope.eventFun = {
                 changeDateBtnEVt: function() {
                     changeDateExpanderHandel.show();
@@ -61,6 +61,9 @@ angular.module('starter.controllers')
                 close: function() {
                     changeDateExpanderHandel.hide();
                 },
+                cancelEnter: function() {
+                    $scope.prox.searchContent = '';
+                }
             };
 
             $scope.hideTabs = function() {
@@ -100,10 +103,10 @@ angular.module('starter.controllers')
                 $cordovaDatePicker.show(dateOptions).then(function(date) {
                     date = date.format('yyyy-MM-dd');
                     if (flag) {
-                        condition.startDate = date;
+                        // condition.startDate = date;
                         $scope.startDate = date;
                     } else {
-                        condition.endDate = date;
+                        // condition.endDate = date;
                         $scope.endDate = date;
                     }
                     // setList(filterData());
@@ -114,22 +117,13 @@ angular.module('starter.controllers')
             $scope.changeDate = function(range) {
                 //range为0是查询所有报告
                 if (range === 0) {
-                    list = [];
-                    $scope.prox.loadding = true;
-                    DB.queryAll().then(function(res) {
-                        var length = res.rows.length;
-                        if (length > 0) {
-                            for (var i = 0; i < length; i++) {
-                                list.push(res.rows.item(i));
-                            }
-                        }
-                        setList(list);
-                    }, function(err) {
-                        console.error(err);
-                    });
+                    queryAll();
                 }
                 //range为5是启用日期精确定位
-                else if (range !== 5) {
+                else if (range === 5) {
+                    condition.startDate = $scope.startDate;
+                    condition.endDate = $scope.endDate;
+                } else {
                     // range = parseInt(range);
                     var sDate = '';
                     var eDate = dateUtils.getToday();
@@ -154,9 +148,10 @@ angular.module('starter.controllers')
                     condition.startDate = sDate;
                     condition.endDate = eDate;
                 }
+                $scope.range = range;
                 setList(filterData());
                 changeDateExpanderHandel.hide();
-                $scope.date_range =date_select_list[range];
+                $scope.date_range = date_select_list[range];
             };
 
             //过滤类型
@@ -184,7 +179,7 @@ angular.module('starter.controllers')
             //打开“选择”窗口
             $scope.opera = function(e) {
                 //如果是待选择
-                if (operator) {
+                if ($scope.operator) {
                     //显示checkbox
                     $scope.shouldShowCheckbox = true;
                     $scope.operation = ONU_LOCAL.historyModule.cancel;
@@ -195,7 +190,7 @@ angular.module('starter.controllers')
                     cancel();
                 }
 
-                operator = !operator;
+                $scope.operator = !$scope.operator;
 
                 // var delModelHeight = document.getElementById('history-operrator').offsetHeight;
                 // var tabHeight = document.getElementsByClassName('tab-nav tabs')[0].offsetHeight;
@@ -284,10 +279,10 @@ angular.module('starter.controllers')
 
                 //日期范围默认选择“一周内”
                 $scope.range = 3;
-                $scope.date_range =date_select_list[$scope.range];
-                    
-                $scope.startDate = '';
-                $scope.endDate = '';
+                $scope.date_range = date_select_list[$scope.range];
+
+                $scope.startDate = today;
+                $scope.endDate = today;
                 $scope.searchContent = '';
                 //报告类型默认选择“全部”
                 $scope.type = 0;
@@ -324,7 +319,7 @@ angular.module('starter.controllers')
             //设置数据
             function setList(list) {
                 //如果此时是操作状态，则要关闭操作窗口
-                if (!operator) {
+                if (!$scope.operator) {
                     $scope.opera();
                 }
                 $scope.list = list;
@@ -338,13 +333,16 @@ angular.module('starter.controllers')
                 $scope.prox.loadding = true;
                 var result = [];
                 angular.forEach(list, function(item) {
-                    //截取年月日，不用管时分秒
-                    var date = item.date.substr(0, 10);
-                    //过滤日期
-                    if (date < condition.startDate || date > condition.endDate) {
-                        return true;
-                    }
 
+                    //若日期选择“全部”，则不用过滤日期
+                    if ($scope.range !== 0) {
+                        //截取年月日，不用管时分秒
+                        var date = item.date.substr(0, 10);
+                        //过滤日期
+                        if (date < condition.startDate || date > condition.endDate) {
+                            return true;
+                        }
+                    }
                     //过滤名称
                     var search = condition.searchContent;
                     if (search) {

@@ -12,7 +12,8 @@ angular.module('starter.controllers')
                 backdoor: true
             };
             var expanderHandel = ExpanderService.init(expanderConf);
-            $rootScope.expanderHandel=expanderHandel;
+            $rootScope.expanderHandel.push(expanderHandel);
+
             $scope.saved = false;
             $scope.save_failed = false;
             // $rootScope.hideTabs=false;
@@ -197,7 +198,8 @@ angular.module('starter.controllers')
             function viewReport() {
                 expanderHandel.hide();
                 $rootScope.hideTabs = true;
-                window.location.href = '#/tab/history/' + reportId;
+            //    $state.go('tab.report-detail');
+                 window.location.href = '#/tab/history/' + reportId;
             }
 
             function sure() {

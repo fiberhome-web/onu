@@ -1,3 +1,59 @@
-.tab-item.tab-item-active{
-	border-color:rgba(255,255,255,0);
+$mOrange:#F1BC92;
+.tab-item.tab-item-active {
+    border-color: rgba(255, 255, 255, 0);
 }
+
+.item-radio input:checked ~ {
+    .radio-icon {
+        visibility: visible;
+        color: $mOrange;
+    }
+    .item-content {
+        background: white;
+        color: $mOrange;
+    }
+}
+
+.item-radio .radio-icon {
+    position: absolute;
+    top: -6px;
+    right: 60%;
+    z-index: 3;
+    visibility: hidden;
+    padding: 14px;
+    height: 100%;
+    font-size: 24px;
+}
+
+.item-radio .item-content {
+    position: relative;
+    z-index: 2;
+    padding: 16px;
+    border: none;
+    background-color: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    /* 水平居中*/
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-pack: center;
+    /* IE 10 */
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    /* IE 11+,Firefox 22+,Chrome 29+,Opera 12.1*/
+    /* 垂直居中 */
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-align: center;
+    /* IE 10 */
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+}
+
+
