@@ -1,0 +1,78 @@
+<ion-view view-title="{{i10n.setup}}">
+    <ion-content id="setupTab" scroll="false">
+        <div class="list">
+            <div class="item listButton">
+                {{local.auto_delete_report}}
+                <button class="button button-stable button-clear" ng-click="eventFun.openAutoDeleteReportBox()">
+                    {{del_select[delIndex]}}
+                    <i class="icon ion-arrow-down-b"></i>
+                </button>
+            </div>
+            <div class="item listButton">
+                {{local.warranty_period}}
+                <button class="button button-stable button-clear" ng-click="eventFun.openWarrantyPeriodBox()">
+                    {{date_select[dateIndex]}}
+                    <i class="icon ion-arrow-down-b"></i>
+                </button>
+            </div>
+            <div class="item">
+                {{local.version}}
+                <span class="item-note">{{local.software_version}}</span>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="list padding-bottom">
+                <button class="button button-block-half button-green" ng-click="eventFun.reconnect()">
+                    {{local.reconnect}}
+                </button>
+            </div>
+            <div class="list padding">
+                <span class="note">{{local.copyright}}</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!-- 自动删除报告上弹框 -->
+<script id="autoDeleteReport.html" type="text/ng-template">
+    <div class="list expander">
+        <div class="item item-button-right">
+            &nbsp;
+            <button class="button button-stable button-clear" ng-click="eventFun.closeAutoDeleteReportBox()">
+                <i class="icon ion-close"></i>
+            </button>
+        </div>
+    </div>
+    <ion-list>
+        <ion-radio ng-model="delRange" ng-value="0">{{local.del_select.never}}</ion-radio>
+        <ion-radio ng-model="delRange" ng-value="1" class="no-border-bottom">{{local.del_select.day}}</ion-radio>
+    </ion-list>
+    <div class="list expander">
+        <div class="item item-button expander-footer show center">
+            <button class="button button-block-half button-green" ng-click="eventFun.changeDeletePeriod(delRange)">
+                <span>{{local.ok}}</span>
+            </button>
+        </div>
+    </div>
+</script>
+<!-- 选择保修期上弹框 -->
+<script id="warrantyPeriod.html" type="text/ng-template">
+    <div class="list expander">
+        <div class="item item-button-right">
+            &nbsp;
+            <button class="button button-stable button-clear" ng-click="eventFun.closeWarrantyPeriodBox()">
+                <i class="icon ion-close"></i>
+            </button>
+        </div>
+    </div>
+    <ion-list>
+        <ion-radio ng-model="dateRange" ng-value="0">{{local.date_select.one_year}}</ion-radio>
+        <ion-radio ng-model="dateRange" ng-value="1" class="no-border-bottom">{{local.date_select.two_years}}</ion-radio>
+    </ion-list>
+    <div class="list expander">
+        <div class="item item-button expander-footer show center">
+            <button class="button button-block-half button-green" ng-click="eventFun.changeWarrantyPeriod(dateRange)">
+                <span>{{local.ok}}</span>
+            </button>
+        </div>
+    </div>
+</script>

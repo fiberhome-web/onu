@@ -161,11 +161,11 @@
             <input type="text" ng-model="report.remark" placeholder="{{i10n.checkModule.remark_ph}}">
         </label>
         <div class="item item-button button-bar expander-footer">
-            <button class="button button-positive" ng-click="eventFun.sureOrView(saved)" style="margin-right:1px;" ng-disabled="save_failed">
+            <button class="button button-green" ng-click="eventFun.sureOrView(saved)" style="margin-right:1px;" ng-disabled="save_failed">
                 <span ng-if="!saved">{{i10n.checkModule.ok}}</span>
                 <span ng-if="saved">{{i10n.checkModule.view_report}}</span>
             </button>
-            <button class="button button-positive" ng-click="eventFun.close()" style="margin-left:1px;">
+            <button class="button button-green" ng-click="eventFun.close()" style="margin-left:1px;">
                 <span ng-if="!saved">{{i10n.checkModule.cancel}}</span>
                 <span ng-if="saved">{{i10n.checkModule.stay_on_this_page}}</span>
             </button>

@@ -1,29 +1,17 @@
-<ion-view id="loginContent">
-    <ion-content>
-        <div class="row">
-            <div class="login">
-                <div class="logo">ONU CHECK</div>
-                <div class="list">
-                    <label class="item item-input">
-                        <span class="input-label">{{info.IPAddress}}</span>
-                        <input ng-model="loginInfo.ip" type="text">
-                    </label>
-                    <label class="item item-input">
-                        <span class="input-label">{{info.username}}</span>
-                        <input ng-model="loginInfo.username" type="text">
-                    </label>
-                    <label class="item item-input">
-                        <span class="input-label">{{info.password}}</span>
-                        <input ng-model="loginInfo.password" type="password">
-                    </label>
-                </div>
-                <button class="button button-royal button-block loginBtn" ng-click="loginBtnClick()">
-                    {{info.login}}
-                </button>
+<ion-view>
+    <ion-content scroll="false">
+    <div id="loginContent">
+        <div class="list show center">
+            <div class="item item-input inputBox">
+                <i class="iconfont placeholder-icon">&#xe604;</i>
+                <input type="text" placeholder="{{info.IPAddress}}" ng-model="loginInfo.ip">
+                <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
             </div>
-
         </div>
+        <button class="button button-green button-block-half loginBtn" ng-click="loginBtnClick()">
+            {{info.login}}
+        </button>
         <div class="history" ng-click="viewHistory()">{{info.history}}</div>
-        
+    </div>
     </ion-content>
 </ion-view>

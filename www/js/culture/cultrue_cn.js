@@ -2,6 +2,7 @@ var ONU_LOCAL = {
     basicInfo: '基本信息',
     check: '诊断',
     history: '历史',
+    setup:'设置',
 
     unit: {
         temperature: '℃',
@@ -85,6 +86,24 @@ var ONU_LOCAL = {
             pon: '光口异常',
             data: '语音端口异常',
             voice: '数据端口异常'
+        }
+    },
+
+    setupModule:{
+        auto_delete_report:'自动删除报告',
+        warranty_period:'保修期',
+        version:'版本',
+        software_version:'ONUsmartChecker V1.0 Build 10',
+        copyright:'Copyright © 2016, Fiberhome Telecommunication Technologies Co.,LTD',
+        ok:'确定',
+        reconnect:'重新连接',
+        date_select: {
+            one_year:'一年',
+            two_years:'两年'
+        },
+        del_select:{
+            never:'从不',
+            day:'一天'
         }
     },
 

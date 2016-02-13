@@ -4,89 +4,120 @@ $mColor:#c5d7ea;
 $mOrange:#F1BC92;
 $mGray:#BCBCBC;
 $mLightgray:#F2F2F2;
+$mGreen:#1EA26B;
+$mRed:#EB4F38;
 * {
     font-family: 'Microsoft Yahei' !important;
 }
 
 #loginContent {
-    background-image: url(../img/loginbg.jpg);
+    background-image: url(../img/loginbg.png);
     color: white;
-}
-
-#loginContent .history {
-    text-align: center;
-}
-
-#loginContent .logo {
-    height: 400px;
-    text-align: center;
-    line-height: 400px;
-    font-size: 3em;
-}
-
-#loginContent .login {
-    margin: 10px;
-    width: 100%;
-}
-
-#loginContent .loginBtn {
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-#historyTab ion-item {
-    border: none;
-}
-
-#historyTab .reportItem {
-    .checkbox input:before,
-    .checkbox .checkbox-icon:before {
-        border-color: $mOrange;
+    height: 100%;
+    padding-top: 60%;
+    .placeholder-icon:first-child {
+        padding: 0 15px 5px 10px;
+        font-size: 24px;
     }
-    .checkbox input:checked:before,
-    .checkbox input:checked + .checkbox-icon:before {
-        background: $mOrange;
-        border-color: $mOrange;
+    .placeholder-icon:last-child {
+        padding-left: 6px;
+        padding-right: 6px;
     }
-    .item-content {
-        padding: 16px;
-    }
-    span.name,
-    span.status,
-    span.date {
-        display: inline-block;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        position: relative;
-        top: 2px;
-    }
-    span.name {
-        right: 0;
-        width: 40%;
-        margin-right: 10px;
-    }
-    span.status {
-        width: 30%;
+    .inputBox {
+        width: 50%;
+        height: 50px;
+        background-color: #51596A;
+        border: none;
+        padding: 0;
         i {
-            font-size: 20px;
+            color: #A6B4B5;
         }
-        span {
-            position: absolute;
-            bottom: 1px;
-            left: 10px;
+        input {
+            color: white;
         }
     }
-    span.date {
-        right: -10px;
+    .loginBtn {
+        border-radius: 8px;
+        font-weight: bold;
+        height: 60px;
+        font-size: 20px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+    .history {
+        text-align: center;
+        padding-top: 30px;
     }
 }
 
-#historyTab .reportItem span.name > span {
-    padding-left: 20px;
+#scroll {
+    height: 700px;
+    .padding {
+        padding: 0 20px;
+    }
+}
+
+#historyTab {
+    .item-complex {
+        padding: 0 15px;
+    }
+    .item {
+        margin: 0;
+    }
+    ion-item {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid $mLightgray;
+    }
+    ion-item:last-child {
+        border-bottom: none;
+    }
+    .reportItem {
+        .checkbox input:before,
+        .checkbox .checkbox-icon:before {
+            border-color: $mOrange;
+        }
+        .checkbox input:checked:before,
+        .checkbox input:checked + .checkbox-icon:before {
+            background: $mOrange;
+            border-color: $mOrange;
+        }
+        .item-content {
+            padding: 16px 0;
+        }
+        span.name,
+        span.status,
+        span.date {
+            display: inline-block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            position: relative;
+            top: 2px;
+        }
+        span.name {
+            right: 0;
+            width: 40%;
+            margin-right: 10px;
+        }
+        span.name > span {
+            padding-left: 20px;
+        }
+        span.status {
+            width: 30%;
+            i {
+                font-size: 20px;
+            }
+        }
+    }
 }
 
 .red {
-    color: red;
+    color: $mRed;
+}
+
+.green {
+    color: $mGreen;
 }
 
 .button-block-half {
@@ -399,9 +430,15 @@ input:-moz-placeholder {
     visibility: hidden;
 }
 
-#data-range {
-    border: none;
-    padding: 0 11px;
+#historyTab .list {
+    margin-bottom: 0;
+    .listButton {
+        padding: 0 11px;
+        border: none;
+    }
+}
+
+.listButton {
     .button {
         position: relative;
         float: right;
@@ -427,6 +464,46 @@ input:-moz-placeholder {
 
 .footer-button {
     height: 40px;
-    background-color: #EB4F38;
+    background-color: $mRed;
     color: white;
+}
+
+#setupTab {
+    .scroll {
+        height: 100%;
+    }
+    .list {
+        .item:first-child {
+            margin-top: 10px;
+        }
+        .item {
+            margin: 0 16px;
+            padding: 16px 0;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            border-bottom: 1px solid $mLightgray;
+        }
+        .item:last-child {
+            border-bottom: none;
+        }
+    }
+    .footer {
+        position: fixed;
+        bottom: 60px;
+        width: 100%;
+        text-align: center;
+        .note {
+            color: #b2b2b2;
+        }
+        .padding-bottom {
+            padding-bottom: 40px;
+        }
+    }
+}
+
+.button.button-green {
+    border: none;
+    background-color: $mGreen;
+    color: #fff;
 }

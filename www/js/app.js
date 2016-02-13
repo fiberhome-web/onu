@@ -154,6 +154,16 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
                 controller: 'ReportDetailCtrl'
             }
         }
+    })
+
+    .state('tab.setup', {
+        url: '/setup',
+        views: {
+            'tab-setup': {
+                templateUrl: 'templates/tab-setup.html',
+                controller: 'SetupCtrl'
+            }
+        }
     });
 
     // if none of the above states are matched, use this as the fallback

@@ -54,9 +54,11 @@ angular.module('starter.controllers')
             };
             var changeDateExpanderHandel = ExpanderService.init(changeDateExpanderConf);
             $rootScope.expanderHandel.push(changeDateExpanderHandel);
+            
             $scope.eventFun = {
                 changeDateBtnEVt: function() {
                     changeDateExpanderHandel.show();
+                    changeDateExpanderHandel.scope.range=$scope.range;
                 },
                 close: function() {
                     changeDateExpanderHandel.hide();
@@ -289,9 +291,9 @@ angular.module('starter.controllers')
 
                 //   DB.insert(datas()); 
 
-                $scope.scrollHeight = {
-                    height: '70%'
-                };
+                // $scope.scrollHeight = {
+                //     height: '70%'
+                // };
 
                 //查询所有报告记录
                 queryAll();

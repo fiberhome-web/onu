@@ -4,29 +4,53 @@
   font-family: 'Microsoft Yahei' !important; }
 
 #loginContent {
-  background-image: url(../img/loginbg.jpg);
-  color: white; }
+  background-image: url(../img/loginbg.png);
+  color: white;
+  height: 100%;
+  padding-top: 60%; }
+  #loginContent .placeholder-icon:first-child {
+    padding: 0 15px 5px 10px;
+    font-size: 24px; }
+  #loginContent .placeholder-icon:last-child {
+    padding-left: 6px;
+    padding-right: 6px; }
+  #loginContent .inputBox {
+    width: 50%;
+    height: 50px;
+    background-color: #51596A;
+    border: none;
+    padding: 0; }
+    #loginContent .inputBox i {
+      color: #A6B4B5; }
+    #loginContent .inputBox input {
+      color: white; }
+  #loginContent .loginBtn {
+    border-radius: 8px;
+    font-weight: bold;
+    height: 60px;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px; }
+  #loginContent .history {
+    text-align: center;
+    padding-top: 30px; }
 
-#loginContent .history {
-  text-align: center; }
+#scroll {
+  height: 700px; }
+  #scroll .padding {
+    padding: 0 20px; }
 
-#loginContent .logo {
-  height: 400px;
-  text-align: center;
-  line-height: 400px;
-  font-size: 3em; }
-
-#loginContent .login {
-  margin: 10px;
-  width: 100%; }
-
-#loginContent .loginBtn {
-  border-radius: 5px;
-  font-weight: bold; }
-
+#historyTab .item-complex {
+  padding: 0 15px; }
+#historyTab .item {
+  margin: 0; }
 #historyTab ion-item {
-  border: none; }
-
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #F2F2F2; }
+#historyTab ion-item:last-child {
+  border-bottom: none; }
 #historyTab .reportItem .checkbox input:before,
 #historyTab .reportItem .checkbox .checkbox-icon:before {
   border-color: #F1BC92; }
@@ -35,7 +59,7 @@
   background: #F1BC92;
   border-color: #F1BC92; }
 #historyTab .reportItem .item-content {
-  padding: 16px; }
+  padding: 16px 0; }
 #historyTab .reportItem span.name,
 #historyTab .reportItem span.status,
 #historyTab .reportItem span.date {
@@ -48,22 +72,18 @@
   right: 0;
   width: 40%;
   margin-right: 10px; }
+#historyTab .reportItem span.name > span {
+  padding-left: 20px; }
 #historyTab .reportItem span.status {
   width: 30%; }
   #historyTab .reportItem span.status i {
     font-size: 20px; }
-  #historyTab .reportItem span.status span {
-    position: absolute;
-    bottom: 1px;
-    left: 10px; }
-#historyTab .reportItem span.date {
-  right: -10px; }
-
-#historyTab .reportItem span.name > span {
-  padding-left: 20px; }
 
 .red {
-  color: red; }
+  color: #EB4F38; }
+
+.green {
+  color: #1EA26B; }
 
 .button-block-half {
   width: 50%;
@@ -318,18 +338,21 @@ input:-moz-placeholder {
 .occupying-hidden {
   visibility: hidden; }
 
-#data-range {
-  border: none;
-  padding: 0 11px; }
-  #data-range .button {
-    position: relative;
-    float: right;
-    font-size: 16px;
-    line-height: normal;
-    min-height: 0; }
-  #data-range .button .icon:before {
-    font-size: 16px;
-    line-height: normal; }
+#historyTab .list {
+  margin-bottom: 0; }
+  #historyTab .list .listButton {
+    padding: 0 11px;
+    border: none; }
+
+.listButton .button {
+  position: relative;
+  float: right;
+  font-size: 16px;
+  line-height: normal;
+  min-height: 0; }
+.listButton .button .icon:before {
+  font-size: 16px;
+  line-height: normal; }
 
 #dateRangeInpute .input-label {
   width: inherit; }
@@ -341,5 +364,33 @@ input:-moz-placeholder {
   height: 40px;
   background-color: #EB4F38;
   color: white; }
+
+#setupTab .scroll {
+  height: 100%; }
+#setupTab .list .item:first-child {
+  margin-top: 10px; }
+#setupTab .list .item {
+  margin: 0 16px;
+  padding: 16px 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid #F2F2F2; }
+#setupTab .list .item:last-child {
+  border-bottom: none; }
+#setupTab .footer {
+  position: fixed;
+  bottom: 60px;
+  width: 100%;
+  text-align: center; }
+  #setupTab .footer .note {
+    color: #b2b2b2; }
+  #setupTab .footer .padding-bottom {
+    padding-bottom: 40px; }
+
+.button.button-green {
+  border: none;
+  background-color: #1EA26B;
+  color: #fff; }
 
 /*# sourceMappingURL=style.css.map */

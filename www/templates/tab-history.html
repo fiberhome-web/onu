@@ -10,17 +10,17 @@
             <div class="query-cond">
                 <div class="bar bar-header item-input-inset search">
                     <div class="item-input-wrapper">
-                        <i class="icon ion-ios-search placeholder-icon"></i>
+                        <i class="iconfont placeholder-icon">&#xe60c;</i>
                         <input type="search" placeholder="{{local.search_ph}}" ng-model="prox.searchContent">
-                        <i class="icon ion-close-circled placeholder-icon" ng-click="eventFun.cancelEnter()"></i>
+                        <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
                     </div>
                 </div>
                 <div class="list">
-                    <div class="item" id="data-range">
+                    <div class="item listButton">
                         {{local.date_range}}
                         <button class="button button-dark button-clear" ng-click="eventFun.changeDateBtnEVt()">
                             {{date_range}}
-                            <i class="icon ion-arrow-down-b"></i>
+                            <i class="iconfont">&#xe612;</i>
                         </button>
                     </div>
                 </div>
@@ -32,17 +32,17 @@
                 <a class="button button-light" ng-class="{ 'activeButton': type === 2 }" ng-click="filterType(2)" ng-disabled="!operator">{{local.types.abnormal}}</a>
             </div>
         </div>
-        <ion-scroll ng-style="scrollHeight">
+        <ion-scroll id="scroll">
             <ion-refresher on-refresh="doRefresh()" pulling-text="Pull to refresh..." refreshing-text="Refreshing!" refreshing-icon="ion-loading-b">
             </ion-refresher>
             <div class="list padding">
-                <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
+                <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs" >
                     <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
                         <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
                         <span class="name">{{item.name }}</span>
                         <span class="status">
-                        <i class="icon ion-checkmark" ng-if="item.status===1"></i>
-                        <i class="icon ion-android-alert" ng-if="item.status!==1"></i>
+                        <i class="iconfont green" ng-if="item.status===1">&#xe60b;</i>
+                        <i class="iconfont red" ng-if="item.status!==1">&#xe609;</i>
                         <span ng-switch="item.status"> 
                         <span ng-switch-when="1">{{local.types.normal}}</span>
                         <span ng-switch-when="2">{{local.faults.pon}}</span>
@@ -91,7 +91,7 @@
         <div class="item item-button-right">
             &nbsp;
             <button class="button button-stable button-clear" ng-click="eventFun.close()">
-                <i class="icon ion-close"></i>
+                <i class="iconfont">&#xe61d;</i>
             </button>
         </div>
     </div>
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="item item-button expander-footer show center">
-            <button class="button button-positive" style="width:50%;" ng-click="changeDate(range)">
+            <button class="button button-green" style="width:50%;" ng-click="changeDate(range)">
                 <span>{{local.ok}}</span>
             </button>
         </div>
