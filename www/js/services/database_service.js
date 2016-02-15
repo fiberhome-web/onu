@@ -1,6 +1,6 @@
 'use strict';
-angular.module('starter.services').service('DB', function($cordovaSQLite,
-    $ionicPlatform,$rootScope) {
+angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatform', function($cordovaSQLite,
+    $ionicPlatform) {
     var query, db;
 
     $ionicPlatform.ready(function() {
@@ -12,11 +12,11 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
         $cordovaSQLite.execute(db, query).then(success, error);
     });
 
-
     //成功回调
     function success(info) {
         console.info('success :' + JSON.stringify(info));
     }
+
     //失败回调
     function error(info) {
         alert('error :' + JSON.stringify(info));
@@ -54,7 +54,7 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
         //如果是id数组
         if (ids instanceof Array) {
             for (var i = 0; i < ids.length; i++) {
-                ids[i] =  "\'" + ids[i] + "\'";
+                ids[i] = "\'" + ids[i] + "\'";
             }
             idPlaceHolder = ids.join(',');
         } else if (typeof ids === 'string') { //如果是单个id
@@ -69,4 +69,4 @@ angular.module('starter.services').service('DB', function($cordovaSQLite,
     };
 
 
-});
+}]);

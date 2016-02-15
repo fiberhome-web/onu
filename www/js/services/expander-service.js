@@ -4,10 +4,11 @@ angular.module('starter.services').
 factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootScope',
     function($templateCache, $compile, $ionicBody, $rootScope) {
 
-        var aniCss = 'show_ani';
         var maskCss = 'front_mask_layer';
 
         var eleMap = {};
+
+        var bottom = 0;
 
         function init(configuration) {
             var self = {};
@@ -18,12 +19,17 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
                 node.parentNode.removeChild(node);
             }
             var ele = document.createElement('div');
-            ele.className = 'operator';
+
 
             $ionicBody.get().appendChild(ele);
             ele.innerHTML = $templateCache.get(configuration.templateUrl);
             // ele.style.bottom = (0 - ele.offsetHeight) + 'px';
             self.element = ele;
+
+            bottom = (0 - self.element.offsetHeight) + 'px';
+
+            self.element.style.bottom = bottom;
+            ele.className = 'operator';
 
             //弹出框背景的遮罩层
             var backMaskEle = document.createElement('div');
@@ -52,7 +58,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
             //绑定DOM和scope
             $compile(self.element)(self.scope);
-            self.element.style.bottom = (0 - self.element.offsetHeight) + 'px';
+           
             
             eleMap[configuration.templateUrl] = self;
 
@@ -61,10 +67,15 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
 
         function hide() {
+            var that = this;
             this.isShow=false;
-            if (hasClass(this.element, aniCss)) {
-                removeClass(this.element, aniCss);
-            }
+           
+            $(this.element).animate({
+                bottom : bottom
+            },250,function(){
+                that.element.style.display = 'none';
+            });
+           
             if (this.options.backdoor) {
                 // $ionicBody.removeClass('popup-open');
                 $ionicBody.get().removeChild(this.backMaskEle);
@@ -79,9 +90,12 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
                 $ionicBody.get().appendChild(this.backMaskEle);
             }
 
-            if (!hasClass(this.element, aniCss)) {
-                addClass(this.element, aniCss);
-            }
+            this.element.style.display = 'block';
+
+            $(this.element).animate({
+                bottom : 0
+            });
+
         }
 
         function showMask() {
