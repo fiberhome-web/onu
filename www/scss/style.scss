@@ -187,9 +187,11 @@ $mGrass:#51BD91;
 .operator {
     width: 100%;
     position: fixed;
+    display:none;
     left: 0;
     right: 0;
     z-index: 10;
+    bottom:0;
     pointer-events: auto;
     transition: all .25s ease-in-out;
     -moz-transition: all .25s ease-in-out;
@@ -208,13 +210,6 @@ $mGrass:#51BD91;
     font-size: 16px;
     background: white;
     z-index: 11;
-}
-
-.show_ani {
-    transform: translateY(-100%);
-    -moz-transform: translateY(-100%);
-    -webkit-transform: translateY(-100%);
-    -o-transform: translateY(-100%);
 }
 
 .back_mask_layer {
