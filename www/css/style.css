@@ -137,11 +137,9 @@
 .operator {
   width: 100%;
   position: fixed;
-  display: none;
   left: 0;
   right: 0;
   z-index: 10;
-  bottom: 0;
   pointer-events: auto;
   transition: all .25s ease-in-out;
   -moz-transition: all .25s ease-in-out;

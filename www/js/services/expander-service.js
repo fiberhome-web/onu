@@ -1,14 +1,12 @@
 'use strict';
 
 angular.module('starter.services').
-factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootScope',
-    function($templateCache, $compile, $ionicBody, $rootScope) {
+factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootScope','$timeout',
+    function($templateCache, $compile, $ionicBody, $rootScope,$timeout) {
 
         var maskCss = 'front_mask_layer';
 
         var eleMap = {};
-
-        var bottom = 0;
 
         function init(configuration) {
             var self = {};
@@ -26,9 +24,6 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             // ele.style.bottom = (0 - ele.offsetHeight) + 'px';
             self.element = ele;
 
-            bottom = (0 - self.element.offsetHeight) + 'px';
-
-            self.element.style.bottom = bottom;
             ele.className = 'operator';
 
             //弹出框背景的遮罩层
@@ -38,7 +33,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
             //弹出框上面的遮罩层
             var frontMaskEle = document.createElement('div');
-            frontMaskEle.className = 'front_mask_layer ';
+            frontMaskEle.className = maskCss;
             frontMaskEle.innerHTML = '<i class="icon ion-loop"></i>';
             self.frontMaskEle = frontMaskEle;
 
@@ -48,17 +43,17 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             self.hideMask = hideMask;
             self.isShow=false;
 
-
-
-
             self.scope = (configuration.scope || $rootScope).$new();
             self.element.id=self.scope.$id;
             self.options = configuration;
 
-
             //绑定DOM和scope
-            $compile(self.element)(self.scope);
-           
+            $compile(self.element)(self.scope);  
+
+            //设置元素高度，用于展现时候的动画效果
+            self.bottom = (0 - self.element.offsetHeight) + 'px';
+            self.element.style.bottom = self.bottom;
+            self.element.style.display = 'none';
             
             eleMap[configuration.templateUrl] = self;
 
@@ -68,33 +63,41 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
         function hide() {
             var that = this;
-            this.isShow=false;
+            this.isShow = false;
            
             $(this.element).animate({
-                bottom : bottom
+                bottom : that.bottom
             },250,function(){
-                that.element.style.display = 'none';
+                
+                if (that.options.backdoor) {
+                    // $ionicBody.removeClass('popup-open');
+                    $ionicBody.get().removeChild(that.backMaskEle);
+                }
+
+                $timeout(function(){
+                    that.element.style.display = 'none';
+                },500);
             });
            
-            if (this.options.backdoor) {
-                // $ionicBody.removeClass('popup-open');
-                $ionicBody.get().removeChild(this.backMaskEle);
-            }
+           
         }
 
         function show() {
+            var that = this;
             this.isShow=true;
-            //若需要背景蒙罩层并禁止点击
-            if (this.options.backdoor) {
-                // $ionicBody.addClass('popup-open');
-                $ionicBody.get().appendChild(this.backMaskEle);
-            }
-
+          
             this.element.style.display = 'block';
 
             $(this.element).animate({
                 bottom : 0
+            },function(){
+                 //若需要背景蒙罩层并禁止点击
+                if (that.options.backdoor) {
+                    $ionicBody.get().appendChild(that.backMaskEle);
+                }
             });
+
+           
 
         }
 
