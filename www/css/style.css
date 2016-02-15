@@ -431,11 +431,14 @@ ion-tabs.tabs-color-active-ocean .tab-item.activated {
   border-color: #b2b2b2;
   background-color: #33475F;
   background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
-  color: white; }
+  color: white;
+  height: 64px;
+  border: none; }
 
 .bar.bar-ocean .title {
   font-weight: bold;
-  color: white; }
+  color: white;
+  top: 20px; }
 
 .bar.bar-ocean.bar-footer {
   background-image: linear-gradient(180deg, #b2b2b2, #b2b2b2 50%, transparent 50%); }
@@ -465,10 +468,61 @@ ion-tabs.tabs-color-active-ocean .tab-item.activated {
 .bar-ocean .button.button-icon {
   border-color: transparent;
   background: none;
-  font-size: 16px; }
+  font-size: 16px;
+  position: relative;
+  top: 10px;
+  line-height: 44px; }
   .bar-ocean .button.button-icon .iconfont {
-    font-size: 24px;
-    position: relative;
-    bottom: 3px; }
+    font-size: 24px; }
+
+ion-list > div {
+  background-color: white; }
+  ion-list > div label:not(:first-child) {
+    margin: 0 16px;
+    border-left: none;
+    border-right: none; }
+
+.center-radio .item-radio {
+  border-bottom: none; }
+  .center-radio .item-radio input:checked ~ .radio-icon {
+    color: #F1BC92; }
+  .center-radio .item-radio input:checked ~ .item-content {
+    background: white;
+    color: #F1BC92; }
+  .center-radio .item-radio .radio-icon {
+    top: -6px;
+    right: 60%; }
+  .center-radio .item-radio .item-content {
+    padding: 16px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    /* 姘村钩灞呬腑*/
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-pack: center;
+    /* IE 10 */
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    /* IE 11+,Firefox 22+,Chrome 29+,Opera 12.1*/
+    /* 鍨傜洿灞呬腑 */
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-align: center;
+    /* IE 10 */
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center; }
+
+.tabs-simple .tabs {
+  background: white;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+  border: 2px solid #F2F2F2; }
 
 /*# sourceMappingURL=style.css.map */
