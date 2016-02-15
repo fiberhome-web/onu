@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAEA,WAAY;EACR,GAAG,EAAE,IAAI;;AAGb,yBAA0B;EACtB,YAAY,EAAE,sBAAsB",
+"mappings": "AAEA,yBAA0B;EACtB,YAAY,EAAE,sBAAsB",
 "sources": ["../scss/override_ionic.scss"],
 "names": [],
 "file": "override_ionic.css"
