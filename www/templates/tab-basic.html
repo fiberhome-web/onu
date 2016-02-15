@@ -1,12 +1,16 @@
 <ion-view view-title="{{i10n.basicInfo}}">
-    <ion-content>
-        <div class="list card" ng-repeat="(key,item) in deviceInfo">
-            <div class="item item-divider">{{localInfo[key]}}</div>
-            <div class="item item-body">
-                <div>
-                    <span ng-if="item.text">{{item.text}}</span>
-                    <span ng-if="!item.text">{{item.val}}</span>
-                </div>
+    <ion-content id="basicInfoTab" scroll="false">
+        <div class="list">
+            <div class="item" ng-repeat="(key,item) in deviceInfo track by $index | filter:$index < 6">
+                {{localInfo[key]}}
+                {{$index}}
+                <span class="item-note" ng-class="{'blue':key==='warranty_period'}" ng-if="item.text">
+                <i class="iconfont" ng-if="key==='registration_status_led'" ng-class="{'0':'red','1':'green'}[deviceInfo.registration_status_led.val]">&#xe608;</i>
+                <i class="iconfont" ng-if="key==='warranty_period'">&#xe611;</i>
+                {{item.text}}</span>
+                <span class="item-note" ng-if="!item.text">
+                    {{item.val}}
+                </span>
             </div>
         </div>
         <div class="list padding ">

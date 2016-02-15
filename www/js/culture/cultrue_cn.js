@@ -20,7 +20,8 @@ var ONU_LOCAL = {
     },
 
     basicModule: {
-        one_check: '一键检测'
+        one_check: '一键检测',
+        scan_bar_code:'扫一扫'
     },
 
     checkModule: {
@@ -109,13 +110,15 @@ var ONU_LOCAL = {
 
     report: {
         deviceInfo: {
-            module_name: '设备信息',
+            equipment_id: '设备ID',
             device_type: 'ONU型号',
             vendor: '厂商',
             hardware_version: '硬件版本号',
             software_version: '软件版本号',
             mac: 'MAC',
             sn: 'SN',
+            warranty_period:'保修期',
+            registration_status_led:'注册状态灯',
             onu_regist_status: 'ONU注册状态',
             onu_auth_status: 'ONU认证状态',
             pon_port_number: '光口个数',
@@ -155,6 +158,11 @@ var ONU_LOCAL = {
     },
 
     enums: {
+        registration_status_led:{
+            k_0: 'Off',
+            k_1: 'On',
+            k_2: 'Blinking',
+        },
         onu_regist_status: {
             k_01: 'STATE_INIT',
             k_02: 'STATE_STANDBY',

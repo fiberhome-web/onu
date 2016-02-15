@@ -2,7 +2,7 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
     return {
         ResultCode: '0',
         data: {
-            device_type: {
+            equipment_id: {
                 val: 'AN5506-04-B5',
                 ecode: '1'
             },
@@ -20,6 +20,9 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
             },
             sn: {
                 val: 'AN5506-04-B5'
+            },
+            registration_status_led:{
+                val:'0'
             },
             onu_regist_status: {
                 val: '01'

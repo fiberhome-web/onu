@@ -92,7 +92,10 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     $ionicConfigProvider.backButton.text('Go Back').icon('ion-chevron-left');
     //配置tabs统一显示在下部
     $ionicConfigProvider.tabs.position('bottom');
-
+    //配置导航栏title统一居中显示
+    $ionicConfigProvider.navBar.alignTitle('center');
+    //配置导航栏样式
+    $ionicConfigProvider.tabs.style('');
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router

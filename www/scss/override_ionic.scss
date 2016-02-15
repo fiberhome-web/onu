@@ -1,10 +1,133 @@
 $mOrange:#F1BC92;
+.bar-header {
+    top: 0;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    padding-top: 30px;
+}
+
+.bar .title + .buttons {
+    position: absolute;
+    top: 30px;
+    right: 5px;
+}
+.bar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 5px;
+  width: 100%;
+  height: 64px;
+  border-width: 0;
+  border-style: solid;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid #ddd;
+  background-color: white;
+  /* border-width: 1px will actually create 2 device pixels on retina; */
+  background-size: 0;
+}
+.bar .title {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  margin: 0 10px;
+  min-width: 30px;
+  height: 63px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 44px;
+}
+
+.has-header {
+    top: 64px;
+}
+
+.tabs {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: horizontal;
+    -moz-flex-direction: horizontal;
+    -ms-flex-direction: horizontal;
+    flex-direction: horizontal;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    border-color: #b2b2b2;
+    background-color: #f8f8f8;
+    background-image: linear-gradient(0deg, #E5E5E5, #E5E5E5 50%, transparent 50%);
+    color: #444;
+    position: absolute;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    height: 49px;
+    border-style: solid;
+    border-top-width: 1px;
+    background-size: 0;
+    line-height: 49px;
+    background-color: white;
+}
+
+@media (min--moz-device-pixel-ratio: 1.5),
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi),
+(min-resolution: 1.5dppx) {
+    .tabs {
+        border-bottom: none;
+        background-size: 100% 3px;
+    }
+}
+
 .tab-item.tab-item-active {
     border-color: rgba(255, 255, 255, 0);
 }
 
 
+
+ion-list>div {
+    background-color: white;
+    label:not(:first-child) {
+        margin: 0 16px;
+        border-left: none;
+        border-right: none;
+    }
+}
+
 .item-radio {
+    border-bottom: none;
     input:checked ~ {
         .radio-icon {
             visibility: visible;

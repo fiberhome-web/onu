@@ -4,7 +4,8 @@
         <div class="list show center">
             <div class="item item-input inputBox">
                 <i class="iconfont placeholder-icon">&#xe604;</i>
-                <input type="text" placeholder="{{info.IPAddress}}" ng-model="loginInfo.ip">
+                <input type="text" placeholder="{{info.IPAddress}}" ng-model="loginInfo.ip" ng-pattern="/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+" required/>
                 <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
             </div>
         </div>

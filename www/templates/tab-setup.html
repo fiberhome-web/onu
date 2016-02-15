@@ -5,14 +5,14 @@
                 {{local.auto_delete_report}}
                 <button class="button button-stable button-clear" ng-click="eventFun.openAutoDeleteReportBox()">
                     {{del_select[delIndex]}}
-                    <i class="icon ion-arrow-down-b"></i>
+                    <i class="iconfont">&#xe612;</i>
                 </button>
             </div>
             <div class="item listButton">
                 {{local.warranty_period}}
                 <button class="button button-stable button-clear" ng-click="eventFun.openWarrantyPeriodBox()">
                     {{date_select[dateIndex]}}
-                    <i class="icon ion-arrow-down-b"></i>
+                    <i class="iconfont">&#xe612;</i>
                 </button>
             </div>
             <div class="item">
@@ -22,7 +22,7 @@
         </div>
         <div class="footer">
             <div class="list padding-bottom">
-                <button class="button button-block-half button-green" ng-click="eventFun.reconnect()">
+                <button class="button button-block-half button-grass" ng-click="eventFun.reconnect()">
                     {{local.reconnect}}
                 </button>
             </div>
@@ -38,7 +38,7 @@
         <div class="item item-button-right">
             &nbsp;
             <button class="button button-stable button-clear" ng-click="eventFun.closeAutoDeleteReportBox()">
-                <i class="icon ion-close"></i>
+                <i class="iconfont">&#xe61d;</i>
             </button>
         </div>
     </div>
@@ -48,7 +48,7 @@
     </ion-list>
     <div class="list expander">
         <div class="item item-button expander-footer show center">
-            <button class="button button-block-half button-green" ng-click="eventFun.changeDeletePeriod(delRange)">
+            <button class="button button-block-half button-grass" ng-click="eventFun.changeDeletePeriod(delRange)">
                 <span>{{local.ok}}</span>
             </button>
         </div>
@@ -60,7 +60,7 @@
         <div class="item item-button-right">
             &nbsp;
             <button class="button button-stable button-clear" ng-click="eventFun.closeWarrantyPeriodBox()">
-                <i class="icon ion-close"></i>
+                <i class="iconfont">&#xe61d;</i>
             </button>
         </div>
     </div>
@@ -70,7 +70,7 @@
     </ion-list>
     <div class="list expander">
         <div class="item item-button expander-footer show center">
-            <button class="button button-block-half button-green" ng-click="eventFun.changeWarrantyPeriod(dateRange)">
+            <button class="button button-block-half button-grass" ng-click="eventFun.changeWarrantyPeriod(dateRange)">
                 <span>{{local.ok}}</span>
             </button>
         </div>
