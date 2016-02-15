@@ -189,17 +189,12 @@ $mGrass:#51BD91;
 .operator {
     width: 100%;
     position: fixed;
-<<<<<<< HEAD
     left: 0;
     right: 0;
     z-index: 10;
-=======
-    display: none;
     left: 0;
     right: 0;
     z-index: 10;
-    bottom: 0;
->>>>>>> origin/dev
     pointer-events: auto;
     transition: all .25s ease-in-out;
     -moz-transition: all .25s ease-in-out;
