@@ -1,25 +1,39 @@
 <ion-view view-title="{{i10n.basicInfo}}">
-    <ion-content id="basicInfoTab">
-        <div class="list">
-            <div class="item" ng-repeat="(key,item) in deviceInfo track by $index">
-                {{localInfo[key]}}
-                <span class="item-note" ng-class="{'blue':key==='warranty_period'}" ng-if="item.text">
-                <i class="iconfont" ng-if="key==='registration_status_led'" ng-class="{'0':'red','1':'green'}[deviceInfo.registration_status_led.val]">&#xe608;</i>
-                <span ng-if="key!=='warranty_period'">{{item.text}}</span>
-                </span>
-                <span class="item-note" ng-if="!item.text">
-                    {{item.val}}
-                </span>
-                <button class="button button-stable button-clear" ng-if="key==='warranty_period'" ng-click="alert()">
-                <i class="iconfont" >&#xe611;</i>
-                {{item.text}}</button>
+    <ion-content id="basicInfoTab" scroll="false">
+        <ion-scroll>
+            <div class="list">
+                <div class="item" ng-repeat="(key,item) in deviceInfo">
+                    <span ng-if="key!=='warranty_period'">
+                    {{localInfo[key]}}
+                    <span class="item-note" ng-if="item.text">
+                        <i class="iconfont" ng-if="key==='registration_status_led'" ng-class="{'0':'red','1':'green'}[deviceInfo.registration_status_led.val]">&#xe608;</i>
+                        <span ng-if="key!=='warranty_period'">{{item.text}}</span>
+                    </span>
+                    <span class="item-note" ng-if="!item.text">
+                        {{item.val}}
+                    </span>
+                    </span>
+                    <div ng-if="key==='warranty_period'" ng-click="scanBarcode()">
+                        {{localInfo[key]}}
+                        <span class="item-note blue" ng-if="!item.text">
+                        <i class="iconfont bigerIcon">&#xe611;</i>
+                        {{item.val}}
+                        </span>
+                        <span class="item-note " ng-if="item.text">
+                        {{item.text}}
+                        </span>
+                    </div>
+                </div>
             </div>
+        </ion-scroll>
+        <div class="footer">
+            <button class="button button-full button-grass opacity" ng-click="checking()">{{local.one_check}}</button>
         </div>
-        <div class="list padding ">
+        <!-- div class="list padding ">
             <button class="button button-block-half button-royal" ng-click="checking()">
                 {{local.one_check}}
             </button>
-        </div>
+        </div> -->
         <!-- <ion-list>
     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends

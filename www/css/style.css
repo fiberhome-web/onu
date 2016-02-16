@@ -54,6 +54,22 @@
 #basicInfoTab .list .item:last-child {
   border-bottom: none; }
 
+.iconfont.bigerIcon {
+  font-size: 24px;
+  position: absolute;
+  right: 48px;
+  bottom: 18px; }
+
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0; }
+  .footer .button.opacity {
+    margin: 0;
+    opacity: 0.6;
+    -moz-opacity: 0.6;
+    filter: alpha(opacity=60); }
+
 #historyTab .item-complex {
   padding: 0 15px; }
 #historyTab .item {
@@ -85,9 +101,7 @@
 #historyTab .reportItem span.name {
   right: 0;
   width: 40%;
-  margin-right: 10px; }
-#historyTab .reportItem span.name > span {
-  padding-left: 20px; }
+  padding-right: 10px; }
 #historyTab .reportItem span.status {
   width: 30%; }
   #historyTab .reportItem span.status i {
