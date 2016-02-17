@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope','$rootScope', '$state', '$http', '$stateParams', '$filter', '$ionicPopup', 'Const', 'DB', 'Report', 'ExpanderService',
-        function($scope,$rootScope, $state, $http, $stateParams, $filter, $ionicPopup, Const, DB, Report, ExpanderService) {
+    .controller('CheckCtrl', ['$scope','$rootScope', '$state', '$http', '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService',
+        function($scope,$rootScope, $state, $http, $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService) {
 
-            initPage();
+           
             var reportId;
+            var deviceInfo;
             var expanderConf = {
                 templateUrl: 'generateReport.html',
                 scope: $scope,
@@ -54,6 +55,17 @@ angular.module('starter.controllers')
                     } else {
                         sure();
                     }
+                },
+
+                showTip : function(msg){
+                    if(msg){
+                       // 自定义弹窗
+                       var myPopup = $ionicPopup.show({
+                         template: '<div class="warn-tip">'+msg+'<div>',
+                         'class' : 'myclass'
+                       });
+                    }
+                   
                 }
             };
 
@@ -72,15 +84,32 @@ angular.module('starter.controllers')
                     voice: 'voice_port_id'
                 };
 
+                deviceInfo = Report.getDeviceInfo();
+
                 // 光口诊断信息
                 $scope.ponInfos = [];
+                var pon_num = parseInt(deviceInfo.pon_port_number ? deviceInfo.pon_port_number.val : 0);
+                for(var i = 0; i< pon_num; i++) {
+                    $scope.ponInfos.push({});
+                }
+
                 // 数据口诊断信息
                 $scope.dataInfos = [];
+                var date_num = parseInt(deviceInfo.data_port_number ? deviceInfo.data_port_number.val : 0);
+                for(var j = 0; j< date_num; j++) {
+                    $scope.dataInfos.push({});
+                }
                 // 语音口诊断信息
                 $scope.voiceInfos = [];
+                var voice_num = parseInt(deviceInfo.voice_port_number ? deviceInfo.voice_port_number.val : 0);
+                for(var k = 0; k< voice_num; k++) {
+                    $scope.voiceInfos.push({});
+                }
 
 
             }
+
+
 
             // Pon口诊断
             function checkPon() {
@@ -218,7 +247,7 @@ angular.module('starter.controllers')
             }
 
             function saveToDB(res) {
-                var deviceInfo = Report.getDeviceInfo();
+                
                 var ponPortStatus = $scope.ponInfos;
                 var dataPortStatus = $scope.dataInfos;
                 var voicePortStatus = $scope.voiceInfos;
@@ -244,5 +273,11 @@ angular.module('starter.controllers')
                 return DB.insert(datas);
             }
 
+
+            initPage();
+
         }
+
+
+
     ]);

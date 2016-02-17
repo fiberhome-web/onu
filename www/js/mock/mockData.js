@@ -31,13 +31,13 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
                 val: '1'
             },
             pon_port_number: {
-                val: '12'
+                val: '4'
             },
             data_port_number: {
-                val: '12'
+                val: '3'
             },
             voice_port_number: {
-                val: '12'
+                val: '2'
             },
         }
     }
@@ -49,7 +49,7 @@ Mock.mock('http://192.168.1.1/app/', 'getPonPortStatus', function(options){
 		'data|1-4': [
 			{
 				'pon_port_id|1-4': 1,
-				'temperature': {'val|1-100': 25},            
+				'temperature': {'val|1-100': 25, 'warn' : true, 'errMsg' : 'hdsad'},            
 				'voltage': {'val|1-5': 5},					
 				'bias_current': {'val|1-100': 100},			
 				'tx_opt_power': {'val|1-100': 23},			

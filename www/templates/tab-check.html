@@ -1,44 +1,50 @@
 <ion-view view-title="{{i10n.check}}">
     <ion-content id="checkTab">
-        <div class="list card">
+        <div class="">
             <!-- PON口诊断项 -->
-            <div class="item item-button-right">
-                <span>{{i10n.checkModule.pon_port_item}}</span>
-                <div class="check-spinner" ng-show="isPonChecking">
-                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
-                    <span class="text">{{i10n.checkModule.wait_for_checking}}</span>
+            <div class="check-module" ng-class="{'check-modal':isPonChecking}">
+                <div class="loadding" ng-show="isPonChecking" ng-click="isPonChecking = false">  <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner></div>
+                <div class="header">
+                    <i class="icon iconfont">&#xe622;</i>
+                    <span class="title">{{i10n.checkModule.pon_port_item}}</span>
+
+                    <span class="check_btn" ng-click="eventFun.checkPonBtnEvt()">
+                        <i class="icon iconfont">&#xe602;</i>
+                        <span>{{i10n.checkModule.begin_check}}</span>
+                    </span>
+                   
                 </div>
-                <button class="button button-stable button-positive" ng-disabled="isPonChecking" ng-click="eventFun.checkPonBtnEvt()">
-                    <span>{{i10n.checkModule.begin_check}}</span>
-                    <i class="ion-arrow-right-c"></i>
-                </button>
-            </div>
-            <div class="item item-body" ng-hide="ponInfos.length == 0">
-                <div class="list" ng-repeat="ponInfo in ponInfos | orderBy:order.pon" style="border: 1px #ddd solid;">
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.ponPortStatus.pon_port_id}}</span>
-                        <span class="item-note">{{ponInfo.pon_port_id}}</span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.ponPortStatus.temperature}}</span>
-                        <span class="item-note">{{ponInfo.temperature.val}} {{ponInfo.temperature.unit}}</span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-flash"></i><span>{{i10n.report.ponPortStatus.voltage}}</span>
-                        <span class="item-note">{{ponInfo.voltage.val}} {{ponInfo.voltage.unit}}</span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.bias_current}}</span>
-                        <span class="item-note">{{ponInfo.bias_current.val}} {{ponInfo.bias_current.unit}}</span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.tx_opt_power}}</span>
-                        <span class="item-note">{{ponInfo.tx_opt_power.val}} {{ponInfo.tx_opt_power.unit}}</span>
-                    </a>
-                    <a class="item item-icon-left" href="#">
-                        <i class="icon ion-ios-pulse-strong"></i><span>{{i10n.report.ponPortStatus.rx_opt_power}}</span>
-                        <span class="item-note">{{ponInfo.rx_opt_power.val}} {{ponInfo.rx_opt_power.unit}}</span>
-                    </a>
+                <div class="content" ng-repeat="ponInfo in ponInfos | orderBy:order.pon" >
+                    <div class="check-item" >
+                        <i class="icon iconfont check-icon">&#xe608;</i>
+                        <span class="name">{{i10n.report.ponPortStatus.pon_port_id}}</span>
+                        <span class="val">{{ponInfo.pon_port_id}}</span>
+                    </div>
+                    <div class="check-item" ng-click="eventFun.showTip(ponInfo.temperature.errMsg)">
+                        <span ng-class="{'war-color' : ponInfo.temperature.warn}">{{i10n.report.ponPortStatus.module_name}}</span>
+                        <i class="warn icon iconfont" ng-if="ponInfo.temperature.warn">&#xe616;</i>
+                        <span class="val" ng-class="{'war-color' : ponInfo.temperature.warn}">{{ponInfo.temperature.val}} </span>
+                    </div>
+                    <div class="check-item" >
+                        <span>{{i10n.report.ponPortStatus.temperature}}</span>
+                        <span class="val">{{ponInfo.temperature.val}} {{ponInfo.temperature.unit}}</span>
+                    </div>
+                    <div class="check-item" >
+                        <span>{{i10n.report.ponPortStatus.voltage}}</span>
+                        <span class="val">{{ponInfo.voltage.val}} {{ponInfo.voltage.unit}}</span>
+                    </div>
+                    <div class="check-item" >
+                        <span>{{i10n.report.ponPortStatus.bias_current}}</span>
+                        <span class="val">{{ponInfo.bias_current.val}} {{ponInfo.bias_current.unit}}</span>
+                    </div>
+                    <div class="check-item" >
+                        <span>{{i10n.report.ponPortStatus.tx_opt_power}}</span>
+                        <span class="val">{{ponInfo.tx_opt_power.val}} {{ponInfo.tx_opt_power.unit}}</span>
+                    </div>
+                    <div class="check-item" >
+                        <span>{{i10n.report.ponPortStatus.rx_opt_power}}</span>
+                        <span class="val">{{ponInfo.rx_opt_power.val}} {{ponInfo.rx_opt_power.unit}}</span>
+                    </div>
                 </div>
             </div>
             <!-- 数据口诊断项 -->
@@ -55,27 +61,27 @@
             </div>
             <div class="item item-body" ng-hide="dataInfos.length == 0">
                 <div class="list" ng-repeat="dataInfo in dataInfos | orderBy:order.data" style="border: 1px #ddd solid;">
-                    <a class="item item-icon-left" href="#">
+                    <a class="item item-icon-left" >
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.data_port_id}}</span>
-                        <span class="item-note">
+                        <span class="val">
                             <span>{{dataInfo.data_port_id}}</span>
                         </span>
                     </a>
-                    <a class="item item-icon-left" href="#">
+                    <a class="item item-icon-left" >
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.port_status}}</span>
-                        <span class="item-note">
+                        <span class="val">
                             <span>{{dataInfo.port_status.text}}</span>
                         </span>
                     </a>
-                    <a class="item item-icon-left" href="#">
+                    <a class="item item-icon-left" >
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.speed}}</span>
-                        <span class="item-note">
+                        <span class="val">
                             <span>{{dataInfo.speed.text}}</span>
                         </span>
                     </a>
-                    <a class="item item-icon-left" href="#">
+                    <a class="item item-icon-left" >
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.duplex}}</span>
-                        <span class="item-note">
+                        <span class="val">
                             <span>{{dataInfo.duplex.text}}</span>
                         </span>
                     </a>
@@ -95,44 +101,45 @@
             </div>
             <div class="item item-body" ng-hide="voiceInfos.length == 0">
                 <div class="list" ng-repeat="voiceInfo in voiceInfos | orderBy:order.voice" style="border: 1px #ddd solid;">
-                    <a class="item item-icon-left" href="#">
+                    <a class="item item-icon-left" >
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.voice_port_id}}</span>
-                        <span class="item-note">
+                        <span class="val">
                             <span>{{voiceInfo.voice_port_id}}</span>
                         </span>
                     </a>
-                    <a class="item item-icon-left" href="#">
+                    <a class="item item-icon-left" >
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.port_status}}</span>
-                        <span class="item-note">
+                        <span class="val">
                             <span>{{voiceInfo.port_status.text}}</span>
                         </span>
                     </a>
-                    <a class="item item-icon-left" href="#">
+                    <a class="item item-icon-left" >
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.protocol_type}}</span>
-                        <span class="item-note">
+                        <span class="val">
                             <span>{{voiceInfo.protocol_type.text}}</span>
                         </span>
                     </a>
-                    <a class="item item-icon-left" href="#">
+                    <a class="item item-icon-left" >
                         <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.telphone_no}}</span>
-                        <span class="item-note">
+                        <span class="val">
                             <span>{{voiceInfo.telphone_no.val}}</span>
                         </span>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="list padding ">
-            <div class="button-bar">
-                <button class="button button-positive" style="margin: 0 10px;" ng-click="eventFun.oneKeyCheckBtnEvt()">
-                    <span>{{i10n.checkModule.one_key_check}}</span>
-                </button>
-                <button class="button button-positive" style="margin: 0 10px;" ng-click="eventFun.generateReportBtnEVt()">
-                    <span>{{i10n.checkModule.generate_report}}</span>
-                </button>
-            </div>
-        </div>
     </ion-content>
+
+    <div class="list check_btn_group ">
+        <div class="button-bar">
+            <button class="button"  ng-click="eventFun.oneKeyCheckBtnEvt()">
+                <span>{{i10n.checkModule.one_key_check}}</span>
+            </button>
+            <button class="button" ng-click="eventFun.generateReportBtnEVt()">
+                <span>{{i10n.checkModule.generate_report}}</span>
+            </button>
+        </div>
+    </div>
 </ion-view>
 <!-- 生成报告弹出框模板 -->
 <script id="generateReport.html" type="text/ng-template">

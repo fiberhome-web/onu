@@ -1,0 +1,84 @@
+.check-module {
+  position: relative;
+  max-height: 1000px; }
+  .check-module .loadding svg {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    z-index: 100; }
+  .check-module .header {
+    line-height: 50px;
+    font-size: 1.4em;
+    padding: 15px 10px 0;
+    position: relative; }
+    .check-module .header i {
+      padding: 0 10px;
+      color: #999;
+      display: inline-block;
+      font-size: 30px; }
+    .check-module .header .title {
+      position: relative;
+      bottom: 3px; }
+    .check-module .header .check_btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      width: 120px;
+      color: #1EA26B; }
+      .check-module .header .check_btn i {
+        color: #1EA26B;
+        padding-right: 5px; }
+  .check-module .content .check-item {
+    position: relative;
+    padding: 10px 0 10px 80px;
+    font-size: 1.2em; }
+    .check-module .content .check-item .check-icon {
+      position: absolute;
+      left: 40px;
+      bottom: 12px;
+      color: #1EA26B;
+      font-size: 25px; }
+    .check-module .content .check-item .val {
+      position: absolute;
+      right: 20px; }
+    .check-module .content .check-item .warn {
+      color: red;
+      font-size: 20px;
+      position: relative;
+      top: 2px;
+      width: 100px;
+      display: inline-block; }
+
+.war-color {
+  color: red; }
+
+.check-modal {
+  background: rgba(222, 216, 216, 0.5); }
+
+.check_btn_group {
+  padding: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  height: 50px; }
+  .check_btn_group button {
+    background: rgba(30, 162, 107, 0.6);
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold; }
+  .check_btn_group .button:hover,
+  .check_btn_group .button:focus,
+  .check_btn_group .button:active {
+    color: #fff;
+    background-color: rgba(30, 162, 107, 0.6); }
+
+.warn-tip {
+  width: 500px;
+  height: 300px; }
+
+/*# sourceMappingURL=check.css.map */

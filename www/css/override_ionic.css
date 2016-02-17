@@ -1,4 +1,10 @@
 .tab-item.tab-item-active {
   border-color: rgba(255, 255, 255, 0); }
 
+.popup-container .popup {
+  width: auto; }
+
+.popup-container .popup .popup-head {
+  padding: 0; }
+
 /*# sourceMappingURL=override_ionic.css.map */
