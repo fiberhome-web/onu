@@ -4,40 +4,54 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
         data: {
             equipment_id: {
                 val: 'AN5506-04-B5',
-                ecode: '1'
+                ecode: '1',
+                warn:true,
+                reason:'lallalallala',
+                message:'jsjsjjsjsjsjs'
             },
             vendor: {
-                val: 'Fiberhome'
+                val: 'Fiberhome',
+                warn:false
             },
             hardware_version: {
-                val: 'WKE2.201.333R1A'
+                val: 'WKE2.201.333R1A',
+                warn:false
             },
             software_version: {
-                val: 'RP0700'
+                val: 'RP0700',
+                warn:false
             },
             mac: {
-                val: '11-22-33-44-55'
+                val: '11-22-33-44-55',
+                warn:false
             },
             sn: {
-                val: 'AN5506-04-B5'
+                val: 'AN5506-04-B5',
+                warn:false
             },
             registration_status_led:{
-                val:'0'
+                val:'0',
+                warn:false
             },
             onu_regist_status: {
-                val: '01'
+                val: '01',
+                 warn:true
             },
             onu_auth_status: {
-                val: '1'
+                val: '1',
+                warn:false
             },
             pon_port_number: {
-                val: '12'
+                val: '12',
+                warn:false
             },
             data_port_number: {
-                val: '12'
+                val: '12',
+                warn:false
             },
             voice_port_number: {
-                val: '12'
+                val: '12',
+                warn:false
             },
         }
     }
