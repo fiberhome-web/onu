@@ -3,10 +3,10 @@ angular.module('starter.services').service('Const',function(){
 
 	this.getReqUrl = function(){
 		return this.reqUrl;
-	}
+	};
 
 	this.setReqUrl = function(url){
 		this.reqUrl = url;
-	}
+	};
 
-})	
+});
