@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope','$rootScope', '$state', '$http', '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService',
-        function($scope,$rootScope, $state, $http, $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService) {
+    .controller('CheckCtrl', ['$scope','$rootScope', '$state', '$http','Check',
+     '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService',
+        function($scope,$rootScope, $state, $http, Check, $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService) {
 
            
             var reportId;
@@ -13,6 +14,7 @@ angular.module('starter.controllers')
                 backdoor: true
             };
             var expanderHandel = ExpanderService.init(expanderConf);
+
             $rootScope.expanderHandel.push(expanderHandel);
 
             $scope.saved = false;
@@ -57,12 +59,11 @@ angular.module('starter.controllers')
                     }
                 },
 
-                showTip : function(msg){
-                    if(msg){
+                showTip : function(item){
+                    if(item.msg){
                        // 自定义弹窗
                        var myPopup = $ionicPopup.show({
-                         template: '<div class="warn-tip">'+msg+'<div>',
-                         'class' : 'myclass'
+                         template: '<div class="warn-tip">'+item.msg+'<div>'
                        });
                     }
                    
@@ -85,7 +86,7 @@ angular.module('starter.controllers')
                 };
 
                 deviceInfo = Report.getDeviceInfo();
-
+               
                 // 光口诊断信息
                 $scope.ponInfos = [];
                 var pon_num = parseInt(deviceInfo.pon_port_number ? deviceInfo.pon_port_number.val : 0);
@@ -109,8 +110,6 @@ angular.module('starter.controllers')
 
             }
 
-
-
             // Pon口诊断
             function checkPon() {
                 $scope.isPonChecking = true;
@@ -133,9 +132,11 @@ angular.module('starter.controllers')
                             item.bias_current.unit = ONU_LOCAL.unit.bias_current;
                             item.tx_opt_power.unit = ONU_LOCAL.unit.opt_power;
                             item.rx_opt_power.unit = ONU_LOCAL.unit.opt_power;
+                            //检测数据
+                            item = Check.checking(CONST.TYPE.PON, item);
                         });
 
-                        $scope.ponInfos = data;
+                        $scope.ponInfos =  data;
                     } else {
                         var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
                         resultMsg && alert(resultMsg);

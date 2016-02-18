@@ -21,7 +21,7 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
             sn: {
                 val: 'AN5506-04-B5'
             },
-            registration_status_led:{
+            led_status:{
                 val:'0'
             },
             onu_regist_status: {
@@ -38,9 +38,9 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
             },
             voice_port_number: {
                 val: '2'
-            },
+            }
         }
-    }
+    };
 });
 
 Mock.mock('http://192.168.1.1/app/', 'getPonPortStatus', function(options){
@@ -48,12 +48,13 @@ Mock.mock('http://192.168.1.1/app/', 'getPonPortStatus', function(options){
 		'ResultCode': '0',
 		'data|1-4': [
 			{
-				'pon_port_id|1-4': 1,
-				'temperature': {'val|1-100': 25, 'warn' : true, 'errMsg' : 'hdsad'},            
-				'voltage': {'val|1-5': 5},					
-				'bias_current': {'val|1-100': 100},			
-				'tx_opt_power': {'val|1-100': 23},			
-				'rx_opt_power': {'val|1-100': 45}		
+				'pon_port_id': '1',
+                'led_status' : {'val': '0'},   
+				'temperature': {'val': '100'},            
+				'voltage': {'val': '5'},					
+				'bias_current': {'val': '100'},			
+				'tx_opt_power': {'val': '23'},			
+				'rx_opt_power': {'val': '-24'}		
 			}
 		] 
 	});
@@ -65,9 +66,12 @@ Mock.mock('http://192.168.1.1/app/', 'getDataPortStatus', function(options){
 		'data|1-4': [
 			{
 				'data_port_id|1-4': 1,
-				'port_status': {'val|0-3': 0},            
-				'speed': {'val|1': [0,2,3,4]},					
-				'duplex': {'val|0-2': 0}		
+                'led_status' : {val : '0'},
+				'port_status': {'val|0-3': '0'},            
+				'speed': {'val|1': ['0','2','3','4']},					
+				'duplex': {'val|0-2': '0'},
+                'rate_limit_us' : {val : '100'}, 
+                'rate_limit_ds' : {val : '100'}, 	
 			}
 		] 
 	});
