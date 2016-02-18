@@ -23,7 +23,7 @@
                     <div ng-repeat="(key,val) in ponInfo">
                         <div ng-if="val.val" class="check-item" ng-click="eventFun.showTip(val)">
                             <span ng-class="{'war-color' : ponInfo[key].warn}">{{i10n.report.ponPortStatus[key]}}</span>
-                            <i class="warn icon iconfont" ng-if="val.suggest">&#xe616;</i>
+                            <i class="warn icon iconfont" ng-if="val.msg">&#xe616;</i>
                             <span class="val" ng-class="{'war-color' : val.warn}">{{val.val}}{{val.unit}} </span>
                         </div>
                     </div>
