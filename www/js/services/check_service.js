@@ -123,6 +123,12 @@ angular.module('starter.services').service('Check',function(){
 			}]
 		},
 		voice : {
+			protocol_type :[{
+				op : 'eq',
+				val : '0',
+				reason : ONU_LOCAL.suggest.reason.r20,
+				suggest : ONU_LOCAL.suggest.msg.m17
+			}],
 			signal_svlan_id : [{
 				op : 'eq',
 				val : '0'
@@ -137,16 +143,43 @@ angular.module('starter.services').service('Check',function(){
 			ip_mask : [{
 				op : 'eq',
 				val : '0.0.0.0'
+			}],
+			first_mgc_ip : [{
+				op : 'eq',
+				val : '0.0.0.0'
+			}],
+			first_mgc_port : [{
+				op : 'neq',
+				val : '2944'
+			}],
+			h248_local_port : [{
+				op : 'neq',
+				val : '2944'
+			}],
+			first_sip_registrar_server_ip : [{
+				op : 'eq',
+				val : '0.0.0.0'
+			}],
+			first_sip_registrar_server_port : [{
+				op : 'neq',
+				val : '5060'
+			}],
+			first_sip_proxy_server_ip : [{
+				op : 'eq',
+				val : '0.0.0.0'
+			}],
+			first_sip_proxy_server_port : [{
+				op : 'neq',
+				val : '5060'
+			}],
+			sip_local_port : [{
+				op : 'neq',
+				val : '5060'
 			}]
 		},
 
 		voice_detail : {
-			protocol_type :[{
-				op : 'eq',
-				val : '0',
-				reason : ONU_LOCAL.suggest.reason.r20,
-				suggest : ONU_LOCAL.suggest.msg.m17
-			}]
+			
 		}
 	};
 
