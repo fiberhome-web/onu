@@ -3,16 +3,17 @@
         <ion-scroll>
             <div class="list">
                 <div class="item" ng-repeat="(key,item) in deviceInfo">
-                    <span ng-if="key!=='warranty_period'">
-                    {{localInfo[key]}}
-                    <span class="item-note" ng-if="item.text">
+                    <div ng-if="key!=='warranty_period'" ng-class="{'red':item.warn}" ng-click="showTips($event)" ng-disabled="!item.warn">
+                        {{localInfo[key]}}
+                        <i class="iconfont" ng-if="item.warn">&#xe616;</i>
+                        <span class="item-note" ng-if="item.text" ng-class="{'red':item.warn}">
                         <i class="iconfont" ng-if="key==='registration_status_led'" ng-class="{'0':'red','1':'green'}[deviceInfo.registration_status_led.val]">&#xe608;</i>
                         <span ng-if="key!=='warranty_period'">{{item.text}}</span>
-                    </span>
-                    <span class="item-note" ng-if="!item.text">
+                        </span>
+                        <span class="item-note" ng-if="!item.text" ng-class="{'red':item.warn}">
                         {{item.val}}
                     </span>
-                    </span>
+                    </div>
                     <div ng-if="key==='warranty_period'" ng-click="scanBarcode()">
                         {{localInfo[key]}}
                         <span class="item-note blue" ng-if="!item.text">
@@ -29,15 +30,8 @@
         <div class="footer">
             <button class="button button-full button-grass opacity" ng-click="checking()">{{local.one_check}}</button>
         </div>
-        <!-- div class="list padding ">
-            <button class="button button-block-half button-royal" ng-click="checking()">
-                {{local.one_check}}
-            </button>
-        </div> -->
-        <!-- <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list> -->
     </ion-content>
 </ion-view>
+<script id="basicInfoTips.html" type="text/ng-template">
+    <input ng-model="data.wifi" type="text" placeholder="Password">
+</script>

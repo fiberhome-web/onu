@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$cordovaBarcodeScanner', 'Const', 'Report', function($scope, $rootScope, $state, $http, $cordovaBarcodeScanner, Const, Report) {
+    .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$cordovaBarcodeScanner', '$ionicPopup', 'Const', 'Report', function($scope, $rootScope, $state, $http, $cordovaBarcodeScanner, $ionicPopup, Const, Report) {
 
 
 
@@ -12,17 +12,64 @@ angular.module('starter.controllers')
         //扫一扫函数
         $scope.scanBarcode = function() {
             $cordovaBarcodeScanner.scan().then(function(imageData) {
-                console.log("imageData.text -> " + imageData.text);
-                data = Report.getDeviceInfo();
-                data.warranty_period.text = imageData.text;
-                $scope.deviceInfo = data;
-                Report.setDeviceInfo(data);
+                    if (!imageData.cancelled && imageData.format === 'CODE_128') {
+                        var barcode = imageData.text;
+                        if (barcode.length === 12) {
+                            var year = '20' + barcode.substr(4, 2);
+                            if (isNaN(year)) {
+                                data.warranty_period.text = $scope.local.tip;
+                                return;
+                            } else {
+                                year = parseInt(year) + 2;
+                            }
+                            var month = barcode.substr(6, 1);
+                            var monthReg = /[A-C]/;
 
-            }, function(error) {
-                console.log("An error happened -> " + error);
-            });
+                            if (!isNaN(month)) {
+                                month = parseInt(month);
+                            } else if (monthReg.test(month)) {
+                                month = month.charCodeAt() - 55;
+                            } else {
+                                data.warranty_period.text = $scope.local.tip;
+                                return;
+                            }
+                            var today = new Date().format('yyyy-MM');
+                            var endDate = new Date(year, month - 1).format('yyyy-MM');
+
+                            if (today <= endDate) {
+                                data.warranty_period.text = $scope.local.not_expired + ' ( ' + endDate + ' ) ';
+
+                            } else {
+                                data.warranty_period.text = $scope.local.overdue + ' ( ' + endDate + ' ) ';
+                            }
+                            // data.warranty_period.text = imageData.text;
+                            $scope.deviceInfo = data;
+                            Report.setDeviceInfo(data);
+                        } else {
+                            data.warranty_period.text = $scope.local.tip;
+                        }
+                    } else if (!!data.warranty_period.text) {
+                        data.warranty_period.text = $scope.local.tip;
+                    }
+                },
+                function(error) {
+                    console.log("An error happened -> " + error);
+                });
 
         }
+
+        // Triggered on a button click, or some other target
+        $scope.showTips = function() {
+            $scope.data = {};
+
+            // An elaborate, custom popup
+            var myPopup = $ionicPopup.show({
+                templateUrl: 'basicInfoTips.html',
+                title: 'Enter Wi-Fi Password',
+                subTitle: 'Please use normal things',
+                scope: $scope,
+            });
+        };
 
 
 

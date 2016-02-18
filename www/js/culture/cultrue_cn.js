@@ -21,7 +21,10 @@ var ONU_LOCAL = {
 
     basicModule: {
         one_check: '一键检测',
-        scan_bar_code:'扫一扫'
+        scan_bar_code:'扫一扫',
+        tip:'扫码错误，请再扫一扫',
+        overdue:'已过期',
+        not_expired:'未过期'
     },
 
     checkModule: {
