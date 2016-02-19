@@ -11,6 +11,12 @@ var global = {
 var CONST = {
     R_CODE: {
         SUCCESS: '0'
+    },
+    TYPE : {
+        BASIC : 'basic',
+        PON : 'pon',
+        DATA : 'data',
+        VOICE : 'voice'
     }
 };
 
