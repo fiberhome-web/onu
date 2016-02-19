@@ -21,7 +21,10 @@ var ONU_LOCAL = {
 
     basicModule: {
         one_check: 'Detect All',
-        scan_bar_code:'Scan Bar Code'
+        scan_bar_code:'Scan Bar Code',
+        tip:'Scan code error,Please try again',
+        overdue:'Overdue',
+        not_expired:'Not Expired'
     },
 
     checkModule: {

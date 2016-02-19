@@ -51,9 +51,10 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             $compile(self.element)(self.scope);  
 
             //设置元素高度，用于展现时候的动画效果
-            self.bottom = (0 - self.element.offsetHeight) + 'px';
+            self.bottom = 0;
+            // self.bottom = (0 - self.element.offsetHeight) + 'px';
             self.element.style.bottom = self.bottom;
-            self.element.style.display = 'none';
+            // self.element.style.display = 'none';
             
             eleMap[configuration.templateUrl] = self;
 

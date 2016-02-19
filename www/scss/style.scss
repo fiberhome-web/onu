@@ -636,7 +636,7 @@ ion-list>div {
 
 .center-radio .item-radio {
     border-bottom: none;
-    input:checked ~ {
+    input:checked~{
         .radio-icon {
             color: $mOrange;
         }

@@ -1,10 +1,10 @@
 <ion-view view-title="{{i10n.setup}}">
     <ion-content id="setupTab" scroll="false">
         <div class="list">
-            <div class="item listButton" ng-click="eventFun.openAutoDeleteReportBox()">
+            <div class="item listButton" ng-click="eventFun.openRetentionTimeBox()">
                 {{local.report_retention_time}}
                 <button class="button button-stable button-clear" >
-                    {{del_select[delIndex]}}
+                    {{retention_select[retentionIndex]}}
                     <i class="iconfont">&#xe612;</i>
                 </button>
             </div>
@@ -37,15 +37,15 @@
     <div class="list expander">
         <div class="item item-button-right">
             &nbsp;
-            <button class="button button-stable button-clear" ng-click="eventFun.closeAutoDeleteReportBox()">
+            <button class="button button-stable button-clear" ng-click="eventFun.closeRetentionTimeBox()">
                 <i class="iconfont">&#xe61d;</i>
             </button>
         </div>
     </div>
     <ion-list class="center-radio">
-        <ion-radio ng-model="delRange" ng-value="'never'">{{local.retention_time_select.never}}</ion-radio>
-        <ion-radio ng-model="delRange" ng-value="'day'">{{local.retention_time_select.day}}</ion-radio>
-        <ion-radio ng-model="delRange" ng-value="'permanent'" class="no-border-bottom">{{local.retention_time_select.permanent}}</ion-radio>
+        <ion-radio ng-model="delRange" ng-value="0">{{local.retention_time_select.never}}</ion-radio>
+        <ion-radio ng-model="delRange" ng-value="1">{{local.retention_time_select.day}}</ion-radio>
+        <ion-radio ng-model="delRange" ng-value="2" class="no-border-bottom">{{local.retention_time_select.permanent}}</ion-radio>
     </ion-list>
     <div class="list expander">
         <div class="item item-button expander-footer show center">
@@ -66,8 +66,8 @@
         </div>
     </div>
     <ion-list class="center-radio">
-        <ion-radio ng-model="dateRange" ng-value="'one_year'">{{local.date_select.one_year}}</ion-radio>
-        <ion-radio ng-model="dateRange" ng-value="'two_years'" class="no-border-bottom">{{local.date_select.two_years}}</ion-radio>
+        <ion-radio ng-model="dateRange" ng-value="0">{{local.date_select.one_year}}</ion-radio>
+        <ion-radio ng-model="dateRange" ng-value="1" class="no-border-bottom">{{local.date_select.two_years}}</ion-radio>
     </ion-list>
     <div class="list expander">
         <div class="item item-button expander-footer show center">

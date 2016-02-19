@@ -12,20 +12,48 @@ angular.module('starter.controllers')
         //扫一扫函数
         $scope.scanBarcode = function() {
             $cordovaBarcodeScanner.scan().then(function(imageData) {
+                    //扫码过程中未取消，并且条形码形式为CODE_128
                     if (!imageData.cancelled && imageData.format === 'CODE_128') {
                         var barcode = imageData.text;
+                        //生产批号为12位编号
                         if (barcode.length === 12) {
-                            var year = '20' + barcode.substr(4, 2);
-                            if (isNaN(year)) {
+
+                            //解析厂家代号
+                            var vendor = barcode.substr(0, 2);
+                            //厂家代号为字母
+                            var vendorReg = /^[A-Za-z]+$/;
+                            if (!vendorReg.test(vendor)) 
+                            {
                                 data.warranty_period.text = $scope.local.tip;
                                 return;
-                            } else {
-                                year = parseInt(year) + 2;
                             }
+
+                            //解析设备代号
+                            var equipment = barcode.substr(2, 2);
+                            //设备代号，用数字或字母表示
+                            var equipmentReg =  /^[0-9a-zA-Z]+$/;
+                            if (!equipmentReg.test(equipment)) 
+                            {
+                                data.warranty_period.text = $scope.local.tip;
+                                return;
+                            }
+
+                            //解析年份代号
+                            var year = '20' + barcode.substr(4, 2);
+                            //年份代号为非数字
+                            if (angular.isNumber(year)) {
+                                //年份代号为数字，计算质保期截止年份
+                                year = parseInt(year) + $rootScope.warrantyPeriod;
+                            } else {
+                                data.warranty_period.text = $scope.local.tip;
+                                return;
+                            }
+
+                            //解析月份代号
                             var month = barcode.substr(6, 1);
                             var monthReg = /[A-C]/;
 
-                            if (!isNaN(month)) {
+                            if (angular.isNumber(month)) {
                                 month = parseInt(month);
                             } else if (monthReg.test(month)) {
                                 month = month.charCodeAt() - 55;
@@ -33,6 +61,15 @@ angular.module('starter.controllers')
                                 data.warranty_period.text = $scope.local.tip;
                                 return;
                             }
+
+                            //解析流水号
+                            var serial_number = barcode.substr(8, 4);
+                            //流水号为数字
+                            if (isNaN(serial_number)) {
+                                data.warranty_period.text = $scope.local.tip;
+                                return;
+                            }
+
                             var today = new Date().format('yyyy-MM');
                             var endDate = new Date(year, month - 1).format('yyyy-MM');
 
@@ -60,25 +97,25 @@ angular.module('starter.controllers')
 
         var myPopup;
         // Triggered on a button click, or some other target
-        $scope.showTip = function(reason,msg) {
+        $scope.showTip = function(reason, msg) {
             // An elaborate, custom popup
-             myPopup = $ionicPopup.show({
-                template: '<div class="warn-tip">'+
-                                '<div>'+
-                                '<button class="button button-stable button-clear" ng-click="closeTip()">'+
-                                    '<i class="iconfont">&#xe61d;</i>'+
-                                '</button>'+
-                                '</div>'+
-                                '<div>Reason:<br/>'+reason+
-                                '</div>'+
-                                '<div>Suggestion:<br/>'+msg+
-                                '</div>'+
-                            '</div>',
+            myPopup = $ionicPopup.show({
+                template: '<div class="warn-tip">' +
+                    '<div>' +
+                    '<button class="button button-stable button-clear" ng-click="closeTip()">' +
+                    '<i class="iconfont">&#xe61d;</i>' +
+                    '</button>' +
+                    '</div>' +
+                    '<div>Reason:<br/>' + reason +
+                    '</div>' +
+                    '<div>Suggestion:<br/>' + msg +
+                    '</div>' +
+                    '</div>',
                 scope: $scope
             });
         };
 
-        $scope.closeTip=function(){
+        $scope.closeTip = function() {
             myPopup.close();
         }
 
