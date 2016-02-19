@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$cordovaBarcodeScanner', '$ionicPopup', 'Const', 'Report', function($scope, $rootScope, $state, $http, $cordovaBarcodeScanner, $ionicPopup, Const, Report) {
+    .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$cordovaBarcodeScanner', 
+        '$ionicPopup', 'Const', 'Report','Popup', function($scope, $rootScope, $state, $http, $cordovaBarcodeScanner, $ionicPopup, Const, Report,Popup) {
 
 
 
@@ -98,29 +99,10 @@ angular.module('starter.controllers')
         var myPopup;
         // Triggered on a button click, or some other target
         $scope.showTip = function(reason, msg) {
-            // An elaborate, custom popup
-            myPopup = $ionicPopup.show({
-                template: '<div class="warn-tip">' +
-                    '<div>' +
-                    '<button class="button button-stable button-clear" ng-click="closeTip()">' +
-                    '<i class="iconfont">&#xe61d;</i>' +
-                    '</button>' +
-                    '</div>' +
-                    '<div>Reason:<br/>' + reason +
-                    '</div>' +
-                    '<div>Suggestion:<br/>' + msg +
-                    '</div>' +
-                    '</div>',
-                scope: $scope
-            });
+            Popup.showPop(reason, msg);
         };
 
-        $scope.closeTip = function() {
-            myPopup.close();
-        }
-
-
-
+   
         //若没有请求过数据
         if ($.isEmptyObject(data)) {
             var url = Const.getReqUrl();
