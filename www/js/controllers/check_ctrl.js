@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope','$rootScope', '$state', '$http','Check',
+    .controller('CheckCtrl', ['$scope','$rootScope', '$state', '$http','Check','Popup',
      '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService',
-        function($scope,$rootScope, $state, $http, Check, $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService) {
+        function($scope,$rootScope, $state, $http, Check, Popup,
+            $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService) {
 
-           
+        
+
             var reportId;
             var deviceInfo;
             var expanderConf = {
@@ -61,10 +63,7 @@ angular.module('starter.controllers')
 
                 showTip : function(item){
                     if(item.msg){
-                       // 自定义弹窗
-                       var myPopup = $ionicPopup.show({
-                         template: '<div class="warn-tip">'+item.msg+'<div>'
-                       });
+                        Popup.showPop(item.msg,'dasdasdasda');
                     }
                    
                 }
@@ -91,7 +90,14 @@ angular.module('starter.controllers')
                 $scope.ponInfos = [];
                 var pon_num = parseInt(deviceInfo.pon_port_number ? deviceInfo.pon_port_number.val : 0);
                 for(var i = 0; i< pon_num; i++) {
-                    $scope.ponInfos.push({});
+                    $scope.ponInfos.push({
+                        'pon_port_id': '',
+                        'temperature': '',            
+                        'voltage': '',                  
+                        'bias_current': '',         
+                        'tx_opt_power': '',          
+                        'rx_opt_power': '' 
+                    });
                 }
 
                 // 数据口诊断信息
