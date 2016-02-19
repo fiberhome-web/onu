@@ -7,7 +7,7 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
                 ecode: '1',
                 warn:true,
                 reason:'lallalallala',
-                message:'jsjsjjsjsjsjs'
+                msg:'jsjsjjsjsjsjs'
             },
             vendor: {
                 val: 'Fiberhome',
@@ -29,7 +29,7 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
                 val: 'AN5506-04-B5',
                 warn:false
             },
-            registration_status_led:{
+            led_status:{
                 val:'0',
                 warn:false
             },
@@ -63,7 +63,7 @@ Mock.mock('http://192.168.1.1/app/', 'getPonPortStatus', function(options){
 		'data|1-4': [
 			{
 				'pon_port_id|1-4': 1,
-				'temperature': {'val|1-100': 25},            
+				'temperature': {'val|1-100': 25,warn:true},            
 				'voltage': {'val|1-5': 5},					
 				'bias_current': {'val|1-100': 100},			
 				'tx_opt_power': {'val|1-100': 23},			

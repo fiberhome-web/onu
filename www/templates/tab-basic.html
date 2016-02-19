@@ -3,7 +3,7 @@
         <ion-scroll>
             <div class="list">
                 <div class="item" ng-repeat="(key,item) in deviceInfo">
-                    <div ng-if="key!=='warranty_period'" ng-class="{'red':item.warn}" ng-click="showTips($event)" ng-disabled="!item.warn">
+                    <div ng-if="key!=='warranty_period'" ng-class="{'red':item.warn}" ng-click="showTip(item.reason,item.msg)" ng-disabled="!item.warn">
                         {{localInfo[key]}}
                         <i class="iconfont" ng-if="item.warn">&#xe616;</i>
                         <span class="item-note" ng-if="item.text" ng-class="{'red':item.warn}">
@@ -28,10 +28,6 @@
             </div>
         </ion-scroll>
         <div class="footer">
-            <button class="button button-full button-grass opacity" ng-click="checking()">{{local.one_check}}</button>
+            <button class="button button-full button-grass" ng-click="checking()">{{local.one_check}}</button>
         </div>
     </ion-content>
-</ion-view>
-<script id="basicInfoTips.html" type="text/ng-template">
-    <input ng-model="data.wifi" type="text" placeholder="Password">
-</script>

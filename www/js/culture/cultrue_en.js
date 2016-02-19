@@ -20,8 +20,8 @@ var ONU_LOCAL = {
     },
 
     basicModule: {
-        one_check: '一键检测',
-        scan_bar_code:'扫一扫'
+        one_check: 'Detect All',
+        scan_bar_code:'Scan Bar Code'
     },
 
     checkModule: {
@@ -91,39 +91,39 @@ var ONU_LOCAL = {
     },
 
     setupModule:{
-        auto_delete_report:'自动删除报告',
-        warranty_period:'保修期',
-        version:'版本',
+        report_retention_time:'Report_Retention_Time ',
+        warranty_period:'Warranty Period',
+        version:'Version',
         software_version:'ONUsmartChecker V1.0 Build 10',
         copyright:'Copyright © 2016, Fiberhome Telecommunication Technologies Co.,LTD',
         ok:'确定',
-        reconnect:'重新连接',
+        reconnect:'Reconnect',
         date_select: {
-            one_year:'一年',
-            two_years:'两年'
+            one_year:'1 year',
+            two_years:'2 years'
         },
-        del_select:{
-            never:'从不',
-            day:'一天'
+        retention_time_select:{
+            never:'never',
+            day:'one day',
+            permanent:'permanent'
         }
     },
 
     report: {
         deviceInfo: {
-            equipment_id: '设备ID',
-            device_type: 'ONU型号',
-            vendor: '厂商',
-            hardware_version: '硬件版本号',
-            software_version: '软件版本号',
+            equipment_id: 'Equipment ID',
+            vendor: 'Vendor',
+            hardware_version: 'Hardware Version',
+            software_version: 'Software Version',
             mac: 'MAC',
             sn: 'SN',
-            warranty_period:'保修期',
-            registration_status_led:'注册状态灯',
-            onu_regist_status: 'ONU注册状态',
-            onu_auth_status: 'ONU认证状态',
-            pon_port_number: '光口个数',
-            data_port_number: '数据口个数',
-            voice_port_number: '语音口个数',
+            warranty_period:'Warranty Period',
+            led_status:'Registration Status LED',
+            onu_regist_status: 'ONU Registration Status',
+            onu_auth_status: 'ONU AUTH Status',
+            pon_port_number: 'PON Port Number',
+            data_port_number: 'Data Port Number',
+            voice_port_number: 'Voice Port Number',
         },
 
         ponPortStatus: {
@@ -158,7 +158,7 @@ var ONU_LOCAL = {
     },
 
     enums: {
-        registration_status_led:{
+        led_status:{
             k_0: 'Off',
             k_1: 'On',
             k_2: 'Blinking',
@@ -173,17 +173,17 @@ var ONU_LOCAL = {
             k_07: 'STATE_EMERGENCY_STOP'
         },
         onu_auth_status: {
-            k_0: '初始化',
-            k_1: '注册成功',
-            k_2: '逻辑ID错误',
-            k_3: '逻辑密码错误',
-            k_4: '逻辑ID冲突',
-            k_10: '物理SN冲突',
-            k_11: '无资源',
-            k_12: '类型错误',
-            k_13: '物理SN错误',
-            k_14: '物理密码错误',
-            k_15: '物理密码冲突'
+            k_0: 'AUTH_STA_INIT',
+            k_1: 'AUTH_STA_OK',
+            k_2: 'AUTH_STA_LOID_ERR',
+            k_3: 'AUTH_STA_LPWD_ERR',
+            k_4: 'AUTH_STA_LOID_COLLISION',
+            k_10: 'AUTH_STA_SN_COLLISION',
+            k_11: 'AUTH_STA_NO_RESOURCE',
+            k_12: 'AUTH_STA_TYPE_ERR',
+            k_13: 'AUTH_STA_SN_ERR',
+            k_14: 'AUTH_STA_PWD_ERR',
+            k_15: 'AUTH_STA_PWD_COLLISION'
         },
         data_port_status: {
             k_0: 'UP',

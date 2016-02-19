@@ -1,13 +1,22 @@
 $mOrange:#F1BC92;
-
 .tab-item.tab-item-active {
     border-color: rgba(255, 255, 255, 0);
 }
 
 .popup-container .popup {
     width: auto;
+    border-radius: 10px;
+    .popup-head {
+        padding: 0;
+        border: none;
+    }
 }
 
-.popup-container .popup .popup-head{
-	padding : 0;
+.popup-container .popup .popup-head {
+    padding: 0;
+}
+
+.item.activated{
+	border-color: #ccc;
+    background-color: white;;
 }

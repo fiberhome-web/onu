@@ -58,18 +58,29 @@ angular.module('starter.controllers')
 
         }
 
+        var myPopup;
         // Triggered on a button click, or some other target
-        $scope.showTips = function() {
-            $scope.data = {};
-
+        $scope.showTip = function(reason,msg) {
             // An elaborate, custom popup
-            var myPopup = $ionicPopup.show({
-                templateUrl: 'basicInfoTips.html',
-                title: 'Enter Wi-Fi Password',
-                subTitle: 'Please use normal things',
-                scope: $scope,
+             myPopup = $ionicPopup.show({
+                template: '<div class="warn-tip">'+
+                                '<div>'+
+                                '<button class="button button-stable button-clear" ng-click="closeTip()">'+
+                                    '<i class="iconfont">&#xe61d;</i>'+
+                                '</button>'+
+                                '</div>'+
+                                '<div>Reason:<br/>'+reason+
+                                '</div>'+
+                                '<div>Suggestion:<br/>'+msg+
+                                '</div>'+
+                            '</div>',
+                scope: $scope
             });
         };
+
+        $scope.closeTip=function(){
+            myPopup.close();
+        }
 
 
 
@@ -94,7 +105,7 @@ angular.module('starter.controllers')
                     };
 
                     //枚举转化
-                    data.registration_status_led.text = ONU_LOCAL.enums.registration_status_led['k_' + data.registration_status_led.val];
+                    data.led_status.text = ONU_LOCAL.enums.led_status['k_' + data.led_status.val];
                     data.onu_regist_status.text = ONU_LOCAL.enums.onu_regist_status['k_' + data.onu_regist_status.val];
                     data.onu_auth_status.text = ONU_LOCAL.enums.onu_auth_status['k_' + data.onu_auth_status.val];
 

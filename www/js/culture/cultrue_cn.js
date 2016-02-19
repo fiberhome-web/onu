@@ -120,8 +120,8 @@ var ONU_LOCAL = {
             software_version: '软件版本号',
             mac: 'MAC',
             sn: 'SN',
-            warranty_period:'保修期',
-            registration_status_led:'注册状态灯',
+            warranty_period:'质保期',
+            led_status:'指示灯',
             onu_regist_status: 'ONU注册状态',
             onu_auth_status: 'ONU认证状态',
             pon_port_number: '光口个数',
@@ -161,7 +161,7 @@ var ONU_LOCAL = {
     },
 
     enums: {
-        registration_status_led:{
+        led_status:{
             k_0: 'Off',
             k_1: 'On',
             k_2: 'Blinking',

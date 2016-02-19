@@ -4,11 +4,13 @@ angular.module('starter.controllers')
     .controller('SetupCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService', function($scope, $rootScope, $state, ExpanderService) {
         $scope.local = ONU_LOCAL.setupModule;
 
-
-        $scope.del_select = [
-            $scope.local.del_select.never,
-            $scope.local.del_select.day,
-        ];
+        $scope.del_select = $scope.local.retention_time_select;
+        $scope.date_select = $scope.local.date_select;
+        // $scope.del_select = [
+        //     $scope.local.retention_time_select.never,
+        //     $scope.local.retention_time_select.day,
+        //     $scope.local.retention_time_select.permanent
+        // ];
         var autoDeleteReportExpanderConf = {
             templateUrl: 'autoDeleteReport.html',
             scope: $scope,
@@ -17,10 +19,10 @@ angular.module('starter.controllers')
         var autoDeleteReportExpanderHandel = ExpanderService.init(autoDeleteReportExpanderConf);
         $rootScope.expanderHandel.push(autoDeleteReportExpanderHandel);
 
-        $scope.date_select = [
-            $scope.local.date_select.one_year,
-            $scope.local.date_select.two_years,
-        ];
+        // $scope.date_select = [
+        //     $scope.local.date_select.one_year,
+        //     $scope.local.date_select.two_years,
+        // ];
         var warrantyPeriodExpanderConf = {
             templateUrl: 'warrantyPeriod.html',
             scope: $scope,
@@ -29,8 +31,8 @@ angular.module('starter.controllers')
         var warrantyPeriodExpanderHandel = ExpanderService.init(warrantyPeriodExpanderConf);
         $rootScope.expanderHandel.push(warrantyPeriodExpanderHandel);
 
-        $scope.dateIndex = 1;
-        $scope.delIndex = 0;
+        $scope.dateIndex = 'two_years';
+        $scope.delIndex = 'permanent';
 
         $scope.eventFun = {
             closeAutoDeleteReportBox: function() {
