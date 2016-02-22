@@ -15,3 +15,4 @@ cordova plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plug
 cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
 cordova plugin add cordova-plugin-screen-orientation
 ionic plugin add cordova-plugin-whitelist
+cordova plugin add https://github.com/wildabeast/BarcodeScanner.git
