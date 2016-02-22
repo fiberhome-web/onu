@@ -12,11 +12,14 @@ $mOrange:#F1BC92;
     }
 }
 
-.popup-container .popup .popup-head {
-    padding: 0;
+.popup-container .popup {
+    background-color: white;
+    .popup-head {
+        padding: 0;
+    }
 }
 
-.item.activated{
-	border-color: #ccc;
-    background-color: white;;
+.item.activated {
+    border-color: #ccc;
+    background-color: white;
 }

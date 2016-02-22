@@ -5,27 +5,32 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
 
 var global = {
     //是否已经登陆
-    isLogin: false
+    isLogin: false,
 };
 
 var CONST = {
     R_CODE: {
         SUCCESS: '0'
     },
-    TYPE : {
-        BASIC : 'basic',
-        PON : 'pon',
-        DATA : 'data',
-        VOICE : 'voice'
+    TYPE: {
+        BASIC: 'basic',
+        PON: 'pon',
+        DATA: 'data',
+        VOICE: 'voice'
     }
 };
 
 //使用mockjax替换ajax
 Mock.mockjax(app);
 
-app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams) {
-
+app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice) {
+    $rootScope.warrantyPeriod = 2;
     $rootScope.expanderHandel = [];
+    $rootScope.registerData = {};
+    $rootScope.isRegistered = false;
+    $rootScope.isPassed = function() {
+        return true;
+    };
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -40,6 +45,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         //禁止横屏
         screen.lockOrientation('portrait');
 
+        $rootScope.registerData.uuid = $cordovaDevice.getUUID();
     });
 
     //主页面显示退出提示框  
@@ -64,7 +70,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         } else if ($ionicHistory.backView()) {
             angular.forEach($rootScope.expanderHandel, function(handel) {
                 if (handel.isShow) {
-                   handel.hide();
+                    handel.hide();
                 }
             });
             $ionicHistory.goBack();

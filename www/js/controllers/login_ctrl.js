@@ -1,7 +1,9 @@
 angular.module('starter.controllers')
-    .controller('LoginCtrl', function($scope, $state, $http, Const) {
+    .controller('LoginCtrl', function($scope, $rootScope, $state, $http, $ionicPopup, Const, File) {
         //国际化
         $scope.info = ONU_LOCAL.loginModule;
+
+       
         $scope.eventFun = {
             cancelEnter: function() {
                 $scope.loginInfo.ip = '';
@@ -20,8 +22,23 @@ angular.module('starter.controllers')
             //        +'config:' + config + '\n');
             // });
             //eeeee
-            global.isLogin = true;
-            $state.go('tab.basic');
+
+            if ($rootScope.isRegistered) {
+                global.isLogin = true;
+                $state.go('tab.basic');
+            } else {
+                if (!$rootScope.registerData.key) {
+                    return;
+                } else if ($rootScope.isPassed()) {
+                    $rootScope.registerData.date = dateUtils.getToday();
+                    File.createLicense(JSON.stringify($rootScope.registerData)).then(function(success){
+                        $rootScope.isRegistered = true;
+                    },function(error){
+                        alert(JSON.stringify(error));
+                    });
+                    
+                }
+            }
         }
 
 
@@ -38,6 +55,7 @@ angular.module('starter.controllers')
                 password: 'checkONT2015@FH'
             };
         }
+        
 
 
         initPage();

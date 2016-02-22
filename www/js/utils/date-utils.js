@@ -28,7 +28,7 @@ var dateUtils = {
     getDayOfLastYear: function() {
         var now = new Date(new Date().format('yyyy-MM-dd'));
         var time = now.getTime() - 365 * 24 * 60 * 60 * 1000;
-        return new Date(time);
+        return new Date(time).format('yyyy-MM-dd');
     },
 
     /**
