@@ -33,7 +33,7 @@ var ONU_LOCAL = {
         one_key_check: 'Detect All',
         generate_report: 'Generate Report',
         pon_port_item: 'PON Port Detection',
-        data_port_item: '数据端口诊断项',
+        data_port_item: 'Data Port Detection',
         voice_port_item: '语音端口诊断项',
         report_title: '请输入报告信息',
         report_name: '报告名称',
@@ -56,10 +56,11 @@ var ONU_LOCAL = {
     },
 
     detailModule: {
-        address: '检测地点',
-        date: '检测时间',
-        conclusion: '检测结论',
-        report: '检测报告'
+        address: 'Report Name',
+        date: 'Date',
+        conclusion: 'Result',
+        report: 'Report',
+        note : 'Note'
     },
 
     historyModule: {
@@ -114,6 +115,7 @@ var ONU_LOCAL = {
 
     report: {
         deviceInfo: {
+            module_name : 'ONU Infomation',
             equipment_id: 'Equipment ID',
             vendor: 'Vendor',
             hardware_version: 'Hardware Version',
@@ -130,6 +132,7 @@ var ONU_LOCAL = {
         },
 
         ponPortStatus: {
+            module_name : 'PON Port Detection',
             pon_port_id: 'Port No',
             led_status: 'Status',
             temperature: 'Temperature',
@@ -142,7 +145,7 @@ var ONU_LOCAL = {
 
         dataPortStatus: {
             data_port_id: '数据口序号',
-            module_name: '数据口状态',
+            module_name: 'Data Port Detection',
             port_status: '端口状态',
             speed: '速率',
             duplex: '双工',
@@ -151,7 +154,7 @@ var ONU_LOCAL = {
 
         voicePortStatus: {
             voice_port_id: '语音口序号',
-            module_name: '语音口状态',
+            module_name: 'Voice Port Detection',
             protocol_type: '协议类型',
             port_status: '端口状态',
             telphone_no: '电话号码',
@@ -201,9 +204,9 @@ var ONU_LOCAL = {
             k_4: 'Auto'
         },
         data_duplex: {
-            k_0: '半双工',
-            k_1: '全双工',
-            k_2: '自动'
+            k_0: 'Half',
+            k_1: 'Full',
+            k_2: 'Auto'
         },
         voice_protocol_type: {
             k_0: 'MGCP',

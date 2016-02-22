@@ -554,6 +554,9 @@ ion-list > div {
   .warn-tip :nth-child(3) {
     padding: 10px 10px 30px; }
   .warn-tip .close-btn {
-    float: right; }
+    float: right;
+    height: 50px;
+    width: 30px;
+    text-align: right; }
 
 /*# sourceMappingURL=style.css.map */

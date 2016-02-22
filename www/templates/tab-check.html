@@ -3,7 +3,7 @@
         <div class="">
             <!-- PON口诊断项 -->
             <div class="check-module" ng-class="{'check-modal':isPonChecking}">
-                <div class="loadding" ng-show="isPonChecking" ng-click="isPonChecking = false">
+                <div class="loadding" ng-show="isPonChecking">
                     <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
                 </div>
                 <div class="header">
@@ -21,57 +21,52 @@
                         <span class="val">{{ponInfo.pon_port_id}}</span>
                     </div>
                     <div ng-repeat="(key,val) in ponInfo">
-                        <div class="check-item" ng-click="eventFun.showTip(val)">
-                            <span ng-class="{'war-color' : ponInfo[key].warn}">{{i10n.report.ponPortStatus[key]}}</span>
+                        <div ng-if="key !== 'pon_port_id'" class="check-item" ng-click="eventFun.showTip(val)">
+                            <span ng-class="{'war-color' : val.warn}">{{i10n.report.ponPortStatus[key]}}</span>
                             <i class="warn icon iconfont" ng-if="val.msg">&#xe616;</i>
                             <span class="val" ng-class="{'war-color' : val.warn}">
                                 <span ng-if="val.val">{{val.val}}{{val.unit}}</span>
                                 <span ng-if="!val.val">-</span>
                             </span>
                         </div>
+                        <div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- 数据口诊断项 -->
-            <div class="item item-button-right">
-                <span>{{i10n.checkModule.data_port_item}}</span>
-                <div class="check-spinner" ng-show="isDataChecking">
-                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
-                    <span class="text">{{i10n.checkModule.wait_for_checking}}</span>
+            <div class="check-module" ng-class="{'check-modal':isDataChecking}">
+                <div class="loadding" ng-show="isDataChecking">
+                    <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
                 </div>
-                <button class="button button-stable button-positive" ng-disabled="isDataChecking" ng-click="eventFun.checkDataBtnEvt()">
-                    <span>{{i10n.checkModule.begin_check}}</span>
-                    <i class="ion-arrow-right-c"></i>
-                </button>
-            </div>
-            <div class="item item-body" ng-hide="dataInfos.length == 0">
-                <div class="list" ng-repeat="dataInfo in dataInfos | orderBy:order.data" style="border: 1px #ddd solid;">
-                    <a class="item item-icon-left">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.data_port_id}}</span>
-                        <span class="val">
-                            <span>{{dataInfo.data_port_id}}</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.port_status}}</span>
-                        <span class="val">
-                            <span>{{dataInfo.port_status.text}}</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.speed}}</span>
-                        <span class="val">
-                            <span>{{dataInfo.speed.text}}</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.dataPortStatus.duplex}}</span>
-                        <span class="val">
-                            <span>{{dataInfo.duplex.text}}</span>
-                        </span>
-                    </a>
+                <div class="header">
+                    <i class="icon iconfont">&#xe621;</i>
+                    <span class="title">{{i10n.checkModule.data_port_item}}</span>
+                    <span class="check_btn" ng-click="eventFun.checkDataBtnEvt()">
+                        <i class="icon iconfont">&#xe602;</i>
+                        <span>{{i10n.checkModule.begin_check}}</span>
+                    </span>
+                </div>
+                <div class="content" ng-repeat="dataInfo in dataInfos">
+                    <div class="check-item">
+                        <i class="icon iconfont check-icon">&#xe608;</i>
+                        <span class="name">{{i10n.report.ponPortStatus.pon_port_id}}</span>
+                        <span class="val">{{dataInfo.data_port_id}}</span>
+                    </div>
+                    <div ng-repeat="(key,val) in dataInfo">
+                        <div ng-if="key !== 'data_port_id'" class="check-item" ng-click="eventFun.showTip(val)">
+                            <span ng-class="{'war-color' : val.warn}">{{i10n.report.dataPortStatus[key]}}</span>
+                            <i class="warn icon iconfont" ng-if="val.msg">&#xe616;</i>
+                            <span class="val" ng-class="{'war-color' : val.warn}">
+                                <span ng-if="val.text">{{val.text}}</span>
+                                <span ng-if="!val.val">-</span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
+           
             <!-- 语音口诊断项 -->
             <div class="item item-button-right">
                 <span>{{i10n.checkModule.voice_port_item}}</span>

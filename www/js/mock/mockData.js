@@ -42,15 +42,15 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
                 warn:false
             },
             pon_port_number: {
-                val: '12',
+                val: '1',
                 warn:false
             },
             data_port_number: {
-                val: '12',
+                val: '4',
                 warn:false
             },
             voice_port_number: {
-                val: '12',
+                val: '2',
                 warn:false
             },
         }
@@ -79,9 +79,9 @@ Mock.mock('http://192.168.1.1/app/', 'getDataPortStatus', function(options){
 		'data|1-4': [
 			{
 				'data_port_id|1-4': 1,
-				'port_status': {'val|0-3': 0},            
-				'speed': {'val|1': [0,2,3,4]},					
-				'duplex': {'val|0-2': 0}		
+				'port_status': {val : '1'},            
+				'speed': {'val' : '2'},					
+				'duplex': {'val': '0'}		
 			}
 		] 
 	});

@@ -21,9 +21,11 @@
             }
             
             #content > .block {
-                margin-bottom: 20px;
                 border-radius: 5px;
-                border: 1px solid #ccc;
+            }
+
+            #content > .main-info{
+                border-bottom: 2px solid #eee;
             }
             
             #content .title {
@@ -32,7 +34,8 @@
                 line-height: 40px;
                 border-bottom: none;
                 padding-left: 20px;
-                background-color: #ddd;
+                width: 30%;
+                display: inline-block;
             }
             
             #content .citem {
@@ -43,6 +46,7 @@
             
             #content .rep-content .detail {
                 padding: 5px 10px;
+                margin-left: 10px;
             }
             
             #content .citem > .conclusion {
@@ -63,12 +67,7 @@
             
             #content .detail .port {
                 margin: 10px auto;
-                border: 1px solid #ccc;
                 border-radius: 7px;
-            }
-            
-            #content .detail .items:nth-of-type(2n+1) {
-                background-color: #eee;
             }
             
             #content .detail .citem-title {
@@ -76,7 +75,8 @@
                 font-size: 15px;
                 display: inline-block;
                 margin: 5px 20px 5px 0;
-                width: 30%;
+                width: 50%;
+                line-height: 20px;
             }
             
             #content .detail .citem-content {
@@ -84,63 +84,147 @@
                 font-size: 15px;
                 display: inline-block;
             }
+
+            #content .detail .citem-content i{
+                position: absolute;
+                right: 0;
+                font-size: 18px;
+                top: 4px;
+                width: 50px;
+                height: 30px;
+            }
+
+            #content .detail .suggest{
+                padding: 10px;
+                border: red solid 1px;
+                border-radius: 5px;
+                margin: 0px 20px;
+                color: red;
+            }
+
+             #content .detail .items{
+                position: relative;
+             }
+
+
             
             .red {
                 color: red;
             }
             </style>
             <div id="content">
-                <div class="block">
-                    <div class="title">{{i10n.detailModule.address}}：</div>
-                    <div class="citem">{{report.name}}</div>
+                <div class="block main-info">
+                    <span class="title">{{i10n.detailModule.address}}：</span>
+                    <span class="citem">{{report.name}}</span>
                 </div>
-                <div class="block">
-                    <div class="title">{{i10n.detailModule.date}}：</div>
-                    <div class="citem">{{report.date}}</div>
-                </div>
-                <div class="block">
-                    <div class="title">{{i10n.detailModule.conclusion}}：</div>
-                    <div class="citem">
-                        <span ng-class="{'red': report.status !== 1}" ng-switch="report.status"> 
-                            <span ng-switch-when="1">#{{i10n.historyModule.types.normal}}#</span>
-                        <span ng-switch-when="2">#{{i10n.historyModule.faults.pon}}#</span>
-                        <span ng-switch-when="3">#{{i10n.historyModule.faults.data}}#</span>
-                        <span ng-switch-when="4">#{{i10n.historyModule.faults.voice}}#</span>
+                <div class="block main-info">
+                    <span class="title">{{i10n.detailModule.conclusion}}：</span>
+                    <span class="citem">
+                        <span ng-switch="report.status">    <i class="iconfont green" ng-if="report.status===1">&#xe60b;</i>
+                            <i class="iconfont red" ng-if="report.status!==1">&#xe609;</i>
+                            <span ng-switch-when="1">
+
+                                {{i10n.historyModule.types.normal}}
+                            </span>
+                            <span ng-switch-when="2">#{{i10n.historyModule.faults.pon}}#</span>
+                            <span ng-switch-when="3">#{{i10n.historyModule.faults.data}}#</span>
+                            <span ng-switch-when="4">#{{i10n.historyModule.faults.voice}}#</span>
                         </span>
-                        <div class="conclusion">
-                            {{report.conclusion}}
-                        </div>
-                    </div>
+                    </span>
                 </div>
+                <div class="block main-info">
+                    <span class="title">{{i10n.detailModule.note}}：</span>
+                    <span class="citem">{{report.conclusion}}</span>
+                </div>
+                <div class="block main-info">
+                    <span class="title">{{i10n.detailModule.date}}：</span>
+                    <span class="citem">{{report.date}}</span>
+                </div>
+               
                 <div class="block rep-content">
                     <div class="title">{{i10n.detailModule.report}}：</div>
-                    <div class="detail" ng-repeat="(key1,items) in detail">
-                        <div class="header"> {{reportLocal[key1].module_name}}</div>
-                        <!--如果items不是数组-->
-                        <div ng-if="!items.length" ng-repeat="(key2,item) in items" class="items">
-                            <div class="citem-title">{{reportLocal[key1][key2]}}</div>
-                            <div class="citem-content">
+
+                    <!--基本信息-->
+                    <div class="detail">
+                        <div class="header"> {{reportLocal.deviceInfo.module_name}}</div>
+                        <!--如果items不是数组,则是设备基本信息-->
+                        <div ng-repeat="(key,item) in detail.deviceInfo" class="items">
+                            <div class="citem-title" ng-class="{'red' : item.warn}">{{reportLocal.deviceInfo[key]}}</div>
+                            <div class="citem-content" ng-class="{'red' : item.warn}">
                                 <span ng-if="item.val === undefined">{{item}}</span>
                                 <span ng-if="item.text">{{item.text}}</span>
                                 <span ng-if="item.text === undefined">{{item.val}}</span>
+                                <span class="unit">{{item.unit ? item.unit : ''}}</span>
+                                <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe609;</i>
                             </div>
-                            <span class="unit">{{item.unit ? item.unit : ''}}</span>
+                           
+                            <div class="suggest hide" ng-if="item.reason || item.msg">
+                                <div>
+                                    Reason : {{item.reason}}
+                                </div>
+                                <div>
+                                    Suggest : {{item.msg}}
+                                </div>
+                            </div>
                         </div>
-                        <!--如果items是数组,例如多个PON口数据-->
-                        <div ng-if="items.length" ng-repeat="portInfo in items" class="port">
-                            <div ng-repeat="(key2,item) in portInfo" class="items">
-                                <div class="citem-title">{{reportLocal[key1][key2]}}</div>
-                                <div class="citem-content">
+                    </div>
+
+
+                    <div class="detail">
+                        <div class="header"> {{reportLocal.ponPortStatus.module_name}}</div>
+                        <div ng-repeat="portInfo in detail.ponPortStatus" class="port">
+                            <div ng-repeat="(key,item) in portInfo" class="items">
+                                <div class="citem-title" ng-class="{'red' : item.warn}">{{reportLocal.ponPortStatus[key]}}</div>
+                                <div class="citem-content" ng-class="{'red' : item.warn}">
                                     <!--item.val不存在，说明是id，直接显示item;
                                     item.text 存在，表示是枚举，text是转化后的显示值-->
                                     <span ng-if="item.val === undefined">{{item}}</span>
                                     <span ng-if="item.text">{{item.text}}</span>
                                     <span ng-if="item.text === undefined">{{item.val}}</span>
+                                    <span class="unit">{{item.unit ? item.unit : ''}}</span>
+                                    <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe609;</i>
                                 </div>
-                                <span class="unit">{{item.unit ? item.unit : ''}}</span>
+                                <div class="suggest hide" ng-if="item.reason || item.msg">
+                                    <div>
+                                        Reason : {{item.reason}}
+                                    </div>
+                                    <div>
+                                        Suggest : {{item.msg}}
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
+
+                    <div class="detail">
+                        <div class="header"> {{reportLocal.dataPortStatus.module_name}}</div>
+                        <div ng-repeat="portInfo in detail.dataPortStatus" class="port">
+                            <div ng-repeat="(key,item) in portInfo" class="items">
+                                <div class="citem-title" ng-class="{'red' : item.warn}">{{reportLocal.dataPortStatus[key]}}</div>
+                                <div class="citem-content" ng-class="{'red' : item.warn}">
+                                    <!--item.val不存在，说明是id，直接显示item;
+                                    item.text 存在，表示是枚举，text是转化后的显示值-->
+                                    <span ng-if="item.val === undefined">{{item}}</span>
+                                    <span ng-if="item.text">{{item.text}}</span>
+                                    <span ng-if="item.text === undefined">{{item.val}}</span>
+                                    <span class="unit">{{item.unit ? item.unit : ''}}</span>
+                                    <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe609;</i>
+                                </div>
+                                <div class="suggest hide" ng-if="item.reason || item.msg">
+                                    <div>
+                                        Reason : {{item.reason}}
+                                    </div>
+                                    <div>
+                                        Suggest : {{item.msg}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>

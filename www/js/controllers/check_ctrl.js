@@ -1,12 +1,10 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope','$rootScope', '$state', '$http','Check','Popup',
-     '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService',
-        function($scope,$rootScope, $state, $http, Check, Popup,
+    .controller('CheckCtrl', ['$scope', '$rootScope', '$state', '$http', 'Check', 'Popup','File',
+        'DB','$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService',
+        function($scope, $rootScope, $state, $http, Check, Popup,File,DB,
             $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService) {
-
-        
 
             var reportId;
             var deviceInfo;
@@ -43,11 +41,15 @@ angular.module('starter.controllers')
                     checkAll();
                 },
                 generateReportBtnEVt: function() {
+
                     $scope.report.resultStatus = '1';
                     $scope.report.remark = null;
-                    $scope.report.reportName = null;
+                    if (deviceInfo.sn) {
+                        $scope.report.reportName = deviceInfo.sn.val;
+                    }
                     $scope.saved = false;
                     $scope.save_failed = false;
+
                     expanderHandel.show();
                 },
                 close: function() {
@@ -61,11 +63,11 @@ angular.module('starter.controllers')
                     }
                 },
 
-                showTip : function(item){
-                    if(item.msg){
-                        Popup.showPop(item.msg,'dasdasdasda');
+                showTip: function(item) {
+                    if (item.msg) {
+                        Popup.showPop(item.reason, item.msg);
                     }
-                   
+
                 }
             };
 
@@ -85,31 +87,18 @@ angular.module('starter.controllers')
                 };
 
                 deviceInfo = Report.getDeviceInfo();
-               
+
                 // 光口诊断信息
-                $scope.ponInfos = [];
-                var pon_num = parseInt(deviceInfo.pon_port_number ? deviceInfo.pon_port_number.val : 0);
-                for(var i = 0; i< pon_num; i++) {
-                    $scope.ponInfos.push({
-                        'pon_port_id': '',
-                        'temperature': '',            
-                        'voltage': '',                  
-                        'bias_current': '',         
-                        'tx_opt_power': '',          
-                        'rx_opt_power': '' 
-                    });
-                }
+                $scope.ponInfos = Report.getPonPortInfo();
+
 
                 // 数据口诊断信息
-                $scope.dataInfos = [];
-                var date_num = parseInt(deviceInfo.data_port_number ? deviceInfo.data_port_number.val : 0);
-                for(var j = 0; j< date_num; j++) {
-                    $scope.dataInfos.push({});
-                }
+                $scope.dataInfos = Report.getDataPortInfo();
+
                 // 语音口诊断信息
                 $scope.voiceInfos = [];
                 var voice_num = parseInt(deviceInfo.voice_port_number ? deviceInfo.voice_port_number.val : 0);
-                for(var k = 0; k< voice_num; k++) {
+                for (var k = 0; k < voice_num; k++) {
                     $scope.voiceInfos.push({});
                 }
 
@@ -142,7 +131,9 @@ angular.module('starter.controllers')
                             item = Check.checking(CONST.TYPE.PON, item);
                         });
 
-                        $scope.ponInfos =  data;
+                        Report.setPonPortInfo(data);
+
+                        $scope.ponInfos = Report.getPonPortInfo();
                     } else {
                         var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
                         resultMsg && alert(resultMsg);
@@ -175,9 +166,15 @@ angular.module('starter.controllers')
                             item.port_status.text = ONU_LOCAL.enums.data_port_status['k_' + item.port_status.val];
                             item.speed.text = ONU_LOCAL.enums.data_speed['k_' + item.speed.val];
                             item.duplex.text = ONU_LOCAL.enums.data_duplex['k_' + item.duplex.val];
+
+                            //检测数据
+                            item = Check.checking(CONST.TYPE.DATA, item);
                         });
 
-                        $scope.dataInfos = data;
+                        Report.setDataPortInfo(data);
+
+                        $scope.dataInfos = Report.getDataPortInfo();
+
                     } else {
                         var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
                         resultMsg && alert(resultMsg);
@@ -234,27 +231,38 @@ angular.module('starter.controllers')
             function viewReport() {
                 expanderHandel.hide();
                 $rootScope.hideTabs = true;
-            //    $state.go('tab.report-detail');
-                 window.location.href = '#/tab/history/' + reportId;
+                //    $state.go('tab.report-detail');
+                window.location.href = '#/tab/history/' + reportId;
             }
 
             function sure() {
                 var res = $scope.report;
-                saveToDB(res).then(function() {
-                    expanderHandel.hideMask();
-                    $scope.saved = true;
-
+                //检测是否存在同名文件
+                File.checkFile($scope.report.report_name).then(function() {
+                    //存在则提示是否覆盖
                 }, function(info) {
-                    alert('error :' + JSON.stringify(info));
-                    expanderHandel.hideMask();
-                    $scope.save_failed = true;
+                    //不存在直接保存
+                    if (info.code === 1) {
+                        saveToDB(res).then(function() {
+                            expanderHandel.hideMask();
+                            $scope.saved = true;
+
+                        }, function(info) {
+                            alert('error :' + JSON.stringify(info));
+                            expanderHandel.hideMask();
+                            $scope.save_failed = true;
+                        });
+                        expanderHandel.showMask();
+                    }
                 });
-                expanderHandel.showMask();
+
+
+
                 // expanderHandel.hide
             }
 
             function saveToDB(res) {
-                
+
                 var ponPortStatus = $scope.ponInfos;
                 var dataPortStatus = $scope.dataInfos;
                 var voicePortStatus = $scope.voiceInfos;

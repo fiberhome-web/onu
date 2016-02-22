@@ -1,8 +1,10 @@
 'use strict';
 angular.module('starter.controllers')
-    .controller('ReportDetailCtrl', function($scope, $rootScope, $state, $http, $ionicHistory,
+    .controller('ReportDetailCtrl', ['$scope', '$rootScope', '$state', '$http', '$ionicHistory',
+        '$stateParams', 'DB', '$ionicPopup', '$ionicModal', '$ionicPopover', 'File',
+        '$cordovaSocialSharing', '$cordovaEmailComposer','Popup',function($scope, $rootScope, $state, $http, $ionicHistory,
         $stateParams, DB, $ionicPopup, $ionicModal, $ionicPopover, File,
-        $cordovaSocialSharing, $cordovaEmailComposer) {
+        $cordovaSocialSharing, $cordovaEmailComposer,Popup) {
 
         $scope.reportLocal = ONU_LOCAL.report;
 
@@ -18,6 +20,13 @@ angular.module('starter.controllers')
             // $ionicHistory.goBack();
             // $ionicHistory.clearHistory();
             $rootScope.hideTabs = false;
+        };
+
+        $scope.showTip = function(item) {
+            if (item.msg) {
+                Popup.showPop(item.reason, item.msg);
+            }
+
         };
 
 
@@ -98,4 +107,4 @@ angular.module('starter.controllers')
             alert('onHold');
         };
 
-    });
+    }]);

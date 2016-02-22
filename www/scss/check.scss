@@ -3,7 +3,6 @@ $mRed:red;
 
 .check-module {
 	position : relative;
-	max-height: 1000px;
 	.loadding svg {
 		position : absolute;
 		width : 100%;
@@ -84,10 +83,11 @@ $mRed:red;
 	position : fixed;
 	left: 0;
     right: 0;
-    bottom: 50px;
+    bottom: 46px;
     height: 50px;
 	button  {
-		background : rgba(30,162,107,.6);
+		background-color: #25AE76;
+	    opacity: .8;
 		color : #fff;
 		font-size: 24px;
     	font-weight: bold;
@@ -97,7 +97,8 @@ $mRed:red;
 	.button:focus,
 	.button:active{
 		color : #fff;
-		background-color: rgba(30,162,107,.6);
+		background-color: #25AE76;
+	    opacity: .8;
 	}
 
 }
