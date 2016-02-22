@@ -8,8 +8,10 @@
     padding: 0;
     border: none; }
 
-.popup-container .popup .popup-head {
-  padding: 0; }
+.popup-container .popup {
+  background-color: white; }
+  .popup-container .popup .popup-head {
+    padding: 0; }
 
 .item.activated {
   border-color: #ccc;

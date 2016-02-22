@@ -1,8 +1,10 @@
 'use strict';
-angular.module('starter.services').service('File', function($log, $cordovaFile,
+angular.module('starter.services').service('File', function($rootScope, $log, $cordovaFile,
     $filter, $ionicPlatform) {
 
     var fileSystem;
+    var licenseFileSystem;
+    var licenseFileName = 'onu_license.json';
 
     //存放报告的文件夹名称
     var reportDir = 'onu_report';
@@ -18,6 +20,43 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
     //  1.检查onu_report是否存在，不存在则建立onu_report文件夹
     //  2.清空onu_del文件夹
     $ionicPlatform.ready(function() {
+        licenseFileSystem = cordova.file.dataDirectory;
+        licenseFileSystem = cordova.file.externalRootDirectory;
+        $cordovaFile.checkFile(licenseFileSystem, licenseFileName).then(function(success) {
+            // 若存在license文件，表示已注册过
+            $cordovaFile.readAsText(licenseFileSystem, licenseFileName).then(function(data) {
+                //若license正确，判断是否过期
+                if ($rootScope.isPassed()) {
+                    var RegisterData = JSON.parse(data);
+                    var startDate = dateUtils.getDayOfLastYear();
+                    //若注册时间到今天超过一年
+                    if (RegisterData.date < startDate) {
+                        $rootScope.isRegistered = false;
+                        $cordovaFile.removeFile(licenseFileSystem, licenseFileName).then(success, error);
+                    } else {
+                        $rootScope.isRegistered = true;
+                    }
+                }else{
+                    $rootScope.isRegistered = false;
+                }
+
+                alert(RegisterData.key);
+            }, function(error) {
+                alert(JSON.stringify(error));
+            });
+
+        }, function(error) {
+            alert(JSON.stringify(error));
+            //如果license文件不存在
+            if (error.code === 1) {
+                // 未注册，则弹出注册框
+                $rootScope.isRegistered = false;
+            } else {
+                alert('onu_license.json can\'t be created,error message is :' + error.message);
+
+            }
+        });
+
         fileSystem = cordova.file.externalRootDirectory;
 
         //检查存放报告的文件夹以及用于删除文件的文件夹是否存在，不存在则创建
@@ -25,10 +64,10 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
             //如果存放报告的文件夹不存在，重新新建
             if (error.code === 1) {
                 $cordovaFile.createDir(fileSystem, reportDir, false).then(success, function(error) {
-                    alert('onu_report can\'t be crated,error message is : ' + error.message);
+                    alert('onu_report can\'t be created,error message is : ' + error.message);
                 });
             } else {
-                alert('onu_report can\'t be crated,error message is :' + error.message);
+                alert('onu_report can\'t be created,error message is :' + error.message);
             }
 
         });
@@ -37,13 +76,13 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
         //清空onu_del的所有内容，重新新建onu_del文件夹
         $cordovaFile.removeRecursively(fileSystem, deleteDir).then(function() {
             $cordovaFile.createDir(fileSystem, deleteDir, true).then(success, function(error) {
-                alert('onu_del can\'t be crated,error message is : ' + error.message);
+                alert('onu_del can\'t be created,error message is : ' + error.message);
             });
         }, function(error) {
             //如果是错误1表示文件夹不存在，则重新创建
             if (error.code === 1) {
                 $cordovaFile.createDir(fileSystem, deleteDir, true).then(success, function(error) {
-                    alert('onu_del can\'t be crated,error message is : ' + error.message);
+                    alert('onu_del can\'t be created,error message is : ' + error.message);
                 });
             } else {
                 alert('error :' + JSON.stringify(error));
@@ -103,5 +142,15 @@ angular.module('starter.services').service('File', function($log, $cordovaFile,
     //检查文件是否存在
     this.checkFile = function(fileName) {
         return $cordovaFile.checkFile(fileSystem, _reportDir + fileName + fileType);
+    };
+
+    //创建license文件
+    this.createLicense = function(data) {
+        return $cordovaFile.writeFile(licenseFileSystem, licenseFileName, data, true);
+    };
+
+    //读取license文件
+    this.readLicense = function() {
+        return $cordovaFile.readAsText(licenseFileSystem, licenseFileName);
     };
 });

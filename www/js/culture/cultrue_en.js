@@ -12,7 +12,8 @@ var ONU_LOCAL = {
     },
 
     loginModule: {
-        login: '连接设备',
+        login: 'Connect ONU',
+        ok:'OK',
         ip_address: 'IP地址',
         username: '用户名',
         password: '密码',

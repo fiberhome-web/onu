@@ -14,81 +14,84 @@ angular.module('starter.controllers')
         $scope.scanBarcode = function() {
             $cordovaBarcodeScanner.scan().then(function(imageData) {
                     //扫码过程中未取消，并且条形码形式为CODE_128
-                    if (!imageData.cancelled && imageData.format === 'CODE_128') {
-                        var barcode = imageData.text;
-                        //生产批号为12位编号
-                        if (barcode.length === 12) {
+                    if (!imageData.cancelled) {
+                        if (imageData.format === 'CODE_128') {
+                            var barcode = imageData.text;
+                            //生产批号为12位编号
+                            if (barcode.length === 12) {
 
-                            //解析厂家代号
-                            var vendor = barcode.substr(0, 2);
-                            //厂家代号为字母
-                            var vendorReg = /^[A-Za-z]+$/;
-                            if (!vendorReg.test(vendor)) 
-                            {
-                                data.warranty_period.text = $scope.local.tip;
-                                return;
-                            }
+                                //解析厂家代号
+                                var vendor = barcode.substr(0, 2);
+                                //厂家代号为字母
+                                var vendorReg = /^[A-Za-z]+$/;
+                                if (!vendorReg.test(vendor)) {
+                                    data.warranty_period.text = $scope.local.tip;
+                                    return;
+                                }
 
-                            //解析设备代号
-                            var equipment = barcode.substr(2, 2);
-                            //设备代号，用数字或字母表示
-                            var equipmentReg =  /^[0-9a-zA-Z]+$/;
-                            if (!equipmentReg.test(equipment)) 
-                            {
-                                data.warranty_period.text = $scope.local.tip;
-                                return;
-                            }
+                                //解析设备代号
+                                var equipment = barcode.substr(2, 2);
+                                //设备代号，用数字或字母表示
+                                var equipmentReg = /^[0-9a-zA-Z]+$/;
+                                if (!equipmentReg.test(equipment)) {
+                                    data.warranty_period.text = $scope.local.tip;
+                                    return;
+                                }
 
-                            //解析年份代号
-                            var year = '20' + barcode.substr(4, 2);
-                            //年份代号为非数字
-                            if (angular.isNumber(year)) {
-                                //年份代号为数字，计算质保期截止年份
-                                year = parseInt(year) + $rootScope.warrantyPeriod;
+                                //解析年份代号
+                                var year = '20' + barcode.substr(4, 2);
+                                //年份代号为非数字
+                                if (isNaN(year)) {
+                                    data.warranty_period.text = $scope.local.tip;
+                                    return;
+                                } else {
+                                    //年份代号为数字，计算质保期截止年份
+                                    year = parseInt(year) + $rootScope.warrantyPeriod;
+                                }
+
+                                //解析月份代号
+                                var month = barcode.substr(6, 1);
+                                var monthReg = /[A-C]/;
+
+                                if (!isNaN(month)) {
+                                    month = parseInt(month);
+                                } else if (monthReg.test(month)) {
+                                    month = month.charCodeAt() - 55;
+                                } else {
+                                    data.warranty_period.text = $scope.local.tip;
+                                    return;
+                                }
+
+                                //解析流水号
+                                var serial_number = barcode.substr(8, 4);
+                                //流水号为数字
+                                if (isNaN(serial_number)) {
+                                    data.warranty_period.text = $scope.local.tip;
+                                    return;
+                                }
+
+                                var today = new Date().format('yyyy-MM');
+                                var endDate = new Date(year, month - 1).format('yyyy-MM');
+
+                                if (today <= endDate) {
+                                    data.warranty_period.text = $scope.local.not_expired + ' ( ' + endDate + ' ) ';
+
+                                } else {
+                                    data.warranty_period.text = $scope.local.overdue + ' ( ' + endDate + ' ) ';
+                                }
+                                // data.warranty_period.text = imageData.text;
+                                $scope.deviceInfo = data;
+                                Report.setDeviceInfo(data);
                             } else {
                                 data.warranty_period.text = $scope.local.tip;
-                                return;
                             }
-
-                            //解析月份代号
-                            var month = barcode.substr(6, 1);
-                            var monthReg = /[A-C]/;
-
-                            if (angular.isNumber(month)) {
-                                month = parseInt(month);
-                            } else if (monthReg.test(month)) {
-                                month = month.charCodeAt() - 55;
-                            } else {
-                                data.warranty_period.text = $scope.local.tip;
-                                return;
-                            }
-
-                            //解析流水号
-                            var serial_number = barcode.substr(8, 4);
-                            //流水号为数字
-                            if (isNaN(serial_number)) {
-                                data.warranty_period.text = $scope.local.tip;
-                                return;
-                            }
-
-                            var today = new Date().format('yyyy-MM');
-                            var endDate = new Date(year, month - 1).format('yyyy-MM');
-
-                            if (today <= endDate) {
-                                data.warranty_period.text = $scope.local.not_expired + ' ( ' + endDate + ' ) ';
-
-                            } else {
-                                data.warranty_period.text = $scope.local.overdue + ' ( ' + endDate + ' ) ';
-                            }
-                            // data.warranty_period.text = imageData.text;
-                            $scope.deviceInfo = data;
-                            Report.setDeviceInfo(data);
                         } else {
                             data.warranty_period.text = $scope.local.tip;
                         }
-                    } else if (!!data.warranty_period.text) {
-                        data.warranty_period.text = $scope.local.tip;
                     }
+                    // else if (!!data.warranty_period.text) {
+                    //     data.warranty_period.text = $scope.local.tip;
+                    // }
                 },
                 function(error) {
                     console.log("An error happened -> " + error);

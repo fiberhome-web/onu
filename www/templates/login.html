@@ -1,18 +1,30 @@
 <ion-view>
     <ion-content scroll="false">
-    <div id="loginContent">
-        <div class="list show center">
-            <div class="item item-input inputBox">
-                <i class="iconfont placeholder-icon">&#xe604;</i>
-                <input type="text" placeholder="{{info.IPAddress}}" ng-model="loginInfo.ip" ng-pattern="/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
-" required/>
-                <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
+        <div id="loginContent">
+            <div class="list show center">
+                <div class="item item-input inputBox" ng-show="!isRegistered">
+                    <i class="iconfont placeholder-icon">&#xe604;</i>
+                    <input type="text" ng-model="registerData.uuid" />
+                </div>
             </div>
+            <div class="list show center">
+                <div class="item item-input inputBox" ng-show="!isRegistered">
+                    <i class="iconfont placeholder-icon">&#xe604;</i>
+                    <input type="text" ng-model="registerData.key" />
+                </div>
+            </div>
+            <div class="list show center">
+                <div class="item item-input inputBox" ng-show="isRegistered">
+                    <i class="iconfont placeholder-icon">&#xe604;</i>
+                    <input type="text" placeholder="{{info.IPAddress}}" ng-model="loginInfo.ip" />
+                    <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
+                </div>
+            </div>
+            <button class="button button-green button-block-half loginBtn" ng-click="loginBtnClick()">
+                <span ng-if="isRegistered">{{info.login}}</span>
+                <span ng-if="!isRegistered">{{info.ok}}</span>
+            </button>
+            <div class="history" ng-click="viewHistory()">{{info.history}}</div>
         </div>
-        <button class="button button-green button-block-half loginBtn" ng-click="loginBtnClick()">
-            {{info.login}}
-        </button>
-        <div class="history" ng-click="viewHistory()">{{info.history}}</div>
-    </div>
     </ion-content>
 </ion-view>
