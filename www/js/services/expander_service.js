@@ -43,7 +43,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             self.hideMask = hideMask;
             self.isShow=false;
 
-            self.scope = configuration.scope ;//(configuration.scope || $rootScope).$new();
+            self.scope = (configuration.scope || $rootScope).$new();
             self.element.id=self.scope.$id;
             self.options = configuration;
 
@@ -76,7 +76,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
                 $timeout(function(){
                     that.element.style.display = 'none';
-                },500);
+                },200);
             });
            
            

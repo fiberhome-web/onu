@@ -30,6 +30,7 @@
                 <span class="note">{{local.copyright}}</span>
             </div>
         </div>
+
     </ion-content>
 </ion-view>
 <!-- 自动删除报告上弹框 -->
@@ -43,9 +44,9 @@
         </div>
     </div>
     <ion-list class="center-radio">
-        <ion-radio ng-model="delRange" ng-value="0">{{local.retention_time_select.never}}</ion-radio>
-        <ion-radio ng-model="delRange" ng-value="1">{{local.retention_time_select.day}}</ion-radio>
-        <ion-radio ng-model="delRange" ng-value="2" class="no-border-bottom">{{local.retention_time_select.permanent}}</ion-radio>
+        <ion-radio ng-model="delRange" name="a1" ng-value="0">{{local.retention_time_select.never}}</ion-radio>
+        <ion-radio ng-model="delRange" name="a1" ng-value="1">{{local.retention_time_select.day}}</ion-radio>
+        <ion-radio ng-model="delRange" name="a1" ng-value="2" class="no-border-bottom">{{local.retention_time_select.permanent}}</ion-radio>
     </ion-list>
     <div class="list expander">
         <div class="item item-button expander-footer show center">
@@ -66,8 +67,8 @@
         </div>
     </div>
     <ion-list class="center-radio">
-        <ion-radio ng-model="dateRange" ng-value="0">{{local.date_select.one_year}}</ion-radio>
-        <ion-radio ng-model="dateRange" ng-value="1" class="no-border-bottom">{{local.date_select.two_years}}</ion-radio>
+        <ion-radio ng-model="dateRange" name="a2" ng-value="0">{{local.date_select.one_year}}</ion-radio>
+        <ion-radio ng-model="dateRange" name="a2" ng-value="1" class="no-border-bottom">{{local.date_select.two_years}}</ion-radio>
     </ion-list>
     <div class="list expander">
         <div class="item item-button expander-footer show center">
