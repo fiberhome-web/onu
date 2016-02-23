@@ -2,7 +2,7 @@ var ONU_LOCAL = {
     basicInfo: '基本信息',
     check: '诊断',
     history: '历史',
-    setup:'设置',
+    setting:'设置',
 
     unit: {
         temperature: '℃',
@@ -93,7 +93,7 @@ var ONU_LOCAL = {
         }
     },
 
-    setupModule:{
+    settingModule:{
         auto_delete_report:'自动删除报告',
         warranty_period:'保修期',
         version:'版本',

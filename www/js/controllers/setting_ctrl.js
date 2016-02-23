@@ -1,20 +1,23 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('SetupCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService', function($scope, $rootScope, $state, ExpanderService) {
-        $scope.local = ONU_LOCAL.setupModule;
+    .controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService','SettingService', function($scope, $rootScope, $state, ExpanderService,SettingService) {
+        $scope.local = ONU_LOCAL.settingModule;
 
         $scope.retention_select = [
             $scope.local.retention_time_select.never,
             $scope.local.retention_time_select.day,
             $scope.local.retention_time_select.permanent
         ];
+
+        //报告保留时间弹出框配置
         var reportRetentionTimeExpanderConf = {
             templateUrl: 'autoDeleteReport.html',
             scope: $scope,
             backdoor: true
         };
         var reportRetentionTimeExpanderHandel = ExpanderService.init(reportRetentionTimeExpanderConf);
+        //将该句柄添加到list中，硬件返回按钮触发事件中会检查该弹出框知否已显示，若显示则隐藏。
         $rootScope.expanderHandel.push(reportRetentionTimeExpanderHandel);
 
         $scope.date_select = [

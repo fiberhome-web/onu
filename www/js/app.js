@@ -23,14 +23,11 @@ var CONST = {
 //使用mockjax替换ajax
 Mock.mockjax(app);
 
-app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice) {
+app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice,LicenseService) {
     $rootScope.warrantyPeriod = 2;
     $rootScope.expanderHandel = [];
-    $rootScope.registerData = {};
     $rootScope.isRegistered = false;
-    $rootScope.isPassed = function() {
-        return true;
-    };
+    
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -45,7 +42,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         //禁止横屏
         screen.lockOrientation('portrait');
 
-        $rootScope.registerData.uuid = $cordovaDevice.getUUID();
+        LicenseService.registerData.uuid = $cordovaDevice.getUUID();
     });
 
     //主页面显示退出提示框  
@@ -171,12 +168,12 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         }
     })
 
-    .state('tab.setup', {
-        url: '/setup',
+    .state('tab.setting', {
+        url: '/setting',
         views: {
-            'tab-setup': {
-                templateUrl: 'templates/tab-setup.html',
-                controller: 'SetupCtrl'
+            'tab-setting': {
+                templateUrl: 'templates/tab-setting.html',
+                controller: 'SettingCtrl'
             }
         }
     });

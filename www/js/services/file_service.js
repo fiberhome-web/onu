@@ -1,6 +1,6 @@
 'use strict';
 angular.module('starter.services').service('File', function($rootScope, $log, $cordovaFile,
-    $filter, $ionicPlatform) {
+    $filter, $ionicPlatform,LicenseService) {
 
     var fileSystem;
     var licenseFileSystem;
@@ -25,9 +25,10 @@ angular.module('starter.services').service('File', function($rootScope, $log, $c
         $cordovaFile.checkFile(licenseFileSystem, licenseFileName).then(function(success) {
             // 若存在license文件，表示已注册过
             $cordovaFile.readAsText(licenseFileSystem, licenseFileName).then(function(data) {
+
+                var RegisterData = JSON.parse(data);
                 //若license正确，判断是否过期
-                if ($rootScope.isPassed()) {
-                    var RegisterData = JSON.parse(data);
+                if (LicenseService.isLicenseCorrect(LicenseService.registerData.uuid,RegisterData.key)) {
                     var startDate = dateUtils.getDayOfLastYear();
                     //若注册时间到今天超过一年
                     if (RegisterData.date < startDate) {

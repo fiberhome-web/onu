@@ -2,7 +2,7 @@ var ONU_LOCAL = {
     basicInfo: '基本信息',
     check: '诊断',
     history: '历史',
-    setup:'设置',
+    setting: 'Setting',
 
     unit: {
         temperature: '℃',
@@ -13,19 +13,21 @@ var ONU_LOCAL = {
 
     loginModule: {
         login: 'Connect ONU',
-        ok:'OK',
+        ok: 'OK',
         ip_address: 'IP地址',
         username: '用户名',
         password: '密码',
-        history: '查看历史数据'
+        history: '查看历史数据',
+        uuid: 'APP Identification Number：',
+        license_ph: 'Please enter license'
     },
 
     basicModule: {
         one_check: 'Detect All',
-        scan_bar_code:'Scan Bar Code',
-        tip:'Scan code error,Please try again',
-        overdue:'Overdue',
-        not_expired:'Not Expired'
+        scan_bar_code: 'Scan Bar Code',
+        tip: 'Scan code error,Please try again',
+        overdue: 'Overdue',
+        not_expired: 'Not Expired'
     },
 
     checkModule: {
@@ -61,7 +63,7 @@ var ONU_LOCAL = {
         date: 'Date',
         conclusion: 'Result',
         report: 'Report',
-        note : 'Note'
+        note: 'Note'
     },
 
     historyModule: {
@@ -74,7 +76,7 @@ var ONU_LOCAL = {
         start_date: '开始日期',
         end_date: '结束日期',
         date_range: '日期范围',
-        search_ph:'请输入查询关键字',
+        search_ph: '请输入查询关键字',
         date_select: {
             all: '全部',
             today: '今天',
@@ -95,36 +97,36 @@ var ONU_LOCAL = {
         }
     },
 
-    setupModule:{
-        report_retention_time:'Report_Retention_Time ',
-        warranty_period:'Warranty Period',
-        version:'Version',
-        software_version:'ONUsmartChecker V1.0 Build 10',
-        copyright:'Copyright © 2016, Fiberhome Telecommunication Technologies Co.,LTD',
-        ok:'确定',
-        reconnect:'Reconnect',
+    settingModule: {
+        report_retention_time: 'Report Retention Time ',
+        warranty_period: 'Warranty Period',
+        version: 'Version',
+        software_version: 'ONUsmartChecker V1.0 Build 10',
+        copyright: 'Copyright © 2016, Fiberhome Telecommunication Technologies Co.,LTD',
+        ok: '确定',
+        reconnect: 'Reconnect',
         date_select: {
-            one_year:'1 year',
-            two_years:'2 years'
+            one_year: '1 year',
+            two_years: '2 years'
         },
-        retention_time_select:{
-            never:'never',
-            day:'one day',
-            permanent:'permanent'
+        retention_time_select: {
+            never: 'never',
+            day: 'one day',
+            permanent: 'permanent'
         }
     },
 
     report: {
         deviceInfo: {
-            module_name : 'ONU Infomation',
+            module_name: 'ONU Infomation',
             equipment_id: 'Equipment ID',
             vendor: 'Vendor',
             hardware_version: 'Hardware Version',
             software_version: 'Software Version',
             mac: 'MAC',
             sn: 'SN',
-            warranty_period:'Warranty Period',
-            led_status:'Registration Status LED',
+            warranty_period: 'Warranty Period',
+            led_status: 'Registration Status LED',
             onu_regist_status: 'ONU Registration Status',
             onu_auth_status: 'ONU AUTH Status',
             pon_port_number: 'PON Port Number',
@@ -133,7 +135,7 @@ var ONU_LOCAL = {
         },
 
         ponPortStatus: {
-            module_name : 'PON Port Detection',
+            module_name: 'PON Port Detection',
             pon_port_id: 'Port No',
             led_status: 'Status',
             temperature: 'Temperature',
@@ -165,7 +167,7 @@ var ONU_LOCAL = {
     },
 
     enums: {
-        led_status:{
+        led_status: {
             k_0: 'Off',
             k_1: 'On',
             k_2: 'Blinking',
@@ -236,59 +238,58 @@ var ONU_LOCAL = {
         }
     },
 
-    suggest : {
-        reason : {
-            r1 : 'The ONU is not activated.',
-            r2 : 'The reticle is not plugged or broken.',
-            r3 : 'Receiving optical power is out of range(-8db ~ -28db).Optical module is abnormal.',
-            r4 : 'OLT return error. ',
-            r5 : 'The OLT PON port is disabled.',
-            r6 : 'In authentication. ',
-            r7 : 'Not authenticated',
-            r8 : 'No optical signals are received.',
-            r9 : 'NOptical module temperature is too high. ',
-            r10 : 'Optical module voltage is too high. ',
-            r11 : 'Optical module voltage is too low.',
-            r12 : 'Optical module current is too high. ',
-            r13 : 'Optical module “Tx_OptPower” is too high.',
-            r14 : 'Optical module “Tx_OptPower” is too low. ',
-            r15 : 'Optical module “Rx_OptPower” is too high. ',
-            r16 : 'Optical module “Rx_OptPower” is too low.',
-            r17 : 'The reticle is not plugged or broken. ',
-            r18 : 'PHY chip fault. ',
-            r19 : 'The port is disabled. ',
-            r20 : 'Voice service not configured. ',
-            r21 : 'Port is not activated. ',
-            r22 : 'Port Registration Failure. ',
-            r23 : 'Port Registration Failure.',
-            r24 : 'The user does not hang up, or outside line has a fault.',
-            r25 : 'Gateway Registration Failure.',
+    suggest: {
+        reason: {
+            r1: 'The ONU is not activated.',
+            r2: 'The reticle is not plugged or broken.',
+            r3: 'Receiving optical power is out of range(-8db ~ -28db).Optical module is abnormal.',
+            r4: 'OLT return error. ',
+            r5: 'The OLT PON port is disabled.',
+            r6: 'In authentication. ',
+            r7: 'Not authenticated',
+            r8: 'No optical signals are received.',
+            r9: 'NOptical module temperature is too high. ',
+            r10: 'Optical module voltage is too high. ',
+            r11: 'Optical module voltage is too low.',
+            r12: 'Optical module current is too high. ',
+            r13: 'Optical module “Tx_OptPower” is too high.',
+            r14: 'Optical module “Tx_OptPower” is too low. ',
+            r15: 'Optical module “Rx_OptPower” is too high. ',
+            r16: 'Optical module “Rx_OptPower” is too low.',
+            r17: 'The reticle is not plugged or broken. ',
+            r18: 'PHY chip fault. ',
+            r19: 'The port is disabled. ',
+            r20: 'Voice service not configured. ',
+            r21: 'Port is not activated. ',
+            r22: 'Port Registration Failure. ',
+            r23: 'Port Registration Failure.',
+            r24: 'The user does not hang up, or outside line has a fault.',
+            r25: 'Gateway Registration Failure.',
         },
-        msg : {
-            m1 : 'The ONU is not activated.',
-            m2 : 'Please check whether the fiber is normal or bad contact.)',
-            m3 : 'Continuous observation, If the optical module voltage exceeds the threshold for a long time, and optical power is abnormal or report alarms, It may be the optical module is aging or damaged. Please contact technical support to resolve.'
-                 + 'Logic ID or password authentication configuration error. (Please confirm whether the authorization information is correct or not, and re-authorize the ONU)',
-            m4 : 'Please check the ONU configuration in the OLT authentication table is correct.',
-            m5 : 'Please enable the OLT PON port.',
-            m6 : 'Please wait a moment, or check the ONU authentication table on OLT and re-authorize the ONU',
-            m7 : 'Please confirm whether the authorization information is correct or not, and re-authorize the ONU',
-            m8 : 'Please check whether the fiber is normal or bad contact.',
-            m9 : 'Check equipment fan is working properly, or open the air conditioner to lower the indoor temperature. Continuous observation, if the optical module temperature exceeds the threshold for a long time, and optical power is abnormal or report alarms, It may be the optical module is aging or damaged. Please contact technical support to resolve.',
-            m10 : 'Continuous observation, If the optical module voltage exceeds the threshold for a long time, and optical power is abnormal or report alarms, It may be the optical module is aging or damaged. Please contact technical support to resolve.',
-            m11 : 'Continuous observation, If the optical module current exceeds the threshold for a long time, and optical power is abnormal or report alarms, It may be the optical module is aging or damaged. Please contact technical support to resolve.',
-            m12 : 'Continuous observation, If the optical module “Tx_OptPower” exceeds the threshold for a long time, It may be the optical module is aging or damaged. Please contact technical support to resolve.',
-            m13 : 'Check the quality of optical fibers and optical lines. Continuous observation, If the optical module “Rx_OptPower” exceeds the threshold for a long time, or not working properly , You should replace the optical module or contact technical support to resolve.',
-            m14 : 'Please confirm whether the reticle is broken or bad contact',
-            m15 : 'Please repair the PHY chip or replace ONU.',
-            m16 : 'Please enable the port.',
-            m17 : 'Please configure voice service.',
-            m18 : 'For SIP ,please check the parameters of 3、6、7、18、19、22、23、26、27、29 are cofigured right  or not for schedule B ;For H.248,please check the parameters of 27、28 are cofigured right or not for schedule B.',
-            m19 : 'Please check the connection between ONU and server is normal.',
-            m20 : 'For SIP ,please check the parameters of 3、6、7、18、19、22、23、26、27、29 are cofigured right  or not for schedule B ;For H.248,please check the parameters of 27、28 are cofigured right or not for schedule B.',
-            m21 : 'If exclude not hang up, You should check the outside line.',
-            m22 : 'Please check the connection between ONU and server is normal.',
-            m23 : 'Please check the parameters of 3、6、7、11、12、15 are cofigured right or not for schedule B.',
+        msg: {
+            m1: 'The ONU is not activated.',
+            m2: 'Please check whether the fiber is normal or bad contact.)',
+            m3: 'Continuous observation, If the optical module voltage exceeds the threshold for a long time, and optical power is abnormal or report alarms, It may be the optical module is aging or damaged. Please contact technical support to resolve.' + 'Logic ID or password authentication configuration error. (Please confirm whether the authorization information is correct or not, and re-authorize the ONU)',
+            m4: 'Please check the ONU configuration in the OLT authentication table is correct.',
+            m5: 'Please enable the OLT PON port.',
+            m6: 'Please wait a moment, or check the ONU authentication table on OLT and re-authorize the ONU',
+            m7: 'Please confirm whether the authorization information is correct or not, and re-authorize the ONU',
+            m8: 'Please check whether the fiber is normal or bad contact.',
+            m9: 'Check equipment fan is working properly, or open the air conditioner to lower the indoor temperature. Continuous observation, if the optical module temperature exceeds the threshold for a long time, and optical power is abnormal or report alarms, It may be the optical module is aging or damaged. Please contact technical support to resolve.',
+            m10: 'Continuous observation, If the optical module voltage exceeds the threshold for a long time, and optical power is abnormal or report alarms, It may be the optical module is aging or damaged. Please contact technical support to resolve.',
+            m11: 'Continuous observation, If the optical module current exceeds the threshold for a long time, and optical power is abnormal or report alarms, It may be the optical module is aging or damaged. Please contact technical support to resolve.',
+            m12: 'Continuous observation, If the optical module “Tx_OptPower” exceeds the threshold for a long time, It may be the optical module is aging or damaged. Please contact technical support to resolve.',
+            m13: 'Check the quality of optical fibers and optical lines. Continuous observation, If the optical module “Rx_OptPower” exceeds the threshold for a long time, or not working properly , You should replace the optical module or contact technical support to resolve.',
+            m14: 'Please confirm whether the reticle is broken or bad contact',
+            m15: 'Please repair the PHY chip or replace ONU.',
+            m16: 'Please enable the port.',
+            m17: 'Please configure voice service.',
+            m18: 'For SIP ,please check the parameters of 3、6、7、18、19、22、23、26、27、29 are cofigured right  or not for schedule B ;For H.248,please check the parameters of 27、28 are cofigured right or not for schedule B.',
+            m19: 'Please check the connection between ONU and server is normal.',
+            m20: 'For SIP ,please check the parameters of 3、6、7、18、19、22、23、26、27、29 are cofigured right  or not for schedule B ;For H.248,please check the parameters of 27、28 are cofigured right or not for schedule B.',
+            m21: 'If exclude not hang up, You should check the outside line.',
+            m22: 'Please check the connection between ONU and server is normal.',
+            m23: 'Please check the parameters of 3、6、7、11、12、15 are cofigured right or not for schedule B.',
         }
     }
 }
