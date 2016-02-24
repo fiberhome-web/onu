@@ -90,14 +90,46 @@ Mock.mock('http://192.168.1.1/app/', 'getDataPortStatus', function(options){
 Mock.mock('http://192.168.1.1/app/', 'getVoicePortStatus', function(options){
 	return Mock.mock({
 		'ResultCode': '0',
-		'data|1-4': [
-			{
-				'voice_port_id|1-4': 1,
-				'protocol_type': {'val|0-2': 0},            
-				'port_status': {'val|0-13': 0},					
-				'telphone_no': {'val': /^(186)\d{8}$/ }		
-			}
-		] 
+		'data': {
+		    'signal_svlan_id' : {val : '4095'},
+            'svlan_cos' : {val : '1'},
+            'signal_cvlan_id' : {val : '123'},
+            'cvlan_cos' : {val : '2'},
+            'ip_mode' : {val : '0'},
+            'signal_ip' : {val : '12.34.56.78'},
+            'ip_mask' : {val : ''},
+            'signal_gateway' : {val : ''},
+            'pppoe_user' : {val : ''},
+            'pppoe_password' : {val : ''},
+            'first_mgc_ip': {val : '0.0.0.0'},
+            'first_mgc_port': {val : '2944'},
+            'second_mgc_ip': {val : ''},
+            'second_mgc_port': {val : ''},
+            'h248_local_port' : {val:'2944'},
+            'reg_mode' : {val : '1'},
+            'mgid' : {val:'10'},
+			'protocol_type': {'val': '4'},
+            'first_sip_registrar_server_ip': {val : ''},
+            'first_sip_registrar_server_port': {val : ''},
+            'second_sip_registrar_server_ip': {val : ''},
+            'second_sip_registrar_server_port': {val : ''},
+            'first _sip_proxy_server_ip': {val : ''},
+            'first _sip_proxy_server_port': {val : ''},
+            'second_sip_proxy_server_ip': {val : ''},
+            'second_sip_proxy_server_port': {val : ''},
+            'sip_local_port' : {val : ''}, 
+            'mgc_reg_status' : {val : '1'},           
+            'port_detail' :  [{
+                voice_port_id : 1,
+                port_status : {val : '1'},
+                port_enable : {val : '1'},
+                user_tid : {val : '12'},
+                telphone_no : {val : '1555265656'},
+                sip_user_name: {val : 'adad'},
+                sip_user_pass: {val : '12323'},              
+            }]
+		}
+		
 	});
 });
 

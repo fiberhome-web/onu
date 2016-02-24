@@ -56,7 +56,7 @@ $mRed:red;
 		}
 		.val {
 			position : absolute;
-			right : 20px;
+			right : 200px;
 		}
 
 		.warn{
@@ -66,6 +66,41 @@ $mRed:red;
     		top: 2px;
     		width: 100px;
     		display: inline-block;
+		}
+
+		.unit{
+			padding-left: 5px;
+		}  
+
+		.v-detail {
+		    color: #7BBDEA;
+		    top: 20px;
+		    text-decoration: none;
+		    right : 20px;
+		}
+
+		.icon-msg,.icon-mark,.icon-edit{
+			position : absolute;
+			width : 50px;
+			text-align : right;
+			font-size: 1.4em;
+		}
+
+		.icon-msg{
+			right : 120px;
+		}
+
+		.icon-mark{
+			right : 70px;
+		}
+
+		.icon-edit{
+			right : 20px;
+		}
+
+		.none{
+			position : absolute;
+			right : 20px;
 		}
 	}
 }
@@ -101,4 +136,39 @@ $mRed:red;
 	    opacity: .8;
 	}
 
+}
+
+.voice-detail{
+	font-size: 1em;
+	.v-item{
+		padding : 10px 10px 10px 20px;;
+		border-bottom : 1px solid #ddd;
+		position : relative;
+	}
+
+	.d-item-key{
+		line-height : 40px;
+		display : inline-block;
+		width : 50%;
+		font-size: 1.2em;
+	}
+
+	.d-item-val{
+		line-height : 40px;
+		display : inline-block;
+		color : #666;
+		position: absolute;
+    	right: 180px;
+	}
+
+	.content{
+		.check-item {
+			padding-left : 60px;
+			.check-icon {
+				left : 20px;
+			}
+		}
+		
+		
+	}
 }

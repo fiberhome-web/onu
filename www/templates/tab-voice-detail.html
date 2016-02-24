@@ -1,0 +1,40 @@
+<ion-view view-title="{{i10n.checkModule.detail_title}}">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon" ng-click="back()"><i class="iconfont">&#xe61f;</i>{{i10n.back}}</button>
+    </ion-nav-buttons>
+    <ion-content class="voice-detail" on-swipe-right="back()">
+        <div class="check-module">
+            <div ng-repeat="(key,item) in voiceInfo">
+            	<div class="v-item" ng-if="item.length === undefined">
+            		<span class="d-item-key" ng-class="{'war-color' : item.warn}">{{key}}</span>
+                    <i class="warn icon iconfont" ng-class="{'war-color' : item.warn}" ng-click="showTip(item)" ng-if="item.msg">&#xe616;</i>
+            		<span class="d-item-val" >
+            			<span ng-if="item.text">{{item.text}}</span>
+                        <span ng-if="!item.text">{{item.val}}</span>
+                        <span ng-if="!item.val">-</span>
+            		</span>
+            	</div>
+            </div>
+
+            <div class="content" ng-repeat="(key,item) in voiceInfo.port_detail">
+                <div class="check-item ">
+                    <i class="icon iconfont check-icon">&#xe608;</i>
+                    <span class="name">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                    <span class="val">{{item.voice_port_id}}</span>
+                </div>
+
+                <div ng-if="key !== 'voice_port_id'" class="check-item" ng-click="showTip(val)" ng-repeat="(key,val) in item">
+                    <span ng-class="{'war-color' : val.warn}">{{i10n.report.voicePortStatus[key]}}</span>
+                    <i class="warn icon iconfont" ng-if="val.msg">&#xe616;</i>
+                    <span class="val" ng-class="{'war-color' : val.warn}">
+                        <span ng-if="val.text">{{val.text}}</span>
+                        <span ng-if="!val.text">{{val.val}}</span>
+                        <span ng-if="!val.val">-</span>
+                    </span>
+                </div>  
+            </div>           
+        </div>
+
+        <div style="height:20px;"></div>
+    </ion-content>
+</ion-view>

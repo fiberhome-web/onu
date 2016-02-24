@@ -3,6 +3,7 @@ var ONU_LOCAL = {
     check: '诊断',
     history: '历史',
     setup:'设置',
+    back : 'Return',
 
     unit: {
         temperature: '℃',
@@ -35,7 +36,7 @@ var ONU_LOCAL = {
         generate_report: 'Generate Report',
         pon_port_item: 'PON Port Detection',
         data_port_item: 'Data Port Detection',
-        voice_port_item: '语音端口诊断项',
+        voice_port_item: 'Voice Port Detection',
         report_title: '请输入报告信息',
         report_name: '报告名称',
         report_name_ph: '建议用地址或SN',
@@ -53,7 +54,9 @@ var ONU_LOCAL = {
         stay_on_this_page: '停留在该页',
         view_report: '查看报告',
         generate_report_successfully: '生成报告成功。',
-        generate_report_failed: '生成报告失败。'
+        generate_report_failed: '生成报告失败。',
+        view_detail : 'View details',
+        detail_title : 'Voice Port Detection Detail'
     },
 
     detailModule: {
@@ -145,21 +148,52 @@ var ONU_LOCAL = {
         },
 
         dataPortStatus: {
-            data_port_id: '数据口序号',
+            data_port_id: 'Port No',
             module_name: 'Data Port Detection',
-            port_status: '端口状态',
-            speed: '速率',
-            duplex: '双工',
+            port_status: 'Port Status',
+            speed: 'Speed',
+            duplex: 'Duplex',
 
         },
 
         voicePortStatus: {
-            voice_port_id: '语音口序号',
+            voice_port_id: 'Port No',
             module_name: 'Voice Port Detection',
-            protocol_type: '协议类型',
-            port_status: '端口状态',
-            telphone_no: '电话号码',
-
+            protocol_type: 'Protocol Type',
+            port_status: 'Port Status',
+            port_enable : 'Port Enable',
+            user_tid : 'User TID',
+            telphone_no : 'Telphone NO',
+            sip_user_name: 'SIP User Name',
+            sip_user_pass: 'SIP User Password',
+            signal_svlan_id : 'signal_svlan_id',
+            svlan_cos : 'svlan_cos',
+            signal_cvlan_id : 'signal_cvlan_id',
+            cvlan_cos : 'cvlan_cos',
+            ip_mode : 'ip_mode',
+            signal_ip : 'signal_ip',
+            ip_mask : 'ip_mask',
+            signal_gateway : 'signal_gateway',
+            pppoe_user : 'pppoe_user',
+            pppoe_password : 'pppoe_password',
+            first_mgc_ip: 'first_mgc_ip',
+            first_mgc_port: 'first_mgc_port',
+            second_mgc_ip: 'second_mgc_ip',
+            second_mgc_port: 'second_mgc_port',
+            h248_local_port : 'h248_local_port',
+            reg_mode : 'reg_mode',
+            mgid : 'mgid',
+            protocol_type: 'protocol_type',
+            first_sip_registrar_server_ip: 'first_sip_registrar_server_ip',
+            first_sip_registrar_server_port: 'first_sip_registrar_server_port',
+            second_sip_registrar_server_ip: 'second_sip_registrar_server_ip',
+            second_sip_registrar_server_port: 'second_sip_registrar_server_port',
+            first_sip_proxy_server_ip: 'first_sip_proxy_server_ip',
+            first_sip_proxy_server_port: 'first_sip_proxy_server_port',
+            second_sip_proxy_server_ip: 'second_sip_proxy_server_ip',
+            second_sip_proxy_server_port: 'second_sip_proxy_server_port',
+            sip_local_port :  'sip_local_port',
+            mgc_reg_status :  'mgc_reg_status',
         }
 
     },
@@ -210,9 +244,9 @@ var ONU_LOCAL = {
             k_2: 'Auto'
         },
         voice_protocol_type: {
-            k_0: 'MGCP',
-            k_1: 'H.248',
-            k_2: 'SIP'
+            k_0: 'None',
+            k_2: 'H.248',
+            k_4: 'SIP'
         },
         voice_port_status: {
             k_0: '端口未激活',
@@ -230,6 +264,21 @@ var ONU_LOCAL = {
             k_12: '端口注册失败',
             k_13: '用户久不挂机'
         },
+        voice_mgc_reg_status: {
+            k_0: 'Registering ',
+            k_1: 'Registration Success',
+            k_2: 'Registration Failed',
+        },
+        voice_reg_mode: {
+            k_0: 'IP',
+            k_1: 'Domain Name',
+            k_2: 'Equipment Name',
+        },
+        voice_port_enable: {
+            k_0: 'Disable',
+            k_1: 'Enable',
+        },
+        
         result_code: {
             k_101: '用户名或密码错误',
             // k_201: '获取光口信息失败' ...

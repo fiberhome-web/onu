@@ -21,12 +21,23 @@
                         <span class="val">{{ponInfo.pon_port_id}}</span>
                     </div>
                     <div ng-repeat="(key,val) in ponInfo">
-                        <div ng-if="key !== 'pon_port_id'" class="check-item" ng-click="eventFun.showTip(val)">
+                        <div ng-if="key !== 'pon_port_id'" class="check-item" >
                             <span ng-class="{'war-color' : val.warn}">{{i10n.report.ponPortStatus[key]}}</span>
-                            <i class="warn icon iconfont" ng-if="val.msg">&#xe616;</i>
-                            <span class="val" ng-class="{'war-color' : val.warn}">
-                                <span ng-if="val.val">{{val.val}}{{val.unit}}</span>
-                                <span ng-if="!val.val">-</span>
+                           
+                            <span class="val" ng-if="val.val" ng-class="{'war-color' : val.warn}">
+                                <span ng-if="val.val">
+                                    {{val.val}}
+                                    <span class="unit">{{val.unit}}</span>
+                                </span>
+
+                            </span>
+
+                            <span ng-if="!val.val" class="none">-</span>
+
+                            <span ng-if="val.val" ng-class="{'war-color' : val.warn}">
+                                <i class="icon-msg icon iconfont" ng-click="eventFun.showTip(val)"  ng-if="val.msg">&#xe616;</i>
+                                <i class="icon-mark icon iconfont" ng-click="val.warn = !val.warn">&#xe616;</i>
+                                <i class="icon-edit icon iconfont" >&#xe616;</i>
                             </span>
                         </div>
                         <div>
@@ -55,60 +66,75 @@
                         <span class="val">{{dataInfo.data_port_id}}</span>
                     </div>
                     <div ng-repeat="(key,val) in dataInfo">
-                        <div ng-if="key !== 'data_port_id'" class="check-item" ng-click="eventFun.showTip(val)">
+                        <div ng-if="key !== 'data_port_id'" class="check-item" >
                             <span ng-class="{'war-color' : val.warn}">{{i10n.report.dataPortStatus[key]}}</span>
-                            <i class="warn icon iconfont" ng-if="val.msg">&#xe616;</i>
-                            <span class="val" ng-class="{'war-color' : val.warn}">
+                            <span class="val" ng-if="val.val" ng-class="{'war-color' : val.warn}">
                                 <span ng-if="val.text">{{val.text}}</span>
-                                <span ng-if="!val.val">-</span>
+                            </span>
+
+                            <span ng-if="!val.val" class="none">-</span>
+
+                            <span ng-if="val.val" ng-class="{'war-color' : val.warn}">
+                                <i class="icon-msg icon iconfont" ng-click="eventFun.showTip(val)" ng-if="val.msg">&#xe616;</i>
+                                <i class="icon-mark icon iconfont" ng-click="val.warn = !val.warn">&#xe616;</i>
+                                <i class="icon-edit icon iconfont" >&#xe616;</i>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
-           
-            <!-- 语音口诊断项 -->
-            <div class="item item-button-right">
-                <span>{{i10n.checkModule.voice_port_item}}</span>
-                <div class="check-spinner" ng-show="isVoiceChecking">
-                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
-                    <span class="text">{{i10n.checkModule.wait_for_checking}}</span>
+             <!-- 语音口诊断项 -->
+            <div class="check-module" ng-class="{'check-modal':isVoiceChecking}">
+                <div class="loadding" ng-show="isVoiceChecking">
+                    <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
                 </div>
-                <button class="button button-stable button-positive" ng-disabled="isVoiceChecking" ng-click="eventFun.checkVoiceBtnEvt()">
-                    <span>{{i10n.checkModule.begin_check}}</span>
-                    <i class="ion-arrow-right-c"></i>
-                </button>
-            </div>
-            <div class="item item-body" ng-hide="voiceInfos.length == 0">
-                <div class="list" ng-repeat="voiceInfo in voiceInfos | orderBy:order.voice" style="border: 1px #ddd solid;">
-                    <a class="item item-icon-left">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.voice_port_id}}</span>
-                        <span class="val">
-                            <span>{{voiceInfo.voice_port_id}}</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.port_status}}</span>
-                        <span class="val">
-                            <span>{{voiceInfo.port_status.text}}</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.protocol_type}}</span>
-                        <span class="val">
-                            <span>{{voiceInfo.protocol_type.text}}</span>
-                        </span>
-                    </a>
-                    <a class="item item-icon-left">
-                        <i class="icon ion-thermometer"></i><span>{{i10n.report.voicePortStatus.telphone_no}}</span>
-                        <span class="val">
-                            <span>{{voiceInfo.telphone_no.val}}</span>
-                        </span>
-                    </a>
+                <div class="header">
+                    <i class="icon iconfont">&#xe605;</i>
+                    <span class="title">{{i10n.checkModule.voice_port_item}}</span>
+                    <span class="check_btn" ng-click="eventFun.checkVoiceBtnEvt()">
+                        <i class="icon iconfont">&#xe602;</i>
+                        <span>{{i10n.checkModule.begin_check}}</span>
+                    </span>
                 </div>
+              
+                <div class="content" ng-repeat="(key,item) in voiceInfos.port_detail">
+                    <div class="check-item">
+                        <i class="icon iconfont check-icon">&#xe608;</i>
+                        <span class="name">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                        <span class="val">{{item.voice_port_id}}</span>
+                    </div>
+
+                    <div ng-if="key !== 'voice_port_id'" class="check-item"  ng-repeat="(key,val) in item">
+                        <span ng-class="{'war-color' : val.warn}">{{i10n.report.voicePortStatus[key]}}</span>
+                        <span class="val" ng-if="val.val" ng-class="{'war-color' : val.warn}">
+                            <span ng-if="val.text">{{val.text}}</span>
+                            <span ng-if="!val.text">{{val.val}}</span>
+                        </span>
+
+                        <span ng-if="!val.val" class="none">-</span>
+
+                        <span ng-if="val.val" ng-class="{'war-color' : val.warn}">
+                            <i class="icon-msg icon iconfont"  ng-if="val.msg" ng-click="eventFun.showTip(val)">&#xe616;</i>
+                            <i class="icon-mark icon iconfont" ng-click="val.warn = !val.warn">&#xe616;</i>
+                            <i class="icon-edit icon iconfont" >&#xe616;</i>
+                        </span>
+                       
+                    </div>             
+                </div>
+                <div class="content" ng-show="voiceInfos.protocol_type">
+                    <div class="check-item">
+                         <a href="#/tab/check/detail" class="val v-detail">{{i10n.checkModule.view_detail}}</a>
+                    </div>
+                </div>
+              
             </div>
+            
         </div>
+        <!--占位div-->
+        <div style="height:100px;"></div>
+
     </ion-content>
+
     <div class="list check_btn_group ">
         <div class="button-bar">
             <button class="button" ng-click="eventFun.oneKeyCheckBtnEvt()">
@@ -119,6 +145,7 @@
             </button>
         </div>
     </div>
+    
 </ion-view>
 <!-- 生成报告弹出框模板 -->
 <script id="generateReport.html" type="text/ng-template">
