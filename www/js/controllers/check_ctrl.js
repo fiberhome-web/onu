@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope', '$rootScope', '$state', '$http', 'Check', 'Popup','$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService',
-        function($scope, $rootScope, $state, $http, Check, Popup,
-            $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService) {
+    .controller('CheckCtrl', ['$scope', '$rootScope', '$state', '$http', 'Check', 'Popup','$timeout',
+        '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService','DB','File',
+        function($scope, $rootScope, $state, $http, Check, Popup,$timeout,
+            $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService,DB,File) {
 
             var reportId;
             var deviceInfo;
@@ -14,7 +15,15 @@ angular.module('starter.controllers')
             };
             var expanderHandel = ExpanderService.init(expanderConf);
 
+            var suggestExpanderConf = {
+                templateUrl: 'editSuggest.html',
+                scope: $scope,
+                backdoor: true
+            };
+            var suggestExpander = ExpanderService.init(suggestExpanderConf);
+
             $rootScope.expanderHandel.push(expanderHandel);
+            $rootScope.expanderHandel.push(suggestExpander);
 
             $scope.saved = false;
             $scope.save_failed = false;
@@ -40,7 +49,6 @@ angular.module('starter.controllers')
                     checkAll();
                 },
                 generateReportBtnEVt: function() {
-
                     $scope.report.resultStatus = '1';
                     $scope.report.remark = null;
                     if (deviceInfo.sn) {
@@ -63,11 +71,82 @@ angular.module('starter.controllers')
                 },
 
                 showTip: function(item) {
-                    if (item.msg) {
-                        Popup.showPop(item.reason, item.msg);
+                    Popup.showPop(item);
+
+                },
+
+                openEdit : function(title, item){
+                    var note = item.note;
+                    var reason = item.reason ? item.reason : '';
+                    var msg = item.msg ? item.msg : '';
+                    if(note === undefined) {
+                        note = '';
+                        if(reason) {
+                            note = $scope.i10n.checkModule.reason + ' : \r\n' +  reason + '\r\n\r\n';
+                        }
+                        if(msg) {
+                            note = note + $scope.i10n.checkModule.suggestion + ' : \r\n' + msg;
+                        }
+                        
+                                 
                     }
 
+                    $scope.editer = {
+                        title : title,
+                        note : note,
+                        item : item
+                    };
+                    suggestExpander.show();
+                    $timeout(function(){
+                        $('#editTextarea').focus();
+                    },100);
+                },
+
+                closeEdit : function(){
+                     suggestExpander.hide();
+                },
+
+                clearEdit : function(){
+                    $scope.editer.note = '';
+                    $timeout(function(){
+                        $('#editTextarea').focus();
+                    },100);
+                    
+                },
+
+                saveEdit : function(){
+                    $scope.editer.item.note = $scope.editer.note;
+                    //清空系统建议
+                    $scope.editer.item.reason = null;
+                    $scope.editer.item.msg = null;
+                    suggestExpander.hide();
+                },
+
+                rename : function(){
+                    $scope.report.reportName = '';
+                    $timeout(function(){
+                        $('#rename').focus();
+                    },100);
+
+                    $scope.isCover = false;
+
+                },
+
+                cover : function(){
+                    saveToDB($scope.report).then(function() {
+                        expanderHandel.hideMask();
+                        $scope.saved = true;
+
+                    }, function(info) {
+                        alert('error :' + JSON.stringify(info));
+                        expanderHandel.hideMask();
+                        $scope.save_failed = true;
+                    });
+                    expanderHandel.showMask();
                 }
+
+
+
             };
 
             // “诊断”界面初始化
@@ -259,8 +338,10 @@ angular.module('starter.controllers')
             function sure() {
                 var res = $scope.report;
                 //检测是否存在同名文件
-                File.checkFile($scope.report.report_name).then(function() {
+                File.checkFile($scope.report.reportName).then(function() {
                     //存在则提示是否覆盖
+                     $scope.isCover = true;
+                    
                 }, function(info) {
                     //不存在直接保存
                     if (info.code === 1) {

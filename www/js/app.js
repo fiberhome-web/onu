@@ -16,7 +16,8 @@ var CONST = {
         BASIC: 'basic',
         PON: 'pon',
         DATA: 'data',
-        VOICE: 'voice'
+        VOICE: 'voice',
+        VDETAIL : 'voice_detail'
     }
 };
 
@@ -142,7 +143,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     })
 
     .state('tab.check', {
-        url: '/check/:checkStatus',
+        url: '/check?:checkStatus',
         views: {
             'tab-check': {
                 templateUrl: 'templates/tab-check.html',
@@ -150,6 +151,19 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
             }
         }
     })
+
+
+    .state('tab.detail', {
+        url: '/check/detail',
+        views: {
+            'tab-check': {
+                templateUrl: 'templates/tab-voice-detail.html',
+                controller: 'VoiceDetailCtrl'
+            }
+        }
+    })
+
+    
 
     .state('tab.history', {
         url: '/history',

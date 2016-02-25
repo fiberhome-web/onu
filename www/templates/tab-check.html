@@ -34,10 +34,10 @@
 
                             <span ng-if="!val.val" class="none">-</span>
 
-                            <span ng-if="val.val" ng-class="{'war-color' : val.warn}">
-                                <i class="icon-msg icon iconfont" ng-click="eventFun.showTip(val)"  ng-if="val.msg">&#xe616;</i>
-                                <i class="icon-mark icon iconfont" ng-click="val.warn = !val.warn">&#xe616;</i>
-                                <i class="icon-edit icon iconfont" >&#xe616;</i>
+                            <span ng-if="val.val" >
+                                <i class="icon-msg icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.showTip(val)"  ng-if="val.msg || val.note || val.reason">&#xe616;</i>
+                                <i class="icon-mark icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="val.warn = !val.warn">&#xe610;</i>
+                                <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.ponPortStatus[key],val)">&#xe626;</i>
                             </span>
                         </div>
                         <div>
@@ -74,10 +74,10 @@
 
                             <span ng-if="!val.val" class="none">-</span>
 
-                            <span ng-if="val.val" ng-class="{'war-color' : val.warn}">
-                                <i class="icon-msg icon iconfont" ng-click="eventFun.showTip(val)" ng-if="val.msg">&#xe616;</i>
-                                <i class="icon-mark icon iconfont" ng-click="val.warn = !val.warn">&#xe616;</i>
-                                <i class="icon-edit icon iconfont" >&#xe616;</i>
+                            <span ng-if="val.val" >
+                                <i class="icon-msg icon iconfont" ng-click="eventFun.showTip(val)" ng-if="val.msg || val.note || val.reason" ng-class="{'war-color' : val.warn}">&#xe616;</i>
+                                <i class="icon-mark icon iconfont" ng-click="val.warn = !val.warn" ng-class="{'war-color' : val.warn}">&#xe610;</i>
+                                <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.dataPortStatus[key],val)">&#xe626;</i>
                             </span>
                         </div>
                     </div>
@@ -113,10 +113,10 @@
 
                         <span ng-if="!val.val" class="none">-</span>
 
-                        <span ng-if="val.val" ng-class="{'war-color' : val.warn}">
-                            <i class="icon-msg icon iconfont"  ng-if="val.msg" ng-click="eventFun.showTip(val)">&#xe616;</i>
-                            <i class="icon-mark icon iconfont" ng-click="val.warn = !val.warn">&#xe616;</i>
-                            <i class="icon-edit icon iconfont" >&#xe616;</i>
+                        <span ng-if="val.val">
+                            <i class="icon-msg icon iconfont"  ng-if="val.msg || val.note || val.reason" ng-click="eventFun.showTip(val)"  ng-class="{'war-color' : val.warn}">&#xe616;</i>
+                            <i class="icon-mark icon iconfont"  ng-class="{'war-color' : val.warn}" ng-click="val.warn = !val.warn">&#xe610;</i>
+                            <i class="icon-edit icon iconfont"  ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.voicePortStatus[key],val)">&#xe626;</i>
                         </span>
                        
                     </div>             
@@ -145,6 +145,9 @@
             </button>
         </div>
     </div>
+
+
+   
     
 </ion-view>
 <!-- 生成报告弹出框模板 -->
@@ -153,14 +156,14 @@
         <div class="item item-button-right expander-header">
             {{i10n.checkModule.generate_report}}
             <button class="button button-stable button-clear" ng-click="eventFun.close()">
-                <i class="iconfont">&#xe61d;</i>
+                <i class="iconfont" style="font-size: 1.6em;">&#xe61d;</i>
             </button>
         </div>
     </div>
     <div class="list expander">
         <label class="item item-input expander-item">
             <span class="input-label">{{i10n.checkModule.report_name}}</span>
-            <input type="text" ng-model="report.reportName" placeholder="{{i10n.checkModule.report_name_ph}}">
+            <input type="text" id="rename" ng-model="report.reportName" placeholder="{{i10n.checkModule.report_name_ph}}">
         </label>
         <label class="item item-input item-select expander-item">
             <span class="input-label">{{i10n.checkModule.check_result}}</span>
@@ -187,6 +190,49 @@
                 <span ng-if="saved">{{i10n.checkModule.view_report}}</span>
             </button>
             <button class="button button-grass" ng-click="eventFun.close()" style="margin-left:1px;">
+                <span ng-if="!saved">{{i10n.checkModule.cancel}}</span>
+                <span ng-if="saved">{{i10n.checkModule.stay_on_this_page}}</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="backdoor" ng-show="isCover"></div>
+    <div class="cover-tip" ng-show="isCover">
+        <div class="head">{{i10n.checkModule.exist}}</div>
+        <div class="btn">
+            <span ng-click="eventFun.rename()">
+                {{i10n.checkModule.rename}}
+            </span>
+        </div>
+        <div class="btn" ng-click="eventFun.cover()">
+            <span>
+                {{i10n.checkModule.cover}}
+            </span>
+        </div>
+    </div>
+</script>
+
+
+<script id="editSuggest.html" type="text/ng-template">
+    <div class="list expander">
+        <div class="item item-button-right expander-header">
+            {{editConf.title}} {{i10n.checkModule.remark}}
+            <button class="button button-stable button-clear" ng-click="eventFun.closeEdit()">
+                <i class="iconfont" style="font-size: 1.6em;">&#xe61d;</i>
+            </button>
+        </div>
+    </div>
+    <div class="list expander sugeest">
+        <i class="iconfont" style="font-size: 1.6em;" ng-click="eventFun.clearEdit()">&#xe623;</i>
+        <textarea id="editTextarea" class="reason" ng-model="editer.note"></textarea>
+    </div>
+    <div class="list expander">
+        <div class="item item-button button-bar expander-footer">
+            <button class="button button-grass" ng-click="eventFun.saveEdit()" style="margin-right:1px;" ng-disabled="save_failed">
+                <span ng-if="!saved">{{i10n.checkModule.ok}}</span>
+                <span ng-if="saved">{{i10n.checkModule.view_report}}</span>
+            </button>
+            <button class="button button-grass" ng-click="eventFun.closeEdit()" style="margin-left:1px;">
                 <span ng-if="!saved">{{i10n.checkModule.cancel}}</span>
                 <span ng-if="saved">{{i10n.checkModule.stay_on_this_page}}</span>
             </button>

@@ -1,5 +1,6 @@
 $mGreen:#1EA26B;
-$mRed:red;
+$mRed:#F0483F;
+$fontColor : #999;
 
 .check-module {
 	position : relative;
@@ -57,6 +58,7 @@ $mRed:red;
 		.val {
 			position : absolute;
 			right : 200px;
+			color : $fontColor;
 		}
 
 		.warn{
@@ -77,13 +79,15 @@ $mRed:red;
 		    top: 20px;
 		    text-decoration: none;
 		    right : 20px;
+		    font-size :1.4em;
 		}
 
 		.icon-msg,.icon-mark,.icon-edit{
 			position : absolute;
 			width : 50px;
 			text-align : right;
-			font-size: 1.4em;
+			font-size: 1.6em;
+			color : $fontColor;
 		}
 
 		.icon-msg{
@@ -106,7 +110,7 @@ $mRed:red;
 }
 
 .war-color {
-	color : $mRed;
+	color : $mRed !important;
 }
 
 .check-modal{
@@ -139,11 +143,36 @@ $mRed:red;
 }
 
 .voice-detail{
-	font-size: 1em;
+	font-size: 1.2em;
 	.v-item{
 		padding : 10px 10px 10px 20px;;
 		border-bottom : 1px solid #ddd;
 		position : relative;
+		.icon-msg,.icon-mark,.icon-edit{
+			position : absolute;
+			width : 50px;
+			text-align : right;
+			font-size: 1.6em;
+			color : $fontColor;
+			line-height:40px;
+		}
+
+		.icon-msg{
+			right : 120px;
+		}
+
+		.icon-mark{
+			right : 70px;
+		}
+
+		.icon-edit{
+			right : 20px;
+		}
+
+		.none{
+			position : absolute;
+			right : 30px;
+		}
 	}
 
 	.d-item-key{
@@ -163,6 +192,7 @@ $mRed:red;
 
 	.content{
 		.check-item {
+			font-size : 1em;
 			padding-left : 60px;
 			.check-icon {
 				left : 20px;
@@ -171,4 +201,79 @@ $mRed:red;
 		
 		
 	}
+}
+
+.sugeest{
+    font-size: 1.2em;
+	padding : 20px;
+
+	i{
+	    font-size: 1.4em;
+	    color: #999;
+	    position: absolute;
+	    right: 20px;
+	}
+
+	textarea {
+		width : 100%;
+		font-size : 1em;
+		line-height : 20px;
+		min-height : 150px;
+	}
+	
+}
+
+.cover-tip{
+	position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    height: 260px;
+    width: 80%;
+    z-index: 2;
+    background-color: #fff;
+    bottom: 80px;
+    border-radius: 10px;
+}
+
+.cover-tip .head,
+.cover-tip .btn{
+	text-align :center;
+	line-height : 40px;
+}
+
+.cover-tip .head{
+	margin : 40px 40px 20px;
+	font-size : 20px;
+}
+
+.cover-tip .btn{
+	border-radius: 5px;
+	border-color : #76BBE9;
+	font-size : 16px;
+	span{
+		margin : 10px 0;
+		width: 350px;
+	    display: inline-block;
+	    border-radius: 5px;
+	    border: 1px solid #7DBEEA;
+	    color : #7DBEEA;
+	}
+
+	span:active{
+		background : #eee;
+	}
+}
+
+
+
+
+.backdoor{
+	background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
 }

@@ -94,15 +94,14 @@ angular.module('starter.controllers')
                     // }
                 },
                 function(error) {
-                    console.log("An error happened -> " + error);
+                    console.log('An error happened -> ' + error);
                 });
 
-        }
+        };
 
-        var myPopup;
         // Triggered on a button click, or some other target
-        $scope.showTip = function(reason, msg) {
-            Popup.showPop(reason, msg);
+        $scope.showTip = function(item) {
+            Popup.showPop(item);
         };
 
    
