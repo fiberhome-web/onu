@@ -1,23 +1,27 @@
 <ion-view>
     <ion-content scroll="false">
         <div id="loginContent" ng-style="loginHight">
-        <span class="tip show">{{tip}}</span>
-            <div class="list show center" ng-keydown="eventFun.keyDownEvt($event)">
-                <div class="item item-input inputBox" ng-show="!isRegistered">
-                    <input type="text" class="padding-left" placeholder="{{info.license_ph}}" ng-model="registerData.key" />
-                    <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
+            <div class="operationArea">
+                <div class="list show center" ng-keydown="eventFun.keyDownEvt($event)">
+                    <div class="item item-input inputBox" ng-show="!isRegistered">
+                        <input type="text" class="padding-left" placeholder="{{info.license_ph}}" ng-model="registerData.key" />
+                        <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
+                    </div>
+                    <div class="item item-input inputBox" ng-show="isRegistered">
+                        <i class="iconfont placeholder-icon">&#xe604;</i>
+                        <input type="text" placeholder="{{info.IPAddress}}" ng-model="loginInfo.ip" />
+                        <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
+                    </div>
                 </div>
-                <div class="item item-input inputBox" ng-show="isRegistered">
-                    <i class="iconfont placeholder-icon">&#xe604;</i>
-                    <input type="text" placeholder="{{info.IPAddress}}" ng-model="loginInfo.ip" />
-                    <i class="iconfont placeholder-icon" ng-click="eventFun.cancelEnter()">&#xe623;</i>
-                </div>
+                <button class="button button-green button-block-half loginBtn" ng-click="eventFun.loginBtnClick()">
+                    <span ng-if="isRegistered">{{info.login}}</span>
+                    <span ng-if="!isRegistered">{{info.ok}}</span>
+                </button>
+                <div class="history" ng-click="viewHistory()" ng-show="isRegistered">{{info.history}}</div>
+                <p class="processing show center" ng-show="loadding">
+                    <ion-spinner icon="icon-jiazai" class="spinner-light"></ion-spinner>
+                </p>
             </div>
-            <button class="button button-green button-block-half loginBtn" ng-click="eventFun.loginBtnClick()">
-                <span ng-if="isRegistered">{{info.login}}</span>
-                <span ng-if="!isRegistered">{{info.ok}}</span>
-            </button>
-            <div class="history" ng-click="viewHistory()" ng-show="isRegistered">{{info.history}}</div>
             <div class="footer" ng-show="!isRegistered">{{info.uuid}}{{registerData.uuid}}</div>
         </div>
     </ion-content>

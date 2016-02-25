@@ -1,18 +1,19 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService','SettingService', function($scope, $rootScope, $state, ExpanderService,SettingService) {
+    .controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService', 'DB', function($scope, $rootScope, $state, ExpanderService, DB) {
         $scope.local = ONU_LOCAL.settingModule;
-
+        $rootScope.hideTabs = false;
+        
         $scope.retention_select = [
-            $scope.local.retention_time_select.never,
             $scope.local.retention_time_select.day,
+            $scope.local.retention_time_select.month,
+            $scope.local.retention_time_select.year,
             $scope.local.retention_time_select.permanent
         ];
-
         //报告保留时间弹出框配置
         var reportRetentionTimeExpanderConf = {
-            templateUrl: 'autoDeleteReport.html',
+            templateUrl: 'reportRetentionTime.html',
             scope: $scope,
             backdoor: true
         };
@@ -32,9 +33,28 @@ angular.module('starter.controllers')
         var warrantyPeriodExpanderHandel = ExpanderService.init(warrantyPeriodExpanderConf);
         $rootScope.expanderHandel.push(warrantyPeriodExpanderHandel);
 
-        $scope.dateIndex = 1;
-        $scope.retentionIndex = 0;
-        
+        DB.queryRetentionTime().then(function(res) {
+            var length = res.rows.length;
+            if (length > 0) {
+                $scope.retentionIndex = res.rows.item(0).value;
+            } else {
+                alert('Unable to read retention time from DB ');
+            }
+        }, function(err) {
+            console.error(err);
+        });
+
+        DB.queryWarrantyPeriod().then(function(res) {
+            var length = res.rows.length;
+            if (length > 0) {
+                $scope.periodIndex = res.rows.item(0).value;
+            } else {
+                alert('Unable to read warranty period from DB ');
+            }
+        }, function(err) {
+            console.error(err);
+        });
+
 
         $scope.eventFun = {
             closeRetentionTimeBox: function() {
@@ -50,26 +70,17 @@ angular.module('starter.controllers')
             },
             openWarrantyPeriodBox: function() {
                 warrantyPeriodExpanderHandel.show();
-                warrantyPeriodExpanderHandel.scope.dateRange = $scope.dateIndex;
+                warrantyPeriodExpanderHandel.scope.dateRange = $scope.periodIndex;
             },
             changeDeletePeriod: function(range) {
                 reportRetentionTimeExpanderHandel.hide();
                 $scope.retentionIndex = range;
+                DB.updateRetentionTime(range);
             },
             changeWarrantyPeriod: function(range) {
                 warrantyPeriodExpanderHandel.hide();
-                $scope.dateIndex = range;
-                switch (range) {
-                    case 0:
-                        $rootScope.warrantyPeriod = 1;
-                        break;
-                    case 1:
-                        $rootScope.warrantyPeriod = 2;
-                        break;
-                    default:
-                        $rootScope.warrantyPeriod = 2;
-                        break;
-                }
+                $scope.periodIndex = range;
+                DB.updateWarrantyPeriod(range);
             },
             reconnect: function() {
                 $state.go('index');

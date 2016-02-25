@@ -1,15 +1,40 @@
 'use strict';
 angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatform', function($cordovaSQLite,
     $ionicPlatform) {
-    var query, db;
+    var db, query, confQuery;
 
     $ionicPlatform.ready(function() {
         //检查是否创建了数据库和表，不存在则创建
         db = $cordovaSQLite.openDB({
             name: 'onu.db'
         });
-        query = 'CREATE TABLE IF NOT EXISTS fiber_onu (id primary key, name, date, status, data, conclusion)';
+        query = 'CREATE TABLE IF NOT EXISTS fiber_onu_data (id primary key, name, date, status, data, conclusion)';
         $cordovaSQLite.execute(db, query).then(success, error);
+
+        confQuery = 'CREATE TABLE IF NOT EXISTS fiber_onu_conf (key primary key, value)';
+        $cordovaSQLite.execute(db, confQuery).then(success, error);
+
+        //若fiber_onu_conf表中无数据则添加出厂配置
+        confQuery = 'SELECT * FROM fiber_onu_conf';
+        $cordovaSQLite.execute(db, confQuery).then(function(res) {
+            var length = res.rows.length;
+            if (length === 0) {
+                var retentionConf = {
+                    key: 'report retention time',
+                    value: 0
+                };
+                initConf(retentionConf);
+                var periodConf = {
+                    key: 'warranty period',
+                    value: 1
+                };
+                initConf(periodConf);
+            } else if(length !== 2){
+                alert(length);
+            }
+        }, function(err) {
+            console.error(err);
+        });
     });
 
     //成功回调
@@ -24,28 +49,28 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
 
 
     this.delete = function() {
-        query = 'DROP TABLE fiber_onu ';
+        query = 'DROP TABLE fiber_onu_data ';
         $cordovaSQLite.execute(db, query).then(success, error);
     };
 
     this.query = function() {
-        query = 'SELECT id , name, date, status FROM fiber_onu where name like "%test%" ';
+        query = 'SELECT id , name, date, status FROM fiber_onu_data where name like "%test%" ';
         return $cordovaSQLite.execute(db, query);
     };
 
     this.queryAll = function() {
-        query = 'SELECT id , name, date, status FROM fiber_onu order by date desc';
+        query = 'SELECT id , name, date, status FROM fiber_onu_data order by date desc';
         return $cordovaSQLite.execute(db, query);
     };
 
     this.insert = function(datas) {
-        var query = 'INSERT INTO fiber_onu (id, name, date, status, data, conclusion) VALUES (?,?,?,?,?,?)';
+        var query = 'INSERT INTO fiber_onu_data (id, name, date, status, data, conclusion) VALUES (?,?,?,?,?,?)';
         return $cordovaSQLite.execute(db, query, [datas.id, datas.name, datas.date, datas.status, datas.data, datas.conclusion]);
         // $cordovaSQLite.execute(db, query, [datas.id, datas.name, datas.date, datas.status, datas.data, datas.conclusion]).then(success, error);
     };
 
     this.queryById = function(reportId) {
-        query = 'SELECT id , name, date, status, data, conclusion FROM fiber_onu where id = ? ';
+        query = 'SELECT id , name, date, status, data, conclusion FROM fiber_onu_data where id = ? ';
         return $cordovaSQLite.execute(db, query, [reportId]);
     };
 
@@ -64,9 +89,32 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
             return;
         }
 
-        query = 'delete from fiber_onu where id in(' + idPlaceHolder + ')';
-        $cordovaSQLite.execute(db, query).then(success, error);
+        query = 'delete from fiber_onu_data where id in(' + idPlaceHolder + ')';
+        return $cordovaSQLite.execute(db, query);
     };
 
+    this.queryWarrantyPeriod = function() {
+        confQuery = "SELECT value FROM fiber_onu_conf where key='warranty period'";
+        return $cordovaSQLite.execute(db, confQuery);
+    };
 
+    this.updateWarrantyPeriod = function(value) {
+        confQuery = "UPDATE fiber_onu_conf SET value = ? WHERE key='warranty period'";
+        return $cordovaSQLite.execute(db, confQuery, [value]);
+    };
+
+    this.queryRetentionTime = function() {
+        confQuery = "SELECT value FROM fiber_onu_conf where key='report retention time'";
+        return $cordovaSQLite.execute(db, confQuery);
+    };
+
+    this.updateRetentionTime = function(value) {
+        confQuery = "UPDATE fiber_onu_conf SET value = ? WHERE key='report retention time'";
+        return $cordovaSQLite.execute(db, confQuery, [value]);
+    };
+
+    function initConf(conf) {
+        confQuery = 'INSERT INTO fiber_onu_conf (key, value) VALUES (?,?)';
+        $cordovaSQLite.execute(db, confQuery, [conf.key, conf.value]).then(success, error);
+    }
 }]);

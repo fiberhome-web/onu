@@ -43,6 +43,8 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         screen.lockOrientation('portrait');
 
         LicenseService.registerData.uuid = $cordovaDevice.getUUID();
+
+        
     });
 
     //主页面显示退出提示框  
@@ -87,6 +89,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
 
 
     }, 101);
+
 
 })
 

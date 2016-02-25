@@ -1,27 +1,28 @@
 angular.module('starter.controllers')
-    .controller('LoginCtrl', function($scope, $rootScope, $state, $http, Const, File, LicenseService) {
-        //国际化
+    .controller('LoginCtrl', function($scope, $rootScope, $state, $http, Const, File, LicenseService, Popup) {
+        // .controller('LoginCtrl', function($scope, $rootScope, $state, $http, Const,Popup) {
 
         $scope.eventFun = {
-            cancelEnter: function() {
-                if ($rootScope.isRegistered) {
-                    $scope.loginInfo.ip = '';
-                } else {
-                    $scope.registerData.key = '';
-                }
-            },
-            keyDownEvt:function(e){
-                //回车键执行按钮点击函数
-                if(13===e.keyCode){
+                cancelEnter: function() {
+                    if ($rootScope.isRegistered) {
+                        $scope.loginInfo.ip = '';
+                    } else {
+                        $scope.registerData.key = '';
+                    }
+                },
+                keyDownEvt: function(e) {
+                    //回车键执行按钮点击函数
+                    if (13 === e.keyCode) {
+                        btnClickEvt();
+                    }
+                },
+                loginBtnClick: function() {
                     btnClickEvt();
                 }
-            },
-            loginBtnClick:function(){
-                btnClickEvt();
             }
-        }
-        
+            // Popup.showTip('License is null');
         function btnClickEvt() {
+
             // var info = {"CommandSrc": "LOCAL", "Command": "ACTIVE", "CommandSeq": "01234", "PASSWORD": "apppwd"};
             // var url = 'https://192.168.1.1:4433/';
             // alert('url:' + url);
@@ -35,30 +36,42 @@ angular.module('starter.controllers')
             // });
             //eeeee
 
+           
+
             if ($rootScope.isRegistered) {
                 if (validateIP($scope.loginInfo.ip)) {
                     global.isLogin = true;
                     $state.go('tab.basic');
-                }else{
-                    $scope.tip = 'ip错误';
+                } else {
+                    Popup.showTip('IP is not correct');
+                    // $scope.tip = 'ip错误';
                 }
             } else {
                 if (!$scope.registerData.key) {
-                    $scope.tip = '不能为空';
+                    Popup.showTip('License is null');
+                    // $scope.tip = '不能为空';
                     return;
                 } else if (LicenseService.isLicenseCorrect($scope.registerData.uuid, $scope.registerData.key)) {
+                    $scope.loadding = true;
                     $scope.registerData.date = dateUtils.getToday();
                     File.createLicense(JSON.stringify($scope.registerData)).then(function(success) {
                         $rootScope.isRegistered = true;
+                        $scope.loadding = false;
+                        Popup.showTip('Successful registration');
                     }, function(error) {
+                        $scope.loadding = false;
                         alert(JSON.stringify(error));
                     });
 
                 } else {
-                    $scope.tip = 'key 错误';
+                    Popup.showTip('License is not correct');
+                    // $scope.tip = 'key 错误';
                 }
             }
             LicenseService.registerData = $scope.registerData;
+
+
+
         }
 
 
@@ -68,6 +81,7 @@ angular.module('starter.controllers')
 
         //init login page
         function initPage() {
+            //国际化
             $scope.info = ONU_LOCAL.loginModule;
             $scope.tip = ' ';
             $scope.loginHight = {};
@@ -79,6 +93,7 @@ angular.module('starter.controllers')
                 password: 'checkONT2015@FH'
             };
             $scope.registerData = LicenseService.registerData;
+            $scope.loadding = false;
         }
 
 

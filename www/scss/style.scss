@@ -21,6 +21,9 @@ $mGrass:#1EA26B;
     background-size: 100% 100%;
     color: white;
     padding-top: 60%;
+    .operationArea{
+        position: relative;
+    }
     .placeholder-icon:first-child {
         padding: 0 15px 5px 10px;
         font-size: 24px;
@@ -77,11 +80,6 @@ $mGrass:#1EA26B;
         top: 45%;
         width: 100%;
         text-align: center;
-        color: white;
-    }
-    .tip{
-        height: 40px;
-        padding: 10px 25%;
         color: white;
     }
 }
@@ -387,11 +385,24 @@ $mGrass:#1EA26B;
         }
     }
 }
+p.processing{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      height: 100%;
+      background-color: #3A3B46;
+    .spinner svg {
+      width: 100px;
+      height: 80px;
+}
+}
 
 p.loadding {
     text-align: center;
     margin-top: 40%;
-    position: absoult;
+    position: absolute;
     z-index: 2;
 }
 
@@ -715,7 +726,20 @@ ion-list>div {
     border-bottom: none;
     border-right: none;
     border-left: none;
-    border: 2px solid $mLightgray;
+    border-top: 2px solid #E5E5E5 !important;
+}
+
+.tip{
+    height: 200px;
+    
+    .tipText{
+        height: 100px;
+        margin-bottom:25px;
+        font-size: 24px;
+    }
+    .button{
+    border-radius: 5px;font-size: 20px;
+    }
 }
 
 .warn-tip {

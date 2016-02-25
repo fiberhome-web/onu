@@ -36,6 +36,7 @@ angular.module('starter.controllers')
             if (!global.isLogin) {
                 //隐藏导航栏
                 $rootScope.hideTabs = true;
+                
             }
 
 
@@ -54,17 +55,20 @@ angular.module('starter.controllers')
             };
             var changeDateExpanderHandel = ExpanderService.init(changeDateExpanderConf);
             $rootScope.expanderHandel.push(changeDateExpanderHandel);
-            
+
             $scope.eventFun = {
                 changeDateBtnEVt: function() {
                     changeDateExpanderHandel.show();
-                    changeDateExpanderHandel.scope.range=$scope.range;
+                    changeDateExpanderHandel.scope.range = $scope.range;
                 },
                 close: function() {
                     changeDateExpanderHandel.hide();
                 },
                 cancelEnter: function() {
                     $scope.prox.searchContent = '';
+                },
+                return:function(){
+                    $state.go("index");
                 }
             };
 
@@ -221,7 +225,6 @@ angular.module('starter.controllers')
 
 
             //批量删除操作
-            // $rootScope.batchDelele = function(e) {
             $scope.batchDelele = function(e) {
                 //防止冒泡
                 e.stopPropagation();
@@ -267,6 +270,7 @@ angular.module('starter.controllers')
 
 
             function initPage() {
+                autoDeleteReport();
                 $scope.operation = ONU_LOCAL.historyModule.choose;
 
                 //初始化checkbox模型
@@ -288,15 +292,17 @@ angular.module('starter.controllers')
                 $scope.searchContent = '';
                 //报告类型默认选择“全部”
                 $scope.type = 0;
-
+                $scope.isLogin = global.isLogin;
                 //   DB.insert(datas()); 
 
                 // $scope.scrollHeight = {
                 //     height: '70%'
                 // };
 
+
+
                 //查询所有报告记录
-                queryAll();
+                // queryAll();
             }
 
 
@@ -305,9 +311,12 @@ angular.module('starter.controllers')
                 $scope.prox.loadding = true;
                 DB.queryAll().then(function(res) {
                     var length = res.rows.length;
+                    // alert("queryAll:" + length);
                     if (length > 0) {
                         for (var i = 0; i < length; i++) {
-                            list.push(res.rows.item(i));
+                            var reportEle = res.rows.item(i);
+
+                            list.push(reportEle);
                         }
 
                     }
@@ -376,6 +385,67 @@ angular.module('starter.controllers')
 
             initPage();
 
+
+            //根据配置删除报告
+            function autoDeleteReport() {
+                var retentionTimeIndex = 0;
+
+                DB.queryRetentionTime().then(function(res) {
+                    var length = res.rows.length;
+                    if (length > 0) {
+                        retentionTimeIndex = res.rows.item(0).value;
+                        // alert('retentionTimeIndex:' + retentionTimeIndex);
+                    } else {
+                        alert('Unable to read retention time from DB ');
+                    }
+                }, function(err) {
+                    console.error(err);
+                });
+
+
+                DB.queryAll().then(function(res) {
+                    var length = res.rows.length;
+                    var delIds = [];
+                    var sDate = '';
+                    // alert('length:' + length);
+
+                    if (length > 0) {
+                        for (var i = 0; i < length; i++) {
+                            var reportEle = res.rows.item(i);
+                            switch (retentionTimeIndex) {
+                                case 0:
+                                    sDate = today;
+                                    break;
+                                case 1:
+                                    sDate = dateUtils.getSpeDate(-30);
+                                    break;
+                                case 2:
+                                    sDate = dateUtils.getDayOfLastYear();
+                                    break;
+                                case 3:
+                                    return;
+                                default:
+                                    return;
+                            }
+
+                            if (sDate > reportEle.date.substr(0, 10)) {
+                                File.deleteFile(reportEle.name);
+                                delIds.push(reportEle.id);
+                                alert('date:' + reportEle.date);
+                            }
+                        }
+                        DB.deleteByIds(delIds).then(function(success) {
+                            console.info('success :' + JSON.stringify(success));
+                            queryAll();
+                        }, function(error) {
+                            alert('error :' + JSON.stringify(error));
+                        });
+                    }
+                }, function(err) {
+                    console.error(err);
+                });
+
+            }
 
 
 

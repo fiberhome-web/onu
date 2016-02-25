@@ -33,11 +33,12 @@ angular.module('starter.services').service('File', function($rootScope, $log, $c
                     //若注册时间到今天超过一年
                     if (RegisterData.date < startDate) {
                         $rootScope.isRegistered = false;
-                        $cordovaFile.removeFile(licenseFileSystem, licenseFileName).then(success, error);
+                        removeLicense();
                     } else {
                         $rootScope.isRegistered = true;
                     }
                 }else{
+                    removeLicense();
                     $rootScope.isRegistered = false;
                 }
 
@@ -154,4 +155,8 @@ angular.module('starter.services').service('File', function($rootScope, $log, $c
     this.readLicense = function() {
         return $cordovaFile.readAsText(licenseFileSystem, licenseFileName);
     };
+
+    function removeLicense(){
+        $cordovaFile.removeFile(licenseFileSystem, licenseFileName).then(success, error);
+    }
 });

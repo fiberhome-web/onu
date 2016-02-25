@@ -12,6 +12,8 @@
   background-size: 100% 100%;
   color: white;
   padding-top: 60%; }
+  #loginContent .operationArea {
+    position: relative; }
   #loginContent .placeholder-icon:first-child {
     padding: 0 15px 5px 10px;
     font-size: 24px; }
@@ -56,10 +58,6 @@
     top: 45%;
     width: 100%;
     text-align: center;
-    color: white; }
-  #loginContent .tip {
-    height: 40px;
-    padding: 10px 25%;
     color: white; }
 
 #scroll {
@@ -301,10 +299,22 @@
   border-top: 3px solid #F1BC92;
   color: #F1BC92; }
 
+p.processing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 100%;
+  background-color: #3A3B46; }
+  p.processing .spinner svg {
+    width: 100px;
+    height: 80px; }
+
 p.loadding {
   text-align: center;
   margin-top: 40%;
-  position: absoult;
+  position: absolute;
   z-index: 2; }
 
 p.loadding .spinner svg {
@@ -560,7 +570,17 @@ ion-list > div {
   border-bottom: none;
   border-right: none;
   border-left: none;
-  border: 2px solid #F2F2F2; }
+  border-top: 2px solid #E5E5E5 !important; }
+
+.tip {
+  height: 200px; }
+  .tip .tipText {
+    height: 100px;
+    margin-bottom: 25px;
+    font-size: 24px; }
+  .tip .button {
+    border-radius: 5px;
+    font-size: 20px; }
 
 .warn-tip {
   width: 500px;

@@ -12,7 +12,9 @@ angular.module('starter.services').service('LicenseService', function() {
         
     };
     var calculationLicense = function(uuid) {
-        var key = '123';
+
+        var key = faultylabs.MD5(uuid+'fiberhome');
+        console.log('key : '+key);
         return key;
     };
 });

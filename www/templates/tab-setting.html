@@ -11,7 +11,7 @@
             <div class="item listButton" ng-click="eventFun.openWarrantyPeriodBox()">
                 {{local.warranty_period}}
                 <button class="button button-stable button-clear" >
-                    {{date_select[dateIndex]}}
+                    {{date_select[periodIndex]}}
                     <i class="iconfont">&#xe612;</i>
                 </button>
             </div>
@@ -33,8 +33,8 @@
 
     </ion-content>
 </ion-view>
-<!-- 自动删除报告上弹框 -->
-<script id="autoDeleteReport.html" type="text/ng-template">
+<!-- 报告保留时间上弹框 -->
+<script id="reportRetentionTime.html" type="text/ng-template">
     <div class="list expander">
         <div class="item item-button-right">
             &nbsp;
@@ -44,9 +44,10 @@
         </div>
     </div>
     <ion-list class="center-radio">
-        <ion-radio ng-model="delRange" name="a1" ng-value="0">{{local.retention_time_select.never}}</ion-radio>
-        <ion-radio ng-model="delRange" name="a1" ng-value="1">{{local.retention_time_select.day}}</ion-radio>
-        <ion-radio ng-model="delRange" name="a1" ng-value="2" class="no-border-bottom">{{local.retention_time_select.permanent}}</ion-radio>
+        <ion-radio ng-model="delRange" name="a1" ng-value="0">{{local.retention_time_select.day}}</ion-radio>
+        <ion-radio ng-model="delRange" name="a1" ng-value="1">{{local.retention_time_select.month}}</ion-radio>
+        <ion-radio ng-model="delRange" name="a1" ng-value="2">{{local.retention_time_select.year}}</ion-radio>
+        <ion-radio ng-model="delRange" name="a1" ng-value="3" class="no-border-bottom">{{local.retention_time_select.permanent}}</ion-radio>
     </ion-list>
     <div class="list expander">
         <div class="item item-button expander-footer show center">

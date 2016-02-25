@@ -14,10 +14,7 @@ var ONU_LOCAL = {
     loginModule: {
         login: 'Connect ONU',
         ok: 'OK',
-        ip_address: 'IP地址',
-        username: '用户名',
-        password: '密码',
-        history: '查看历史数据',
+        history: 'View past report',
         uuid: 'APP Identification Number：',
         license_ph: 'Please enter license'
     },
@@ -68,6 +65,7 @@ var ONU_LOCAL = {
 
     historyModule: {
         login: '登录',
+        return:'Return',
         ok: '确定',
         del: '删除',
         del_sure: '确认删除',
@@ -106,12 +104,13 @@ var ONU_LOCAL = {
         ok: '确定',
         reconnect: 'Reconnect',
         date_select: {
-            one_year: '1 year',
-            two_years: '2 years'
+            one_year: 'one year',
+            two_years: 'two years'
         },
         retention_time_select: {
-            never: 'never',
             day: 'one day',
+            month:'one month',
+            year:'one year',
             permanent: 'permanent'
         }
     },
