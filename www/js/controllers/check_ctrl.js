@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope', '$rootScope', '$state', '$http', 'Check', 'Popup','File',
-        'DB','$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService',
-        function($scope, $rootScope, $state, $http, Check, Popup,File,DB,
-            $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService) {
+    .controller('CheckCtrl', ['$scope', '$rootScope', '$state', '$http', 'Check', 'Popup','$timeout',
+        '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService','DB','File',
+        function($scope, $rootScope, $state, $http, Check, Popup,$timeout,
+            $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService,DB,File) {
 
             var reportId;
             var deviceInfo;
@@ -15,7 +15,15 @@ angular.module('starter.controllers')
             };
             var expanderHandel = ExpanderService.init(expanderConf);
 
+            var suggestExpanderConf = {
+                templateUrl: 'editSuggest.html',
+                scope: $scope,
+                backdoor: true
+            };
+            var suggestExpander = ExpanderService.init(suggestExpanderConf);
+
             $rootScope.expanderHandel.push(expanderHandel);
+            $rootScope.expanderHandel.push(suggestExpander);
 
             $scope.saved = false;
             $scope.save_failed = false;
@@ -41,7 +49,6 @@ angular.module('starter.controllers')
                     checkAll();
                 },
                 generateReportBtnEVt: function() {
-
                     $scope.report.resultStatus = '1';
                     $scope.report.remark = null;
                     if (deviceInfo.sn) {
@@ -64,11 +71,82 @@ angular.module('starter.controllers')
                 },
 
                 showTip: function(item) {
-                    if (item.msg) {
-                        Popup.showPop(item.reason, item.msg);
+                    Popup.showPop(item);
+
+                },
+
+                openEdit : function(title, item){
+                    var note = item.note;
+                    var reason = item.reason ? item.reason : '';
+                    var msg = item.msg ? item.msg : '';
+                    if(note === undefined) {
+                        note = '';
+                        if(reason) {
+                            note = $scope.i10n.checkModule.reason + ' : \r\n' +  reason + '\r\n\r\n';
+                        }
+                        if(msg) {
+                            note = note + $scope.i10n.checkModule.suggestion + ' : \r\n' + msg;
+                        }
+                        
+                                 
                     }
 
+                    $scope.editer = {
+                        title : title,
+                        note : note,
+                        item : item
+                    };
+                    suggestExpander.show();
+                    $timeout(function(){
+                        $('#editTextarea').focus();
+                    },100);
+                },
+
+                closeEdit : function(){
+                     suggestExpander.hide();
+                },
+
+                clearEdit : function(){
+                    $scope.editer.note = '';
+                    $timeout(function(){
+                        $('#editTextarea').focus();
+                    },100);
+                    
+                },
+
+                saveEdit : function(){
+                    $scope.editer.item.note = $scope.editer.note;
+                    //清空系统建议
+                    $scope.editer.item.reason = null;
+                    $scope.editer.item.msg = null;
+                    suggestExpander.hide();
+                },
+
+                rename : function(){
+                    $scope.report.reportName = '';
+                    $timeout(function(){
+                        $('#rename').focus();
+                    },100);
+
+                    $scope.isCover = false;
+
+                },
+
+                cover : function(){
+                    saveToDB($scope.report).then(function() {
+                        expanderHandel.hideMask();
+                        $scope.saved = true;
+
+                    }, function(info) {
+                        alert('error :' + JSON.stringify(info));
+                        expanderHandel.hideMask();
+                        $scope.save_failed = true;
+                    });
+                    expanderHandel.showMask();
                 }
+
+
+
             };
 
             // “诊断”界面初始化
@@ -96,11 +174,8 @@ angular.module('starter.controllers')
                 $scope.dataInfos = Report.getDataPortInfo();
 
                 // 语音口诊断信息
-                $scope.voiceInfos = [];
-                var voice_num = parseInt(deviceInfo.voice_port_number ? deviceInfo.voice_port_number.val : 0);
-                for (var k = 0; k < voice_num; k++) {
-                    $scope.voiceInfos.push({});
-                }
+                $scope.voiceInfos = Report.getVoicePortInfo();
+            
 
 
             }
@@ -128,7 +203,7 @@ angular.module('starter.controllers')
                             item.tx_opt_power.unit = ONU_LOCAL.unit.opt_power;
                             item.rx_opt_power.unit = ONU_LOCAL.unit.opt_power;
                             //检测数据
-                            item = Check.checking(CONST.TYPE.PON, item);
+                            Check.checking(CONST.TYPE.PON, item);
                         });
 
                         Report.setPonPortInfo(data);
@@ -168,7 +243,7 @@ angular.module('starter.controllers')
                             item.duplex.text = ONU_LOCAL.enums.data_duplex['k_' + item.duplex.val];
 
                             //检测数据
-                            item = Check.checking(CONST.TYPE.DATA, item);
+                            Check.checking(CONST.TYPE.DATA, item);
                         });
 
                         Report.setDataPortInfo(data);
@@ -202,12 +277,37 @@ angular.module('starter.controllers')
                     if (resultCode === '0') {
                         var data = response.data;
 
+                        Check.checking(CONST.TYPE.VOICE, data);
                         //枚举转化
-                        angular.forEach(data, function(item) {
-                            item.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + item.protocol_type.val];
+                        data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
+                        data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
+                        data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
+
+                        angular.forEach(data.port_detail, function(item) {
+                           
                             item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
+                            item.port_enable.text = ONU_LOCAL.enums.voice_port_enable['k_' + item.port_enable.val];
+
+                            Check.checking(CONST.TYPE.VDETAIL, item);
+
+                           
+                            
+                            //是否需要检查port_status 标志
+                            var flag = false;
+                            //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status
+                            if(data.protocol_type.val === '4' || 
+                                (data.protocol_type.val === '2' && data.mgc_reg_status.val === '1')) {
+                                flag = true;
+                            }
+
+                            //当不需要检查port_status，要去除已经检查出的结果
+                            if(!flag) {
+                                item.port_status.warn = false;
+                                item.port_status.msg = null;
+                            }
                         });
 
+                        Report.setVoicePortInfo(data);
                         $scope.voiceInfos = data;
                     } else {
                         var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
@@ -238,8 +338,10 @@ angular.module('starter.controllers')
             function sure() {
                 var res = $scope.report;
                 //检测是否存在同名文件
-                File.checkFile($scope.report.report_name).then(function() {
+                File.checkFile($scope.report.reportName).then(function() {
                     //存在则提示是否覆盖
+                     $scope.isCover = true;
+                    
                 }, function(info) {
                     //不存在直接保存
                     if (info.code === 1) {

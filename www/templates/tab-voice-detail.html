@@ -1,0 +1,78 @@
+<ion-view view-title="{{i10n.checkModule.detail_title}}">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon" ng-click="back()"><i class="iconfont">&#xe61f;</i>{{i10n.back}}</button>
+    </ion-nav-buttons>
+    <ion-content class="voice-detail" on-swipe-right="back()">
+        <div class="check-module">
+            <div ng-repeat="(key,item) in voiceInfo">
+            	<div class="v-item" ng-if="item.length === undefined">
+            		<span class="d-item-key" ng-class="{'war-color' : item.warn}">{{key}}</span>
+            		<span class="d-item-val" ng-if="item.val">
+            			<span ng-if="item.text">{{item.text}}</span>
+                        <span ng-if="!item.text">{{item.val}}</span>
+            		</span>
+
+                    <span ng-if="!item.val" class="none">-</span>
+                    <span ng-if="item.val" >
+                        <i class="icon-msg icon iconfont" ng-class="{'war-color' : item.warn}" ng-click="eventFun.showTip(item)"  ng-if="item.msg || item.note || item.reason">&#xe616;</i>
+                        <i class="icon-mark icon iconfont" ng-class="{'war-color' : item.warn}" ng-click="item.warn = !item.warn">&#xe610;</i>
+                        <i class="icon-edit icon iconfont" ng-class="{'war-color' : item.warn}" ng-click="eventFun.openEdit(i10n.report.ponPortStatus[key],item)">&#xe626;</i>
+                    </span>
+            	</div>
+            </div>
+
+            <div class="content" ng-repeat="(key,item) in voiceInfo.port_detail">
+                <div class="check-item ">
+                    <i class="icon iconfont check-icon">&#xe608;</i>
+                    <span class="name">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                    <span class="val">{{item.voice_port_id}}</span>
+                </div>
+
+                <div ng-if="key !== 'voice_port_id'" class="check-item" ng-click="showTip(val)" ng-repeat="(key,val) in item">
+                    <span ng-class="{'war-color' : val.warn}">{{i10n.report.voicePortStatus[key]}}</span>
+                    <span class="val" ng-class="{'war-color' : val.warn}"  ng-if="val.val">
+                        <span ng-if="val.text">{{val.text}}</span>
+                        <span ng-if="!val.text">{{val.val}}</span>
+                    </span>
+
+                    <span ng-if="!val.val" class="none">-</span>
+                    <span ng-if="val.val" >
+                        <i class="icon-msg icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.showTip(val)"  ng-if="val.msg || val.note || val.reason">&#xe616;</i>
+                        <i class="icon-mark icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="val.warn = !val.warn">&#xe610;</i>
+                        <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.ponPortStatus[key],val)">&#xe626;</i>
+                    </span>
+                </div>  
+            </div>           
+        </div>
+
+        <div style="height:20px;"></div>
+    </ion-content>
+</ion-view>
+
+
+<script id="editSuggest2.html" type="text/ng-template">
+    <div class="list expander">
+        <div class="item item-button-right expander-header">
+            {{editConf.title}} {{i10n.checkModule.remark}}
+            <button class="button button-stable button-clear" ng-click="eventFun.closeEdit()">
+                <i class="iconfont" style="font-size: 1.6em;">&#xe61d;</i>
+            </button>
+        </div>
+    </div>
+    <div class="list expander sugeest">
+        <i class="iconfont" style="font-size: 1.6em;" ng-click="eventFun.clearEdit()">&#xe623;</i>
+        <textarea id="editTextarea2" class="reason" ng-model="editer.note"></textarea>
+    </div>
+    <div class="list expander">
+        <div class="item item-button button-bar expander-footer">
+            <button class="button button-grass" ng-click="eventFun.saveEdit()" style="margin-right:1px;" ng-disabled="save_failed">
+                <span ng-if="!saved">{{i10n.checkModule.ok}}</span>
+                <span ng-if="saved">{{i10n.checkModule.view_report}}</span>
+            </button>
+            <button class="button button-grass" ng-click="eventFun.closeEdit()" style="margin-left:1px;">
+                <span ng-if="!saved">{{i10n.checkModule.cancel}}</span>
+                <span ng-if="saved">{{i10n.checkModule.stay_on_this_page}}</span>
+            </button>
+        </div>
+    </div>
+</script>

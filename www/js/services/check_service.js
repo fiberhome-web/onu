@@ -175,73 +175,60 @@ angular.module('starter.services').service('Check',function(){
 			sip_local_port : [{
 				op : 'neq',
 				val : '5060'
+			}],
+			mgc_reg_status : [{
+				op : 'eq',
+				val : '0',
+				reason : ONU_LOCAL.suggest.reason.r25,
+				suggest : ONU_LOCAL.suggest.msg.m19
+			},{
+				op : 'eq',
+				val : '2',
+				reason : ONU_LOCAL.suggest.reason.r25,
+				suggest : ONU_LOCAL.suggest.msg.m23
 			}]
 		},
 
 		voice_detail : {
-			
+			port_enable : [{
+				op : 'eq',
+				val : '0'
+			}],
+			user_tid : [{
+				op : 'eq',
+				val : ''
+			}],
+			telphone_no : [{
+				op : 'eq',
+				val : ''
+			}],
+			port_status : [{
+				op : 'eq',
+				val : '0',
+				reason : ONU_LOCAL.suggest.reason.r21,
+				suggest : ONU_LOCAL.suggest.msg.m18
+			},{
+				op : 'eq',
+				val : '1',
+				reason : ONU_LOCAL.suggest.reason.r22,
+				suggest : ONU_LOCAL.suggest.msg.m19
+			},{
+				op : 'eq',
+				val : '12',
+				reason : ONU_LOCAL.suggest.reason.r23,
+				suggest : ONU_LOCAL.suggest.msg.m20
+			},{
+				op : 'eq',
+				val : '13',
+				reason : ONU_LOCAL.suggest.reason.r24,
+				suggest : ONU_LOCAL.suggest.msg.m21
+			}]
 		}
 	};
-
-
-	var portStatusCheckFun = function(portStatus){
-		var val = portStatus.val;
-		if(val === '0') {
-			portStatus.warn = true;
-			portStatus.reason = ONU_LOCAL.suggest.reason.r21;
-			portStatus.msg = ONU_LOCAL.suggest.msg.m18;
-		}else if(val === '1') {
-			portStatus.warn = true;
-			portStatus.reason = ONU_LOCAL.suggest.reason.r22;
-			portStatus.msg = ONU_LOCAL.suggest.msg.m19;
-		}else if(val === '12') {
-			portStatus.warn = true;
-			portStatus.reason = ONU_LOCAL.suggest.reason.r23;
-			portStatus.msg = ONU_LOCAL.suggest.msg.m20;
-		}else if(val === '13') {
-			portStatus.warn = true;
-			portStatus.reason = ONU_LOCAL.suggest.reason.r24;
-			portStatus.msg = ONU_LOCAL.suggest.msg.m21;
-		}
-	};
-
 
 
 	this.checking = function(type, datas){
-		//特殊处理语音口的详情信息
-		if(type === 'voice') {
-			var details =  datas.port_detail;
-			$.each(details,function(index,item){
-				var protocol = item.protocol_type;
-				//Protocol Type异常不需要检查其他参数
-				if(protocol.val === '0') {
-					protocol.warn = true;
-					protocol.reason = ONU_LOCAL.suggest.reason.r20;
-					protocol.msg = ONU_LOCAL.suggest.msg.m17;
-					return true;
-				} else if(protocol.val === '4'){ //SIP协议只需要检查port_status
-					var portStatus = item.port_status;
-					portStatusCheckFun(portStatus);
-				} else {
-					//H.248只有当MGC reg Status才检查Port Status
-					var mgcRegStatus = item.mgc_reg_status;
-					if(mgcRegStatus.val === '0') {
-						mgcRegStatus.warn = true;
-						mgcRegStatus.reason = ONU_LOCAL.suggest.reason.r25;
-						mgcRegStatus.msg = ONU_LOCAL.suggest.msg.m22;
-					} else if(mgcRegStatus.val === '2'){
-						mgcRegStatus.warn = true;
-						mgcRegStatus.reason = ONU_LOCAL.suggest.reason.r25;
-						mgcRegStatus.msg = ONU_LOCAL.suggest.msg.m23;
-					} else {
-						var portStatus2 = item.port_status;
-						portStatusCheckFun(portStatus2);
-					}
-				}
-			});
-		}
-
-
+		
 		$.each(datas,function(key,item){
 			//如果存在ecode，则不处理
 			var ecode = item.ecode;

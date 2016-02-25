@@ -6,6 +6,12 @@ angular.module('starter.services').service('Report', function() {
 
     this.dataPortInfo = [];
 
+    this.voicePortInfo = {
+        second_sip_registrar_server_port : {val : 'dasssssssssss1'},
+        second_mgc_ip: {val : '2'},
+        port_detail : []
+    };
+
     this.setDeviceInfo = function(info) {
         this.deviceInfo = info;
     };
@@ -17,6 +23,8 @@ angular.module('starter.services').service('Report', function() {
     this.setPonPortInfo = function(info) {
         this.ponPortInfo = info;
     };
+
+
 
     this.getPonPortInfo = function() {
     	if(this.ponPortInfo.length < 1 ) {
@@ -53,5 +61,29 @@ angular.module('starter.services').service('Report', function() {
 	        }
     	}
         return this.dataPortInfo;
+    };
+
+
+    this.setVoicePortInfo = function(info) {
+        this.voicePortInfo = info;
+    };
+
+    this.getVoicePortInfo = function() {
+        if(this.voicePortInfo.port_detail.length < 1) {
+            var voice_num = parseInt(this.deviceInfo.voice_port_number ? this.deviceInfo.voice_port_number.val : 0);
+            this.voicePortInfo.port_detail = [];
+            for(var i = 0; i< voice_num; i++) {
+                this.voicePortInfo.port_detail.push({
+                    voice_port_id : '',
+                    port_status : {val : ''},
+                    port_enable : {val : ''},
+                    user_tid : {val : ''},
+                    telphone_no : {val : ''},
+                    sip_user_name: {val : ''},
+                    sip_user_pass: {val : ''}
+                });
+            }
+        }
+        return this.voicePortInfo;
     };
 });
