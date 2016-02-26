@@ -23,10 +23,7 @@ angular.module('starter.controllers')
         };
 
         $scope.showTip = function(item) {
-            if (item.msg) {
-                Popup.showPop(item.reason, item.msg);
-            }
-
+            Popup.showPop(item);
         };
 
 

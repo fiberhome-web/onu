@@ -6,6 +6,7 @@ angular.module('starter.controllers')
         function($scope, $rootScope, $state, $http, Check, Popup,$timeout,
             $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService,DB,File) {
 
+            var timer ;
             var reportId;
             var deviceInfo;
             var expanderConf = {
@@ -97,8 +98,9 @@ angular.module('starter.controllers')
                         item : item
                     };
                     suggestExpander.show();
-                    $timeout(function(){
+                    timer = $timeout(function(){
                         $('#editTextarea').focus();
+                        $timeout.cancel( timer );
                     },100);
                 },
 
@@ -108,8 +110,9 @@ angular.module('starter.controllers')
 
                 clearEdit : function(){
                     $scope.editer.note = '';
-                    $timeout(function(){
+                    timer = $timeout(function(){
                         $('#editTextarea').focus();
+                        $timeout.cancel( timer );
                     },100);
                     
                 },
@@ -124,8 +127,9 @@ angular.module('starter.controllers')
 
                 rename : function(){
                     $scope.report.reportName = '';
-                    $timeout(function(){
+                    timer = $timeout(function(){
                         $('#rename').focus();
+                        $timeout.cancel( timer );
                     },100);
 
                     $scope.isCover = false;

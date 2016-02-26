@@ -27,6 +27,10 @@
             #content > .main-info{
                 border-bottom: 2px solid #eee;
             }
+
+            #content > .main-info i {
+                font-size: 1.2em;
+            }
             
             #content .title {
                 font-size: 17px;
@@ -83,6 +87,7 @@
                 padding-left: 20px;
                 font-size: 15px;
                 display: inline-block;
+                width: 40%;
             }
 
             #content .detail .citem-content i{
@@ -102,9 +107,22 @@
                 color: red;
             }
 
-             #content .detail .items{
+            #content .detail.voice{
+                padding-left: 30px;
+            }
+
+            #content .detail .items{
                 position: relative;
-             }
+            }
+
+            #content .detail .sp-div{
+                position: absolute;
+                width: 5px;
+                height: 20px;
+                background: #ddd;
+                top: 4px;
+                left: 2px;
+            }
 
 
             
@@ -120,15 +138,16 @@
                 <div class="block main-info">
                     <span class="title">{{i10n.detailModule.conclusion}}：</span>
                     <span class="citem">
-                        <span ng-switch="report.status">    <i class="iconfont green" ng-if="report.status===1">&#xe60b;</i>
+                        <span ng-switch="report.status">
+                            <i class="iconfont green" ng-if="report.status===1">&#xe60b;</i>
                             <i class="iconfont red" ng-if="report.status!==1">&#xe609;</i>
                             <span ng-switch-when="1">
 
                                 {{i10n.historyModule.types.normal}}
                             </span>
-                            <span ng-switch-when="2">#{{i10n.historyModule.faults.pon}}#</span>
-                            <span ng-switch-when="3">#{{i10n.historyModule.faults.data}}#</span>
-                            <span ng-switch-when="4">#{{i10n.historyModule.faults.voice}}#</span>
+                            <span ng-switch-when="2">{{i10n.historyModule.faults.pon}}</span>
+                            <span ng-switch-when="3">{{i10n.historyModule.faults.data}}</span>
+                            <span ng-switch-when="4">{{i10n.historyModule.faults.voice}}</span>
                         </span>
                     </span>
                 </div>
@@ -151,19 +170,22 @@
                         <div ng-repeat="(key,item) in detail.deviceInfo" class="items">
                             <div class="citem-title" ng-class="{'red' : item.warn}">{{reportLocal.deviceInfo[key]}}</div>
                             <div class="citem-content" ng-class="{'red' : item.warn}">
-                                <span ng-if="item.val === undefined">{{item}}</span>
+                                <span ng-if="!item.val">-</span>
                                 <span ng-if="item.text">{{item.text}}</span>
-                                <span ng-if="item.text === undefined">{{item.val}}</span>
+                                <span ng-if="!item.text">{{item.val}}</span>
                                 <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe609;</i>
+                                <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe616;</i>
                             </div>
                            
-                            <div class="suggest hide" ng-if="item.reason || item.msg">
-                                <div>
-                                    Reason : {{item.reason}}
+                            <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
+                                <div ng-if="item.reason">
+                                    {{i10n.checkModule.reason}} : {{item.reason}}
                                 </div>
-                                <div>
-                                    Suggest : {{item.msg}}
+                                <div ng-if="item.msg">
+                                    {{i10n.checkModule.suggestion}} : {{item.msg}}
+                                </div>
+                                <div ng-if="item.note">
+                                    {{i10n.checkModule.note}} : {{item.note}}
                                 </div>
                             </div>
                         </div>
@@ -172,24 +194,35 @@
 
                     <div class="detail">
                         <div class="header"> {{reportLocal.ponPortStatus.module_name}}</div>
+
                         <div ng-repeat="portInfo in detail.ponPortStatus" class="port">
-                            <div ng-repeat="(key,item) in portInfo" class="items">
+
+                            <div class="items">
+                                <div class="sp-div"></div>
+                                <span class="citem-title">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                                <span class="citem-content">{{portInfo.pon_port_id}}</span>
+                            </div>
+
+                            <div ng-if="key !== 'pon_port_id'" ng-repeat="(key,item) in portInfo" class="items">
                                 <div class="citem-title" ng-class="{'red' : item.warn}">{{reportLocal.ponPortStatus[key]}}</div>
                                 <div class="citem-content" ng-class="{'red' : item.warn}">
                                     <!--item.val不存在，说明是id，直接显示item;
                                     item.text 存在，表示是枚举，text是转化后的显示值-->
-                                    <span ng-if="item.val === undefined">{{item}}</span>
+                                    <span ng-if="!item.val">-</span>
                                     <span ng-if="item.text">{{item.text}}</span>
-                                    <span ng-if="item.text === undefined">{{item.val}}</span>
+                                    <span ng-if="!item.text">{{item.val}}</span>
                                     <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                    <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe609;</i>
+                                    <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe616;</i>
                                 </div>
-                                <div class="suggest hide" ng-if="item.reason || item.msg">
-                                    <div>
-                                        Reason : {{item.reason}}
+                                <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
+                                    <div ng-if="item.reason">
+                                        {{i10n.checkModule.reason}} : {{item.reason}}
                                     </div>
-                                    <div>
-                                        Suggest : {{item.msg}}
+                                    <div ng-if="item.msg">
+                                        {{i10n.checkModule.suggestion}} : {{item.msg}}
+                                    </div>
+                                    <div ng-if="item.note">
+                                        {{i10n.checkModule.note}} : {{item.note}}
                                     </div>
                                 </div>
                                 
@@ -200,27 +233,102 @@
                     <div class="detail">
                         <div class="header"> {{reportLocal.dataPortStatus.module_name}}</div>
                         <div ng-repeat="portInfo in detail.dataPortStatus" class="port">
-                            <div ng-repeat="(key,item) in portInfo" class="items">
+
+                            <div class="items">
+                                <div class="sp-div"></div>
+                                <span class="citem-title">{{i10n.report.dataPortStatus.data_port_id}}</span>
+                                <span class="citem-content">{{portInfo.data_port_id}}</span>
+                            </div>
+
+                            <div ng-if="key !== 'data_port_id'" ng-repeat="(key,item) in portInfo" class="items">
                                 <div class="citem-title" ng-class="{'red' : item.warn}">{{reportLocal.dataPortStatus[key]}}</div>
                                 <div class="citem-content" ng-class="{'red' : item.warn}">
                                     <!--item.val不存在，说明是id，直接显示item;
                                     item.text 存在，表示是枚举，text是转化后的显示值-->
-                                    <span ng-if="item.val === undefined">{{item}}</span>
+                                    <span ng-if="!item.val">-</span>
                                     <span ng-if="item.text">{{item.text}}</span>
-                                    <span ng-if="item.text === undefined">{{item.val}}</span>
+                                    <span ng-if="!item.text">{{item.val}}</span>
                                     <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                    <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe609;</i>
+                                    <i class="iconfont red" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)">&#xe616;</i>
                                 </div>
-                                <div class="suggest hide" ng-if="item.reason || item.msg">
-                                    <div>
-                                        Reason : {{item.reason}}
+                                <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
+                                    <div ng-if="item.reason">
+                                        {{i10n.checkModule.reason}} : {{item.reason}}
                                     </div>
-                                    <div>
-                                        Suggest : {{item.msg}}
+                                    <div ng-if="item.msg">
+                                        {{i10n.checkModule.suggestion}} : {{item.msg}}
+                                    </div>
+                                    <div ng-if="item.note">
+                                        {{i10n.checkModule.note}} : {{item.note}}
                                     </div>
                                 </div>
                                 
                             </div>
+                        </div>
+                    </div>
+
+                    <div  class="detail">
+                        <div class="header"> {{reportLocal.voicePortStatus.module_name}}</div>
+
+                        <div  ng-repeat="(key,item) in detail.voicePortStatus">
+                            <div ng-if="item.length === undefined" class="items">
+                                <div class="citem-title" ng-class="{'red' : item.warn}">{{reportLocal.voicePortStatus[key]}}</div>
+                                <div class="citem-content" ng-class="{'red' : item.warn}">
+                                    <!--item.val不存在，说明是id，直接显示item;
+                                    item.text 存在，表示是枚举，text是转化后的显示值-->
+                                    <span ng-if="!item.val">-</span>
+                                    <span ng-if="item.text">{{item.text}}</span>
+                                    <span ng-if="!item.text">{{item.val}}</span>
+                                    <span class="unit">{{item.unit ? item.unit : ''}}</span>
+                                    <i class="iconfont red" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)">&#xe616;</i>
+                                </div>
+                                <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
+                                    <div ng-if="item.reason">
+                                        {{i10n.checkModule.reason}} : {{item.reason}}
+                                    </div>
+                                    <div ng-if="item.msg">
+                                        {{i10n.checkModule.suggestion}} : {{item.msg}}
+                                    </div>
+                                    <div ng-if="item.note">
+                                        {{i10n.checkModule.note}} : {{item.note}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div ng-repeat="detail in  detail.voicePortStatus.port_detail" class="detail voice">
+
+                        <div class="items">
+                            <div class="sp-div"></div>
+                            <span class="citem-title">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                            <span class="citem-content">{{detail.voice_port_id}}</span>
+                        </div>
+
+                        <div ng-if="key !== 'voice_port_id'" ng-repeat="(key,item) in detail" class="items">
+                            <div class="citem-title" ng-class="{'red' : item.warn}">{{reportLocal.voicePortStatus[key]}}</div>
+                            <div class="citem-content" ng-class="{'red' : item.warn}">
+                                <!--item.val不存在，说明是id，直接显示item;
+                                item.text 存在，表示是枚举，text是转化后的显示值-->
+                                <span ng-if="!item.val">-</span>
+                                <span ng-if="item.text">{{item.text}}</span>
+                                <span ng-if="!item.text">{{item.val}}</span>
+                                <span class="unit">{{item.unit ? item.unit : ''}}</span>
+                                <i class="iconfont red" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)">&#xe616;</i>
+                            </div>
+                            <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
+                                <div ng-if="item.reason">
+                                    {{i10n.checkModule.reason}} : {{item.reason}}
+                                </div>
+                                <div ng-if="item.msg">
+                                    {{i10n.checkModule.suggestion}} : {{item.msg}}
+                                </div>
+                                <div ng-if="item.note">
+                                    {{i10n.checkModule.note}} : {{item.note}}
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
 
@@ -230,6 +338,7 @@
         </div>
     </ion-content>
 </ion-view>
+
 <script id="my-popover.html" type="text/ng-template">
     <ion-popover-view id="SharePopover">
         <ion-list>
