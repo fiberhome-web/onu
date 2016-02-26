@@ -1,15 +1,26 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$cordovaBarcodeScanner',
-         'Const', 'Report', 'Popup', 'DB',
-        function($scope, $rootScope, $state, $http, $cordovaBarcodeScanner, Const, Report, Popup, DB) {
+    .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http','$timeout', '$cordovaBarcodeScanner',
+         'Const', 'Report', 'Popup', 'DB','ExpanderService','Check',
+        function($scope, $rootScope, $state, $http, $timeout,$cordovaBarcodeScanner, Const, Report, Popup, DB,ExpanderService,Check) {
+    // .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http','$timeout',
+    //     'Const', 'Report', 'Popup', 'ExpanderService', 'Check',
+    //     function($scope, $rootScope, $state, $http,$timeout, Const, Report, Popup, ExpanderService, Check) {
 
 
+            var commentExpanderConf = {
+                templateUrl: 'editComment.html',
+                scope: $scope,
+                backdoor: true
+            };
+            var commentExpander = ExpanderService.init(commentExpanderConf);
+
+            $rootScope.expanderHandel.push(commentExpander);
 
             $scope.local = ONU_LOCAL.basicModule;
             $scope.localInfo = ONU_LOCAL.report.deviceInfo;
-            
+
             var data = Report.getDeviceInfo();
 
 
@@ -132,7 +143,6 @@ angular.module('starter.controllers')
 
             }
 
-            var myPopup;
             // Triggered on a button click, or some other target
             $scope.showTip = function(reason, msg) {
                 Popup.showPop(reason, msg);
@@ -164,6 +174,10 @@ angular.module('starter.controllers')
                         data.onu_regist_status.text = ONU_LOCAL.enums.onu_regist_status['k_' + data.onu_regist_status.val];
                         data.onu_auth_status.text = ONU_LOCAL.enums.onu_auth_status['k_' + data.onu_auth_status.val];
 
+
+                        //检测数据
+                        Check.checking('basic', data);
+
                         $scope.deviceInfo = data;
                         Report.setDeviceInfo(data);
                     }
@@ -181,5 +195,54 @@ angular.module('starter.controllers')
                 });
 
             };
+
+            $scope.eventFun = {
+                openEdit: function(title, item) {
+                    var note = item.note;
+                    var reason = item.reason ? item.reason : '';
+                    var msg = item.msg ? item.msg : '';
+                    if (note === undefined) {
+                        note = '';
+                        if (reason) {
+                            note = $scope.i10n.checkModule.reason + ' : \r\n' + reason + '\r\n\r\n';
+                        }
+                        if (msg) {
+                            note = note + $scope.i10n.checkModule.suggestion + ' : \r\n' + msg;
+                        }
+
+
+                    }
+
+                    $scope.editer = {
+                        title: title,
+                        note: note,
+                        item: item
+                    };
+                    commentExpander.show();
+                    $timeout(function() {
+                        $('#editArea').focus();
+                    }, 100);
+                },
+
+                closeEdit: function() {
+                    commentExpander.hide();
+                },
+
+                clearEdit: function() {
+                    $scope.editer.note = '';
+                    $timeout(function() {
+                        $('#editArea').focus();
+                    }, 100);
+
+                },
+
+                saveEdit: function() {
+                    $scope.editer.item.note = $scope.editer.note;
+                    //清空系统建议
+                    $scope.editer.item.reason = null;
+                    $scope.editer.item.msg = null;
+                    commentExpander.hide();
+                }
+            }
         }
     ]);

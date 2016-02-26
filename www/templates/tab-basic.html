@@ -2,28 +2,39 @@
     <ion-content id="basicInfoTab" scroll="false">
         <ion-scroll>
             <div class="list">
-                <div class="item" ng-repeat="(key,item) in deviceInfo">
-                    <div ng-if="key!=='warranty_period'" ng-class="{'red':item.warn}" ng-click="showTip(item)" ng-disabled="!item.warn">
+                <div class="item" ng-repeat="(key,val) in deviceInfo">
+                    <div ng-class="{'red':val.warn}">
                         {{localInfo[key]}}
-                        <i class="iconfont" ng-if="item.warn">&#xe616;</i>
-                        <span class="item-note" ng-if="item.text" ng-class="{'red':item.warn}">
-                        <i class="iconfont" ng-if="key==='registration_status_led'" ng-class="{'0':'red','1':'green'}[deviceInfo.registration_status_led.val]">&#xe608;</i>
-                        <span ng-if="key!=='warranty_period'">{{item.text}}</span>
+                        <span ng-click="key!=='warranty_period'||scanBarcode()">
+                            
+                        
+                        <span class="val" ng-if="val.text" ng-class="{'red':val.warn}">
+                        <i class="iconfont" ng-if="key==='led_status'" ng-class="{'0':'red','1':'green'}[val.val]">&#xe608;</i>
+                        
+                        <span >{{val.text}}</span>
                         </span>
-                        <span class="item-note" ng-if="!item.text" ng-class="{'red':item.warn}">
-                        {{item.val}}
-                    </span>
+                        <span class="val" ng-if="!val.text" ng-class="{'red':val.warn,'blue':key=='warranty_period'}">
+                        <i class="iconfont bigerIcon blue" ng-if="key==='warranty_period'">&#xe611;</i>
+                        {{val.val}}
+                        </span>
+                        </span>
+                        <span ng-if="val.val">
+                                <i class="icon-msg icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="showTip(val)"  ng-if="val.msg || val.note || val.reason">&#xe616;</i>
+                                <i class="icon-mark icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="val.warn = !val.warn">&#xe610;</i>
+                                <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.deviceInfo[key],val)">&#xe626;</i>
+                            </span>
                     </div>
-                    <div ng-if="key==='warranty_period'" ng-click="scanBarcode()">
+                    <!-- <div ng-if="key==='warranty_period'" ng-click="scanBarcode()">
                         {{localInfo[key]}}
-                        <span class="item-note blue" ng-if="!item.text">
+                        <span class="val blue" ng-if="!val.text">
                         <i class="iconfont bigerIcon">&#xe611;</i>
-                        {{item.val}}
+                        {{val.val}}
                         </span>
-                        <span class="item-note " ng-if="item.text">
-                        {{item.text}}
+                        <span class="val " ng-if="val.text">
+                        {{val.text}}
                         </span>
-                    </div>
+                        
+                    </div> -->
                 </div>
             </div>
         </ion-scroll>
@@ -31,3 +42,27 @@
             <button class="button button-full button-grass" ng-click="checking()">{{local.one_check}}</button>
         </div>
     </ion-content>
+    <script id="editComment.html" type="text/ng-template">
+        <div class="list expander">
+            <div class="item item-button-right expander-header">
+                {{editer.title}} {{i10n.checkModule.remark}}
+                <button class="button button-stable button-clear" ng-click="eventFun.closeEdit()">
+                    <i class="iconfont" style="font-size: 1.6em;">&#xe61d;</i>
+                </button>
+            </div>
+        </div>
+        <div class="list expander sugeest">
+            <i class="iconfont" style="font-size: 1.6em;" ng-click="eventFun.clearEdit()">&#xe623;</i>
+            <textarea id="editArea" class="reason" ng-model="editer.note"></textarea>
+        </div>
+        <div class="list expander">
+            <div class="item item-button button-bar expander-footer">
+                <button class="button button-grass" ng-click="eventFun.saveEdit()" style="margin-right:1px;" ng-disabled="save_failed">
+                    <span>{{i10n.checkModule.ok}}</span>
+                </button>
+                <button class="button button-grass" ng-click="eventFun.closeEdit()" style="margin-left:1px;">
+                    <span>{{i10n.checkModule.cancel}}</span>
+                </button>
+            </div>
+        </div>
+    </script>

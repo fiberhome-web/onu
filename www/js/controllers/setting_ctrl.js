@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService', 'DB', function($scope, $rootScope, $state, ExpanderService, DB) {
+    .controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService', 'DB','Report', function($scope, $rootScope, $state, ExpanderService, DB,Report) {
         $scope.local = ONU_LOCAL.settingModule;
         $rootScope.hideTabs = false;
         
@@ -84,6 +84,7 @@ angular.module('starter.controllers')
             },
             reconnect: function() {
                 $state.go('index');
+                Report.deviceInfo={};
             }
         };
     }]);

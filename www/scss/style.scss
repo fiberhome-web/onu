@@ -7,6 +7,7 @@ $mLightgray:#F2F2F2;
 $mGreen:#1EA26B;
 $mRed:#EB4F38;
 $mGrass:#1EA26B;
+$fontColor:#999;
 * {
     font-family: 'Microsoft Yahei' !important;
 }
@@ -108,6 +109,37 @@ $mGrass:#1EA26B;
             border-bottom: none;
         }
     }
+
+    .val {
+            position : absolute;
+            right : 200px;
+            color : $fontColor;
+        }
+
+    .icon-msg,.icon-mark,.icon-edit{
+            position : absolute;
+            width : 50px;
+            text-align : right;
+            font-size: 1.6em;
+            color : $fontColor;
+        }
+
+        .icon-msg{
+            right : 120px;
+        }
+
+        .icon-mark{
+            right : 70px;
+        }
+
+        .icon-edit{
+            right : 20px;
+        }
+
+        .none{
+            position : absolute;
+            right : 20px;
+        }
 }
 
 .iconfont.bigerIcon {
@@ -176,15 +208,15 @@ $mGrass:#1EA26B;
 }
 
 .red {
-    color: $mRed;
+    color: $mRed !important;
 }
 
 .blue {
-    color: #56ABE4;
+    color: #56ABE4 !important;
 }
 
 .green {
-    color: #00CAA9;
+    color: #00CAA9 !important;
 }
 
 .button-block-half {
