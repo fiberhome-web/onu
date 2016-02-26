@@ -6,6 +6,7 @@ angular.module('starter.controllers')
         function($scope, $rootScope, $state, $http, Check, Popup,$timeout,
             $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService,DB,File) {
 
+            var timer ;
             var reportId;
             var deviceInfo;
             var expanderConf = {
@@ -97,8 +98,9 @@ angular.module('starter.controllers')
                         item : item
                     };
                     suggestExpander.show();
-                    $timeout(function(){
+                    timer = $timeout(function(){
                         $('#editTextarea').focus();
+                        $timeout.cancel( timer );
                     },100);
                 },
 
@@ -108,8 +110,9 @@ angular.module('starter.controllers')
 
                 clearEdit : function(){
                     $scope.editer.note = '';
-                    $timeout(function(){
+                    timer = $timeout(function(){
                         $('#editTextarea').focus();
+                        $timeout.cancel( timer );
                     },100);
                     
                 },
@@ -124,8 +127,9 @@ angular.module('starter.controllers')
 
                 rename : function(){
                     $scope.report.reportName = '';
-                    $timeout(function(){
+                    timer = $timeout(function(){
                         $('#rename').focus();
+                        $timeout.cancel( timer );
                     },100);
 
                     $scope.isCover = false;
@@ -133,7 +137,8 @@ angular.module('starter.controllers')
                 },
 
                 cover : function(){
-                    saveToDB($scope.report).then(function() {
+                    $scope.isCover = false;
+                    saveToDB($scope.report,2).then(function() {
                         expanderHandel.hideMask();
                         $scope.saved = true;
 
@@ -279,6 +284,7 @@ angular.module('starter.controllers')
 
                         Check.checking(CONST.TYPE.VOICE, data);
                         //枚举转化
+                        data.ip_mode.text = ONU_LOCAL.enums.voice_ip_mode['k_' + data.ip_mode.val];
                         data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
                         data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
                         data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
@@ -290,8 +296,6 @@ angular.module('starter.controllers')
 
                             Check.checking(CONST.TYPE.VDETAIL, item);
 
-                           
-                            
                             //是否需要检查port_status 标志
                             var flag = false;
                             //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status
@@ -336,16 +340,15 @@ angular.module('starter.controllers')
             }
 
             function sure() {
-                var res = $scope.report;
+                var report = $scope.report;
                 //检测是否存在同名文件
-                File.checkFile($scope.report.reportName).then(function() {
+                DB.queryByName($scope.report.reportName).then(function(res) {
+                    var exist = res.rows.length > 0;
                     //存在则提示是否覆盖
-                     $scope.isCover = true;
-                    
-                }, function(info) {
-                    //不存在直接保存
-                    if (info.code === 1) {
-                        saveToDB(res).then(function() {
+                    if(exist) {
+                        $scope.isCover = true;
+                    } else {
+                        saveToDB(report,1).then(function() {
                             expanderHandel.hideMask();
                             $scope.saved = true;
 
@@ -356,14 +359,13 @@ angular.module('starter.controllers')
                         });
                         expanderHandel.showMask();
                     }
+                             
+                }, function(err) {
+                    console.error(err);
                 });
-
-
-
-                // expanderHandel.hide
             }
 
-            function saveToDB(res) {
+            function saveToDB(res, type) {
 
                 var ponPortStatus = $scope.ponInfos;
                 var dataPortStatus = $scope.dataInfos;
@@ -387,7 +389,14 @@ angular.module('starter.controllers')
                 };
 
                 reportId = datas.id;
-                return DB.insert(datas);
+
+                //type  1: 新增 2：更新
+                if(type === 1) {
+                    return DB.insert(datas);
+                } else if(type === 2){
+                    return DB.updateData(datas);
+                }
+                
             }
 
 

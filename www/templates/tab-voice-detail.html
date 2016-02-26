@@ -7,7 +7,7 @@
             <div ng-repeat="(key,item) in voiceInfo">
             	<div class="v-item" ng-if="item.length === undefined">
             		<span class="d-item-key" ng-class="{'war-color' : item.warn}">{{key}}</span>
-            		<span class="d-item-val" ng-if="item.val">
+            		<span class="d-item-val" ng-if="item.val" ng-class="{'war-color' : item.warn}">
             			<span ng-if="item.text">{{item.text}}</span>
                         <span ng-if="!item.text">{{item.val}}</span>
             		</span>
@@ -53,7 +53,7 @@
 <script id="editSuggest2.html" type="text/ng-template">
     <div class="list expander">
         <div class="item item-button-right expander-header">
-            {{editConf.title}} {{i10n.checkModule.remark}}
+            {{editer.title}} {{i10n.checkModule.note}}
             <button class="button button-stable button-clear" ng-click="eventFun.closeEdit()">
                 <i class="iconfont" style="font-size: 1.6em;">&#xe61d;</i>
             </button>

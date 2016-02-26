@@ -69,9 +69,20 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
         // $cordovaSQLite.execute(db, query, [datas.id, datas.name, datas.date, datas.status, datas.data, datas.conclusion]).then(success, error);
     };
 
+
+    this.queryByName = function(reportName) {
+        query = 'SELECT 1 FROM fiber_onu_data where name = ? ';
+        return $cordovaSQLite.execute(db, query, [reportName]);
+    };
+
     this.queryById = function(reportId) {
         query = 'SELECT id , name, date, status, data, conclusion FROM fiber_onu_data where id = ? ';
         return $cordovaSQLite.execute(db, query, [reportId]);
+    };
+
+    this.updateData= function(data) {
+        query = 'UPDATE fiber_onu_data SET date = ?,status = ?,data = ? ,conclusion = ?  WHERE name = ?';
+        return $cordovaSQLite.execute(db, query, [data.date, data.status, data.data, data.conclusion,data.name]);
     };
 
     this.deleteByIds = function(ids) {

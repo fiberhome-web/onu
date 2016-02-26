@@ -2,7 +2,7 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
     return {
         ResultCode: '0',
         data: {
-            equipment_id: {
+            device_type: {
                 val: 'AN5506-04-B5',
                 ecode: '1',
                 warn:true,
@@ -113,8 +113,8 @@ Mock.mock('http://192.168.1.1/app/', 'getVoicePortStatus', function(options){
             'first_sip_registrar_server_port': {val : ''},
             'second_sip_registrar_server_ip': {val : ''},
             'second_sip_registrar_server_port': {val : ''},
-            'first _sip_proxy_server_ip': {val : ''},
-            'first _sip_proxy_server_port': {val : ''},
+            'first_sip_proxy_server_ip': {val : ''},
+            'first_sip_proxy_server_port': {val : ''},
             'second_sip_proxy_server_ip': {val : ''},
             'second_sip_proxy_server_port': {val : ''},
             'sip_local_port' : {val : ''}, 

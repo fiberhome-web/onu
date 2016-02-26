@@ -59,19 +59,20 @@
       top: 20px;
       text-decoration: none;
       right: 20px;
-      font-size: 1.4em; }
+      font-size: 1.2em;
+      width: 100px; }
     .check-module .content .check-item .icon-msg, .check-module .content .check-item .icon-mark, .check-module .content .check-item .icon-edit {
       position: absolute;
       width: 50px;
-      text-align: right;
+      text-align: center;
       font-size: 1.6em;
       color: #999; }
     .check-module .content .check-item .icon-msg {
-      right: 120px; }
+      right: 110px; }
     .check-module .content .check-item .icon-mark {
-      right: 70px; }
+      right: 60px; }
     .check-module .content .check-item .icon-edit {
-      right: 20px; }
+      right: 10px; }
     .check-module .content .check-item .none {
       position: absolute;
       right: 20px; }
@@ -148,12 +149,13 @@
     font-size: 1.4em;
     color: #999;
     position: absolute;
-    right: 20px; }
+    right: 20px;
+    z-index: 2; }
   .sugeest textarea {
     width: 100%;
     font-size: 1em;
     line-height: 20px;
-    min-height: 150px; }
+    min-height: 200px; }
 
 .cover-tip {
   position: absolute;
