@@ -69,6 +69,7 @@ angular.module('starter.controllers')
                 },
                 return:function(){
                     $state.go("index");
+                    $rootScope.hideTabs = false;
                 }
             };
 

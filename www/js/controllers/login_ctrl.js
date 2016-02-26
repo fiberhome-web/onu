@@ -55,6 +55,7 @@ angular.module('starter.controllers')
                     $scope.loadding = true;
                     $scope.registerData.date = dateUtils.getToday();
                     File.createLicense(JSON.stringify($scope.registerData)).then(function(success) {
+                        console.info(JSON.stringify(success));
                         $rootScope.isRegistered = true;
                         $scope.loadding = false;
                         Popup.showTip('Successful registration');
@@ -94,6 +95,7 @@ angular.module('starter.controllers')
             };
             $scope.registerData = LicenseService.registerData;
             $scope.loadding = false;
+            global.isLogin = false;
         }
 
 

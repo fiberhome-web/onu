@@ -2,14 +2,14 @@
 
 angular.module('starter.controllers')
     .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$cordovaBarcodeScanner',
-        '$ionicPopup', 'Const', 'Report', 'Popup', 'DB',
-        function($scope, $rootScope, $state, $http, $cordovaBarcodeScanner, $ionicPopup, Const, Report, Popup, DB) {
+         'Const', 'Report', 'Popup', 'DB',
+        function($scope, $rootScope, $state, $http, $cordovaBarcodeScanner, Const, Report, Popup, DB) {
 
 
 
             $scope.local = ONU_LOCAL.basicModule;
             $scope.localInfo = ONU_LOCAL.report.deviceInfo;
-            $rootScope.hideTabs = false;
+            
             var data = Report.getDeviceInfo();
 
 
