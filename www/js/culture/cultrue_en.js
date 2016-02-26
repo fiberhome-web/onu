@@ -45,7 +45,6 @@ var ONU_LOCAL = {
             data_abnormal: '数据端口异常',
             voice_abnormal: '语音端口异常'
         },
-        remark: '备注',
         ok: '確定',
         cancel: '取消',
         remark_ph: '请输入备注',
@@ -56,6 +55,10 @@ var ONU_LOCAL = {
         exist : 'The report name has already exist.',
         rename : 'Rename',
         cover : 'Cover the file with same name',
+        view_detail : 'View detail',
+        reason : 'Reason',
+        suggestion : 'Suggestion',
+        note : 'Note'
     },
 
     detailModule: {

@@ -76,30 +76,31 @@ $fontColor : #999;
 
 		.v-detail {
 		    color: #7BBDEA;
-		    top: 20px;
-		    text-decoration: none;
-		    right : 20px;
-		    font-size :1.4em;
+			top: 20px;
+			text-decoration: none;
+			right: 20px;
+			font-size: 1.2em;
+			width: 100px;
 		}
 
 		.icon-msg,.icon-mark,.icon-edit{
 			position : absolute;
 			width : 50px;
-			text-align : right;
+			text-align : center;
 			font-size: 1.6em;
 			color : $fontColor;
 		}
 
 		.icon-msg{
-			right : 120px;
+			right : 110px;
 		}
 
 		.icon-mark{
-			right : 70px;
+			right : 60px;
 		}
 
 		.icon-edit{
-			right : 20px;
+			right : 10px;
 		}
 
 		.none{
@@ -212,13 +213,14 @@ $fontColor : #999;
 	    color: #999;
 	    position: absolute;
 	    right: 20px;
+	    z-index: 2;
 	}
 
 	textarea {
 		width : 100%;
 		font-size : 1em;
 		line-height : 20px;
-		min-height : 150px;
+		min-height : 200px;
 	}
 	
 }

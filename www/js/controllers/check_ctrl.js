@@ -134,7 +134,7 @@ angular.module('starter.controllers')
 
                 cover : function(){
                     $scope.isCover = false;
-                    saveToDB($scope.report).then(function() {
+                    saveToDB($scope.report,2).then(function() {
                         expanderHandel.hideMask();
                         $scope.saved = true;
 
@@ -336,16 +336,15 @@ angular.module('starter.controllers')
             }
 
             function sure() {
-                var res = $scope.report;
+                var report = $scope.report;
                 //检测是否存在同名文件
-                File.checkFile($scope.report.reportName).then(function() {
+                DB.queryByName($scope.report.reportName).then(function(res) {
+                    var exist = res.rows.length > 0;
                     //存在则提示是否覆盖
-                     $scope.isCover = true;
-                    
-                }, function(info) {
-                    //不存在直接保存
-                    if (info.code === 1) {
-                        saveToDB(res).then(function() {
+                    if(exist) {
+                        $scope.isCover = true;
+                    } else {
+                        saveToDB(report,1).then(function() {
                             expanderHandel.hideMask();
                             $scope.saved = true;
 
@@ -356,14 +355,13 @@ angular.module('starter.controllers')
                         });
                         expanderHandel.showMask();
                     }
+                             
+                }, function(err) {
+                    console.error(err);
                 });
-
-
-
-                // expanderHandel.hide
             }
 
-            function saveToDB(res) {
+            function saveToDB(res, type) {
 
                 var ponPortStatus = $scope.ponInfos;
                 var dataPortStatus = $scope.dataInfos;
@@ -387,7 +385,14 @@ angular.module('starter.controllers')
                 };
 
                 reportId = datas.id;
-                return DB.insert(datas);
+
+                //type  1: 新增 2：更新
+                if(type === 1) {
+                    return DB.insert(datas);
+                } else if(type === 2){
+                    return DB.updateData(datas);
+                }
+                
             }
 
 

@@ -1,19 +1,24 @@
 angular.module('starter.services').service('Popup', ['$ionicPopup', '$rootScope',
     function($ionicPopup, $rootScope) {
 
-        this.showPop = function(reason, msg) {
+        this.showPop = function(option) {
 
             var html = '<div class="warn-tip">' +
                 '<div class="close-btn" ng-click="closePop()">' +
                 '<i class="iconfont">&#xe61d;</i></div>';
 
+            if(option.note){
+                html = html + '<div>' + ONU_LOCAL.checkModule.note +':<br/><br/>' + option.note + '</div>';
+            } else {
+                if (option.reason) {
+                    html = html + '<div>' + ONU_LOCAL.checkModule.reason +':<br/>' + option.reason + '</div>';
+                }
+                if (option.msg) {
+                    html = html + '<div>' + ONU_LOCAL.checkModule.suggestion +':<br/>' + option.msg + '</div>';
+                }
+            }
 
-            if (reason) {
-                html = html + '<div>Reason:<br/>' + reason + '</div>';
-            }
-            if (msg) {
-                html = html + '<div>Suggestion:<br/>' + msg + '</div>';
-            }
+            
 
             html = html + '</div>';
 
