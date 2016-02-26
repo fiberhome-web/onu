@@ -52,7 +52,10 @@ var ONU_LOCAL = {
         stay_on_this_page: '停留在该页',
         view_report: '查看报告',
         generate_report_successfully: '生成报告成功。',
-        generate_report_failed: '生成报告失败。'
+        generate_report_failed: '生成报告失败。',
+        exist : 'The report name has already exist.',
+        rename : 'Rename',
+        cover : 'Cover the file with same name',
     },
 
     detailModule: {
@@ -118,7 +121,7 @@ var ONU_LOCAL = {
     report: {
         deviceInfo: {
             module_name: 'ONU Infomation',
-            equipment_id: 'Equipment ID',
+            device_type: 'Equipment ID',
             vendor: 'Vendor',
             hardware_version: 'Hardware Version',
             software_version: 'Software Version',
@@ -155,11 +158,42 @@ var ONU_LOCAL = {
         },
 
         voicePortStatus: {
-            voice_port_id: '语音口序号',
             module_name: 'Voice Port Detection',
-            protocol_type: '协议类型',
-            port_status: '端口状态',
-            telphone_no: '电话号码',
+            signal_svlan_id : 'signal_svlan_id',
+            svlan_cos : 'svlan_cos',
+            signal_cvlan_id : 'signal_cvlan_id',
+            cvlan_cos : 'cvlan_cos',
+            ip_mode : 'ip_mode',
+            signal_ip : 'signal_ip',
+            ip_mask : 'ip_mask',
+            signal_gateway : 'signal_gateway',
+            pppoe_user : 'pppoe_user',
+            pppoe_password : 'pppoe_password',
+            first_mgc_ip: 'first_mgc_ip',
+            first_mgc_port: 'first_mgc_port',
+            second_mgc_ip: 'second_mgc_ip',
+            second_mgc_port: 'second_mgc_port',
+            h248_local_port : 'h248_local_port',
+            reg_mode : 'reg_mode',
+            mgid : 'mgid',
+            protocol_type: 'protocol_type',
+            first_sip_registrar_server_ip: 'first_sip_registrar_server_ip',
+            first_sip_registrar_server_port: 'first_sip_registrar_server_port',
+            second_sip_registrar_server_ip: 'second_sip_registrar_server_ip',
+            second_sip_registrar_server_port: 'second_sip_registrar_server_port',
+            first_sip_proxy_server_ip: 'first_sip_proxy_server_ip',
+            first_sip_proxy_server_port: 'first_sip_proxy_server_port',
+            second_sip_proxy_server_ip: 'second_sip_proxy_server_ip',
+            second_sip_proxy_server_port: 'second_sip_proxy_server_port',
+            sip_local_port : 'sip_local_port', 
+            mgc_reg_status : 'mgc_reg_status',  
+            voice_port_id : 'Port No',
+            port_status : 'port_status',
+            port_enable : 'port_enable',
+            user_tid : 'user_tid',
+            telphone_no : 'telphone_no',
+            sip_user_name: 'sip_user_name',
+            sip_user_pass: 'sip_user_pass',
 
         }
 
@@ -211,26 +245,52 @@ var ONU_LOCAL = {
             k_2: 'Auto'
         },
         voice_protocol_type: {
-            k_0: 'MGCP',
-            k_1: 'H.248',
-            k_2: 'SIP'
+            k_0: 'None',
+            k_2: 'H.248',
+            k_4: 'SIP'
         },
+
+        voice_mgc_reg_status : {
+            k_0: 'Registering ',
+            k_1: 'Registration Success',
+            k_2: 'Registration Failed'
+        },
+
         voice_port_status: {
-            k_0: '端口未激活',
-            k_1: '端口正在注册',
-            k_2: '端口状态空闲',
-            k_3: '端口已摘机',
-            k_4: '端口在拨号',
-            k_5: '端口正在振铃',
-            k_6: '端口处于回铃音',
-            k_7: '端口正在连接中',
-            k_8: '端口已连接',
-            k_9: '端口已挂机',
-            k_10: '端口未连接',
-            k_11: '端口状态忙',
-            k_12: '端口注册失败',
-            k_13: '用户久不挂机'
+            k_0: 'EP_STATUS_INACTIVE',
+            k_1: 'EP_STATUS_REGING',
+            k_2: 'EP_STATUS_IDLE',
+            k_3: 'EP_STATUS_OFF_HOOK',
+            k_4: 'EP_STATUS_DIALING',
+            k_5: 'EP_STATUS_RING',
+            k_6: 'EP_STATUS_RINGBACK',
+            k_7: 'EP_STATUS_CONNECTING',
+            k_8: 'EP_STATUS_CONNECTED',
+            k_9: 'EP_STATUS_ON_HOOK',
+            k_10: 'EP_STATUS_DISCONNECTING',
+            k_11: 'EP_STATUS_BUSY',
+            k_12: 'EP_STATUS_REG_FAIL',
+            k_13: 'EP_STATUS_NOT_HANGUP'
         },
+
+        voice_reg_mode : {
+            k_0: 'IP',
+            k_1: 'Domain',
+            k_2: 'Equipment'
+        },
+
+        voice_port_enable : {
+            k_0: 'Disable',
+            k_1: 'Enable'
+        },
+
+        voice_ip_mode : {
+            k_0: 'Static',
+            k_1: 'PPPoE',
+            k_2: 'DHCP'
+        },
+
+
         result_code: {
             k_101: '用户名或密码错误',
             // k_201: '获取光口信息失败' ...

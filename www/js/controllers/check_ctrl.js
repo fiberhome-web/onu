@@ -133,6 +133,7 @@ angular.module('starter.controllers')
                 },
 
                 cover : function(){
+                    $scope.isCover = false;
                     saveToDB($scope.report).then(function() {
                         expanderHandel.hideMask();
                         $scope.saved = true;
@@ -279,6 +280,7 @@ angular.module('starter.controllers')
 
                         Check.checking(CONST.TYPE.VOICE, data);
                         //枚举转化
+                        data.ip_mode.text = ONU_LOCAL.enums.voice_ip_mode['k_' + data.ip_mode.val];
                         data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
                         data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
                         data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
@@ -290,8 +292,6 @@ angular.module('starter.controllers')
 
                             Check.checking(CONST.TYPE.VDETAIL, item);
 
-                           
-                            
                             //是否需要检查port_status 标志
                             var flag = false;
                             //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status

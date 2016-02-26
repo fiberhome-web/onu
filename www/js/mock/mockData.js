@@ -2,7 +2,7 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
     return {
         ResultCode: '0',
         data: {
-            equipment_id: {
+            device_type: {
                 val: 'AN5506-04-B5',
                 ecode: '1',
                 warn:true,

@@ -201,10 +201,7 @@
   width: 100%;
   height: 100%;
   z-index: 9;
-  background-color: gray;
-  opacity: 0.4;
-  -moz-opacity: 0.4;
-  filter: alpha(opacity=40); }
+  background-color: rgba(0, 0, 0, 0.4); }
 
 .front_mask_layer {
   position: absolute;
