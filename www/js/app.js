@@ -25,10 +25,11 @@ var CONST = {
 Mock.mockjax(app);
 
 app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice,LicenseService) {
-    $rootScope.warrantyPeriod = 2;
+    
     $rootScope.expanderHandel = [];
     $rootScope.isRegistered = false;
     
+
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
