@@ -17,4 +17,8 @@
   border-color: #ccc;
   background-color: white; }
 
+.item .item-content.activated {
+  border-color: #ccc;
+  background-color: white; }
+
 /*# sourceMappingURL=override_ionic.css.map */

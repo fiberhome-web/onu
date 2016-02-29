@@ -76,6 +76,25 @@
   border-bottom: 1px solid #F2F2F2; }
 #basicInfoTab .list .item:last-child {
   border-bottom: none; }
+#basicInfoTab .val {
+  position: absolute;
+  right: 200px;
+  color: #999; }
+#basicInfoTab .icon-msg, #basicInfoTab .icon-mark, #basicInfoTab .icon-edit {
+  position: absolute;
+  width: 50px;
+  text-align: right;
+  font-size: 1.6em;
+  color: #999; }
+#basicInfoTab .icon-msg {
+  right: 120px; }
+#basicInfoTab .icon-mark {
+  right: 70px; }
+#basicInfoTab .icon-edit {
+  right: 20px; }
+#basicInfoTab .none {
+  position: absolute;
+  right: 20px; }
 
 .iconfont.bigerIcon {
   font-size: 24px;
@@ -126,13 +145,13 @@
     font-size: 20px; }
 
 .red {
-  color: #EB4F38; }
+  color: #EB4F38 !important; }
 
 .blue {
-  color: #56ABE4; }
+  color: #56ABE4 !important; }
 
 .green {
-  color: #00CAA9; }
+  color: #00CAA9 !important; }
 
 .button-block-half {
   width: 50%;
@@ -308,13 +327,14 @@ p.processing {
     width: 100px;
     height: 80px; }
 
-p.loadding {
+p.loading {
   text-align: center;
   margin-top: 40%;
   position: absolute;
+  width: 100%;
   z-index: 2; }
 
-p.loadding .spinner svg {
+p.loading .spinner svg {
   width: 100px;
   height: 80px; }
 

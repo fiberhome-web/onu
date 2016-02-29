@@ -428,14 +428,15 @@ p.processing{
 }
 }
 
-p.loadding {
+p.loading {
     text-align: center;
     margin-top: 40%;
     position: absolute;
+    width: 100%;
     z-index: 2;
 }
 
-p.loadding .spinner svg {
+p.loading .spinner svg {
     width: 100px;
     height: 80px;
 }

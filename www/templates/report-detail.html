@@ -13,7 +13,7 @@
         <button menu-toggle="left" class="button button-icon" ng-click="openPopover($event)"><i class="iconfont">&#xe617;</i></button>
     </ion-nav-buttons>
     <ion-content class="padding">
-        <div id="report" on-swipe-right="onSwipeRight()" on-hold="onHold()">
+        <div id="report" on-swipe-right="back()" on-hold="onHold()">
             <style type="text/css">
             #content {
                 font-family: 'Microsoft Yahei';
@@ -172,9 +172,12 @@
                             <div class="citem-content" ng-class="{'red' : item.warn}">
                                 <span ng-if="!item.val">-</span>
                                 <span ng-if="item.text">{{item.text}}</span>
-                                <span ng-if="!item.text">{{item.val}}</span>
+                                <span ng-if="!item.text">
+                                <span ng-if="key!=='warranty_period'">{{item.val}}</span>
+                                 <span ng-if="key==='warranty_period'">-</span>
+                                </span>
                                 <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe616;</i>
+                                <i class="iconfont red" ng-show="item.reason || item.msg ||item.note" ng-click="showTip(item)">&#xe616;</i>
                             </div>
                            
                             <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
@@ -212,7 +215,7 @@
                                     <span ng-if="item.text">{{item.text}}</span>
                                     <span ng-if="!item.text">{{item.val}}</span>
                                     <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                    <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe616;</i>
+                                    <i class="iconfont red" ng-show="item.reason || item.msg ||item.note" ng-click="showTip(item)">&#xe616;</i>
                                 </div>
                                 <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
                                     <div ng-if="item.reason">

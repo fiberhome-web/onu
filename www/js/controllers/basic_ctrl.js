@@ -23,7 +23,7 @@ angular.module('starter.controllers')
 
             var data = Report.getDeviceInfo();
 
-
+            //判断质保期时间
             function getWarrantyPeriod(index) {
                 var warrantyPeriod;
                 switch (index) {
@@ -176,7 +176,7 @@ angular.module('starter.controllers')
 
 
                         //检测数据
-                        Check.checking('basic', data);
+                        Check.checking(CONST.TYPE.BASIC, data);
 
                         $scope.deviceInfo = data;
                         Report.setDeviceInfo(data);

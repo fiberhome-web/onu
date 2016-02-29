@@ -94,12 +94,6 @@ angular.module('starter.controllers')
             });
         };
 
-
-        $scope.onSwipeRight = function() {
-            $ionicHistory.goBack();
-        };
-
-
         $scope.onHold = function() {
             alert('onHold');
         };

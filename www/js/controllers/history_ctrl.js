@@ -6,7 +6,13 @@ angular.module('starter.controllers')
         function($scope, $state, $log, $ionicLoading, $ionicModal, $rootScope,
             $cordovaDatePicker, DB, File, ExpanderService) {
 
-
+$ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 
             //缓存所有报告记录
             var list = [];
@@ -271,6 +277,7 @@ angular.module('starter.controllers')
 
 
             function initPage() {
+                $scope.isLogin = global.isLogin;
                 autoDeleteReport();
                 $scope.operation = ONU_LOCAL.historyModule.choose;
 
@@ -293,7 +300,7 @@ angular.module('starter.controllers')
                 $scope.searchContent = '';
                 //报告类型默认选择“全部”
                 $scope.type = 0;
-                $scope.isLogin = global.isLogin;
+                
                 //   DB.insert(datas()); 
 
                 // $scope.scrollHeight = {
@@ -309,7 +316,7 @@ angular.module('starter.controllers')
 
             function queryAll() {
                 list = [];
-                $scope.prox.loadding = true;
+                $scope.prox.loading = true;
                 DB.queryAll().then(function(res) {
                     var length = res.rows.length;
                     // alert("queryAll:" + length);
@@ -336,13 +343,13 @@ angular.module('starter.controllers')
                 }
                 $scope.list = list;
                 //隐藏加载动画
-                $scope.prox.loadding = false;
+                $scope.prox.loading = false;
 
             }
 
 
             function filterData() {
-                $scope.prox.loadding = true;
+                $scope.prox.loading = true;
                 var result = [];
                 angular.forEach(list, function(item) {
 
@@ -448,7 +455,6 @@ angular.module('starter.controllers')
 
             }
 
-
-
+            $ionicLoading.hide();
         }
     ]);
