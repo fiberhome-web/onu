@@ -7,8 +7,6 @@ angular.module('starter.services').service('Report', function() {
     this.dataPortInfo = [];
 
     this.voicePortInfo = {
-        second_sip_registrar_server_port : {val : 'dasssssssssss1'},
-        second_mgc_ip: {val : '2'},
         port_detail : []
     };
 

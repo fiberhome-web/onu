@@ -23,25 +23,29 @@ angular.module('starter.controllers')
             // Popup.showTip('License is null');
         function btnClickEvt() {
 
-            // var info = {"CommandSrc": "LOCAL", "Command": "ACTIVE", "CommandSeq": "01234", "PASSWORD": "apppwd"};
-            // var url = 'https://192.168.1.1:4433/';
-            // alert('url:' + url);
-            // $http.post(url,info).success(function(res){
-            //  alert('success:' + JSON.stringify(res));
-            // }).error(function(data, status, headers, config){
-            //  alert('data:' + data + '\n'
-            //        + 'status:' + status + '\n'
-            //        +'headers:' + headers + '\n'
-            //        +'config:' + config + '\n');
-            // });
-            //eeeee
-
-           
 
             if ($rootScope.isRegistered) {
                 if (validateIP($scope.loginInfo.ip)) {
-                    global.isLogin = true;
-                    $state.go('tab.basic');
+
+                    var info = {'command': 'login', 'username': 'admin', 'password': 'checkONT2015@FH'};
+                    var url = Const.getReqUrl();
+                    $http.post(url,info).success(function(res){
+                        if(res.ResultCode === '0') {
+                            global.isLogin = true;
+                        
+                             $state.go('tab.basic');
+                        } else {
+                            alert('connected failed'+JSON.stringify(res));
+                        }
+                      
+                    }).error(function(data, status, headers, config){
+                     alert('data:' + data + '\n'
+                           + 'status:' + status + '\n'
+                           +'headers:' + headers + '\n'
+                           +'config:' + config + '\n');
+                    });
+
+                   
                 } else {
                     Popup.showTip('IP is not correct');
                     // $scope.tip = 'ip错误';
@@ -70,8 +74,6 @@ angular.module('starter.controllers')
                 }
             }
             LicenseService.registerData = $scope.registerData;
-
-
 
         }
 
