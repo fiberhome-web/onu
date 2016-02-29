@@ -139,8 +139,8 @@
                     <span class="title">{{i10n.detailModule.conclusion}}：</span>
                     <span class="citem">
                         <span ng-switch="report.status">
-                            <i class="iconfont green" ng-if="report.status===1">&#xe60b;</i>
-                            <i class="iconfont red" ng-if="report.status!==1">&#xe609;</i>
+                            <i class="iconfont green icon-iconfontzhengque" ng-if="report.status===1"></i>
+                            <i class="iconfont red icon-gantan" ng-if="report.status!==1"></i>
                             <span ng-switch-when="1">
 
                                 {{i10n.historyModule.types.normal}}
@@ -174,7 +174,7 @@
                                 <span ng-if="item.text">{{item.text}}</span>
                                 <span ng-if="!item.text">{{item.val}}</span>
                                 <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe616;</i>
+                                <i class="iconfont red icon-xinxi" ng-show="item.reason || item.msg" ng-click="showTip(item)"></i>
                             </div>
                            
                             <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
@@ -212,7 +212,7 @@
                                     <span ng-if="item.text">{{item.text}}</span>
                                     <span ng-if="!item.text">{{item.val}}</span>
                                     <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                    <i class="iconfont red" ng-show="item.reason || item.msg" ng-click="showTip(item)">&#xe616;</i>
+                                    <i class="iconfont red icon-xinxi" ng-show="item.reason || item.msg" ng-click="showTip(item)"></i>
                                 </div>
                                 <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
                                     <div ng-if="item.reason">
@@ -249,7 +249,7 @@
                                     <span ng-if="item.text">{{item.text}}</span>
                                     <span ng-if="!item.text">{{item.val}}</span>
                                     <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                    <i class="iconfont red" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)">&#xe616;</i>
+                                    <i class="iconfont red icon-xinxi" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)"></i>
                                 </div>
                                 <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
                                     <div ng-if="item.reason">
@@ -280,7 +280,7 @@
                                     <span ng-if="item.text">{{item.text}}</span>
                                     <span ng-if="!item.text">{{item.val}}</span>
                                     <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                    <i class="iconfont red" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)">&#xe616;</i>
+                                    <i class="iconfont red icon-xinxi" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)"></i>
                                 </div>
                                 <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
                                     <div ng-if="item.reason">
@@ -315,7 +315,7 @@
                                 <span ng-if="item.text">{{item.text}}</span>
                                 <span ng-if="!item.text">{{item.val}}</span>
                                 <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                <i class="iconfont red" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)">&#xe616;</i>
+                                <i class="iconfont red icon-xinxi" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)"></i>
                             </div>
                             <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
                                 <div ng-if="item.reason">
