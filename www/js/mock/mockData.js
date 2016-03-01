@@ -1,4 +1,4 @@
-Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
+Mock.mock('http://192.168.1.1/app', 'getDeviceInfo', function(options) {
     return {
         ResultCode: '0',
         data: {
@@ -10,7 +10,7 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
                 msg:'jsjsjjsjsjsjs'
             },
             vendor: {
-                val: 'Fiberhome',
+                
                 warn:false
             },
             hardware_version: {
@@ -30,7 +30,7 @@ Mock.mock('http://192.168.1.1/app/', 'getDeviceInfo', function(options) {
                 warn:false
             },
             led_status:{
-                val:'0',
+                val:'2',
                 warn:false
             },
             onu_regist_status: {
@@ -133,8 +133,16 @@ Mock.mock('http://192.168.1.1/app/', 'getVoicePortStatus', function(options){
 	});
 });
 
-Mock.mock('http://192.168.1.1/appb', {
-    'name': '@name',
-    'age|1-100': 100,
-    'color': '@color'
+Mock.mock('http://192.168.1.1/app/', 'login', function(options){
+    return Mock.mock({
+        'ResultCode': '0',
+        'data|1-4': [
+            {
+                'data_port_id|1-4': 1,
+                'port_status': {val : '1'},            
+                'speed': {'val' : '2'},                 
+                'duplex': {'val': '0'}      
+            }
+        ] 
+    });
 });

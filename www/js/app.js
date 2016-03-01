@@ -22,7 +22,7 @@ var CONST = {
 };
 
 //使用mockjax替换ajax
-//Mock.mockjax(app);
+// Mock.mockjax(app);
 
 app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice,LicenseService) {
     

@@ -1,6 +1,5 @@
 angular.module('starter.controllers')
-    .controller('LoginCtrl', function($scope, $rootScope, $state, $http, Const, File, LicenseService, Popup) {
-        // .controller('LoginCtrl', function($scope, $rootScope, $state, $http, Const,Popup) {
+    .controller('LoginCtrl', function($scope, $rootScope, $state, $http, $timeout, Const, File, LicenseService, Popup) {
 
         $scope.eventFun = {
                 cancelEnter: function() {
@@ -20,57 +19,63 @@ angular.module('starter.controllers')
                     btnClickEvt();
                 }
             }
-            // Popup.showTip('License is null');
+
         function btnClickEvt() {
 
 
             if ($rootScope.isRegistered) {
                 if (validateIP($scope.loginInfo.ip)) {
-
-                    var info = {'command': 'login', 'username': 'admin', 'password': 'checkONT2015@FH'};
+                    $scope.loading = true;
+                    var info = {
+                        'command': 'login',
+                        'username': 'admin',
+                        'password': 'checkONT2015@FH'
+                    };
                     var url = Const.getReqUrl();
-                    $http.post(url,info).success(function(res){
-                        if(res.ResultCode === '0') {
+                    $http.post(url, info, {
+                        timeout: 10000
+                    }).success(function(res) {
+                        if (res.ResultCode === '0') {
                             global.isLogin = true;
-                        
-                             $state.go('tab.basic');
+                            $state.go('tab.basic');
                         } else {
-                            alert('connected failed'+JSON.stringify(res));
+                            Popup.showTip('sorry , Login failed !');
+                            alert('connected failed' + JSON.stringify(res));
                         }
-                      
-                    }).error(function(data, status, headers, config){
-                     alert('data:' + data + '\n'
-                           + 'status:' + status + '\n'
-                           +'headers:' + headers + '\n'
-                           +'config:' + config + '\n');
+                        var timer = $timeout(function() {
+                            $scope.loading = false;
+                            $timeout.cancel(timer);
+                        }, 1000);
+
+                    }).error(function(data, status, headers, config) {
+                        Popup.showTip('sorry , Login failed !');
+                        alert('data:' + data + '\n' + 'status:' + status + '\n' + 'headers:' + headers + '\n' + 'config:' + config + '\n');
+                        $scope.loading = false;
                     });
 
-                   
+
                 } else {
                     Popup.showTip('IP is not correct');
-                    // $scope.tip = 'ip错误';
                 }
             } else {
                 if (!$scope.registerData.key) {
                     Popup.showTip('License is null');
-                    // $scope.tip = '不能为空';
                     return;
                 } else if (LicenseService.isLicenseCorrect($scope.registerData.uuid, $scope.registerData.key)) {
-                    $scope.loadding = true;
+                    $scope.loading = true;
                     $scope.registerData.date = dateUtils.getToday();
                     File.createLicense(JSON.stringify($scope.registerData)).then(function(success) {
                         console.info(JSON.stringify(success));
                         $rootScope.isRegistered = true;
-                        $scope.loadding = false;
+                        $scope.loading = false;
                         Popup.showTip('Successful registration');
                     }, function(error) {
-                        $scope.loadding = false;
+                        $scope.loading = false;
                         alert(JSON.stringify(error));
                     });
 
                 } else {
                     Popup.showTip('License is not correct');
-                    // $scope.tip = 'key 错误';
                 }
             }
             LicenseService.registerData = $scope.registerData;
@@ -96,7 +101,7 @@ angular.module('starter.controllers')
                 password: 'checkONT2015@FH'
             };
             $scope.registerData = LicenseService.registerData;
-            $scope.loadding = false;
+            $scope.loading = false;
             global.isLogin = false;
         }
 

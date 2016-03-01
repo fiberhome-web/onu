@@ -1,6 +1,6 @@
 'use strict';
 angular.module('starter.services').service('File', function($rootScope, $log, $cordovaFile,
-    $filter, $ionicPlatform,LicenseService) {
+    $filter, $ionicPlatform,LicenseService,Popup) {
 
     var fileSystem;
     var licenseFileSystem;
@@ -25,19 +25,21 @@ angular.module('starter.services').service('File', function($rootScope, $log, $c
         $cordovaFile.checkFile(licenseFileSystem, licenseFileName).then(function(success) {
             // 若存在license文件，表示已注册过
             $cordovaFile.readAsText(licenseFileSystem, licenseFileName).then(function(data) {
-
+                data = base64decode(data);
                 var RegisterData = JSON.parse(data);
                 //若license正确，判断是否过期
                 if (LicenseService.isLicenseCorrect(LicenseService.registerData.uuid,RegisterData.key)) {
                     var startDate = dateUtils.getDayOfLastYear();
                     //若注册时间到今天超过一年
                     if (RegisterData.date < startDate) {
+                        Popup.showTip("License expired");
                         $rootScope.isRegistered = false;
                         removeLicense();
                     } else {
                         $rootScope.isRegistered = true;
                     }
                 }else{
+                    Popup.showTip("License is not correct");
                     removeLicense();
                     $rootScope.isRegistered = false;
                 }
@@ -148,7 +150,8 @@ angular.module('starter.services').service('File', function($rootScope, $log, $c
 
     //创建license文件
     this.createLicense = function(data) {
-        return $cordovaFile.writeFile(licenseFileSystem, licenseFileName, data, true);
+        var processedData = base64encode(data);
+        return $cordovaFile.writeFile(licenseFileSystem, licenseFileName, processedData, true);
     };
 
     //读取license文件

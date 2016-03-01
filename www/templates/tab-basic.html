@@ -5,36 +5,26 @@
                 <div class="item" ng-repeat="(key,val) in deviceInfo">
                     <div ng-class="{'red':val.warn}">
                         {{localInfo[key]}}
-                        <span ng-click="key!=='warranty_period'||scanBarcode()">
+                        <span ng-if="val.val" ng-click="key!=='warranty_period'||scanBarcode()">
                             
-                        
                         <span class="val" ng-if="val.text" ng-class="{'red':val.warn}">
-                        <i class="iconfont" ng-if="key==='led_status'" ng-class="{'0':'red','1':'green'}[val.val]">&#xe608;</i>
-                        
-                        <span >{{val.text}}</span>
+                        <i class="iconfont" ng-if="key==='led_status'" ng-class="{'0':'red','1':'green','2':'orange'}[val.val]">&#xe608;</i>
+                        {{val.text}}
                         </span>
+
                         <span class="val" ng-if="!val.text" ng-class="{'red':val.warn,'blue':key==='warranty_period'}">
                         <i class="iconfont bigerIcon blue" ng-if="key==='warranty_period'">&#xe611;</i>
                         {{val.val}}
                         </span>
+
                         </span>
+                        <span ng-if="!val.val" class="none">-</span>
                         <span ng-if="val.val">
-                                <i class="icon-msg icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="showTip(val)"  ng-if="val.msg || val.note || val.reason">&#xe616;</i>
-                                <i class="icon-mark icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="val.warn = !val.warn">&#xe610;</i>
-                                <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.deviceInfo[key],val)">&#xe626;</i>
-                            </span>
+                            <i class="icon-msg icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="showTip(val)"  ng-if="val.msg || val.note || val.reason">&#xe616;</i>
+                            <i class="icon-mark icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="val.warn = !val.warn">&#xe610;</i>
+                            <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.deviceInfo[key],val)">&#xe626;</i>
+                        </span>
                     </div>
-                    <!-- <div ng-if="key==='warranty_period'" ng-click="scanBarcode()">
-                        {{localInfo[key]}}
-                        <span class="val blue" ng-if="!val.text">
-                        <i class="iconfont bigerIcon">&#xe611;</i>
-                        {{val.val}}
-                        </span>
-                        <span class="val " ng-if="val.text">
-                        {{val.text}}
-                        </span>
-                        
-                    </div> -->
                 </div>
             </div>
         </ion-scroll>

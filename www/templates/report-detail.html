@@ -216,7 +216,7 @@
                                     <span ng-if="item.text">{{item.text}}</span>
                                     <span ng-if="!item.text">{{item.val}}</span>
                                     <span class="unit">{{item.unit ? item.unit : ''}}</span>
-                                    <i class="iconfont red icon-xinxi" ng-show="item.reason || item.msg" ng-click="showTip(item)"></i>
+                                    <i class="iconfont red icon-xinxi" ng-show="item.reason || item.msg || item.note" ng-click="showTip(item)"></i>
                                 </div>
                                 <div class="suggest hide" ng-if="item.reason || item.msg || item.note">
                                     <div ng-if="item.reason">

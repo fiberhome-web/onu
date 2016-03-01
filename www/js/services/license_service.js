@@ -4,6 +4,7 @@ angular.module('starter.services').service('LicenseService', function() {
 	this.registerData = {};
     this.isLicenseCorrect = function(uuid, key) {
     	var mKey = calculationLicense(uuid);
+        // if(mKey===key){
     	if('123'===key){
     		return true;
     	}else{

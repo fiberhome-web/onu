@@ -19,12 +19,8 @@ $mOrange:#F1BC92;
     }
 }
 
-.item.activated {
-    border-color: #ccc;
-    background-color: white;
-}
 
-.item .item-content.activated {
+.item.activated ,.item .item-content.activated {
     border-color: #ccc;
     background-color: white;
 }

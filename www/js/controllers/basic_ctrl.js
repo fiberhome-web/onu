@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http','$timeout', '$cordovaBarcodeScanner',
-         'Const', 'Report', 'Popup', 'DB','ExpanderService','Check',
-        function($scope, $rootScope, $state, $http, $timeout,$cordovaBarcodeScanner, Const, Report, Popup, DB,ExpanderService,Check) {
-    // .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http','$timeout',
-    //     'Const', 'Report', 'Popup', 'ExpanderService', 'Check',
-    //     function($scope, $rootScope, $state, $http,$timeout, Const, Report, Popup, ExpanderService, Check) {
+    .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$cordovaBarcodeScanner',
+        'Const', 'Report', 'Popup', 'DB', 'ExpanderService', 'Check',
+        function($scope, $rootScope, $state, $http, $timeout, $cordovaBarcodeScanner, Const, Report, Popup, DB, ExpanderService, Check) {
+            // .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http','$timeout',
+            //     'Const', 'Report', 'Popup', 'ExpanderService', 'Check',
+            //     function($scope, $rootScope, $state, $http,$timeout, Const, Report, Popup, ExpanderService, Check) {
 
-
+            var timer;
             var commentExpanderConf = {
                 templateUrl: 'editComment.html',
                 scope: $scope,
@@ -219,9 +219,11 @@ angular.module('starter.controllers')
                         item: item
                     };
                     commentExpander.show();
-                    $timeout(function() {
+                    timer = $timeout(function() {
                         $('#editArea').focus();
+                        $timeout.cancel( timer );
                     }, 100);
+
                 },
 
                 closeEdit: function() {
@@ -230,8 +232,9 @@ angular.module('starter.controllers')
 
                 clearEdit: function() {
                     $scope.editer.note = '';
-                    $timeout(function() {
+                    timer = $timeout(function() {
                         $('#editArea').focus();
+                        $timeout.cancel( timer );
                     }, 100);
 
                 },

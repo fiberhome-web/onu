@@ -156,8 +156,8 @@ $fontColor:#999;
 }
 
 #historyTab {
-    .item-complex {
-        padding: 0 15px;
+    .checkbox input{
+        right: 15px;
     }
     .item {
         margin: 0;
@@ -196,7 +196,8 @@ $fontColor:#999;
         span.name {
             right: 0;
             width: 40%;
-            padding-right: 10px;
+            padding-right: 1em;
+            padding-left: 1em;
         }
         span.status {
             width: 30%;
@@ -217,6 +218,10 @@ $fontColor:#999;
 
 .green {
     color: #00CAA9 !important;
+}
+
+.orange{
+     color: $mOrange !important;
 }
 
 .button-block-half {
