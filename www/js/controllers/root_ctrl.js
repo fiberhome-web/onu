@@ -41,12 +41,17 @@ angular.module('starter.controllers')
                                 var reportEle = res.rows.item(i);
                                 //报告时间早于起始时间
                                 if (sDate > reportEle.date.substr(0, 10)) {
-                                    File.deleteFile(reportEle.name);
+                                    // File.deleteFile(reportEle.name);
+                                    File.removeReport(name);
                                     delIds.push(reportEle.id);
                                     alert('date:' + reportEle.date);
                                 }
                             }
-                            DB.deleteByIds(delIds);
+                            DB.deleteByIds(delIds).then(function(success){
+                            	alert('del successfully :'+JSON.stringify(success));
+                            },function(error){
+                            	alert('del failed :'+JSON.stringify(error));
+                            });
                         }
                     }, function(err) {
                         console.error(err);

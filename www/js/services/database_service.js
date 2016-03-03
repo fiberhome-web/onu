@@ -9,10 +9,18 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
             name: 'onu.db'
         });
         query = 'CREATE TABLE IF NOT EXISTS fiber_onu_data (id primary key, name, date, status, data, conclusion)';
-        $cordovaSQLite.execute(db, query).then(success, error);
+        $cordovaSQLite.execute(db, query).then(function(success) {
+            console.info('create fiber_onu_data success :' + JSON.stringify(success));
+        }, function(error) {
+            alert('CREATE TABLE failed :' + JSON.stringify(error));
+        });
 
         confQuery = 'CREATE TABLE IF NOT EXISTS fiber_onu_conf (key primary key, value)';
-        $cordovaSQLite.execute(db, confQuery).then(success, error);
+        $cordovaSQLite.execute(db, confQuery).then(function(success) {
+            console.info('create fiber_onu_conf successfully :' + JSON.stringify(success));
+        }, function(error) {
+            alert('create fiber_onu_conf failed :' + JSON.stringify(error));
+        });
 
         //若fiber_onu_conf表中无数据则添加出厂配置
         confQuery = 'SELECT * FROM fiber_onu_conf';
@@ -29,7 +37,7 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
                     value: 1
                 };
                 initConf(periodConf);
-            } else if(length !== 2){
+            } else if (length !== 2) {
                 alert(length);
             }
         }, function(err) {
@@ -44,13 +52,17 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
 
     //失败回调
     function error(info) {
-        alert('error :' + JSON.stringify(info));
+        alert('DB error :' + JSON.stringify(info));
     }
 
 
     this.delete = function() {
         query = 'DROP TABLE fiber_onu_data ';
-        $cordovaSQLite.execute(db, query).then(success, error);
+        $cordovaSQLite.execute(db, query).then(function(success) {
+            console.info('del table successfully :' + JSON.stringify(success));
+        }, function(error) {
+            alert('del table failed :' + JSON.stringify(error));
+        });
     };
 
     this.query = function() {
@@ -80,9 +92,9 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
         return $cordovaSQLite.execute(db, query, [reportId]);
     };
 
-    this.updateData= function(data) {
+    this.updateData = function(data) {
         query = 'UPDATE fiber_onu_data SET date = ?,status = ?,data = ? ,conclusion = ?  WHERE name = ?';
-        return $cordovaSQLite.execute(db, query, [data.date, data.status, data.data, data.conclusion,data.name]);
+        return $cordovaSQLite.execute(db, query, [data.date, data.status, data.data, data.conclusion, data.name]);
     };
 
     this.deleteByIds = function(ids) {
@@ -101,7 +113,7 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
         }
 
         query = 'delete from fiber_onu_data where id in(' + idPlaceHolder + ')';
-        $cordovaSQLite.execute(db, query).then(success, error);
+        return $cordovaSQLite.execute(db, query);
     };
 
     this.queryWarrantyPeriod = function() {
@@ -126,6 +138,10 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
 
     function initConf(conf) {
         confQuery = 'INSERT INTO fiber_onu_conf (key, value) VALUES (?,?)';
-        $cordovaSQLite.execute(db, confQuery, [conf.key, conf.value]).then(success, error);
+        $cordovaSQLite.execute(db, confQuery, [conf.key, conf.value]).then(function(success) {
+            alert('initConf successfully :' + JSON.stringify(success));
+        }, function(error) {
+            alert('initConf failed :' + JSON.stringify(error));
+        });
     }
 }]);

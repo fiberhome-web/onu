@@ -143,7 +143,7 @@ angular.module('starter.controllers')
                         $scope.saved = true;
 
                     }, function(info) {
-                        alert('error :' + JSON.stringify(info));
+                        alert('cover error :' + JSON.stringify(info));
                         expanderHandel.hideMask();
                         $scope.save_failed = true;
                     });
@@ -194,7 +194,9 @@ angular.module('starter.controllers')
                     command: 'getPonPortStatus'
                 };
 
-                $http.post(url, params).success(function(response) {
+                $http.post(url, params, {
+                        timeout: 10000
+                    }).success(function(response) {
                     var resultCode = response.ResultCode;
 
                     if (resultCode === '0') {
@@ -235,7 +237,9 @@ angular.module('starter.controllers')
                     command: 'getDataPortStatus'
                 };
 
-                $http.post(url, params).success(function(response) {
+                $http.post(url, params, {
+                        timeout: 10000
+                    }).success(function(response) {
                     var resultCode = response.ResultCode;
 
                     if (resultCode === '0') {
@@ -273,50 +277,52 @@ angular.module('starter.controllers')
 
                 var url = Const.getReqUrl();
                 var params = {
-                    command: 'getVoicePortStatus'
+                    command:'getVoicePortStatus'
                 };
 
-                $http.post(url, params).success(function(response) {
+                $http.post(url, params, {
+                        timeout: 10000
+                    }).success(function(response) {
                     var resultCode = response.ResultCode;
 
-                    if (resultCode === '0') {
-                        var data = response.data;
+                    // if (resultCode === '0') {
+                    //     var data = response.data;
 
-                        Check.checking(CONST.TYPE.VOICE, data);
-                        //枚举转化
-                        data.ip_mode.text = ONU_LOCAL.enums.voice_ip_mode['k_' + data.ip_mode.val];
-                        data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
-                        data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
-                        data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
+                    //     Check.checking(CONST.TYPE.VOICE, data);
+                    //     //枚举转化
+                    //     data.ip_mode.text = ONU_LOCAL.enums.voice_ip_mode['k_' + data.ip_mode.val];
+                    //     data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
+                    //     data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
+                    //     data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
 
-                        angular.forEach(data.port_detail, function(item) {
+                    //     angular.forEach(data.port_detail, function(item) {
                            
-                            item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
-                            item.port_enable.text = ONU_LOCAL.enums.voice_port_enable['k_' + item.port_enable.val];
+                    //         item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
+                    //         item.port_enable.text = ONU_LOCAL.enums.voice_port_enable['k_' + item.port_enable.val];
 
-                            Check.checking(CONST.TYPE.VDETAIL, item);
+                    //         Check.checking(CONST.TYPE.VDETAIL, item);
 
-                            //是否需要检查port_status 标志
-                            var flag = false;
-                            //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status
-                            if(data.protocol_type.val === '4' || 
-                                (data.protocol_type.val === '2' && data.mgc_reg_status.val === '1')) {
-                                flag = true;
-                            }
+                    //         //是否需要检查port_status 标志
+                    //         var flag = false;
+                    //         //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status
+                    //         if(data.protocol_type.val === '4' || 
+                    //             (data.protocol_type.val === '2' && data.mgc_reg_status.val === '1')) {
+                    //             flag = true;
+                    //         }
 
-                            //当不需要检查port_status，要去除已经检查出的结果
-                            if(!flag) {
-                                item.port_status.warn = false;
-                                item.port_status.msg = null;
-                            }
-                        });
+                    //         //当不需要检查port_status，要去除已经检查出的结果
+                    //         if(!flag) {
+                    //             item.port_status.warn = false;
+                    //             item.port_status.msg = null;
+                    //         }
+                    //     });
 
-                        Report.setVoicePortInfo(data);
-                        $scope.voiceInfos = data;
-                    } else {
-                        var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
-                        resultMsg && alert(resultMsg);
-                    }
+                    //     Report.setVoicePortInfo(data);
+                    //     $scope.voiceInfos = data;
+                    // } else {
+                    //     var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
+                    //     resultMsg && alert(resultMsg);
+                    // }
 
                     $scope.isVoiceChecking = false;
                 }).error(function(data, status) {
@@ -353,7 +359,7 @@ angular.module('starter.controllers')
                             $scope.saved = true;
 
                         }, function(info) {
-                            alert('error :' + JSON.stringify(info));
+                            alert('sure error :' + JSON.stringify(info));
                             expanderHandel.hideMask();
                             $scope.save_failed = true;
                         });
@@ -388,10 +394,11 @@ angular.module('starter.controllers')
                     conclusion: res.remark
                 };
 
-                reportId = datas.id;
+                
 
                 //type  1: 新增 2：更新
                 if(type === 1) {
+                    reportId = datas.id;
                     return DB.insert(datas);
                 } else if(type === 2){
                     return DB.updateData(datas);

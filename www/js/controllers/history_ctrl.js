@@ -237,7 +237,8 @@ angular.module('starter.controllers')
                     if (checkItems[id]) {
 
                         //把要删除的报告移动到删除文件夹
-                        File.deleteFile(name);
+                        // File.deleteFile(name);
+                        File.removeReport(name);
                         delIds.push(id);
                     }
                 }
@@ -253,7 +254,8 @@ angular.module('starter.controllers')
                 var id = item.id;
                 var name = item.name;
                 DB.deleteByIds(id);
-                File.deleteFile(name);
+                File.removeReport(name);
+                // File.deleteFile(name);
                 queryAll();
                 cancel();
             };

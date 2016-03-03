@@ -4,10 +4,7 @@ angular.module('starter.controllers')
     .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$cordovaBarcodeScanner',
         'Const', 'Report', 'Popup', 'DB', 'ExpanderService', 'Check',
         function($scope, $rootScope, $state, $http, $timeout, $cordovaBarcodeScanner, Const, Report, Popup, DB, ExpanderService, Check) {
-            // .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http','$timeout',
-            //     'Const', 'Report', 'Popup', 'ExpanderService', 'Check',
-            //     function($scope, $rootScope, $state, $http,$timeout, Const, Report, Popup, ExpanderService, Check) {
-
+            
             var timer;
             var commentExpanderConf = {
                 templateUrl: 'editComment.html',
@@ -133,20 +130,12 @@ angular.module('starter.controllers')
                                 data.warranty_period.text = $scope.local.tip;
                             }
                         }
-                        // else if (!!data.warranty_period.text) {
-                        //     data.warranty_period.text = $scope.local.tip;
-                        // }
                     },
                     function(error) {
                         console.log("An error happened -> " + error);
                     });
 
             }
-
-            // Triggered on a button click, or some other target
-            $scope.showTip = function(reason, msg) {
-                Popup.showPop(reason, msg);
-            };
 
 
             //若没有请求过数据
@@ -197,6 +186,11 @@ angular.module('starter.controllers')
             };
 
             $scope.eventFun = {
+                showTip: function(item) {
+                    Popup.showPop(item);
+
+                },
+
                 openEdit: function(title, item) {
                     var note = item.note;
                     var reason = item.reason ? item.reason : '';

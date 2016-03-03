@@ -56,7 +56,8 @@ var ONU_LOCAL = {
         cover : 'Cover the file with same name',
         view_detail : 'View detail',
         reason : 'Reason',
-        suggestion : 'Suggestion'
+        suggestion : 'Suggestion',
+        note:'Note'
     },
 
     detailModule: {
