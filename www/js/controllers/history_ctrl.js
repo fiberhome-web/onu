@@ -1,18 +1,11 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('HistoryCtrl', ['$scope', '$state', '$log', '$ionicLoading',
+    .controller('HistoryCtrl', ['$scope', '$state', '$log',
         '$ionicModal', '$rootScope', '$cordovaDatePicker', 'DB', 'File', 'ExpanderService',
-        function($scope, $state, $log, $ionicLoading, $ionicModal, $rootScope,
+        function($scope, $state, $log, $ionicModal, $rootScope,
             $cordovaDatePicker, DB, File, ExpanderService) {
 
-$ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
-  });
 
             //缓存所有报告记录
             var list = [];
@@ -42,7 +35,7 @@ $ionicLoading.show({
             if (!global.isLogin) {
                 //隐藏导航栏
                 $rootScope.hideTabs = true;
-                
+
             }
 
 
@@ -73,7 +66,7 @@ $ionicLoading.show({
                 cancelEnter: function() {
                     $scope.prox.searchContent = '';
                 },
-                return:function(){
+                return: function() {
                     $state.go("index");
                     $rootScope.hideTabs = false;
                 }
@@ -278,7 +271,7 @@ $ionicLoading.show({
 
             function initPage() {
                 $scope.isLogin = global.isLogin;
-                autoDeleteReport();
+                
                 $scope.operation = ONU_LOCAL.historyModule.choose;
 
                 //初始化checkbox模型
@@ -300,7 +293,7 @@ $ionicLoading.show({
                 $scope.searchContent = '';
                 //报告类型默认选择“全部”
                 $scope.type = 0;
-                
+
                 //   DB.insert(datas()); 
 
                 // $scope.scrollHeight = {
@@ -310,7 +303,7 @@ $ionicLoading.show({
 
 
                 //查询所有报告记录
-                // queryAll();
+                queryAll();
             }
 
 
@@ -394,67 +387,6 @@ $ionicLoading.show({
             initPage();
 
 
-            //根据配置删除报告
-            function autoDeleteReport() {
-                var retentionTimeIndex = 0;
-
-                DB.queryRetentionTime().then(function(res) {
-                    var length = res.rows.length;
-                    if (length > 0) {
-                        retentionTimeIndex = res.rows.item(0).value;
-                        // alert('retentionTimeIndex:' + retentionTimeIndex);
-                    } else {
-                        alert('Unable to read retention time from DB ');
-                    }
-                }, function(err) {
-                    console.error(err);
-                });
-
-
-                DB.queryAll().then(function(res) {
-                    var length = res.rows.length;
-                    var delIds = [];
-                    var sDate = '';
-                    // alert('length:' + length);
-
-                    if (length > 0) {
-                        for (var i = 0; i < length; i++) {
-                            var reportEle = res.rows.item(i);
-                            switch (retentionTimeIndex) {
-                                case 0:
-                                    sDate = today;
-                                    break;
-                                case 1:
-                                    sDate = dateUtils.getSpeDate(-30);
-                                    break;
-                                case 2:
-                                    sDate = dateUtils.getDayOfLastYear();
-                                    break;
-                                case 3:
-                                    return;
-                                default:
-                                    return;
-                            }
-
-                            if (sDate > reportEle.date.substr(0, 10)) {
-                                File.deleteFile(reportEle.name);
-                                delIds.push(reportEle.id);
-                                alert('date:' + reportEle.date);
-                            }
-                        }
-                        DB.deleteByIds(delIds).then(function(success) {
-                            console.info('success :' + JSON.stringify(success));
-                            queryAll();
-                        }, function(error) {
-                            alert('error :' + JSON.stringify(error));
-                        });
-                    }
-                }, function(err) {
-                    console.error(err);
-                });
-
-            }
-
-            $ionicLoading.hide();
+            
         }
     ]);

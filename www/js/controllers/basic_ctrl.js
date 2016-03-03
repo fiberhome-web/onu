@@ -19,7 +19,7 @@ angular.module('starter.controllers')
             $rootScope.expanderHandel.push(commentExpander);
 
             $scope.local = ONU_LOCAL.basicModule;
-            $scope.localInfo = ONU_LOCAL.report.deviceInfo;
+            $scope.localInfo = ONU_LOCAL.reportModule.deviceInfo;
 
             var data = Report.getDeviceInfo();
 

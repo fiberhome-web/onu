@@ -39,7 +39,7 @@ angular.module('starter.controllers')
                             global.isLogin = true;
                             $state.go('tab.basic');
                         } else {
-                            Popup.showTip('sorry , Login failed !');
+                            Popup.showTip(ONU_LOCAL.tip.login_failed);
                             alert('connected failed' + JSON.stringify(res));
                         }
                         var timer = $timeout(function() {
@@ -48,18 +48,18 @@ angular.module('starter.controllers')
                         }, 1000);
 
                     }).error(function(data, status, headers, config) {
-                        Popup.showTip('sorry , Login failed !');
+                        Popup.showTip(ONU_LOCAL.tip.login_failed);
                         alert('data:' + data + '\n' + 'status:' + status + '\n' + 'headers:' + headers + '\n' + 'config:' + config + '\n');
                         $scope.loading = false;
                     });
 
 
                 } else {
-                    Popup.showTip('IP is not correct');
+                    Popup.showTip(ONU_LOCAL.tip.ip_wrong);
                 }
             } else {
                 if (!$scope.registerData.key) {
-                    Popup.showTip('License is null');
+                    Popup.showTip(ONU_LOCAL.tip.license_null);
                     return;
                 } else if (LicenseService.isLicenseCorrect($scope.registerData.uuid, $scope.registerData.key)) {
                     $scope.loading = true;
@@ -68,14 +68,14 @@ angular.module('starter.controllers')
                         console.info(JSON.stringify(success));
                         $rootScope.isRegistered = true;
                         $scope.loading = false;
-                        Popup.showTip('Successful registration');
+                        Popup.showTip(ONU_LOCAL.tip.successful_registration);
                     }, function(error) {
                         $scope.loading = false;
                         alert(JSON.stringify(error));
                     });
 
                 } else {
-                    Popup.showTip('License is not correct');
+                    Popup.showTip(ONU_LOCAL.tip.license_wrong);
                 }
             }
             LicenseService.registerData = $scope.registerData;

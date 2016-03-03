@@ -17,12 +17,12 @@
                 <div class="content" ng-repeat="ponInfo in ponInfos | orderBy:order.pon">
                     <div class="check-item">
                         <i class="icon iconfont check-icon">&#xe608;</i>
-                        <span class="name">{{i10n.report.ponPortStatus.pon_port_id}}</span>
+                        <span class="name">{{i10n.reportModule.ponPortStatus.pon_port_id}}</span>
                         <span class="val">{{ponInfo.pon_port_id}}</span>
                     </div>
                     <div ng-repeat="(key,val) in ponInfo">
                         <div ng-if="key !== 'pon_port_id'" class="check-item" >
-                            <span ng-class="{'war-color' : val.warn}">{{i10n.report.ponPortStatus[key]}}</span>
+                            <span ng-class="{'war-color' : val.warn}">{{i10n.reportModule.ponPortStatus[key]}}</span>
                            
                             <span class="val" ng-if="val.val" ng-class="{'war-color' : val.warn}">
                                 <span ng-if="val.val">
@@ -37,7 +37,7 @@
                             <span ng-if="val.val" >
                                 <i class="icon-msg icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.showTip(val)"  ng-if="val.msg || val.note || val.reason">&#xe616;</i>
                                 <i class="icon-mark icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="val.warn = !val.warn">&#xe610;</i>
-                                <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.ponPortStatus[key],val)">&#xe626;</i>
+                                <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.reportModule.ponPortStatus[key],val)">&#xe626;</i>
                             </span>
                         </div>
                         <div>
@@ -62,12 +62,12 @@
                 <div class="content" ng-repeat="dataInfo in dataInfos">
                     <div class="check-item">
                         <i class="icon iconfont check-icon">&#xe608;</i>
-                        <span class="name">{{i10n.report.ponPortStatus.pon_port_id}}</span>
+                        <span class="name">{{i10n.reportModule.ponPortStatus.pon_port_id}}</span>
                         <span class="val">{{dataInfo.data_port_id}}</span>
                     </div>
                     <div ng-repeat="(key,val) in dataInfo">
                         <div ng-if="key !== 'data_port_id'" class="check-item" >
-                            <span ng-class="{'war-color' : val.warn}">{{i10n.report.dataPortStatus[key]}}</span>
+                            <span ng-class="{'war-color' : val.warn}">{{i10n.reportModule.dataPortStatus[key]}}</span>
                             <span class="val" ng-if="val.val" ng-class="{'war-color' : val.warn}">
                                 <span ng-if="val.text">{{val.text}}</span>
                             </span>
@@ -77,7 +77,7 @@
                             <span ng-if="val.val" >
                                 <i class="icon-msg icon iconfont" ng-click="eventFun.showTip(val)" ng-if="val.msg || val.note || val.reason" ng-class="{'war-color' : val.warn}">&#xe616;</i>
                                 <i class="icon-mark icon iconfont" ng-click="val.warn = !val.warn" ng-class="{'war-color' : val.warn}">&#xe610;</i>
-                                <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.dataPortStatus[key],val)">&#xe626;</i>
+                                <i class="icon-edit icon iconfont" ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.reportModule.dataPortStatus[key],val)">&#xe626;</i>
                             </span>
                         </div>
                     </div>
@@ -100,12 +100,12 @@
                 <div class="content" ng-repeat="(key,item) in voiceInfos.port_detail">
                     <div class="check-item">
                         <i class="icon iconfont check-icon">&#xe608;</i>
-                        <span class="name">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                        <span class="name">{{i10n.reportModule.voicePortStatus.voice_port_id}}</span>
                         <span class="val">{{item.voice_port_id}}</span>
                     </div>
 
                     <div ng-if="key !== 'voice_port_id'" class="check-item"  ng-repeat="(key,val) in item">
-                        <span ng-class="{'war-color' : val.warn}">{{i10n.report.voicePortStatus[key]}}</span>
+                        <span ng-class="{'war-color' : val.warn}">{{i10n.reportModule.voicePortStatus[key]}}</span>
                         <span class="val" ng-if="val.val" ng-class="{'war-color' : val.warn}">
                             <span ng-if="val.text">{{val.text}}</span>
                             <span ng-if="!val.text">{{val.val}}</span>
@@ -116,7 +116,7 @@
                         <span ng-if="val.val">
                             <i class="icon-msg icon iconfont"  ng-if="val.msg || val.note || val.reason" ng-click="eventFun.showTip(val)"  ng-class="{'war-color' : val.warn}">&#xe616;</i>
                             <i class="icon-mark icon iconfont"  ng-class="{'war-color' : val.warn}" ng-click="val.warn = !val.warn">&#xe610;</i>
-                            <i class="icon-edit icon iconfont"  ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.report.voicePortStatus[key],val)">&#xe626;</i>
+                            <i class="icon-edit icon iconfont"  ng-class="{'war-color' : val.warn}" ng-click="eventFun.openEdit(i10n.reportModule.voicePortStatus[key],val)">&#xe626;</i>
                         </span>
                        
                     </div>             
@@ -137,10 +137,10 @@
 
     <div class="list check_btn_group ">
         <div class="button-bar">
-            <button class="button" ng-click="eventFun.oneKeyCheckBtnEvt()">
+            <button class="button button-grass" ng-click="eventFun.oneKeyCheckBtnEvt()">
                 <span>{{i10n.checkModule.one_key_check}}</span>
             </button>
-            <button class="button" ng-click="eventFun.generateReportBtnEVt()">
+            <button class="button button-grass" ng-click="eventFun.generateReportBtnEVt()">
                 <span>{{i10n.checkModule.generate_report}}</span>
             </button>
         </div>
@@ -179,13 +179,13 @@
             <input type="text" ng-model="report.remark" placeholder="{{i10n.checkModule.remark_ph}}">
         </label>
         <div id="successfullyInfo" ng-class="{true: 'show', false: 'hide'}[saved]" class="center">
-            <span ng-if="save_failed">{{i10n.checkModule.generate_report_failed}}</span>
-            <span ng-if="saved">{{i10n.checkModule.generate_report_successfully}}</span>
+            <span ng-if="save_failed" class="text">{{i10n.checkModule.generate_report_failed}}</span>
+            <span ng-if="saved" class="text">{{i10n.checkModule.generate_report_successfully}}</span>
         </div>
     </div>
     <div class="list expander">
         <div class="item item-button button-bar expander-footer">
-            <button class="button button-grass" ng-click="eventFun.sureOrView(saved)" style="margin-right:1px;" ng-disabled="save_failed">
+            <button class="button button-grass" ng-click="eventFun.sureOrView(saved)" style="margin-right:1px;" ng-disabled="!report.reportName||save_failed">
                 <span ng-if="!saved">{{i10n.checkModule.ok}}</span>
                 <span ng-if="saved">{{i10n.checkModule.view_report}}</span>
             </button>
@@ -196,6 +196,7 @@
         </div>
     </div>
 
+<!--提示是否重命名或覆盖文件-->
     <div class="backdoor" ng-show="isCover"></div>
     <div class="cover-tip" ng-show="isCover">
         <div class="head">{{i10n.checkModule.exist}}</div>

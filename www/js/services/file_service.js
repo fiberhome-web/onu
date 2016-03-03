@@ -32,14 +32,14 @@ angular.module('starter.services').service('File', function($rootScope, $log, $c
                     var startDate = dateUtils.getDayOfLastYear();
                     //若注册时间到今天超过一年
                     if (RegisterData.date < startDate) {
-                        Popup.showTip("License expired");
+                        Popup.showTip(ONU_LOCAL.tip.license_expired);
                         $rootScope.isRegistered = false;
                         removeLicense();
                     } else {
                         $rootScope.isRegistered = true;
                     }
                 }else{
-                    Popup.showTip("License is not correct");
+                    Popup.showTip(ONU_LOCAL.tip.license_wrong);
                     removeLicense();
                     $rootScope.isRegistered = false;
                 }

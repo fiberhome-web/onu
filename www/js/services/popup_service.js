@@ -35,12 +35,18 @@ angular.module('starter.services').service('Popup', ['$ionicPopup', '$rootScope'
 
         this.showTip = function(tip) {
             var html = '<div class="tip" ng-style="tipWidth">' +
-                '<div class="tipText show center">' + tip + '</div>' +
+                '<div class="tipTextArea show center">' + 
+                '<span ng-style="text">'+tip+'</span>' + 
+                '</div>' +
                 '<button class="button button-outline button-calm  button-block-half" ng-click="closeTip()">OK</button>';
 
             html = html + '</div>';
             $rootScope.tipWidth = {};
             $rootScope.tipWidth.width = $(window).width() / 2 + 'px';
+            $rootScope.text = {
+                'text-align': 'center'
+            };
+            $rootScope.text.width = $(window).width() / 2*0.8 + 'px';
             var myPopup = $ionicPopup.show({
                 template: html,
                 scope: $rootScope

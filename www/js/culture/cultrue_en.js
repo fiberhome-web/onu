@@ -1,7 +1,6 @@
 var ONU_LOCAL = {
-    basicInfo: '基本信息',
-    check: '诊断',
-    history: '历史',
+    basicInfo: 'Basic Infomation',
+    check: 'Check',
     setting: 'Setting',
 
     unit: {
@@ -29,36 +28,35 @@ var ONU_LOCAL = {
 
     checkModule: {
         begin_check: 'Detect',
-        wait_for_checking: '正在检测，请稍后...',
+        wait_for_checking: 'Detecting, please wait...',
         one_key_check: 'Detect All',
         generate_report: 'Generate Report',
         pon_port_item: 'PON Port Detection',
         data_port_item: 'Data Port Detection',
-        voice_port_item: '语音端口诊断项',
-        report_title: '请输入报告信息',
-        report_name: '报告名称',
-        report_name_ph: '建议用地址或SN',
-        check_result: '检测结果',
+        voice_port_item: 'Voice Port Detection',
+        report_name: 'Report Name',
+        report_name_ph: 'Suggested address or SN',
+        check_result: 'Result',
         result_status: {
-            normal: '正常',
-            pon_abnormal: '光口异常',
-            data_abnormal: '数据端口异常',
-            voice_abnormal: '语音端口异常'
+            normal: 'Normal',
+            pon_abnormal: 'PON Port Abnormal',
+            data_abnormal: 'Data Port Abnormal',
+            voice_abnormal: 'Voice Port Abnormal'
         },
-        ok: '確定',
-        cancel: '取消',
-        remark_ph: '请输入备注',
-        stay_on_this_page: '停留在该页',
-        view_report: '查看报告',
-        generate_report_successfully: '生成报告成功。',
-        generate_report_failed: '生成报告失败。',
+        ok: 'OK',
+        cancel: 'Cancel',
+        remark:'Note',
+        remark_ph: 'Please enter note',
+        stay_on_this_page: 'Stay on This Page',
+        view_report: 'View Report',
+        generate_report_successfully: 'Generate report successfully.',
+        generate_report_failed: 'Generate report failed.',
         exist : 'The report name has already exist.',
         rename : 'Rename',
         cover : 'Cover the file with same name',
         view_detail : 'View detail',
         reason : 'Reason',
-        suggestion : 'Suggestion',
-        note : 'Note'
+        suggestion : 'Suggestion'
     },
 
     detailModule: {
@@ -70,34 +68,32 @@ var ONU_LOCAL = {
     },
 
     historyModule: {
-        login: '登录',
+        title: 'Past Reports',
         return:'Return',
-        ok: '确定',
-        del: '删除',
-        del_sure: '确认删除',
-        cancel: '取消',
-        choose: '选择',
-        start_date: '开始日期',
-        end_date: '结束日期',
-        date_range: '日期范围',
-        search_ph: '请输入查询关键字',
+        ok: 'OK',
+        del: 'Delete',
+       
+        cancel: 'Cancel',
+        choose: 'Select',
+        date_range: 'Date range',
+        search_ph: 'Please enter keywords',
         date_select: {
-            all: '全部',
-            today: '今天',
-            twoDays: '2天内',
-            week: '一周内',
-            month: '一月内',
-            customized: '自定义日期选择'
+            all: 'All',
+            today: 'Today',
+            twoDays: 'Two days',
+            week: 'One week',
+            month: 'One month',
+            customized: 'custom'
         },
         types: {
-            all: '全部',
-            normal: '正常',
-            abnormal: '故障'
+            all: 'All',
+            normal: 'Normal',
+            abnormal: 'Abnormal'
         },
         faults: {
-            pon: '光口异常',
-            data: '语音端口异常',
-            voice: '数据端口异常'
+            pon: 'PON Port Abnormal',
+            data: 'Data Port Abnormal',
+            voice: 'Voice Port Abnormal'
         }
     },
 
@@ -107,7 +103,7 @@ var ONU_LOCAL = {
         version: 'Version',
         software_version: 'ONUsmartChecker V1.0 Build 10',
         copyright: 'Copyright © 2016, Fiberhome Telecommunication Technologies Co.,LTD',
-        ok: '确定',
+        ok: 'OK',
         reconnect: 'Reconnect',
         date_select: {
             one_year: 'one year',
@@ -121,7 +117,9 @@ var ONU_LOCAL = {
         }
     },
 
-    report: {
+    reportModule: {
+        title:'Report',
+        return:'Return',
         deviceInfo: {
             module_name: 'ONU Infomation',
             device_type: 'Equipment ID',
@@ -141,7 +139,7 @@ var ONU_LOCAL = {
 
         ponPortStatus: {
             module_name: 'PON Port Detection',
-            pon_port_id: 'Port No',
+            pon_port_id: 'Port No.',
             led_status: 'Status',
             temperature: 'Temperature',
             voltage: 'Voltage',
@@ -152,11 +150,11 @@ var ONU_LOCAL = {
         },
 
         dataPortStatus: {
-            data_port_id: '数据口序号',
+            data_port_id: 'Port No.',
             module_name: 'Data Port Detection',
-            port_status: '端口状态',
-            speed: '速率',
-            duplex: '双工',
+            port_status: 'Port Status',
+            speed: 'Speed',
+            duplex: 'Duplex',
 
         },
 
@@ -209,13 +207,13 @@ var ONU_LOCAL = {
             k_2: 'Blinking',
         },
         onu_regist_status: {
-            k_01: 'STATE_INIT',
-            k_02: 'STATE_STANDBY',
-            k_03: 'STATE_SERIAL_NUMBER',
-            k_04: 'STATE_RANGING',
-            k_05: 'STATE_OPERATION',
-            k_06: 'STATE_POPUP',
-            k_07: 'STATE_EMERGENCY_STOP'
+            k_O1: 'STATE_INIT',
+            k_O2: 'STATE_STANDBY',
+            k_O3: 'STATE_SERIAL_NUMBER',
+            k_O4: 'STATE_RANGING',
+            k_O5: 'STATE_OPERATION',
+            k_O6: 'STATE_POPUP',
+            k_O7: 'STATE_EMERGENCY_STOP'
         },
         onu_auth_status: {
             k_0: 'AUTH_STA_INIT',
@@ -353,5 +351,14 @@ var ONU_LOCAL = {
             m22: 'Please check the connection between ONU and server is normal.',
             m23: 'Please check the parameters of 3、6、7、11、12、15 are cofigured right or not for schedule B.',
         }
+    },
+
+    tip:{
+        login_failed:'sorry , Login failed !',
+        ip_wrong:'IP is not correct',
+        license_null:'License is null',
+        license_expired:"License expired",
+        license_wrong:'License is not correct',
+        successful_registration:'Successful registration',
     }
 }

@@ -6,7 +6,7 @@ angular.module('starter.controllers')
         $stateParams, DB, $ionicPopup, $ionicModal, $ionicPopover, File,
         $cordovaSocialSharing, $cordovaEmailComposer,Popup) {
 
-        $scope.reportLocal = ONU_LOCAL.report;
+        $scope.reportLocal = ONU_LOCAL.reportModule;
 
         $rootScope.hideTabs = true;
         var filePath = '';

@@ -101,7 +101,7 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
         }
 
         query = 'delete from fiber_onu_data where id in(' + idPlaceHolder + ')';
-        return $cordovaSQLite.execute(db, query);
+        $cordovaSQLite.execute(db, query).then(success, error);
     };
 
     this.queryWarrantyPeriod = function() {

@@ -4,16 +4,16 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="检测报告">
+<ion-view view-title="{{reportLocal.title}}">
 <!-- <ion-view view-title="检测报告" hide-back-button="true"> -->
     <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon" ng-click="back()"><i class="iconfont">&#xe61f;</i>返回</button>
+        <button menu-toggle="left" class="button button-icon" ng-click="back()"><i class="iconfont">&#xe61f;</i>{{reportLocal.return}}</button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button menu-toggle="left" class="button button-icon" ng-click="openPopover($event)"><i class="iconfont">&#xe617;</i></button>
     </ion-nav-buttons>
     <ion-content class="padding">
-        <div id="report" on-swipe-right="onSwipeRight()" on-hold="onHold()">
+        <div id="report" on-swipe-right="back()" on-hold="onHold()">
             <style type="text/css">
             #content {
                 font-family: 'Microsoft Yahei';
@@ -203,7 +203,7 @@
 
                             <div class="items">
                                 <div class="sp-div"></div>
-                                <span class="citem-title">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                                <span class="citem-title">{{i10n.reportModule.voicePortStatus.voice_port_id}}</span>
                                 <span class="citem-content">{{portInfo.pon_port_id}}</span>
                             </div>
 
@@ -240,7 +240,7 @@
 
                             <div class="items">
                                 <div class="sp-div"></div>
-                                <span class="citem-title">{{i10n.report.dataPortStatus.data_port_id}}</span>
+                                <span class="citem-title">{{i10n.reportModule.dataPortStatus.data_port_id}}</span>
                                 <span class="citem-content">{{portInfo.data_port_id}}</span>
                             </div>
 
@@ -306,7 +306,7 @@
 
                         <div class="items">
                             <div class="sp-div"></div>
-                            <span class="citem-title">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                            <span class="citem-title">{{i10n.reportModule.voicePortStatus.voice_port_id}}</span>
                             <span class="citem-content">{{detail.voice_port_id}}</span>
                         </div>
 
