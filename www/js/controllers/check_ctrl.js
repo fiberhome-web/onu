@@ -348,8 +348,11 @@ angular.module('starter.controllers')
             function sure() {
                 var report = $scope.report;
                 //检测是否存在同名文件
+
                 DB.queryByName($scope.report.reportName).then(function(res) {
                     var exist = res.rows.length > 0;
+
+                    reportId = res.rows.item(0).id;
                     //存在则提示是否覆盖
                     if(exist) {
                         $scope.isCover = true;

@@ -83,7 +83,7 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
 
 
     this.queryByName = function(reportName) {
-        query = 'SELECT 1 FROM fiber_onu_data where name = ? ';
+        query = 'SELECT id FROM fiber_onu_data where name = ? ';
         return $cordovaSQLite.execute(db, query, [reportName]);
     };
 
