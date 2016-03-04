@@ -21,7 +21,9 @@
         "angular": false,
         "ONU_LOCAL": false,
         "CONST": false,
-        "define": true
+        "define": false,
+        "cordova" : false,
+        "dateUtils" : false
     },
 
     // 预定义全局变量

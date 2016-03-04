@@ -358,8 +358,8 @@ var ONU_LOCAL = {
         login_failed:'sorry , Login failed !',
         ip_wrong:'IP is not correct',
         license_null:'License is null',
-        license_expired:"License expired",
-        license_wrong:'License is not correct',
+        l_expired:"License expired",
+        l_wrong:'License is not correct',
         successful_registration:'Successful registration',
     }
 }

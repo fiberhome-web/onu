@@ -1,63 +1,61 @@
 'use strict';
-angular.module('starter.services').service('File', function($rootScope, $log, $cordovaFile,
-    $filter, $ionicPlatform, LicenseService, Popup) {
+angular.module('starter.services').service('File', ['$rootScope', '$log', '$cordovaFile',
+    '$filter', '$ionicPlatform', 'L', 'Popup',function($rootScope, $log, $cordovaFile,
+    $filter, $ionicPlatform, L, Popup) {
 
     var fileSystem;
-    var licenseFileSystem;
-    var licenseFileName = 'onu_license.json';
+    var lFileSystem;
+    var lFileName = 'ol.json';
 
     //存放报告的文件夹名称
     var reportDir = 'onu_report';
     var _reportDir = reportDir + '/';
     //文件类型
     var fileType = '.html';
-    
 
-
-    //  在File service初始化的时候:
-    //  1.检查onu_report是否存在，不存在则建立onu_report文件夹
-    //  2.清空onu_del文件夹
     $ionicPlatform.ready(function() {
-        licenseFileSystem = cordova.file.dataDirectory;
-        licenseFileSystem = cordova.file.externalRootDirectory;
-        $cordovaFile.checkFile(licenseFileSystem, licenseFileName).then(function(success) {
-            // 若存在license文件，表示已注册过
-            $cordovaFile.readAsText(licenseFileSystem, licenseFileName).then(function(data) {
+        lFileSystem = cordova.file.dataDirectory;
+        lFileSystem = cordova.file.externalRootDirectory;
+        $cordovaFile.checkFile(lFileSystem, lFileName).then(function(success) {
+   
+            $cordovaFile.readAsText(lFileSystem, lFileName).then(function(data) {
                 data = base64decode(data);
                 var RegisterData = JSON.parse(data);
-                //若license正确，判断是否过期
-                if (LicenseService.isLicenseCorrect(LicenseService.registerData.uuid, RegisterData.key)) {
+
+                if (L.b() === RegisterData.key) {
                     var startDate = dateUtils.getDayOfLastYear();
-                    //若注册时间到今天超过一年
+                   
                     if (RegisterData.date < startDate) {
-                        Popup.showTip(ONU_LOCAL.tip.license_expired);
+                        Popup.showTip(ONU_LOCAL.tip.l_expired);
                         $rootScope.isRegistered = false;
-                        removeLicense();
+                        removeL();
                     } else {
                         $rootScope.isRegistered = true;
                     }
                 } else {
-                    Popup.showTip(ONU_LOCAL.tip.license_wrong);
-                    removeLicense();
+                    Popup.showTip(ONU_LOCAL.tip.l_wrong);
+                    removeL();
                     $rootScope.isRegistered = false;
                 }
 
-                console.log('key if license.json file:'+RegisterData.key);
             }, function(error) {
                 alert(JSON.stringify(error));
             });
 
         }, function(error) {
-            //如果license文件不存在
+
             if (error.code === 1) {
-                // 未注册，则弹出注册框
+
                 $rootScope.isRegistered = false;
             } else {
-                alert('onu_license.json can\'t be created,error message is :' + error.message);
+                alert('ol.json can\'t be created,error message is :' + error.message);
 
             }
         });
 
+        //  在File service初始化的时候:
+        //  1.检查onu_report是否存在，不存在则建立onu_report文件夹
+        //  2.清空onu_del文件夹
         fileSystem = cordova.file.externalRootDirectory;
 
         //检查存放报告的文件夹是否存在，不存在则创建
@@ -113,28 +111,28 @@ angular.module('starter.services').service('File', function($rootScope, $log, $c
          $cordovaFile.removeFile(fileSystem, _reportDir + fileName + fileType).then(success, function(error) {
                 alert('removeReport error : ' + JSON.stringify(error));
             });
-    }
+    };
 
     //检查文件是否存在
     this.checkFile = function(fileName) {
         return $cordovaFile.checkFile(fileSystem, _reportDir + fileName + fileType);
     };
 
-    //创建license文件
-    this.createLicense = function(data) {
+  
+    this.createL = function(data) {
         var processedData = base64encode(data);
-        return $cordovaFile.writeFile(licenseFileSystem, licenseFileName, processedData, true);
+        return $cordovaFile.writeFile(lFileSystem, lFileName, processedData, true);
     };
 
-    //读取license文件
-    this.readLicense = function() {
-        return $cordovaFile.readAsText(licenseFileSystem, licenseFileName);
+
+    this.readL = function() {
+        return $cordovaFile.readAsText(lFileSystem, lFileName);
     };
 
-    //删除license文件
-    function removeLicense() {
-        $cordovaFile.removeFile(licenseFileSystem, licenseFileName).then(success, function(error) {
-                alert('removeLicense error : ' + JSON.stringify(error));
+
+    function removeL() {
+        $cordovaFile.removeFile(lFileSystem, lFileName).then(success, function(error) {
+                alert('removeL error : ' + JSON.stringify(error));
             });
     }
-});
+}]);
