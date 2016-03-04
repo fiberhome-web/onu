@@ -102,8 +102,10 @@ angular.module('starter.services').service('File', function($rootScope, $log, $c
     };
 
     //读取文件
-    this.readReport = function(fileName) {
-        return $cordovaFile.readAsText(fileSystem, _reportDir + fileName + fileType);
+    this.readReport = function(filePath) {
+        return $cordovaFile.readAsText(fileSystem, filePath).then(success, function(error) {
+                alert('readReport error : ' + JSON.stringify(error));
+            });
     };
 
     //删除报告

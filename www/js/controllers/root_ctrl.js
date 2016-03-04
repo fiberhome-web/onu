@@ -16,6 +16,7 @@ angular.module('starter.controllers')
                 //查询配置成功
                 if (length > 0) {
                     retentionTimeIndex = res.rows.item(0).value;
+                    alert('retentionTimeIndex :'+retentionTimeIndex);
                     //根据配置匹配起始日期
                     switch (retentionTimeIndex) {
                         case 0:
@@ -28,10 +29,12 @@ angular.module('starter.controllers')
                             sDate = dateUtils.getDayOfLastYear();
                             break;
                         case 3:
+                        //永久保留报告则跳出函数，不执行下面的逻辑
                             return;
                         default:
                             return;
                     }
+                    alert('sDate :'+sDate);
                     DB.queryAll().then(function(res) {
                         var length = res.rows.length;
                         var delIds = [];
@@ -39,30 +42,29 @@ angular.module('starter.controllers')
                         if (length > 0) {
                             for (var i = 0; i < length; i++) {
                                 var reportEle = res.rows.item(i);
+
                                 //报告时间早于起始时间
                                 if (sDate > reportEle.date.substr(0, 10)) {
-                                    // File.deleteFile(reportEle.name);
-                                    File.removeReport(name);
+                                    File.removeReport(reportEle.name);
                                     delIds.push(reportEle.id);
                                     alert('date:' + reportEle.date);
                                 }
                             }
-                            DB.deleteByIds(delIds).then(function(success){
-                            	alert('del successfully :'+JSON.stringify(success));
-                            },function(error){
-                            	alert('del failed :'+JSON.stringify(error));
-                            });
+
+                            if (delIds.length > 0) {
+                                DB.deleteByIds(delIds).then(function(success) {
+                                    alert('del successfully :' + JSON.stringify(success));
+                                }, function(error) {
+                                    alert('del failed :' + JSON.stringify(error));
+                                });
+                            }
                         }
                     }, function(err) {
-                        console.error(err);
+                        alert('RootCtrl DB.queryAll():' + JSON.stringify(err));
                     });
-
-                    // alert('retentionTimeIndex:' + retentionTimeIndex);
-                } else {
-                    alert('Unable to read retention time from DB ');
-                }
+                } 
             }, function(err) {
-                console.error(err);
+                alert('RootCtrl DB.queryRetentionTime():' + JSON.stringify(err));
             });
 
 

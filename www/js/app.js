@@ -53,7 +53,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     $ionicPlatform.registerBackButtonAction(function(e) {
 
         //判断处于哪个页面时双击退出
-        if ($location.path() === '/tab/basic') {
+        if ($location.path() === '/tab/basic'||$location.path() === '/') {
             if ($rootScope.backButtonPressedOnceToExit) {
                 ionic.Platform.exitApp();
             } else {
@@ -63,10 +63,9 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
                     $rootScope.backButtonPressedOnceToExit = false;
                 }, 2000);
             }
-
+            $ionicHistory.clearHistory();
         } else if ($location.path() === '/tab/history/' + $stateParams.reportId) {
             $state.go('tab.history');
-            // window.location.href = '#/tab/history';
             $rootScope.hideTabs = false;
         } else if ($ionicHistory.backView()) {
             angular.forEach($rootScope.expanderHandel, function(handel) {
@@ -177,7 +176,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     })
 
     .state('tab.report-detail', {
-        url: '/history/:reportId',
+        url: '/history/:reportId?:reportStatus',
         views: {
             'tab-history': {
                 templateUrl: 'templates/report-detail.html',

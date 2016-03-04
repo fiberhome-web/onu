@@ -38,7 +38,7 @@ angular.module('starter.controllers')
             if (length > 0) {
                 $scope.retentionIndex = res.rows.item(0).value;
             } else {
-                alert('Unable to read retention time from DB ');
+                alert('SettingCtrl read retention time failed ');
             }
         }, function(err) {
             console.error(err);

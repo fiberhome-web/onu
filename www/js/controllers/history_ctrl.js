@@ -69,6 +69,12 @@ angular.module('starter.controllers')
                 return: function() {
                     $state.go("index");
                     $rootScope.hideTabs = false;
+                },
+                viewReport: function(reportId) {
+                    $state.go('tab.report-detail', {
+                        reportId: reportId,
+                        reportStatus: 1
+                    });
                 }
             };
 
@@ -273,7 +279,7 @@ angular.module('starter.controllers')
 
             function initPage() {
                 $scope.isLogin = global.isLogin;
-                
+
                 $scope.operation = ONU_LOCAL.historyModule.choose;
 
                 //初始化checkbox模型
@@ -389,6 +395,6 @@ angular.module('starter.controllers')
             initPage();
 
 
-            
+
         }
     ]);

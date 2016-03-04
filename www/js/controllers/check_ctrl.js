@@ -8,6 +8,7 @@ angular.module('starter.controllers')
 
             var timer ;
             var reportId;
+            var reportStatus = 1;
             var deviceInfo;
             var expanderConf = {
                 templateUrl: 'generateReport.html',
@@ -342,7 +343,11 @@ angular.module('starter.controllers')
                 expanderHandel.hide();
                 $rootScope.hideTabs = true;
                 //    $state.go('tab.report-detail');
-                window.location.href = '#/tab/history/' + reportId;
+                $state.go('tab.report-detail', {
+                    reportId: reportId,
+                    reportStatus:reportStatus
+                });
+                // window.location.href = '#/tab/history/' + reportId;
             }
 
             function sure() {
@@ -352,9 +357,10 @@ angular.module('starter.controllers')
                 DB.queryByName($scope.report.reportName).then(function(res) {
                     var exist = res.rows.length > 0;
 
-                    reportId = res.rows.item(0).id;
+                    
                     //存在则提示是否覆盖
                     if(exist) {
+                        reportId = res.rows.item(0).id;
                         $scope.isCover = true;
                     } else {
                         saveToDB(report,1).then(function() {
@@ -398,12 +404,13 @@ angular.module('starter.controllers')
                 };
 
                 
-
                 //type  1: 新增 2：更新
                 if(type === 1) {
+                    reportStatus=1;
                     reportId = datas.id;
                     return DB.insert(datas);
                 } else if(type === 2){
+                    reportStatus=0;
                     return DB.updateData(datas);
                 }
                 

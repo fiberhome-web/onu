@@ -40,7 +40,7 @@
             </ion-refresher>
             <div class="list padding">
                 <ion-list show-checkbox="shouldShowCheckbox" checkbox-model="checkboxs">
-                    <ion-item ng-repeat="item in list" class="reportItem" href="#/tab/history/{{item.id}}">
+                    <ion-item ng-repeat="item in list" class="reportItem" ng-click="eventFun.viewReport(item.id)">
                         <ion-checkbox-button item-id="{{item.id}}"></ion-checkbox-button>
                         <span class="name">{{item.name }}</span>
                         <span class="status">
