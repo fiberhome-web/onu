@@ -352,9 +352,10 @@ angular.module('starter.controllers')
                 DB.queryByName($scope.report.reportName).then(function(res) {
                     var exist = res.rows.length > 0;
 
-                    reportId = res.rows.item(0).id;
+                   
                     //存在则提示是否覆盖
                     if(exist) {
+                        reportId = res.rows.item(0).id;
                         $scope.isCover = true;
                     } else {
                         saveToDB(report,1).then(function() {
