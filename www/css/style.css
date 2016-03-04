@@ -487,6 +487,9 @@ input:-moz-placeholder {
   color: #fff;
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
 
+.button.button-green[disabled=disabled] {
+  opacity: 0.4 !important; }
+
 .button.button-grass {
   border: none;
   background-color: #25AE76;

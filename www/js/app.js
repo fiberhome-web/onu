@@ -24,7 +24,7 @@ var CONST = {
 //使用mockjax替换ajax
 // Mock.mockjax(app);
 
-app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice,LicenseService) {
+app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice,L) {
     
     $rootScope.expanderHandel = [];
     $rootScope.isRegistered = false;
@@ -44,7 +44,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         //禁止横屏
         screen.lockOrientation('portrait');
 
-        LicenseService.registerData.uuid = $cordovaDevice.getUUID();
+        L.registerData.uuid = $cordovaDevice.getUUID();
 
         
     });

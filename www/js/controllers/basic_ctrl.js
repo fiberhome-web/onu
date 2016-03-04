@@ -135,7 +135,7 @@ angular.module('starter.controllers')
                         console.log("An error happened -> " + error);
                     });
 
-            }
+            };
 
 
             //若没有请求过数据

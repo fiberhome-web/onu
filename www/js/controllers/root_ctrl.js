@@ -16,7 +16,7 @@ angular.module('starter.controllers')
                 //查询配置成功
                 if (length > 0) {
                     retentionTimeIndex = res.rows.item(0).value;
-                    alert('retentionTimeIndex :'+retentionTimeIndex);
+                    // alert('retentionTimeIndex :'+retentionTimeIndex);
                     //根据配置匹配起始日期
                     switch (retentionTimeIndex) {
                         case 0:
@@ -34,7 +34,7 @@ angular.module('starter.controllers')
                         default:
                             return;
                     }
-                    alert('sDate :'+sDate);
+                    // alert('sDate :'+sDate);
                     DB.queryAll().then(function(res) {
                         var length = res.rows.length;
                         var delIds = [];

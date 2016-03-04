@@ -9,6 +9,7 @@ angular.module('starter.services', [])
                 return;
             }
             var key = faultylabs.MD5(uid + 'fiberhome');
+            console.log('key :'+key);
             return key;
         };
 

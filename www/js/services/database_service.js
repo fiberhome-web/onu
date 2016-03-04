@@ -10,14 +10,14 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
         });
         query = 'CREATE TABLE IF NOT EXISTS fiber_onu_data (id primary key, name, date, status, data, conclusion)';
         $cordovaSQLite.execute(db, query).then(function(success) {
-            alert('create fiber_onu_data success :' + JSON.stringify(success));
+            console.info('create fiber_onu_data success :' + JSON.stringify(success));
         }, function(error) {
             alert('CREATE TABLE failed :' + JSON.stringify(error));
         });
 
         confQuery = 'CREATE TABLE IF NOT EXISTS fiber_onu_conf (key primary key, value)';
         $cordovaSQLite.execute(db, confQuery).then(function(success) {
-            alert('create fiber_onu_conf successfully :' + JSON.stringify(success));
+            console.info('create fiber_onu_conf successfully :' + JSON.stringify(success));
         }, function(error) {
             alert('create fiber_onu_conf failed :' + JSON.stringify(error));
         });
@@ -38,7 +38,7 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
                 };
                 initConf(periodConf);
             } else {
-                alert('fiber_onu_conf length:'+length);
+                // alert('fiber_onu_conf length:'+length);
             }
         }, function(err) {
             console.error(err);
