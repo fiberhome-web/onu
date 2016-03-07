@@ -7,7 +7,7 @@ angular.module('starter.services').service('Report', function() {
     this.dataPortInfo = [];
 
     this.voicePortInfo = {
-        port_detail : []
+        portdetail : []
     };
 
     this.setDeviceInfo = function(info) {
@@ -67,11 +67,11 @@ angular.module('starter.services').service('Report', function() {
     };
 
     this.getVoicePortInfo = function() {
-        if(this.voicePortInfo.port_detail.length < 1) {
+        if(this.voicePortInfo.portdetail.length < 1) {
             var voice_num = parseInt(this.deviceInfo.voice_port_number ? this.deviceInfo.voice_port_number.val : 0);
-            this.voicePortInfo.port_detail = [];
+            this.voicePortInfo.portdetail = [];
             for(var i = 0; i< voice_num; i++) {
-                this.voicePortInfo.port_detail.push({
+                this.voicePortInfo.portdetail.push({
                     voice_port_id : '',
                     port_status : {val : ''},
                     port_enable : {val : ''},

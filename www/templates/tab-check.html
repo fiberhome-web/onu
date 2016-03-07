@@ -97,7 +97,7 @@
                     </span>
                 </div>
               
-                <div class="content" ng-repeat="(key,item) in voiceInfos.port_detail">
+                <div class="content" ng-repeat="(key,item) in voiceInfos.portdetail">
                     <div class="check-item">
                         <i class="icon iconfont check-icon">&#xe608;</i>
                         <span class="name">{{i10n.reportModule.voicePortStatus.voice_port_id}}</span>
@@ -136,7 +136,7 @@
     </ion-content>
 
     <div class="list check_btn_group ">
-        <div class="button-bar">
+        <div class="button-bar" disabled="isPonChecking||isDataChecking||isVoiceChecking">
             <button class="button button-grass" style="margin-right:1px;" ng-click="eventFun.oneKeyCheckBtnEvt()">
                 <span>{{i10n.checkModule.one_key_check}}</span>
             </button>

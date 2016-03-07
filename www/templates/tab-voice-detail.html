@@ -21,15 +21,15 @@
             	</div>
             </div>
 
-            <div class="content" ng-repeat="(key,item) in voiceInfo.port_detail">
+            <div class="content" ng-repeat="(key,item) in voiceInfo.portdetail">
                 <div class="check-item ">
                     <i class="icon iconfont check-icon">&#xe608;</i>
-                    <span class="name">{{i10n.report.voicePortStatus.voice_port_id}}</span>
+                    <span class="name">{{i10n.reportModule.voicePortStatus.voice_port_id}}</span>
                     <span class="val">{{item.voice_port_id}}</span>
                 </div>
 
                 <div ng-if="key !== 'voice_port_id'" class="check-item" ng-click="showTip(val)" ng-repeat="(key,val) in item">
-                    <span ng-class="{'war-color' : val.warn}">{{i10n.report.voicePortStatus[key]}}</span>
+                    <span ng-class="{'war-color' : val.warn}">{{i10n.reportModule.voicePortStatus[key]}}</span>
                     <span class="val" ng-class="{'war-color' : val.warn}"  ng-if="val.val">
                         <span ng-if="val.text">{{val.text}}</span>
                         <span ng-if="!val.text">{{val.val}}</span>

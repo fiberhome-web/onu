@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('CheckCtrl', ['$scope', '$rootScope', '$state', '$http', 'Check', 'Popup','$timeout',
-        '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService','DB','File',
-        function($scope, $rootScope, $state, $http, Check, Popup,$timeout,
-            $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService,DB,File) {
+    .controller('CheckCtrl', ['$scope', '$rootScope', '$state', '$http', 'Check', 'Popup', '$timeout',
+        '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService', 'DB', 'File',
+        function($scope, $rootScope, $state, $http, Check, Popup, $timeout,
+            $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService, DB, File) {
 
-            var timer ;
+            var timer;
             var reportId;
             var reportStatus = 1;
             var deviceInfo;
@@ -77,48 +77,48 @@ angular.module('starter.controllers')
 
                 },
 
-                openEdit : function(title, item){
+                openEdit: function(title, item) {
                     var note = item.note;
                     var reason = item.reason ? item.reason : '';
                     var msg = item.msg ? item.msg : '';
-                    if(note === undefined) {
+                    if (note === undefined) {
                         note = '';
-                        if(reason) {
-                            note = $scope.i10n.checkModule.reason + ' : \r\n' +  reason + '\r\n\r\n';
+                        if (reason) {
+                            note = $scope.i10n.checkModule.reason + ' : \r\n' + reason + '\r\n\r\n';
                         }
-                        if(msg) {
+                        if (msg) {
                             note = note + $scope.i10n.checkModule.suggestion + ' : \r\n' + msg;
                         }
-                        
-                                 
+
+
                     }
 
                     $scope.editer = {
-                        title : title,
-                        note : note,
-                        item : item
+                        title: title,
+                        note: note,
+                        item: item
                     };
                     suggestExpander.show();
-                    timer = $timeout(function(){
+                    timer = $timeout(function() {
                         $('#editTextarea').focus();
-                        $timeout.cancel( timer );
-                    },100);
+                        $timeout.cancel(timer);
+                    }, 100);
                 },
 
-                closeEdit : function(){
-                     suggestExpander.hide();
+                closeEdit: function() {
+                    suggestExpander.hide();
                 },
 
-                clearEdit : function(){
+                clearEdit: function() {
                     $scope.editer.note = '';
-                    timer = $timeout(function(){
+                    timer = $timeout(function() {
                         $('#editTextarea').focus();
-                        $timeout.cancel( timer );
-                    },100);
-                    
+                        $timeout.cancel(timer);
+                    }, 100);
+
                 },
 
-                saveEdit : function(){
+                saveEdit: function() {
                     $scope.editer.item.note = $scope.editer.note;
                     //清空系统建议
                     $scope.editer.item.reason = null;
@@ -126,20 +126,20 @@ angular.module('starter.controllers')
                     suggestExpander.hide();
                 },
 
-                rename : function(){
+                rename: function() {
                     $scope.report.reportName = '';
-                    timer = $timeout(function(){
+                    timer = $timeout(function() {
                         $('#rename').focus();
-                        $timeout.cancel( timer );
-                    },100);
+                        $timeout.cancel(timer);
+                    }, 100);
 
                     $scope.isCover = false;
 
                 },
 
-                cover : function(){
+                cover: function() {
                     $scope.isCover = false;
-                    saveToDB($scope.report,2).then(function() {
+                    saveToDB($scope.report, 2).then(function() {
                         expanderHandel.hideMask();
                         $scope.saved = true;
 
@@ -181,7 +181,7 @@ angular.module('starter.controllers')
 
                 // 语音口诊断信息
                 $scope.voiceInfos = Report.getVoicePortInfo();
-            
+
 
 
             }
@@ -196,8 +196,8 @@ angular.module('starter.controllers')
                 };
 
                 $http.post(url, params, {
-                        timeout: 10000
-                    }).success(function(response) {
+                    timeout: 10000
+                }).success(function(response) {
                     var resultCode = response.ResultCode;
 
                     if (resultCode === '0') {
@@ -239,8 +239,8 @@ angular.module('starter.controllers')
                 };
 
                 $http.post(url, params, {
-                        timeout: 10000
-                    }).success(function(response) {
+                    timeout: 10000
+                }).success(function(response) {
                     var resultCode = response.ResultCode;
 
                     if (resultCode === '0') {
@@ -278,48 +278,53 @@ angular.module('starter.controllers')
 
                 var url = Const.getReqUrl();
                 var params = {
-                    command:'getVoicePortStatus'
+                    command: 'getVoicePortStatus'
                 };
 
                 $http.post(url, params, {
-                        timeout: 10000
-                    }).success(function(response) {
+                    timeout: 10000
+                }).success(function(response) {
                     var resultCode = response.ResultCode;
 
                     // if (resultCode === '0') {
-                    //     var data = response.data;
+                    var data = response.data;
 
-                    //     Check.checking(CONST.TYPE.VOICE, data);
-                    //     //枚举转化
-                    //     data.ip_mode.text = ONU_LOCAL.enums.voice_ip_mode['k_' + data.ip_mode.val];
-                    //     data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
-                    //     data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
-                    //     data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
+                    Check.checking(CONST.TYPE.VOICE, data);
+                    //枚举转化
+                    data.ip_mode.text = ONU_LOCAL.enums.voice_ip_mode['k_' + data.ip_mode.val];
 
-                    //     angular.forEach(data.port_detail, function(item) {
-                           
-                    //         item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
-                    //         item.port_enable.text = ONU_LOCAL.enums.voice_port_enable['k_' + item.port_enable.val];
+                    data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
+                    
+                    //若为H.248协议
+                    if (data.protocol_type.val === '2') {
+                        data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
+                        data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
+                    }
 
-                    //         Check.checking(CONST.TYPE.VDETAIL, item);
+                    angular.forEach(data.portdetail, function(item) {
 
-                    //         //是否需要检查port_status 标志
-                    //         var flag = false;
-                    //         //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status
-                    //         if(data.protocol_type.val === '4' || 
-                    //             (data.protocol_type.val === '2' && data.mgc_reg_status.val === '1')) {
-                    //             flag = true;
-                    //         }
+                        item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
+                        item.port_enable.text = ONU_LOCAL.enums.voice_port_enable['k_' + item.port_enable.val];
 
-                    //         //当不需要检查port_status，要去除已经检查出的结果
-                    //         if(!flag) {
-                    //             item.port_status.warn = false;
-                    //             item.port_status.msg = null;
-                    //         }
-                    //     });
+                        Check.checking(CONST.TYPE.VDETAIL, item);
 
-                    //     Report.setVoicePortInfo(data);
-                    //     $scope.voiceInfos = data;
+                        //是否需要检查port_status 标志
+                        var flag = false;
+                        //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status
+                        if (data.protocol_type.val === '4' ||
+                            (data.protocol_type.val === '2' && data.mgc_reg_status.val === '1')) {
+                            flag = true;
+                        }
+
+                        //当不需要检查port_status，要去除已经检查出的结果
+                        if (!flag) {
+                            item.port_status.warn = false;
+                            item.port_status.msg = null;
+                        }
+                    });
+
+                    Report.setVoicePortInfo(data);
+                    $scope.voiceInfos = data;
                     // } else {
                     //     var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
                     //     resultMsg && alert(resultMsg);
@@ -345,7 +350,7 @@ angular.module('starter.controllers')
                 //    $state.go('tab.report-detail');
                 $state.go('tab.report-detail', {
                     reportId: reportId,
-                    reportStatus:reportStatus
+                    reportStatus: reportStatus
                 });
                 // window.location.href = '#/tab/history/' + reportId;
             }
@@ -357,13 +362,13 @@ angular.module('starter.controllers')
                 DB.queryByName($scope.report.reportName).then(function(res) {
                     var exist = res.rows.length > 0;
 
-                    
+
                     //存在则提示是否覆盖
-                    if(exist) {
+                    if (exist) {
                         reportId = res.rows.item(0).id;
                         $scope.isCover = true;
                     } else {
-                        saveToDB(report,1).then(function() {
+                        saveToDB(report, 1).then(function() {
                             expanderHandel.hideMask();
                             $scope.saved = true;
 
@@ -374,7 +379,7 @@ angular.module('starter.controllers')
                         });
                         expanderHandel.showMask();
                     }
-                             
+
                 }, function(err) {
                     console.error(err);
                 });
@@ -403,17 +408,17 @@ angular.module('starter.controllers')
                     conclusion: res.remark
                 };
 
-                
+
                 //type  1: 新增 2：更新
-                if(type === 1) {
-                    reportStatus=1;
+                if (type === 1) {
+                    reportStatus = 1;
                     reportId = datas.id;
                     return DB.insert(datas);
-                } else if(type === 2){
-                    reportStatus=0;
+                } else if (type === 2) {
+                    reportStatus = 0;
                     return DB.updateData(datas);
                 }
-                
+
             }
 
 
