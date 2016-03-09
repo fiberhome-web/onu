@@ -1,23 +1,8 @@
 angular.module('starter.controllers')
-    .controller('LoginCtrl', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$cordovaBarcodeScanner', 'Const', 'File', 'L', 'Popup',
-        function($scope, $rootScope, $state, $http, $timeout, $cordovaBarcodeScanner, Const, File, L, Popup) {
+    .controller('LoginCtrl', ['$scope', '$rootScope', '$state', '$http', '$timeout', 'Const', 'File', 'L', 'Popup',
+        function($scope, $rootScope, $state, $http, $timeout, Const, File, L, Popup) {
 
             $scope.eventFun = {
-                scanBarcode: function() {
-                    $cordovaBarcodeScanner.scan().then(function(imageData) {
-                            //扫码过程中未取消，并且条形码形式为CODE_128
-                            if (!imageData.cancelled) {
-                                if (imageData.format === 'QR_CODE') {
-                                    $scope.registerData.key = imageData.text;
-                                } else {
-                                    Popup.showTip(ONU_LOCAL.tip.code_wrong);
-                                }
-                            }
-                        },
-                        function(error) {
-                            alert('LoginCtrl scanBarcode failed :' + JSON.stringify(error));
-                        });
-                },
                 cancelEnter: function() {
                     if ($rootScope.isRegistered) {
                         $scope.loginInfo.ip = '';
@@ -37,8 +22,6 @@ angular.module('starter.controllers')
             };
 
             function btnClickEvt() {
-
-
                 if ($rootScope.isRegistered) {
                     if (validateIP($scope.loginInfo.ip)) {
                         $scope.loading = true;
@@ -77,7 +60,7 @@ angular.module('starter.controllers')
                     if (!$scope.registerData.key) {
                         Popup.showTip(ONU_LOCAL.tip.license_null);
                         return;
-                    } else if (L.b() === $scope.registerData.key) {
+                    } else if (L.b() ===$scope.registerData.key) {
                         $scope.loading = true;
                         $scope.registerData.date = dateUtils.getToday();
                         File.createL(JSON.stringify($scope.registerData)).then(function(success) {
@@ -91,7 +74,7 @@ angular.module('starter.controllers')
                         });
 
                     } else {
-                        Popup.showTip(ONU_LOCAL.tip.l_wrong);
+                        Popup.showTip(ONU_LOCAL.tip.license_wrong);
                     }
                 }
                 L.registerData = $scope.registerData;
@@ -112,14 +95,14 @@ angular.module('starter.controllers')
                 $scope.loginHight.height = $(window).height() + 'px';
                 //default login info
                 $scope.loginInfo = {
-                    ip: '192.168.1.1'
+                    ip: '192.168.1.1',
+                    username: 'admin',
+                    password: 'checkONT2015@FH'
                 };
                 $scope.registerData = L.registerData;
                 $scope.loading = false;
                 global.isLogin = false;
             }
-
-
 
             initPage();
 
