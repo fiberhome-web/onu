@@ -17,18 +17,18 @@ var CONST = {
         PON: 'pon',
         DATA: 'data',
         VOICE: 'voice',
-        VDETAIL : 'voice_detail'
+        VDETAIL: 'voice_detail'
     }
 };
 
 //使用mockjax替换ajax
 // Mock.mockjax(app);
 
-app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice,L) {
-    
+app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice, L, $cordovaPreferences) {
+
     $rootScope.expanderHandel = [];
     $rootScope.isRegistered = false;
-    
+
 
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -45,15 +45,77 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         screen.lockOrientation('portrait');
 
         L.registerData.uuid = $cordovaDevice.getUUID();
+        window.plugins.SharedPrefs.saveData(function(result) {
+            console.log('Has it been saved? Ans:' + JSON.stringify(result));
+            window.plugins.SharedPrefs.getData(function(result) {
+                console.log("Could I retrieve the data? Ans:" + JSON.stringify(result));
+                return result;
+            }, "", "ONU_Fiberhome_NFF", "FITTING");
+            return result;
+        }, '', 'ONU_Fiberhome_NFF', 'FITTING', 'PASS');
+        // $cordovaPreferences.fetch('key')
+        //             .success(function(value) {
+        //                 alert("Success1: " + value);
+        //             })
+        //             .error(function(error) {
+        //                 alert("Error1: " + error);
+        //             });
 
-        
+        // $cordovaPreferences.store('key', 'myMagicValue')
+        //     .success(function(value) {
+        //         alert("Success: " + value);
+        //         $cordovaPreferences.fetch('key')
+        //             .success(function(value) {
+        //                 alert("Success: " + value);
+        //             })
+        //             .error(function(error) {
+        //                 alert("Error: " + error);
+        //             });
+        //     })
+        //     .error(function(error) {
+        //         alert("Error: " + error);
+        //     });
+
+        window.plugins.webintent.hasExtra(window.plugins.webintent.EXTRA_TEXT,
+            function(has) {
+                // has is true iff it has the extra
+                console.log('hasExtra:' + has);
+
+            },
+            function() {
+                // Something really bad happened.
+                console.log('Something really bad happened.');
+            }
+        );
+        window.plugins.webintent.getExtra(window.plugins.webintent.EXTRA_TEXT,
+            function(url) {
+                // url is the value of EXTRA_TEXT
+                console.log('the value of EXTRA_TEXT:' + url);
+                if (url !== 'fiberhome') {
+                    // ionic.Platform.exitApp();
+                }
+            },
+            function() {
+                // There was no extra supplied.
+                console.log('There was no extra supplied.');
+                // ionic.Platform.exitApp();
+            }
+        );
+        window.plugins.webintent.getUri(function(url) {
+            if (url !== "") {
+                // url is the url the intent was launched with
+                console.log('window.plugins.webintent.getUri:' + url);
+            } else {
+                console.log('getUri url===""');
+            }
+        });
     });
 
     //主页面显示退出提示框  
     $ionicPlatform.registerBackButtonAction(function(e) {
 
         //判断处于哪个页面时双击退出
-        if ($location.path() === '/tab/basic'||$location.path() === '/') {
+        if ($location.path() === '/tab/basic' || $location.path() === '/') {
             if ($rootScope.backButtonPressedOnceToExit) {
                 ionic.Platform.exitApp();
             } else {
@@ -163,7 +225,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         }
     })
 
-    
+
 
     .state('tab.history', {
         url: '/history',
