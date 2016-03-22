@@ -144,7 +144,7 @@ angular.module('starter.controllers')
                         $scope.saved = true;
 
                     }, function(info) {
-                        alert('cover error :' + JSON.stringify(info));
+                        console.error('cover error :' + JSON.stringify(info));
                         expanderHandel.hideMask();
                         $scope.save_failed = true;
                     });
@@ -219,12 +219,12 @@ angular.module('starter.controllers')
                         $scope.ponInfos = Report.getPonPortInfo();
                     } else {
                         var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
-                        resultMsg && alert(resultMsg);
+                        resultMsg && console.error(resultMsg);
                     }
 
                     $scope.isPonChecking = false;
                 }).error(function(data, status) {
-                    alert('data:' + data + '\n' + 'status:' + status + '\n');
+                    console.error('data:' + data + '\n' + 'status:' + status + '\n');
                     $scope.isPonChecking = false;
                 });
             }
@@ -262,12 +262,12 @@ angular.module('starter.controllers')
 
                     } else {
                         var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
-                        resultMsg && alert(resultMsg);
+                        resultMsg && console.error(resultMsg);
                     }
 
                     $scope.isDataChecking = false;
                 }).error(function(data, status) {
-                    alert('data:' + data + '\n' + 'status:' + status + '\n');
+                    console.error('data:' + data + '\n' + 'status:' + status + '\n');
                     $scope.isDataChecking = false;
                 });
             }
@@ -301,7 +301,7 @@ angular.module('starter.controllers')
                         data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
                     }
 
-                    angular.forEach(data.portdetail, function(item) {
+                    angular.forEach(data.port_detail, function(item) {
 
                         item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
                         item.port_enable.text = ONU_LOCAL.enums.voice_port_enable['k_' + item.port_enable.val];
@@ -332,7 +332,7 @@ angular.module('starter.controllers')
 
                     $scope.isVoiceChecking = false;
                 }).error(function(data, status) {
-                    alert('data:' + data + '\n' + 'status:' + status + '\n');
+                    console.error('data:' + data + '\n' + 'status:' + status + '\n');
                     $scope.isVoiceChecking = false;
                 });
             }
@@ -373,7 +373,7 @@ angular.module('starter.controllers')
                             $scope.saved = true;
 
                         }, function(info) {
-                            alert('sure error :' + JSON.stringify(info));
+                            console.error('sure error :' + JSON.stringify(info));
                             expanderHandel.hideMask();
                             $scope.save_failed = true;
                         });

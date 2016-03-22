@@ -119,7 +119,7 @@ Mock.mock('http://192.168.1.1/app/', 'getVoicePortStatus', function(options){
             'second_sip_proxy_server_port': {val : ''},
             'sip_local_port' : {val : ''}, 
             'mgc_reg_status' : {val : '1'},           
-            'portdetail' :  [{
+            'port_detail' :  [{
                 voice_port_id : 1,
                 port_status : {val : '1'},
                 port_enable : {val : '1'},

@@ -1,5 +1,5 @@
 angular.module('starter.services').service('Const',function(){
-	var reqUrl = 'http://192.168.1.1/app';
+	var reqUrl = 'https://192.168.1.1:4433/app';
 
 	this.getReqUrl = function(){
 	 //    var	random = new Date().getTime();
