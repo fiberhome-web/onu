@@ -38,7 +38,7 @@ angular.module('starter.controllers')
 
             }
 
-
+            $rootScope.expanderHandel = [];
             var batchDeleleExpanderConf = {
                 templateUrl: 'batchDelele.html',
                 scope: $scope,

@@ -10,6 +10,7 @@ angular.module('starter.controllers')
             var reportId;
             var reportStatus = 1;
             var deviceInfo;
+
             var expanderConf = {
                 templateUrl: 'generateReport.html',
                 scope: $scope,
@@ -24,6 +25,7 @@ angular.module('starter.controllers')
             };
             var suggestExpander = ExpanderService.init(suggestExpanderConf);
 
+            $rootScope.expanderHandel = [];
             $rootScope.expanderHandel.push(expanderHandel);
             $rootScope.expanderHandel.push(suggestExpander);
 

@@ -19,6 +19,7 @@ angular.module('starter.controllers')
         };
         var reportRetentionTimeExpanderHandel = ExpanderService.init(reportRetentionTimeExpanderConf);
         //将该句柄添加到list中，硬件返回按钮触发事件中会检查该弹出框知否已显示，若显示则隐藏。
+        $rootScope.expanderHandel = [];
         $rootScope.expanderHandel.push(reportRetentionTimeExpanderHandel);
 
         $scope.date_select = [

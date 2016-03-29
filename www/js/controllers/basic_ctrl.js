@@ -13,6 +13,7 @@ angular.module('starter.controllers')
             };
             var commentExpander = ExpanderService.init(commentExpanderConf);
 
+            $rootScope.expanderHandel = [];
             $rootScope.expanderHandel.push(commentExpander);
 
             $scope.local = ONU_LOCAL.basicModule;
