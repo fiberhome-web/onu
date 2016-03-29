@@ -286,49 +286,49 @@ angular.module('starter.controllers')
                 }).success(function(response) {
                     var resultCode = response.ResultCode;
 
-                    // if (resultCode === '0') {
-                    var data = response.data;
+                    if (resultCode === '0') {
+                        var data = response.data;
 
-                    Check.checking(CONST.TYPE.VOICE, data);
-                    //枚举转化
-                    data.ip_mode.text = ONU_LOCAL.enums.voice_ip_mode['k_' + data.ip_mode.val];
+                        Check.checking(CONST.TYPE.VOICE, data);
+                        //枚举转化
+                        data.ip_mode.text = ONU_LOCAL.enums.voice_ip_mode['k_' + data.ip_mode.val];
 
-                    data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
-                    
-                    //若为H.248协议
-                    if (data.protocol_type.val === '2') {
-                        data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
-                        data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
+                        data.protocol_type.text = ONU_LOCAL.enums.voice_protocol_type['k_' + data.protocol_type.val];
+
+                        //若为H.248协议
+                        if (data.protocol_type.val === '2') {
+                            data.reg_mode.text = ONU_LOCAL.enums.voice_reg_mode['k_' + data.reg_mode.val];
+                            data.mgc_reg_status.text = ONU_LOCAL.enums.voice_mgc_reg_status['k_' + data.mgc_reg_status.val];
+                        }
+
+                        angular.forEach(data.port_detail, function(item) {
+
+                            item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
+                            item.port_enable.text = ONU_LOCAL.enums.voice_port_enable['k_' + item.port_enable.val];
+
+                            Check.checking(CONST.TYPE.VDETAIL, item);
+
+                            //是否需要检查port_status 标志
+                            var flag = false;
+                            //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status
+                            if (data.protocol_type.val === '4' ||
+                                (data.protocol_type.val === '2' && data.mgc_reg_status.val === '1')) {
+                                flag = true;
+                            }
+
+                            //当不需要检查port_status，要去除已经检查出的结果
+                            if (!flag) {
+                                item.port_status.warn = false;
+                                item.port_status.msg = null;
+                            }
+                        });
+
+                        Report.setVoicePortInfo(data);
+                        $scope.voiceInfos = data;
+                    } else {
+                        var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
+                        resultMsg && alert(resultMsg);
                     }
-
-                    angular.forEach(data.port_detail, function(item) {
-
-                        item.port_status.text = ONU_LOCAL.enums.voice_port_status['k_' + item.port_status.val];
-                        item.port_enable.text = ONU_LOCAL.enums.voice_port_enable['k_' + item.port_enable.val];
-
-                        Check.checking(CONST.TYPE.VDETAIL, item);
-
-                        //是否需要检查port_status 标志
-                        var flag = false;
-                        //只有当SIP或者H248且mgc_reg_status为正常时才检查port_status
-                        if (data.protocol_type.val === '4' ||
-                            (data.protocol_type.val === '2' && data.mgc_reg_status.val === '1')) {
-                            flag = true;
-                        }
-
-                        //当不需要检查port_status，要去除已经检查出的结果
-                        if (!flag) {
-                            item.port_status.warn = false;
-                            item.port_status.msg = null;
-                        }
-                    });
-
-                    Report.setVoicePortInfo(data);
-                    $scope.voiceInfos = data;
-                    // } else {
-                    //     var resultMsg = ONU_LOCAL.enums.result_code['k_' + response.ResultCode];
-                    //     resultMsg && alert(resultMsg);
-                    // }
 
                     $scope.isVoiceChecking = false;
                 }).error(function(data, status) {
