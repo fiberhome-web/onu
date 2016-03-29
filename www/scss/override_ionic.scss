@@ -20,7 +20,9 @@ $mOrange:#F1BC92;
 }
 
 
-.item.activated ,.item .item-content.activated {
-    border-color: #ccc;
+
+.item.active, .item.activated, .item-complex.active .item-content, .item-complex.activated .item-content, .item .item-content.active, .item .item-content.activated {
+    border-color: white;
     background-color: white;
+    opacity: 0.3;
 }

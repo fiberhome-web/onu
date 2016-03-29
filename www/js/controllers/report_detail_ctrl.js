@@ -47,7 +47,7 @@ angular.module('starter.controllers')
                             File.createReport(item.name, document.getElementById('report').innerHTML);
                         }, 1000);
                     } else {
-                        alert('reportStatus :' + reportStatus);
+                        console.info('reportStatus :' + reportStatus);
                     }
                 }, function(error) {
                     //如果code为1说明没有找到文件，则要生成报告文件
@@ -59,11 +59,11 @@ angular.module('starter.controllers')
                         }, 1000);
 
                     } else {
-                        alert('check report detail failed:'+ JSON.stringify(error));
+                        console.info('check report detail failed:'+ JSON.stringify(error));
                     }
                 });
             }, function(error) {
-                alert('report detail failed :' + JSON.stringify(error));
+                console.info('report detail failed :' + JSON.stringify(error));
             });
 
             //document.getElementById('report').innerHTML
@@ -112,7 +112,7 @@ angular.module('starter.controllers')
             };
 
             $scope.onHold = function() {
-                alert('onHold');
+                console.info('onHold');
             };
 
         }

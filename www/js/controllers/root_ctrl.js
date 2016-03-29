@@ -5,7 +5,7 @@ angular.module('starter.controllers')
         $ionicPlatform.ready(function() {
             autoDeleteReport();
         });
-
+        
         //根据配置删除报告
         function autoDeleteReport() {
             var retentionTimeIndex = 0;
@@ -29,7 +29,7 @@ angular.module('starter.controllers')
                             sDate = dateUtils.getDayOfLastYear();
                             break;
                         case 3:
-                        //永久保留报告则跳出函数，不执行下面的逻辑
+                            //永久保留报告则跳出函数，不执行下面的逻辑
                             return;
                         default:
                             return;
@@ -62,7 +62,7 @@ angular.module('starter.controllers')
                     }, function(err) {
                         alert('RootCtrl DB.queryAll():' + JSON.stringify(err));
                     });
-                } 
+                }
             }, function(err) {
                 alert('RootCtrl DB.queryRetentionTime():' + JSON.stringify(err));
             });

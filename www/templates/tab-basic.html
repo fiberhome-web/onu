@@ -11,12 +11,10 @@
                         <i class="iconfont" ng-if="key==='led_status'" ng-class="{'0':'red','1':'green','2':'orange'}[val.val]">&#xe608;</i>
                         {{val.text}}
                         </span>
-
                         <span class="val" ng-if="!val.text" ng-class="{'red':val.warn,'blue':key==='warranty_period'}">
                         <i class="iconfont bigerIcon blue" ng-if="key==='warranty_period'">&#xe611;</i>
                         {{val.val}}
                         </span>
-
                         </span>
                         <span ng-if="!val.val" class="none">-</span>
                         <span ng-if="val.val">
@@ -32,7 +30,9 @@
             <button class="button button-full button-grass" ng-click="checking()">{{local.one_check}}</button>
         </div>
     </ion-content>
-    <script id="editComment.html" type="text/ng-template">
+</ion-view>
+<script id="editComment.html" type="text/ng-template">
+    
         <div class="list expander">
             <div class="item item-button-right expander-header">
                 {{editer.title}} {{i10n.checkModule.remark}}
@@ -55,4 +55,5 @@
                 </button>
             </div>
         </div>
-    </script>
+    
+</script>

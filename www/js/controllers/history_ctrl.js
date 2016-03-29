@@ -71,10 +71,13 @@ angular.module('starter.controllers')
                     $rootScope.hideTabs = false;
                 },
                 viewReport: function(reportId) {
-                    $state.go('tab.report-detail', {
+                    if(!$scope.shouldShowCheckbox){
+                        $state.go('tab.report-detail', {
                         reportId: reportId,
                         reportStatus: 1
                     });
+                    }
+                    
                 }
             };
 

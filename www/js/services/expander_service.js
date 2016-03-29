@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('starter.services').
-factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootScope','$timeout',
-    function($templateCache, $compile, $ionicBody, $rootScope,$timeout) {
+factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootScope', '$timeout',
+    function($templateCache, $compile, $ionicBody, $rootScope, $timeout) {
 
         var maskCss = 'front_mask_layer';
 
         var eleMap = {};
+        var keyboardHeight = 0;
+       
 
         function init(configuration) {
             var self = {};
@@ -41,20 +43,20 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             self.show = show;
             self.showMask = showMask;
             self.hideMask = hideMask;
-            self.isShow=false;
+            self.isShow = false;
 
             self.scope = (configuration.scope || $rootScope).$new();
-            self.element.id=self.scope.$id;
+            self.element.id = self.scope.$id;
             self.options = configuration;
-
             //绑定DOM和scope
-            $compile(self.element)(self.scope);  
+            $compile(self.element)(self.scope);
 
             //设置元素高度，用于展现时候的动画效果
             self.bottom = (0 - self.element.offsetHeight) + 'px';
             self.element.style.bottom = self.bottom;
-            self.element.style.display = 'none';
-            
+            // self.element.style.display = 'none';
+            $(self.element).hide();
+
             eleMap[configuration.templateUrl] = self;
 
             return self;
@@ -64,40 +66,56 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
         function hide() {
             var that = this;
             this.isShow = false;
-           
+
+            // $(this.element).hide(250, function() {
+
+            //     if (that.options.backdoor) {
+            //         // $ionicBody.removeClass('popup-open');
+            //         $ionicBody.get().removeChild(that.backMaskEle);
+            //     }
+            // });
             $(this.element).animate({
-                bottom : that.bottom
-            },250,function(){
-                
+                bottom: that.bottom
+            }, 50, function() {
+            // }, 250, function() {
+
                 if (that.options.backdoor) {
                     // $ionicBody.removeClass('popup-open');
                     $ionicBody.get().removeChild(that.backMaskEle);
                 }
 
-                $timeout(function(){
+                $timeout(function() {
                     that.element.style.display = 'none';
-                },200);
+                }, 200);
             });
-           
-           
+
+
         }
 
         function show() {
             var that = this;
-            this.isShow=true;
-          
+
+            this.isShow = true;
+
             this.element.style.display = 'block';
 
+            // $(this.element).show(250, function() {
+
+            //     //若需要背景蒙罩层并禁止点击
+            //     if (that.options.backdoor) {
+            //         $ionicBody.get().appendChild(that.backMaskEle);
+            //     }
+            // });
             $(this.element).animate({
-                bottom : 0
-            },function(){
-                 //若需要背景蒙罩层并禁止点击
+                bottom: keyboardHeight
+            }, 250,function() {
+                //若需要背景蒙罩层并禁止点击
                 if (that.options.backdoor) {
                     $ionicBody.get().appendChild(that.backMaskEle);
                 }
             });
 
-           
+
 
         }
 

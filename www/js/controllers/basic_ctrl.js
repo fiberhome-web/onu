@@ -4,7 +4,7 @@ angular.module('starter.controllers')
     .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$cordovaBarcodeScanner',
         'Const', 'Report', 'Popup', 'DB', 'ExpanderService', 'Check',
         function($scope, $rootScope, $state, $http, $timeout, $cordovaBarcodeScanner, Const, Report, Popup, DB, ExpanderService, Check) {
-            
+
             var timer;
             var commentExpanderConf = {
                 templateUrl: 'editComment.html',
@@ -215,7 +215,7 @@ angular.module('starter.controllers')
                     commentExpander.show();
                     timer = $timeout(function() {
                         $('#editArea').focus();
-                        $timeout.cancel( timer );
+                        $timeout.cancel(timer);
                     }, 100);
 
                 },
@@ -228,7 +228,7 @@ angular.module('starter.controllers')
                     $scope.editer.note = '';
                     timer = $timeout(function() {
                         $('#editArea').focus();
-                        $timeout.cancel( timer );
+                        $timeout.cancel(timer);
                     }, 100);
 
                 },
