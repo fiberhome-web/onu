@@ -54,7 +54,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
             //设置元素高度，用于展现时候的动画效果
             self.bottom = (0 - self.element.offsetHeight) + 'px';
             self.element.style.bottom = self.bottom;
-            // self.element.style.display = 'none';
+            self.element.style.display = 'none';
             $(self.element).hide();
 
             eleMap[configuration.templateUrl] = self;
@@ -66,14 +66,6 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
         function hide() {
             var that = this;
             this.isShow = false;
-
-            // $(this.element).hide(250, function() {
-
-            //     if (that.options.backdoor) {
-            //         // $ionicBody.removeClass('popup-open');
-            //         $ionicBody.get().removeChild(that.backMaskEle);
-            //     }
-            // });
             $(this.element).animate({
                 bottom: that.bottom
             }, 50, function() {
@@ -86,7 +78,7 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
                 $timeout(function() {
                     that.element.style.display = 'none';
-                }, 200);
+                }, 50);
             });
 
 
@@ -99,16 +91,10 @@ factory('ExpanderService', ['$templateCache', '$compile', '$ionicBody', '$rootSc
 
             this.element.style.display = 'block';
 
-            // $(this.element).show(250, function() {
-
-            //     //若需要背景蒙罩层并禁止点击
-            //     if (that.options.backdoor) {
-            //         $ionicBody.get().appendChild(that.backMaskEle);
-            //     }
-            // });
+            
             $(this.element).animate({
                 bottom: keyboardHeight
-            }, 250,function() {
+            },function() {
                 //若需要背景蒙罩层并禁止点击
                 if (that.options.backdoor) {
                     $ionicBody.get().appendChild(that.backMaskEle);

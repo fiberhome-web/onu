@@ -74,7 +74,7 @@ angular.module('starter.controllers')
                         });
 
                     } else {
-                        Popup.showTip(ONU_LOCAL.tip.license_wrong);
+                        Popup.showTip(ONU_LOCAL.tip.l_wrong);
                     }
                 }
                 L.registerData = $scope.registerData;

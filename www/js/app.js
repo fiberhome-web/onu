@@ -26,29 +26,26 @@ var CONST = {
 
 app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice, L, $timeout) {
 
+    //放置当前页面上弹框组件handel
     $rootScope.expanderHandel = [];
     $rootScope.isRegistered = false;
-    $rootScope.keyboard = {};
-    window.addEventListener('native.keyboardshow', keyboardShowHandler);
 
+    //监听键盘弹出事件
+    window.addEventListener('native.keyboardshow', keyboardShowHandler);
     function keyboardShowHandler(e) {
-        // $rootScope.keyboardHeight = e.keyboardHeight;
         angular.forEach($rootScope.expanderHandel, function(handel) {
             if (handel.isShow) {
-                // $timeout(function() {
-                //     $(handel.element).css('bottom', e.keyboardHeight + 'px');
-                // }, 200);
-                
-                $(handel.element).animate({
-                    bottom: e.keyboardHeight + 'px'
-                },100);
+                if ($(handel.element).is(":animated")) {
+                    $(handel.element).stop(false, true);
+                }
+                $(handel.element).css('bottom', e.keyboardHeight + 'px');
             }
         });
     }
-    window.addEventListener('native.keyboardhide', keyboardHideHandler);
 
+    //监听键盘隐藏事件
+    window.addEventListener('native.keyboardhide', keyboardHideHandler);
     function keyboardHideHandler(e) {
-        // $rootScope.keyboardHeight = 0;
         angular.forEach($rootScope.expanderHandel, function(handel) {
             if (handel.isShow) {
                 $(handel.element).css('bottom', '0px');
@@ -80,28 +77,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
             }, "", "ONU_Fiberhome_NFF", "FITTING");
             return result;
         }, '', 'ONU_Fiberhome_NFF', 'FITTING', 'PASS');
-        // $cordovaPreferences.fetch('key')
-        //             .success(function(value) {
-        //                 alert("Success1: " + value);
-        //             })
-        //             .error(function(error) {
-        //                 alert("Error1: " + error);
-        //             });
-
-        // $cordovaPreferences.store('key', 'myMagicValue')
-        //     .success(function(value) {
-        //         alert("Success: " + value);
-        //         $cordovaPreferences.fetch('key')
-        //             .success(function(value) {
-        //                 alert("Success: " + value);
-        //             })
-        //             .error(function(error) {
-        //                 alert("Error: " + error);
-        //             });
-        //     })
-        //     .error(function(error) {
-        //         alert("Error: " + error);
-        //     });
+        
 
         window.plugins.webintent.hasExtra(window.plugins.webintent.EXTRA_TEXT,
             function(has) {
@@ -141,10 +117,39 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     //主页面显示退出提示框  
     $ionicPlatform.registerBackButtonAction(function(e) {
 
+        var actionCompletion = false;
+        angular.forEach($rootScope.expanderHandel, function(handel) {
+            if (handel.isShow) {
+                handel.hide();
+                actionCompletion = true;
+            }
+        });
+
         //判断处于哪个页面时双击退出
-        if ($location.path() === '/tab/basic' || $location.path() === '/') {
-            if ($rootScope.backButtonPressedOnceToExit) {
-                ionic.Platform.exitApp();
+        if (!actionCompletion) {
+            if ($location.path() === '/tab/basic' || $location.path() === '/') {
+                if ($rootScope.backButtonPressedOnceToExit) {
+                    ionic.Platform.exitApp();
+                } else {
+                    $rootScope.backButtonPressedOnceToExit = true;
+                    $cordovaToast.showShortCenter('再按一次退出系统');
+                    setTimeout(function() {
+                        $rootScope.backButtonPressedOnceToExit = false;
+                    }, 2000);
+                }
+                $ionicHistory.clearHistory();
+            } else if ($location.path() === '/tab/history/' + $stateParams.reportId) {
+                $state.go('tab.history');
+                $rootScope.hideTabs = false;
+            } else if ($ionicHistory.backView()) {
+                // angular.forEach($rootScope.expanderHandel, function(handel) {
+                //     if (handel.isShow) {
+                //         handel.hide();
+                //     }
+                // });
+                $ionicHistory.goBack();
+                $rootScope.hideTabs = false;
+                console.log($ionicHistory.backView());
             } else {
                 $rootScope.backButtonPressedOnceToExit = true;
                 $cordovaToast.showShortCenter('再按一次退出系统');
@@ -152,31 +157,10 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
                     $rootScope.backButtonPressedOnceToExit = false;
                 }, 2000);
             }
-            $ionicHistory.clearHistory();
-        } else if ($location.path() === '/tab/history/' + $stateParams.reportId) {
-            $state.go('tab.history');
-            $rootScope.hideTabs = false;
-        } else if ($ionicHistory.backView()) {
-            angular.forEach($rootScope.expanderHandel, function(handel) {
-                if (handel.isShow) {
-                    handel.hide();
-                }
-            });
-            $ionicHistory.goBack();
-            $rootScope.hideTabs = false;
-            console.log($ionicHistory.backView());
-        } else {
-            $rootScope.backButtonPressedOnceToExit = true;
-            $cordovaToast.showShortCenter('再按一次退出系统');
-            setTimeout(function() {
-                $rootScope.backButtonPressedOnceToExit = false;
-            }, 2000);
         }
+
         e.preventDefault();
         return false;
-
-
-
 
     }, 101);
 
