@@ -23,7 +23,7 @@ var CONST = {
 //使用mockjax替换ajax
 // Mock.mockjax(app);
 
-app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice, L, $timeout) {
+app.run(['$ionicPlatform', '$ionicPopup', '$cordovaToast', '$location', '$rootScope', '$ionicHistory', '$state', '$stateParams', '$cordovaDevice', 'L', '$timeout', function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice, L, $timeout) {
     'use strict';
     //放置当前页面上弹框组件handel
     $rootScope.expanderHandel = [];
@@ -164,9 +164,9 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     }, 101);
 
 
-})
+}])
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider', function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     //设置全屏显示
     ionic.Platform.fullScreen(false);
     //配置整个平台的ionic view缓存
@@ -270,4 +270,4 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/');
 
-});
+}]);
