@@ -1,5 +1,5 @@
-'use strict';
-var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
+
+var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'templates']);
 
 //定义全局变量
 
@@ -25,7 +25,7 @@ var CONST = {
 // Mock.mockjax(app);
 
 app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootScope, $ionicHistory, $state, $stateParams, $cordovaDevice, L, $timeout) {
-
+    'use strict';
     //放置当前页面上弹框组件handel
     $rootScope.expanderHandel = [];
     $rootScope.isRegistered = false;
@@ -35,6 +35,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     function keyboardShowHandler(e) {
         angular.forEach($rootScope.expanderHandel, function(handel) {
             if (handel.isShow) {
+                //若上弹框正在弹出，直接跳到结束样式
                 if ($(handel.element).is(":animated")) {
                     $(handel.element).stop(false, true);
                 }
@@ -69,49 +70,49 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         screen.lockOrientation('portrait');
 
         L.registerData.uuid = $cordovaDevice.getUUID();
-        window.plugins.SharedPrefs.saveData(function(result) {
-            console.log('Has it been saved? Ans:' + JSON.stringify(result));
-            window.plugins.SharedPrefs.getData(function(result) {
-                console.log("Could I retrieve the data? Ans:" + JSON.stringify(result));
-                return result;
-            }, "", "ONU_Fiberhome_NFF", "FITTING");
-            return result;
-        }, '', 'ONU_Fiberhome_NFF', 'FITTING', 'PASS');
+        // window.plugins.SharedPrefs.saveData(function(result) {
+        //     console.log('Has it been saved? Ans:' + JSON.stringify(result));
+        //     window.plugins.SharedPrefs.getData(function(result) {
+        //         console.log("Could I retrieve the data? Ans:" + JSON.stringify(result));
+        //         return result;
+        //     }, "", "ONU_Fiberhome_NFF", "FITTING");
+        //     return result;
+        // }, '', 'ONU_Fiberhome_NFF', 'FITTING', 'PASS');
         
 
-        window.plugins.webintent.hasExtra(window.plugins.webintent.EXTRA_TEXT,
-            function(has) {
-                // has is true iff it has the extra
-                console.log('hasExtra:' + has);
+        // window.plugins.webintent.hasExtra(window.plugins.webintent.EXTRA_TEXT,
+        //     function(has) {
+        //         // has is true iff it has the extra
+        //         console.log('hasExtra:' + has);
 
-            },
-            function() {
-                // Something really bad happened.
-                console.log('Something really bad happened.');
-            }
-        );
-        window.plugins.webintent.getExtra(window.plugins.webintent.EXTRA_TEXT,
-            function(url) {
-                // url is the value of EXTRA_TEXT
-                console.log('the value of EXTRA_TEXT:' + url);
-                if (url !== 'fiberhome') {
-                    // ionic.Platform.exitApp();
-                }
-            },
-            function() {
-                // There was no extra supplied.
-                console.log('There was no extra supplied.');
-                // ionic.Platform.exitApp();
-            }
-        );
-        window.plugins.webintent.getUri(function(url) {
-            if (url !== "") {
-                // url is the url the intent was launched with
-                console.log('window.plugins.webintent.getUri:' + url);
-            } else {
-                console.log('getUri url===""');
-            }
-        });
+        //     },
+        //     function() {
+        //         // Something really bad happened.
+        //         console.log('Something really bad happened.');
+        //     }
+        // );
+        // window.plugins.webintent.getExtra(window.plugins.webintent.EXTRA_TEXT,
+        //     function(url) {
+        //         // url is the value of EXTRA_TEXT
+        //         console.log('the value of EXTRA_TEXT:' + url);
+        //         if (url !== 'fiberhome') {
+        //             // ionic.Platform.exitApp();
+        //         }
+        //     },
+        //     function() {
+        //         // There was no extra supplied.
+        //         console.log('There was no extra supplied.');
+        //         // ionic.Platform.exitApp();
+        //     }
+        // );
+        // window.plugins.webintent.getUri(function(url) {
+        //     if (url !== "") {
+        //         // url is the url the intent was launched with
+        //         console.log('window.plugins.webintent.getUri:' + url);
+        //     } else {
+        //         console.log('getUri url===""');
+        //     }
+        // });
     });
 
     //主页面显示退出提示框  
@@ -192,7 +193,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
 
         .state('index', {
         url: '/',
-        templateUrl: 'templates/login.html',
+        templateUrl: 'login.html',
         controller: 'LoginCtrl'
     })
 
@@ -200,7 +201,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
     .state('tab', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'templates/tabs.html'
+        templateUrl: 'tabs.html'
     })
 
     // Each tab has its own nav history stack:
@@ -209,7 +210,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         url: '/basic',
         views: {
             'tab-basic': {
-                templateUrl: 'templates/tab-basic.html',
+                templateUrl: 'tab-basic.html',
                 controller: 'BasicCtrl'
             }
         }
@@ -219,7 +220,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         url: '/check?:checkStatus',
         views: {
             'tab-check': {
-                templateUrl: 'templates/tab-check.html',
+                templateUrl: 'tab-check.html',
                 controller: 'CheckCtrl'
             }
         }
@@ -230,7 +231,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         url: '/check/detail',
         views: {
             'tab-check': {
-                templateUrl: 'templates/tab-voice-detail.html',
+                templateUrl: 'tab-voice-detail.html',
                 controller: 'VoiceDetailCtrl'
             }
         }
@@ -242,7 +243,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         url: '/history',
         views: {
             'tab-history': {
-                templateUrl: 'templates/tab-history.html',
+                templateUrl: 'tab-history.html',
                 controller: 'HistoryCtrl'
             }
         }
@@ -252,7 +253,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         url: '/history/:reportId?:reportStatus',
         views: {
             'tab-history': {
-                templateUrl: 'templates/report-detail.html',
+                templateUrl: 'report-detail.html',
                 controller: 'ReportDetailCtrl'
             }
         }
@@ -262,7 +263,7 @@ app.run(function($ionicPlatform, $ionicPopup, $cordovaToast, $location, $rootSco
         url: '/setting',
         views: {
             'tab-setting': {
-                templateUrl: 'templates/tab-setting.html',
+                templateUrl: 'tab-setting.html',
                 controller: 'SettingCtrl'
             }
         }
