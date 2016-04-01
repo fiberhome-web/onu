@@ -9,10 +9,12 @@ cordova plugin add cordova-plugin-device
 cordova plugin add https://github.com/katzer/cordova-plugin-email-composer.git
 cordova plugin add cordova-plugin-file
 cordova plugin add https://github.com/pwlin/cordova-plugin-file-opener2.git
-cordova plugin add https://github.com/driftyco/ionic-plugins-keyboard.git
+::cordova plugin add https://github.com/driftyco/ionic-plugins-keyboard.git
 cordova plugin add https://github.com/litehelpers/Cordova-sqlite-storage.git
 cordova plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git
 cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
 cordova plugin add cordova-plugin-screen-orientation
 ionic plugin add cordova-plugin-whitelist
 cordova plugin add https://github.com/wildabeast/BarcodeScanner.git
+::https://github.com/offbye/phonegap-sharedpreferences-save-retrieve
+cordova plugin add cordova-plugin-ionic-keyboard
