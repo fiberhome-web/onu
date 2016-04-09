@@ -5,7 +5,7 @@ angular.module('starter.controllers')
         '$stateParams', '$filter', '$ionicPopup', 'Const', 'Report', 'ExpanderService', 'DB', 'File',
         function($scope, $rootScope, $state, $http, Check, Popup, $timeout,
             $stateParams, $filter, $ionicPopup, Const, Report, ExpanderService, DB, File) {
-
+            $scope.i10n = ONU_LOCAL;
             var timer;
             var reportId;
             var reportStatus = 1;

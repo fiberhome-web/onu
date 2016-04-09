@@ -6,7 +6,7 @@ angular.module('starter.controllers')
         function($scope, $state, $log, $ionicModal, $rootScope,
             $cordovaDatePicker, DB, File, ExpanderService) {
 
-
+            $scope.i10n = ONU_LOCAL;
             //缓存所有报告记录
             var list = [];
             //查询条件对象

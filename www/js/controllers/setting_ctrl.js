@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('starter.controllers')
-    .controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService', 'DB','Report', function($scope, $rootScope, $state, ExpanderService, DB,Report) {
+    .controller('SettingCtrl', ['$scope', '$rootScope', '$state', 'ExpanderService', 'DB', 'Report', function($scope, $rootScope, $state, ExpanderService, DB, Report) {
         $scope.local = ONU_LOCAL.settingModule;
+        $scope.i10n = ONU_LOCAL;
         $rootScope.hideTabs = false;
-        
+        $scope.language = { checked: true };
         $scope.retention_select = [
             $scope.local.retention_time_select.day,
             $scope.local.retention_time_select.month,
@@ -56,6 +57,23 @@ angular.module('starter.controllers')
             console.error(err);
         });
 
+        DB.queryLanguage().then(function(res) {
+            
+            var length = res.rows.length;
+            if (length > 0) {
+                if (res.rows.item(0).value === 0) {
+                    $scope.language.checked = false;
+                } else {
+                    $scope.language.checked = true;
+                }
+                // alert('res.rows.item(0).value: '+res.rows.item(0).value+"$scope.language.checked:"+$scope.language.checked);
+            } else {
+                alert('SettingCtrl read language failed ');
+            }
+        }, function(err) {
+            console.error(err);
+        });
+
 
         $scope.eventFun = {
             closeRetentionTimeBox: function() {
@@ -83,9 +101,27 @@ angular.module('starter.controllers')
                 $scope.periodIndex = range;
                 DB.updateWarrantyPeriod(range);
             },
+            pushLanguageChange: function() {
+                var languageType;
+                // alert("checked:"+$scope.language.checked);
+                if($scope.language.checked){
+                    languageType =1;
+                }else{
+                    languageType =0;
+                }
+                if ($scope.language.checked) {
+                    ONU_LOCAL = ONU_LOCAL_EN;
+                } else {
+                    ONU_LOCAL = ONU_LOCAL_CN;
+                }
+                DB.updateLanguage(languageType);
+                $rootScope.i10n = ONU_LOCAL;
+                $state.go('tab.setting' ,{}, { reload: true });
+            },
             reconnect: function() {
                 $state.go('index');
-                Report.deviceInfo={};
+                var emptyDeviceInfo = {};
+                Report.setDeviceInfo(emptyDeviceInfo);
             }
         };
     }]);

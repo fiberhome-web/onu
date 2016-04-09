@@ -37,6 +37,11 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
                     value: 1
                 };
                 initConf(periodConf);
+                var languageConf = {
+                    key: 'language',
+                    value: 0
+                };
+                initConf(languageConf);
             } else {
                 // alert('fiber_onu_conf length:'+length);
             }
@@ -113,7 +118,11 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
 
     this.updateWarrantyPeriod = function(value) {
         confQuery = "UPDATE fiber_onu_conf SET value = ? WHERE key='warranty_period'";
-        return $cordovaSQLite.execute(db, confQuery, [value]);
+        return $cordovaSQLite.execute(db, confQuery, [value]).then(function(success) {
+            alert('updateWarrantyPeriod successfully :' + JSON.stringify(success));
+        }, function(error) {
+            alert('updateWarrantyPeriod failed :' + JSON.stringify(error));
+        });
     };
 
     this.queryRetentionTime = function() {
@@ -123,7 +132,25 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
 
     this.updateRetentionTime = function(value) {
         confQuery = "UPDATE fiber_onu_conf SET value = ? WHERE key='report_retention_time'";
-        return $cordovaSQLite.execute(db, confQuery, [value]);
+        return $cordovaSQLite.execute(db, confQuery, [value]).then(function(success) {
+            alert('updateRetentionTime successfully :' + JSON.stringify(success));
+        }, function(error) {
+            alert('updateRetentionTime failed :' + JSON.stringify(error));
+        });
+    };
+
+    this.queryLanguage = function() {
+        confQuery = "SELECT value FROM fiber_onu_conf where key='language'";
+        return $cordovaSQLite.execute(db, confQuery);
+    };
+
+    this.updateLanguage = function(value) {
+        confQuery = "UPDATE fiber_onu_conf SET value = ? WHERE key='language'";
+        return $cordovaSQLite.execute(db, confQuery, [value]).then(function(success) {
+            // alert('updateLanguage successfully :' + JSON.stringify(success));
+        }, function(error) {
+            alert('updateLanguage failed :' + JSON.stringify(error));
+        });
     };
 
     function initConf(conf) {

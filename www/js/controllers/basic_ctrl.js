@@ -4,7 +4,7 @@ angular.module('starter.controllers')
     .controller('BasicCtrl', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$cordovaBarcodeScanner',
         'Const', 'Report', 'Popup', 'DB', 'ExpanderService', 'Check',
         function($scope, $rootScope, $state, $http, $timeout, $cordovaBarcodeScanner, Const, Report, Popup, DB, ExpanderService, Check) {
-
+            $scope.i10n = ONU_LOCAL;
             var timer;
             var commentExpanderConf = {
                 templateUrl: 'editComment.html',

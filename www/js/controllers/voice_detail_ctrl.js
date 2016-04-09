@@ -4,7 +4,7 @@ angular.module('starter.controllers').controller('VoiceDetailCtrl',
 	['$scope','$rootScope','Report','$state','Popup','ExpanderService','$timeout',
 	 function($scope, $rootScope, Report, $state, Popup,ExpanderService,$timeout ) {
     $rootScope.hideTabs = true;
-
+    $scope.i10n = ONU_LOCAL;
     $scope.voiceInfo = Report.getVoicePortInfo();
 
     $scope.back = function(){

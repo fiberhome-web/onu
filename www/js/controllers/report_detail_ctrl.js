@@ -8,7 +8,7 @@ angular.module('starter.controllers')
             $cordovaSocialSharing, $cordovaEmailComposer, Popup) {
 
             $scope.reportLocal = ONU_LOCAL.reportModule;
-
+            $scope.i10n = ONU_LOCAL;
             $rootScope.hideTabs = true;
             var filePath = '';
 

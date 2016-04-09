@@ -15,6 +15,10 @@ angular.module('starter.services').service('Report', function() {
     };
 
     this.getDeviceInfo = function() {
+        //更新已缓存信息中的中英文
+        if(this.deviceInfo.warranty_period){
+            this.deviceInfo.warranty_period.val=ONU_LOCAL.basicModule.scan_bar_code;
+        }
         return this.deviceInfo;
     };
 

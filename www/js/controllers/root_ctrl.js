@@ -1,11 +1,29 @@
 angular.module('starter.controllers')
     .controller('RootCtrl', function($scope, $ionicPlatform, DB, File) {
-        $scope.i10n = ONU_LOCAL;
+
 
         $ionicPlatform.ready(function() {
+            DB.queryLanguage().then(function(res) {
+
+                var length = res.rows.length;
+                if (length > 0) {
+                    if (res.rows.item(0).value === 0) {
+                        ONU_LOCAL = ONU_LOCAL_CN;
+                    } else {
+                        ONU_LOCAL = ONU_LOCAL_EN;
+                    }
+                    $scope.i10n = ONU_LOCAL;
+                    // alert('RootCtrl: ' + res.rows.item(0).value);
+                } else {
+                    alert('RootCtrl read language failed ');
+                }
+            }, function(err) {
+                console.error(err);
+            });
+            
             autoDeleteReport();
         });
-        
+
         //根据配置删除报告
         function autoDeleteReport() {
             var retentionTimeIndex = 0;

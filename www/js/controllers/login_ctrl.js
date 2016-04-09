@@ -1,7 +1,27 @@
 angular.module('starter.controllers')
-    .controller('LoginCtrl', 
-        function($scope, $rootScope, $state, $http, $timeout, Const, File, L, Popup) {
+    .controller('LoginCtrl',
+        function($scope, $rootScope, $state, $http, $timeout, $ionicPlatform, DB, Const, File, L, Popup) {
+            //国际化
+            $ionicPlatform.ready(function() {
+                DB.queryLanguage().then(function(res) {
 
+                    var length = res.rows.length;
+                    if (length > 0) {
+                        if (res.rows.item(0).value === 0) {
+                            ONU_LOCAL = ONU_LOCAL_CN;
+                        } else {
+                            ONU_LOCAL = ONU_LOCAL_EN;
+                        }
+                        $scope.info = ONU_LOCAL.loginModule;
+
+                        // alert('LoginCtrl: ' + res.rows.item(0).value);
+                    } else {
+                        alert('LoginCtrl read language failed ');
+                    }
+                }, function(err) {
+                    console.error(err);
+                });
+            });
             $scope.eventFun = {
                 cancelEnter: function() {
                     if ($rootScope.isRegistered) {
@@ -60,7 +80,7 @@ angular.module('starter.controllers')
                     if (!$scope.registerData.key) {
                         Popup.showTip(ONU_LOCAL.tip.license_null);
                         return;
-                    } else if (L.b() ===$scope.registerData.key) {
+                    } else if (L.b() === $scope.registerData.key) {
                         $scope.loading = true;
                         $scope.registerData.date = dateUtils.getToday();
                         File.createL(JSON.stringify($scope.registerData)).then(function(success) {
@@ -88,8 +108,7 @@ angular.module('starter.controllers')
 
             //init login page
             function initPage() {
-                //国际化
-                $scope.info = ONU_LOCAL.loginModule;
+                // $scope.info = ONU_LOCAL.loginModule;
                 $scope.tip = ' ';
                 $scope.loginHight = {};
                 $scope.loginHight.height = $(window).height() + 'px';
