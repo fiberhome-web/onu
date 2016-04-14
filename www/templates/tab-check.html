@@ -25,11 +25,11 @@
                             <span ng-class="{'war-color' : val.warn}">{{i10n.reportModule.ponPortStatus[key]}}</span>
                            
                             <span class="val" ng-if="val.val" ng-class="{'war-color' : val.warn}">
-                                <span ng-if="val.val">
+                                <span ng-if="!val.text">
                                     {{val.val}}
                                     <span class="unit">{{val.unit}}</span>
                                 </span>
-
+                                <span ng-if="val.text">{{val.text}}</span>
                             </span>
 
                             <span ng-if="!val.val" class="none">-</span>
@@ -68,6 +68,7 @@
                     <div ng-repeat="(key,val) in dataInfo">
                         <div ng-if="key !== 'data_port_id'" class="check-item" >
                             <span ng-class="{'war-color' : val.warn}">{{i10n.reportModule.dataPortStatus[key]}}</span>
+                           
                             <span class="val" ng-if="val.val" ng-class="{'war-color' : val.warn}">
                                 <span ng-if="val.text">{{val.text}}</span>
                             </span>

@@ -45,19 +45,19 @@ var ONU_LOCAL_EN = {
         },
         ok: 'OK',
         cancel: 'Cancel',
-        remark:'Note',
+        remark: 'Note',
         remark_ph: 'Please enter note',
         stay_on_this_page: 'Stay on This Page',
         view_report: 'View Report',
         generate_report_successfully: 'Generate report successfully.',
         generate_report_failed: 'Generate report failed.',
-        exist : 'The report name has already exist.',
-        rename : 'Rename',
-        cover : 'Cover the file with same name',
-        view_detail : 'View detail',
-        reason : 'Reason',
-        suggestion : 'Suggestion',
-        note:'Note'
+        exist: 'The report name has already exist.',
+        rename: 'Rename',
+        cover: 'Cover the file with same name',
+        view_detail: 'View detail',
+        reason: 'Reason',
+        suggestion: 'Suggestion',
+        note: 'Note'
     },
 
     detailModule: {
@@ -70,10 +70,10 @@ var ONU_LOCAL_EN = {
 
     historyModule: {
         title: 'Past Reports',
-        return:'Return',
+        return: 'Return',
         ok: 'OK',
         del: 'Delete',
-       
+
         cancel: 'Cancel',
         choose: 'Select',
         date_range: 'Date range',
@@ -101,7 +101,7 @@ var ONU_LOCAL_EN = {
     settingModule: {
         report_retention_time: 'Report Retention Time ',
         warranty_period: 'Warranty Period',
-        language:'English',
+        language: 'English',
         version: 'Version',
         software_version: 'ONUsmartChecker V1.0 Build 10',
         copyright: 'Copyright © 2016, Fiberhome Telecommunication Technologies Co.,LTD',
@@ -113,15 +113,15 @@ var ONU_LOCAL_EN = {
         },
         retention_time_select: {
             day: 'one day',
-            month:'one month',
-            year:'one year',
+            month: 'one month',
+            year: 'one year',
             permanent: 'permanent'
         }
     },
 
     reportModule: {
-        title:'Report',
-        return:'Return',
+        title: 'Report',
+        return: 'Return',
         deviceInfo: {
             module_name: 'ONU Infomation',
             device_type: 'Equipment ID',
@@ -142,7 +142,7 @@ var ONU_LOCAL_EN = {
         ponPortStatus: {
             module_name: 'PON Port Detection',
             pon_port_id: 'Port No.',
-            led_status: 'Status',
+            led_status: 'Status LED',
             temperature: 'Temperature',
             voltage: 'Voltage',
             bias_current: 'Bias current',
@@ -162,23 +162,23 @@ var ONU_LOCAL_EN = {
 
         voicePortStatus: {
             module_name: 'Voice Port Detection',
-            signal_svlan_id : 'signal_svlan_id',
-            svlan_cos : 'svlan_cos',
-            signal_cvlan_id : 'signal_cvlan_id',
-            cvlan_cos : 'cvlan_cos',
-            ip_mode : 'ip_mode',
-            signal_ip : 'signal_ip',
-            ip_mask : 'ip_mask',
-            signal_gateway : 'signal_gateway',
-            pppoe_user : 'pppoe_user',
-            pppoe_password : 'pppoe_password',
+            signal_svlan_id: 'signal_svlan_id',
+            svlan_cos: 'svlan_cos',
+            signal_cvlan_id: 'signal_cvlan_id',
+            cvlan_cos: 'cvlan_cos',
+            ip_mode: 'ip_mode',
+            signal_ip: 'signal_ip',
+            ip_mask: 'ip_mask',
+            signal_gateway: 'signal_gateway',
+            pppoe_user: 'pppoe_user',
+            pppoe_password: 'pppoe_password',
             first_mgc_ip: 'first_mgc_ip',
             first_mgc_port: 'first_mgc_port',
             second_mgc_ip: 'second_mgc_ip',
             second_mgc_port: 'second_mgc_port',
-            h248_local_port : 'h248_local_port',
-            reg_mode : 'reg_mode',
-            mgid : 'mgid',
+            h248_local_port: 'h248_local_port',
+            reg_mode: 'reg_mode',
+            mgid: 'mgid',
             protocol_type: 'protocol_type',
             first_sip_registrar_server_ip: 'first_sip_registrar_server_ip',
             first_sip_registrar_server_port: 'first_sip_registrar_server_port',
@@ -188,13 +188,13 @@ var ONU_LOCAL_EN = {
             first_sip_proxy_server_port: 'first_sip_proxy_server_port',
             second_sip_proxy_server_ip: 'second_sip_proxy_server_ip',
             second_sip_proxy_server_port: 'second_sip_proxy_server_port',
-            sip_local_port : 'sip_local_port', 
-            mgc_reg_status : 'mgc_reg_status',  
-            voice_port_id : 'Port No',
-            port_status : 'port_status',
-            port_enable : 'port_enable',
-            user_tid : 'user_tid',
-            telphone_no : 'telphone_no',
+            sip_local_port: 'sip_local_port',
+            mgc_reg_status: 'mgc_reg_status',
+            voice_port_id: 'Port No',
+            port_status: 'port_status',
+            port_enable: 'port_enable',
+            user_tid: 'user_tid',
+            telphone_no: 'telphone_no',
             sip_user_name: 'sip_user_name',
             sip_user_pass: 'sip_user_pass',
 
@@ -207,6 +207,10 @@ var ONU_LOCAL_EN = {
             k_0: 'Off',
             k_1: 'On',
             k_2: 'Blinking',
+        },
+        pon_led_status: {
+            k_0: 'On',
+            k_1: 'Off'
         },
         onu_regist_status: {
             k_O1: 'STATE_INIT',
@@ -253,7 +257,7 @@ var ONU_LOCAL_EN = {
             k_4: 'SIP'
         },
 
-        voice_mgc_reg_status : {
+        voice_mgc_reg_status: {
             k_0: 'Registering ',
             k_1: 'Registration Success',
             k_2: 'Registration Failed'
@@ -276,18 +280,18 @@ var ONU_LOCAL_EN = {
             k_13: 'EP_STATUS_NOT_HANGUP'
         },
 
-        voice_reg_mode : {
+        voice_reg_mode: {
             k_0: 'IP',
             k_1: 'Domain',
             k_2: 'Equipment'
         },
 
-        voice_port_enable : {
+        voice_port_enable: {
             k_0: 'Disable',
             k_1: 'Enable'
         },
 
-        voice_ip_mode : {
+        voice_ip_mode: {
             k_0: 'Static',
             k_1: 'PPPoE',
             k_2: 'DHCP'
@@ -355,14 +359,14 @@ var ONU_LOCAL_EN = {
         }
     },
 
-    tip:{
-        login_failed:'sorry , Login failed !',
-        ip_wrong:'IP is not correct',
-        license_null:'License is null',
-        code_wrong:'Two-dimensional code type error',
-        l_expired:"License expired",
-        l_wrong:'License is not correct',
-        successful_registration:'Successful registration',
+    tip: {
+        login_failed: 'sorry , Login failed !',
+        ip_wrong: 'IP is not correct',
+        license_null: 'License is null',
+        code_wrong: 'Two-dimensional code type error',
+        l_expired: "License expired",
+        l_wrong: 'License is not correct',
+        successful_registration: 'Successful registration',
     }
 };
 var ONU_LOCAL_CN = {
@@ -412,19 +416,19 @@ var ONU_LOCAL_CN = {
         },
         ok: '確定',
         cancel: '取消',
-        remark:'备注',
+        remark: '备注',
         remark_ph: '请输入备注',
         stay_on_this_page: '停留在该页',
         view_report: '查看报告',
         generate_report_successfully: '生成报告成功。',
         generate_report_failed: '生成报告失败。',
-        exist : '报告名已存在',
-        rename : '重命名',
-        cover : '覆盖相同名称文件',
-        view_detail : '查看详情',
-        reason : '原因',
-        suggestion : '建议',
-        note:'备注'
+        exist: '报告名已存在',
+        rename: '重命名',
+        cover: '覆盖相同名称文件',
+        view_detail: '查看详情',
+        reason: '原因',
+        suggestion: '建议',
+        note: '备注'
     },
 
     detailModule: {
@@ -437,10 +441,10 @@ var ONU_LOCAL_CN = {
 
     historyModule: {
         title: '历史报告',
-        return:'返回',
+        return: '返回',
         ok: '确定',
         del: '删除',
-       
+
         cancel: '取消',
         choose: '选择',
         date_range: '日期范围',
@@ -468,27 +472,27 @@ var ONU_LOCAL_CN = {
     settingModule: {
         report_retention_time: '报告保留时间',
         warranty_period: '质保期',
-        language:'英语',
+        language: '英语',
         version: '版本',
         software_version: 'ONUsmartChecker V1.0 Build 10',
         copyright: 'Copyright © 2016, Fiberhome Telecommunication Technologies Co.,LTD',
         ok: 'OK',
         reconnect: '重新连接',
         date_select: {
-            one_year:'一年',
-            two_years:'两年'
+            one_year: '一年',
+            two_years: '两年'
         },
         retention_time_select: {
             day: '一天',
-            month:'一月',
-            year:'一年',
+            month: '一月',
+            year: '一年',
             permanent: '永久'
         }
     },
 
     reportModule: {
-        title:'报告',
-        return:'返回',
+        title: '报告',
+        return: '返回',
         deviceInfo: {
             module_name: 'ONU信息',
             device_type: '设备ID',
@@ -497,8 +501,8 @@ var ONU_LOCAL_CN = {
             software_version: '软件版本号',
             mac: 'MAC',
             sn: 'SN',
-            warranty_period:'质保期',
-            led_status:'指示灯',
+            warranty_period: '质保期',
+            led_status: '指示灯',
             onu_regist_status: 'ONU注册状态',
             onu_auth_status: 'ONU认证状态',
             pon_port_number: '光口个数',
@@ -509,7 +513,7 @@ var ONU_LOCAL_CN = {
         ponPortStatus: {
             module_name: 'PON口检测',
             pon_port_id: '光口序号',
-            led_status: '灯状态',
+            led_status: '指示灯',
             temperature: '温度',
             voltage: '光模块电压',
             bias_current: '偏置电流',
@@ -519,7 +523,7 @@ var ONU_LOCAL_CN = {
         },
 
         dataPortStatus: {
-           data_port_id: '数据口序号',
+            data_port_id: '数据口序号',
             module_name: '数据口状态',
             port_status: '端口状态',
             speed: '速率',
@@ -529,23 +533,23 @@ var ONU_LOCAL_CN = {
 
         voicePortStatus: {
             module_name: '语音口状态',
-            signal_svlan_id : 'signal_svlan_id',
-            svlan_cos : 'svlan_cos',
-            signal_cvlan_id : 'signal_cvlan_id',
-            cvlan_cos : 'cvlan_cos',
-            ip_mode : 'ip_mode',
-            signal_ip : 'signal_ip',
-            ip_mask : 'ip_mask',
-            signal_gateway : 'signal_gateway',
-            pppoe_user : 'pppoe_user',
-            pppoe_password : 'pppoe_password',
+            signal_svlan_id: 'signal_svlan_id',
+            svlan_cos: 'svlan_cos',
+            signal_cvlan_id: 'signal_cvlan_id',
+            cvlan_cos: 'cvlan_cos',
+            ip_mode: 'ip_mode',
+            signal_ip: 'signal_ip',
+            ip_mask: 'ip_mask',
+            signal_gateway: 'signal_gateway',
+            pppoe_user: 'pppoe_user',
+            pppoe_password: 'pppoe_password',
             first_mgc_ip: 'first_mgc_ip',
             first_mgc_port: 'first_mgc_port',
             second_mgc_ip: 'second_mgc_ip',
             second_mgc_port: 'second_mgc_port',
-            h248_local_port : 'h248_local_port',
-            reg_mode : 'reg_mode',
-            mgid : 'mgid',
+            h248_local_port: 'h248_local_port',
+            reg_mode: 'reg_mode',
+            mgid: 'mgid',
             protocol_type: '协议类型',
             first_sip_registrar_server_ip: 'first_sip_registrar_server_ip',
             first_sip_registrar_server_port: 'first_sip_registrar_server_port',
@@ -555,13 +559,13 @@ var ONU_LOCAL_CN = {
             first_sip_proxy_server_port: 'first_sip_proxy_server_port',
             second_sip_proxy_server_ip: 'second_sip_proxy_server_ip',
             second_sip_proxy_server_port: 'second_sip_proxy_server_port',
-            sip_local_port : 'sip_local_port', 
-            mgc_reg_status : 'mgc_reg_status',  
-            voice_port_id : 'Port No',
-            port_status : '端口状态',
-            port_enable : '端口使能',
-            user_tid : 'user_tid',
-            telphone_no : '电话号码',
+            sip_local_port: 'sip_local_port',
+            mgc_reg_status: 'mgc_reg_status',
+            voice_port_id: 'Port No',
+            port_status: '端口状态',
+            port_enable: '端口使能',
+            user_tid: 'user_tid',
+            telphone_no: '电话号码',
             sip_user_name: 'sip_user_name',
             sip_user_pass: 'sip_user_pass',
 
@@ -574,6 +578,10 @@ var ONU_LOCAL_CN = {
             k_0: 'Off',
             k_1: 'On',
             k_2: 'Blinking',
+        },
+        pon_led_status: {
+            k_0: 'On',
+            k_1: 'Off'
         },
         onu_regist_status: {
             k_O1: 'STATE_INIT',
@@ -620,7 +628,7 @@ var ONU_LOCAL_CN = {
             k_4: 'SIP'
         },
 
-        voice_mgc_reg_status : {
+        voice_mgc_reg_status: {
             k_0: 'Registering ',
             k_1: 'Registration Success',
             k_2: 'Registration Failed'
@@ -643,18 +651,18 @@ var ONU_LOCAL_CN = {
             k_13: 'EP_STATUS_NOT_HANGUP'
         },
 
-        voice_reg_mode : {
+        voice_reg_mode: {
             k_0: 'IP',
             k_1: 'Domain',
             k_2: 'Equipment'
         },
 
-        voice_port_enable : {
+        voice_port_enable: {
             k_0: 'Disable',
             k_1: 'Enable'
         },
 
-        voice_ip_mode : {
+        voice_ip_mode: {
             k_0: 'Static',
             k_1: 'PPPoE',
             k_2: 'DHCP'
@@ -722,14 +730,14 @@ var ONU_LOCAL_CN = {
         }
     },
 
-    tip:{
-        login_failed:'登录失败!',
-        ip_wrong:'IP不正确',
-        license_null:'注册码不能为空',
-        code_wrong:'扫码错误',
-        l_expired:"注册码过期",
-        l_wrong:'注册码不正确',
-        successful_registration:'注册成功',
+    tip: {
+        login_failed: '登录失败!',
+        ip_wrong: 'IP不正确',
+        license_null: '注册码不能为空',
+        code_wrong: '扫码错误',
+        l_expired: "注册码过期",
+        l_wrong: '注册码不正确',
+        successful_registration: '注册成功',
     }
 };
-var ONU_LOCAL=ONU_LOCAL_CN;
+var ONU_LOCAL = ONU_LOCAL_CN;

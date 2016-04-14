@@ -12,14 +12,14 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
         $cordovaSQLite.execute(db, query).then(function(success) {
             console.info('create fiber_onu_data success :' + JSON.stringify(success));
         }, function(error) {
-            alert('CREATE TABLE failed :' + JSON.stringify(error));
+            // alert('CREATE TABLE failed :' + JSON.stringify(error));
         });
 
         confQuery = 'CREATE TABLE IF NOT EXISTS fiber_onu_conf (key primary key, value)';
         $cordovaSQLite.execute(db, confQuery).then(function(success) {
             console.info('create fiber_onu_conf successfully :' + JSON.stringify(success));
         }, function(error) {
-            alert('create fiber_onu_conf failed :' + JSON.stringify(error));
+            // alert('create fiber_onu_conf failed :' + JSON.stringify(error));
         });
 
         //若fiber_onu_conf表中无数据则添加出厂配置
@@ -56,7 +56,7 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
         $cordovaSQLite.execute(db, query).then(function(success) {
             console.info('del table successfully :' + JSON.stringify(success));
         }, function(error) {
-            alert('del table failed :' + JSON.stringify(error));
+            // alert('del table failed :' + JSON.stringify(error));
         });
     };
 
@@ -119,9 +119,9 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
     this.updateWarrantyPeriod = function(value) {
         confQuery = "UPDATE fiber_onu_conf SET value = ? WHERE key='warranty_period'";
         return $cordovaSQLite.execute(db, confQuery, [value]).then(function(success) {
-            alert('updateWarrantyPeriod successfully :' + JSON.stringify(success));
+            // alert('updateWarrantyPeriod successfully :' + JSON.stringify(success));
         }, function(error) {
-            alert('updateWarrantyPeriod failed :' + JSON.stringify(error));
+            // alert('updateWarrantyPeriod failed :' + JSON.stringify(error));
         });
     };
 
@@ -133,9 +133,9 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
     this.updateRetentionTime = function(value) {
         confQuery = "UPDATE fiber_onu_conf SET value = ? WHERE key='report_retention_time'";
         return $cordovaSQLite.execute(db, confQuery, [value]).then(function(success) {
-            alert('updateRetentionTime successfully :' + JSON.stringify(success));
+            // alert('updateRetentionTime successfully :' + JSON.stringify(success));
         }, function(error) {
-            alert('updateRetentionTime failed :' + JSON.stringify(error));
+            // alert('updateRetentionTime failed :' + JSON.stringify(error));
         });
     };
 
@@ -149,16 +149,16 @@ angular.module('starter.services').service('DB', ['$cordovaSQLite', '$ionicPlatf
         return $cordovaSQLite.execute(db, confQuery, [value]).then(function(success) {
             // alert('updateLanguage successfully :' + JSON.stringify(success));
         }, function(error) {
-            alert('updateLanguage failed :' + JSON.stringify(error));
+            // alert('updateLanguage failed :' + JSON.stringify(error));
         });
     };
 
     function initConf(conf) {
         confQuery = 'INSERT INTO fiber_onu_conf (key, value) VALUES (?,?)';
         $cordovaSQLite.execute(db, confQuery, [conf.key, conf.value]).then(function(success) {
-            alert('initConf successfully :' + JSON.stringify(success));
+            // alert('initConf successfully :' + JSON.stringify(success));
         }, function(error) {
-            alert('initConf failed :' + JSON.stringify(error));
+            // alert('initConf failed :' + JSON.stringify(error));
         });
     }
 }]);

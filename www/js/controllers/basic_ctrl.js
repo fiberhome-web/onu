@@ -172,7 +172,7 @@ angular.module('starter.controllers')
                         Report.setDeviceInfo(data);
                     }
                 }).error(function(data, status) {
-                    alert('data:' + data + '\n' + 'status:' + status + '\n');
+                    // alert('data:' + data + '\n' + 'status:' + status + '\n');
                 });
             } else {
                 $scope.deviceInfo = data;

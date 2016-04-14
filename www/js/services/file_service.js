@@ -39,7 +39,7 @@ angular.module('starter.services').service('File', ['$rootScope', '$log', '$cord
                 }
 
             }, function(error) {
-                alert(JSON.stringify(error));
+                // alert(JSON.stringify(error));
             });
 
         }, function(error) {
@@ -48,7 +48,7 @@ angular.module('starter.services').service('File', ['$rootScope', '$log', '$cord
 
                 $rootScope.isRegistered = false;
             } else {
-                alert('ol.json can\'t be created,error message is :' + error.message);
+                // alert('ol.json can\'t be created,error message is :' + error.message);
 
             }
         });
@@ -63,10 +63,10 @@ angular.module('starter.services').service('File', ['$rootScope', '$log', '$cord
             //如果存放报告的文件夹不存在，重新新建
             if (error.code === 1) {
                 $cordovaFile.createDir(fileSystem, reportDir, false).then(success, function(error) {
-                    alert('onu_report can\'t be created,error message is : ' + error.message);
+                    // alert('onu_report can\'t be created,error message is : ' + error.message);
                 });
             } else {
-                alert('onu_report can\'t be created,error message is :' + error.message);
+                // alert('onu_report can\'t be created,error message is :' + error.message);
             }
 
         });
@@ -79,7 +79,7 @@ angular.module('starter.services').service('File', ['$rootScope', '$log', '$cord
     }
     //失败回调
     function error(info) {
-        alert('File error :' + JSON.stringify(info));
+        // alert('File error :' + JSON.stringify(info));
     }
 
     //创建报告
@@ -88,28 +88,28 @@ angular.module('starter.services').service('File', ['$rootScope', '$log', '$cord
         var head = '<!DOCTYPE html><html><head><meta charset="utf-8"></head>';
         var tail = '</html>';
         $cordovaFile.writeFile(fileSystem, _reportDir + fileName + fileType, head + data + tail, true).then(success, function(error) {
-            alert('createReport error : ' + JSON.stringify(error));
+            // alert('createReport error : ' + JSON.stringify(error));
         });
     };
 
     //增加一条记录
     this.addReportRecord = function(fileName, content) {
         $cordovaFile.writeExistingFile(fileSystem, _reportDir + fileName + fileType, content).then(success, function(error) {
-            alert('addReportRecord error : ' + JSON.stringify(error));
+            // alert('addReportRecord error : ' + JSON.stringify(error));
         });
     };
 
     //读取文件
     this.readReport = function(filePath) {
         return $cordovaFile.readAsText(fileSystem, filePath).then(success, function(error) {
-                alert('readReport error : ' + JSON.stringify(error));
+                // alert('readReport error : ' + JSON.stringify(error));
             });
     };
 
     //删除报告
     this.removeReport = function(fileName){
          $cordovaFile.removeFile(fileSystem, _reportDir + fileName + fileType).then(success, function(error) {
-                alert('removeReport error : ' + JSON.stringify(error));
+                // alert('removeReport error : ' + JSON.stringify(error));
             });
     };
 
@@ -132,7 +132,7 @@ angular.module('starter.services').service('File', ['$rootScope', '$log', '$cord
 
     function removeL() {
         $cordovaFile.removeFile(lFileSystem, lFileName).then(success, function(error) {
-                alert('removeL error : ' + JSON.stringify(error));
+                // alert('removeL error : ' + JSON.stringify(error));
             });
     }
 }]);

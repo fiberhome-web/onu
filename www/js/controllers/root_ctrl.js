@@ -15,7 +15,7 @@ angular.module('starter.controllers')
                     $scope.i10n = ONU_LOCAL;
                     // alert('RootCtrl: ' + res.rows.item(0).value);
                 } else {
-                    alert('RootCtrl read language failed ');
+                    // alert('RootCtrl read language failed ');
                 }
             }, function(err) {
                 console.error(err);
@@ -65,24 +65,24 @@ angular.module('starter.controllers')
                                 if (sDate > reportEle.date.substr(0, 10)) {
                                     File.removeReport(reportEle.name);
                                     delIds.push(reportEle.id);
-                                    alert('date:' + reportEle.date);
+                                    // alert('date:' + reportEle.date);
                                 }
                             }
 
                             if (delIds.length > 0) {
                                 DB.deleteByIds(delIds).then(function(success) {
-                                    alert('del successfully :' + JSON.stringify(success));
+                                    // alert('del successfully :' + JSON.stringify(success));
                                 }, function(error) {
-                                    alert('del failed :' + JSON.stringify(error));
+                                    // alert('del failed :' + JSON.stringify(error));
                                 });
                             }
                         }
                     }, function(err) {
-                        alert('RootCtrl DB.queryAll():' + JSON.stringify(err));
+                        // alert('RootCtrl DB.queryAll():' + JSON.stringify(err));
                     });
                 }
             }, function(err) {
-                alert('RootCtrl DB.queryRetentionTime():' + JSON.stringify(err));
+                // alert('RootCtrl DB.queryRetentionTime():' + JSON.stringify(err));
             });
 
 

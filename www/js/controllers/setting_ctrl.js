@@ -40,7 +40,7 @@ angular.module('starter.controllers')
             if (length > 0) {
                 $scope.retentionIndex = res.rows.item(0).value;
             } else {
-                alert('SettingCtrl read retention time failed ');
+                // alert('SettingCtrl read retention time failed ');
             }
         }, function(err) {
             console.error(err);
@@ -51,7 +51,7 @@ angular.module('starter.controllers')
             if (length > 0) {
                 $scope.periodIndex = res.rows.item(0).value;
             } else {
-                alert('Unable to read warranty period from DB ');
+                // alert('Unable to read warranty period from DB ');
             }
         }, function(err) {
             console.error(err);
@@ -68,7 +68,7 @@ angular.module('starter.controllers')
                 }
                 // alert('res.rows.item(0).value: '+res.rows.item(0).value+"$scope.language.checked:"+$scope.language.checked);
             } else {
-                alert('SettingCtrl read language failed ');
+                // alert('SettingCtrl read language failed ');
             }
         }, function(err) {
             console.error(err);

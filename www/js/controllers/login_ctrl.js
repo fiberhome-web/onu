@@ -16,7 +16,7 @@ angular.module('starter.controllers')
 
                         // alert('LoginCtrl: ' + res.rows.item(0).value);
                     } else {
-                        alert('LoginCtrl read language failed ');
+                        // alert('LoginCtrl read language failed ');
                     }
                 }, function(err) {
                     console.error(err);
@@ -59,7 +59,7 @@ angular.module('starter.controllers')
                                 $state.go('tab.basic');
                             } else {
                                 Popup.showTip(ONU_LOCAL.tip.login_failed);
-                                alert('connected failed' + JSON.stringify(res));
+                                // alert('connected failed' + JSON.stringify(res));
                             }
                             var timer = $timeout(function() {
                                 $scope.loading = false;
@@ -68,7 +68,7 @@ angular.module('starter.controllers')
 
                         }).error(function(data, status, headers, config) {
                             Popup.showTip(ONU_LOCAL.tip.login_failed);
-                            alert('data:' + data + '\n' + 'status:' + status + '\n' + 'headers:' + headers + '\n' + 'config:' + config + '\n');
+                            // alert('data:' + data + '\n' + 'status:' + status + '\n' + 'headers:' + headers + '\n' + 'config:' + config + '\n');
                             $scope.loading = false;
                         });
 
@@ -90,7 +90,7 @@ angular.module('starter.controllers')
                             Popup.showTip(ONU_LOCAL.tip.successful_registration);
                         }, function(error) {
                             $scope.loading = false;
-                            alert(JSON.stringify(error));
+                            // alert(JSON.stringify(error));
                         });
 
                     } else {
